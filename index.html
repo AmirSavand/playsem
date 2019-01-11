@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+  <!-- Meta data -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Host and join parties and keep shuffling sick songs.">
+  <meta name="author" content="Amir Savand">
+
+  <!-- Title and favicon -->
+  <title>MR Player</title>
+  <link rel="shortcut icon" type="image/png" href="app/assets/app.png">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.css">
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="node_modules/angular-loading-bar/build/loading-bar.css">
+  <link rel="stylesheet" href="node_modules/angularjs-toaster/toaster.css">
+  <link rel="stylesheet" href="app/assets/app.css">
+
+  <!-- External -->
+  <script src="https://www.youtube.com/iframe_api"></script>
+
+  <!-- Libraries -->
+  <script src="node_modules/jquery/dist/jquery.js"></script>
+  <script src="node_modules/popper.js/dist/umd/popper.js"></script>
+  <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="node_modules/angular/angular.js"></script>
+  <script src="node_modules/angular-animate/angular-animate.js"></script>
+  <script src="node_modules/@uirouter/angularjs/release/angular-ui-router.js"></script>
+  <script src="node_modules/angular-youtube-embed/src/angular-youtube-embed.js"></script>
+  <script src="node_modules/angular-loading-bar/build/loading-bar.js"></script>
+  <script src="node_modules/angularjs-toaster/toaster.js"></script>
+
+  <!-- App -->
+  <script src="app/app.module.js"></script>
+  <script src="app/app.constants.js"></script>
+  <script src="app/app.config.js"></script>
+  <script src="app/app.run.js"></script>
+  <script src="app/app.routes.js"></script>
+  <script src="app/app.directives.js"></script>
+
+  <!-- Components -->
+  <script src="app/components/api/api.service.js"></script>
+  <script src="app/components/auth/auth.service.js"></script>
+  <script src="app/components/auth/auth-interceptor.service.js"></script>
+  <script src="app/components/main/main.controller.js"></script>
+  <script src="app/components/dash/dash.controller.js"></script>
+  <script src="app/components/sign-in/sign-in.controller.js"></script>
+  <script src="app/components/party/party.controller.js"></script>
+</head>
+<body ng-app="mr-player">
+
+<!-- Wrapper -->
+<div class="wrapper" ng-controller="MainController as main">
+
+  <!-- Sidebar -->
+  <div class="sidebar" ng-include="'app/components/main/main.include.html'"></div>
+
+  <!-- View -->
+  <div class="content container-fluid" ui-view></div>
+</div>
+</body>
+</html>

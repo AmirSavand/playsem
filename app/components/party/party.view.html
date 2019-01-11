@@ -1,0 +1,41 @@
+<div class="list-group">
+
+  <!-- Player Wrapper -->
+  <div class="player-wrapper" ng-show="vm.songs.length">
+
+    <!-- Player (YouTube) -->
+    <div class="player embed-responsive embed-responsive-16by9" ng-show="vm.song.player == 0">
+      <youtube-video video-id="'nothing'" player-vars="youtubeConfig"></youtube-video>
+    </div>
+
+    <!-- Player (SoundCloud)  -->
+    <div class="player player-soundcloud" ng-if="vm.song.player == 1">
+      <iframe id="soundcloud" scrolling="no"
+              src="https://w.soundcloud.com/player/?url=api.soundcloud.com/tracks/496391337">
+      </iframe>
+    </div>
+  </div>
+
+  <!-- Add song -->
+  <div class="card bg-dark br-0">
+    <div class="card-body p-0">
+      <form name="vm.songForm" ng-submit="vm.addSong()">
+        <input type="text" class="form-control px-3" placeholder="Song URL (YouTube or SoundCloud)"
+               ng-model="vm.songForm.data.source" required>
+      </form>
+    </div>
+  </div>
+
+  <!-- Songs -->
+  <a class="list-group-item song" ng-repeat="song in vm.songs"
+     ng-click="vm.play(song)" ng-right-click="vm.removeSong(song)"
+     ng-class="{active: vm.song == song}">
+    <div class="media">
+      <i class="fa fa-play"></i>
+      <div class="media-body">
+        <span class="user">{{ song.user.username }}</span>
+        <span class="name">{{ song.source }}</span>
+      </div>
+    </div>
+  </a>
+</div>

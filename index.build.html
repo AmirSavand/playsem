@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+  <!-- Meta data -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Host and join parties and keep shuffling sick songs.">
+  <meta name="author" content="Amir Savand">
+
+  <!-- Title and favicon -->
+  <title>MR Player</title>
+  <link rel="shortcut icon" type="image/png" href="app/assets/app.png">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="vendor.css">
+  <link rel="stylesheet" href="main.css">
+
+  <!-- External -->
+  <script src="https://www.youtube.com/iframe_api"></script>
+
+  <!-- Scripts -->
+  <script src="vendor.js"></script>
+  <script src="main.js"></script>
+</head>
+<body ng-app="mr-player">
+
+<!-- Wrapper -->
+<div class="wrapper" ng-controller="MainController as main">
+
+  <!-- Sidebar -->
+  <div class="sidebar" ng-include="'app/components/main/main.include.html'"></div>
+
+  <!-- View -->
+  <div class="content container-fluid" ui-view></div>
+</div>
+</body>
+</html>
