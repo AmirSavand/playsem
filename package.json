@@ -1,7 +1,8 @@
 {
-  "name": "mr-player",
   "scripts": {
-    "server": "live-server"
+    "server": "live-server",
+    "cq": "grunt cq",
+    "build": "grunt build"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.6.3",
