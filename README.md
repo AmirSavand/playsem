@@ -1,4 +1,4 @@
-# [MR Player](https://mrplayer.savandbros.com).
+# [MR Player](https://mrplayer.savandbros.com)
 
 Host and join parties and keep shuffling sick songs.
 
