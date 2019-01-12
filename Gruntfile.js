@@ -102,6 +102,23 @@ module.exports = function (grunt) {
         }],
       },
     },
+    cachebreaker: {
+      main: {
+        options: {
+          match: [{
+            'vendor.js': 'build/vendor.js',
+            'vendor.css': 'build/vendor.css',
+            'main.js': 'build/main.js',
+            'main.css': 'build/main.css',
+          }],
+          replacement: 'md5',
+          position: 'filename'
+        },
+        files: {
+          src: ['build/index.html']
+        },
+      }
+    }
   });
 
   grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -110,6 +127,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify-es');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-htmlmin');
+  grunt.loadNpmTasks('grunt-cache-breaker');
 
   grunt.registerTask('cq', [
     'jshint',
@@ -121,5 +139,6 @@ module.exports = function (grunt) {
     'uglify',
     'cssmin',
     'htmlmin',
+    'cachebreaker',
   ]);
 };
