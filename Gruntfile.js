@@ -113,7 +113,7 @@ module.exports = function (grunt) {
             'main.css': 'build/main.css',
           }],
           replacement: 'md5',
-          position: 'filename'
+          position: 'append'
         },
         files: {
           src: ['build/index.html']
