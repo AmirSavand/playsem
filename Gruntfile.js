@@ -90,14 +90,15 @@ module.exports = function (grunt) {
       },
       index: {
         files: {
-          'build/index.html': 'index.build.html'
+          'build/index.html': 'index.build.html',
+          'build/app/assets/changelog.html': 'build/app/assets/changelog.html',
         }
       },
       dist: {
         files: [{
           expand: true,
           cwd: '.',
-          src: ['app/**/*.html'],
+          src: ['app/components/**/*.html'],
           dest: 'build'
         }],
       },
@@ -118,7 +119,15 @@ module.exports = function (grunt) {
           src: ['build/index.html']
         },
       }
-    }
+    },
+    md2html: {
+      main: {
+        files: [{
+          src: ['changelog.md'],
+          dest: 'build/app/assets/changelog.html'
+        }]
+      }
+    },
   });
 
   grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -128,6 +137,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-htmlmin');
   grunt.loadNpmTasks('grunt-cache-breaker');
+  grunt.loadNpmTasks('grunt-md2html');
 
   grunt.registerTask('cq', [
     'jshint',
@@ -138,6 +148,7 @@ module.exports = function (grunt) {
     'concat',
     'uglify',
     'cssmin',
+    'md2html',
     'htmlmin',
     'cachebreaker',
   ]);

@@ -1,4 +1,18 @@
 <div class="card bg-dark my-5 width-small mx-auto">
+  <div class="card-header">Create Party</div>
+  <div class="card-body">
+    <form name="vm.createForm" ng-submit="vm.create()">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Party name" ng-model="vm.createForm.data.title" required>
+      </div>
+      <div class="text-center">
+        <button class="btn btn-dark px-4 py-3" ng-disabled="vm.createForm.loading">Create</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="card bg-dark my-5 width-small mx-auto">
   <div class="card-body">
     <p>Welcome to <b>MR Player</b> v3.</p>
     <hr>
@@ -13,15 +27,7 @@
 </div>
 
 <div class="card bg-dark my-5 width-small mx-auto">
-  <div class="card-header">Create Party</div>
   <div class="card-body">
-    <form name="vm.createForm" ng-submit="vm.create()">
-      <div class="form-group">
-        <input type="text" class="form-control" placeholder="Party name" ng-model="vm.createForm.data.title" required>
-      </div>
-      <div class="text-center">
-        <button class="btn btn-dark px-4 py-3" ng-disabled="vm.createForm.loading">Create</button>
-      </div>
-    </form>
+    <ng-include src="'app/assets/changelog.html'"></ng-include>
   </div>
 </div>
