@@ -1,4 +1,4 @@
-app.run(function (Auth, toaster, $rootScope, $window, $transitions) {
+app.run(function (Auth, toaster, $rootScope, $window, $transitions, $location) {
 
   /**
    * YouTube player config
@@ -36,4 +36,11 @@ app.run(function (Auth, toaster, $rootScope, $window, $transitions) {
       return transition.router.stateService.target("dash");
     }
   });
+
+  /**
+   * Force SSL
+   */
+  if ($location.protocol() !== "https" && $location.host() !== "localhost") {
+    $window.location.href = $location.absUrl().replace("http", "https");
+  }
 });
