@@ -104,6 +104,11 @@ app.controller("MainController", function (API, Auth, toaster, $scope, $state, $
     if (!vm.party || vm.party.loading) {
       return;
     }
+    if (!Auth.isAuth()) {
+      toaster.error("Sign In", "You must sign in to join parties.");
+      $state.go("sign-in");
+      return;
+    }
     vm.party.loading = true;
     let payload = {
       party: vm.party.id
