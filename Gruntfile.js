@@ -17,7 +17,7 @@ module.exports = function (grunt) {
       images: {
         expand: true,
         cwd: "app/assets/",
-        src: "*.png",
+        src: "*.{png,jpg}",
         dest: "build/"
       },
       fonts: {
@@ -97,7 +97,6 @@ module.exports = function (grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: ".",
           src: ["app/components/**/*.html"],
           dest: "build"
         }],
