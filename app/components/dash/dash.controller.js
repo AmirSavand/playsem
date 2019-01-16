@@ -1,8 +1,11 @@
-app.controller("DashController", function (API, toaster, $rootScope) {
+app.controller("DashController", function (Auth, API, toaster, $rootScope) {
 
   let vm = this;
 
   let constructor = function () {
+
+    vm.user = Auth.getAuth();
+
     vm.createForm = {
       data: {},
       loading: false,
