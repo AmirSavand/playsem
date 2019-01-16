@@ -144,6 +144,7 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster, $sc
 
     API.post("songs/", payload, null, function (data) {
       vm.songs.push(data.data);
+      toaster.info("Added", "Added \"" + data.data.name + "\" to the party.");
     }, function (data) {
       if (data.data.error) {
         toaster.error("Error", data.data.error);
@@ -172,7 +173,7 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster, $sc
     song.loading = true;
     API.delete("songs/" + song.id + "/", null, null, function () {
       getPartySongs();
-      toaster.error("Error", "Song has been removed from the party.");
+      toaster.info("Removed", "Song removed from the party.");
     }, function (data) {
       song.loading = false;
       toaster.error("Error", "Failed to remove song from the party.");
