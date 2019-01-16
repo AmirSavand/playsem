@@ -12,6 +12,9 @@ app.controller("DashController", function (Auth, API, toaster, $rootScope) {
     };
   };
 
+  /**
+   * Create a party (title is optional)
+   */
   vm.create = function () {
     vm.createForm.loading = true;
     let payload = {
