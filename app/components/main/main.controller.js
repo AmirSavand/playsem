@@ -136,6 +136,16 @@ app.controller("MainController", function (API, Auth, toaster, $scope, $state, $
   $scope.$on("mr-player.Auth:unAuth", constructor);
 
   /**
+   * Response error event via AuthInterceptor.
+   * Handles, invalid signature.
+   */
+  $scope.$on("mr-player.AuthInterceptor:responseError", function (event, args) {
+    if (args.status === 401) {
+      Auth.unAuth();
+    }
+  });
+
+  /**
    * Sign in event. Upon sign in, go to dash.
    */
   $scope.$on("mr-player.SignInController:signIn", function () {

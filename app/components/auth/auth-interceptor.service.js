@@ -23,9 +23,9 @@ app.factory("AuthInterceptor", function ($rootScope, $q) {
    * @return {object}
    */
   function responseError(response) {
-    if (response.status === 403) {
-      $rootScope.$broadcast("mr-player.Auth:unAuth");
-    }
+    $rootScope.$broadcast("mr-player.AuthInterceptor:responseError", {
+      status: response.status
+    });
     return $q.reject(response);
   }
 
