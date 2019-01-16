@@ -19,7 +19,6 @@ app.config(function ($stateProvider, $urlRouterProvider) {
       url: "/",
       controller: "DashController",
       templateUrl: "dash/dash.view.html",
-      auth: true,
     },
     "party": {
       url: "/:id/",
