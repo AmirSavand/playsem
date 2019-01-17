@@ -3,5 +3,6 @@ let app = angular.module("mr-player", [
   "toaster",
   "youtube-embed",
   "angular-loading-bar",
+  "angular-google-analytics",
   "ui.router",
 ]);

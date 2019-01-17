@@ -48,6 +48,7 @@ module.exports = function (grunt) {
           "node_modules/angular-youtube-embed/src/angular-youtube-embed.js",
           "node_modules/angular-loading-bar/build/loading-bar.js",
           "node_modules/angularjs-toaster/toaster.js",
+          "node_modules/angular-google-analytics/dist/angular-google-analytics.js",
         ],
         dest: "build/vendor.js",
       },

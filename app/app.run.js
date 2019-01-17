@@ -1,4 +1,9 @@
-app.run(function (Auth, toaster, $rootScope, $window, $transitions, $location) {
+app.run(function (Auth, toaster, Analytics, $rootScope, $window, $transitions, $location) {
+
+  /**
+   * Is running on localhost
+   */
+  let isLocalhost = $location.host() === "localhost";
 
   /**
    * YouTube player config
@@ -19,6 +24,7 @@ app.run(function (Auth, toaster, $rootScope, $window, $transitions, $location) {
   }
 
   /**
+   * Before page transition event
    * Handle state authentication access
    */
   $transitions.onBefore({}, function (transition) {
@@ -38,9 +44,21 @@ app.run(function (Auth, toaster, $rootScope, $window, $transitions, $location) {
   });
 
   /**
+   * After page transition event
+   * Handle analytics page view
+   */
+  $transitions.onSuccess({}, function (transition) {
+    if (!isLocalhost) {
+      Analytics.trackPage($location.url(), transition.to().name);
+    }
+  });
+
+  // Analytics.trackPage('/video/detail/XXX', 'Video XXX');
+
+  /**
    * Force SSL
    */
-  if ($location.protocol() !== "https" && $location.host() !== "localhost") {
+  if ($location.protocol() !== "https" && !isLocalhost) {
     $window.location.href = $location.absUrl().replace("http", "https");
   }
 });
