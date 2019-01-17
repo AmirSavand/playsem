@@ -53,8 +53,6 @@ app.run(function (Auth, toaster, Analytics, $rootScope, $window, $transitions, $
     }
   });
 
-  // Analytics.trackPage('/video/detail/XXX', 'Video XXX');
-
   /**
    * Force SSL
    */
