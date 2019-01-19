@@ -56,6 +56,7 @@ a, button {
 .sidebar > .item {
     color: white;
     font-weight: bolder;
+    transition: all 200ms;
 }
 
 
@@ -70,13 +71,17 @@ a, button {
     color: white;
 }
 
+.sidebar > a.item:active,
 .sidebar > a.item.active {
     background: rgba(0, 0, 0, 0.25);
-    color: deeppink;
     border-radius: 12px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.sidebar > a.item.active {
+    color: deeppink;
 }
 
 .sidebar > .item > .fa {
@@ -200,24 +205,27 @@ a, button {
 
 .song {
     background-color: rgba(0, 0, 0, 0.1);
-    border-width: 0;
+    border: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
     cursor: pointer;
+    background-repeat: no-repeat;
+    background-size: 110px 66px;
+    background-position: left center;
+    padding-left: 125px;
+    height: 67px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+}
+
+.song:hover, .song:focus {
+    z-index: initial;
+    background-color: rgba(0, 0, 0, 0.15);
 }
 
 .song.active {
     background-color: rgba(0, 0, 0, 0.3);
-}
-
-.song .fa {
-    opacity: 0.1;
-    font-size: 1.5em;
-    margin-top: 12px;
-    margin-right: 20px;
-}
-
-.song.active .fa {
-    opacity: 1;
-    color: deeppink;
 }
 
 .song .user {

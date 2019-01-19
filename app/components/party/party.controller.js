@@ -98,10 +98,13 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster, $sc
 
   /**
    * Retrieve song image URL
+   *
+   * @param song {object}
+   * @returns {string|null}
    */
   vm.getSongImage = function (song) {
-    if (song.player === 1) {
-      return "https://i.ytimg.com/vi/" + youtubeEmbedUtils.getIdFromURL(vm.song.source) + "/default.jpg";
+    if (song.player === 0) {
+      return "https://i.ytimg.com/vi/" + youtubeEmbedUtils.getIdFromURL(song.source) + "/mqdefault.jpg";
     }
   };
 
