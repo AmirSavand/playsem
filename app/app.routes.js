@@ -15,6 +15,12 @@ app.config(function ($stateProvider, $urlRouterProvider) {
       templateUrl: "sign-in/sign-in.view.html",
       auth: false,
     },
+    "sign-up": {
+      url: "/sign-up/",
+      controller: "SignUpController",
+      templateUrl: "sign-up/sign-up.view.html",
+      auth: false,
+    },
     "dash": {
       url: "/",
       controller: "DashController",

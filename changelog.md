@@ -2,6 +2,7 @@
 
 ## v3.1
 
+- Add sign up page.
 - View party without authentication.
 - View dashboard without authentication.
 - Show songs name instead of source.

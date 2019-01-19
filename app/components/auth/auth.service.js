@@ -65,4 +65,48 @@ app.service("Auth", function (API, $rootScope) {
   self.isAuth = function () {
     return localStorage.hasOwnProperty("token") && localStorage.hasOwnProperty("user");
   };
+
+  /**
+   * @param username {string}
+   * @param password {string}
+   * @param success {function}
+   * @param fail {function}
+   */
+  self.signIn = function (username, password, success, fail) {
+    let payload = {
+      username: username,
+      password: password
+    };
+    API.post("auth/", payload, {}, function (data) {
+      self.setAuth(data.data.user, data.data.token);
+      $rootScope.$broadcast("mr-player.Auth:signIn");
+      success(data);
+    }, function (data) {
+      fail(data);
+    });
+  };
+
+  /**
+   * Sign up then sign in.
+   *
+   * @param email {string}
+   * @param username {string}
+   * @param password {string}
+   * @param success {function}
+   * @param fail {function}
+   */
+  self.signUp = function (email, username, password, success, fail) {
+    let payload = {
+      email: email,
+      username: username,
+      password: password
+    };
+    API.post("users/", payload, {}, function (data) {
+      $rootScope.$broadcast("mr-player.Auth:signUp", data.data);
+      self.signIn(username, password);
+      success(data);
+    }, function (data) {
+      fail(data);
+    });
+  };
 });

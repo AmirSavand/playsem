@@ -1,4 +1,4 @@
-app.controller("SignInController", function (Auth) {
+app.controller("SignUpController", function (Auth) {
 
   let vm = this;
 
@@ -6,18 +6,18 @@ app.controller("SignInController", function (Auth) {
     vm.form = {
       data: {},
       loading: false,
-      error: false,
+      errors: null,
     };
   };
 
   vm.submit = function () {
     vm.form.loading = true;
-    Auth.signIn(vm.form.data.username, vm.form.data.password, function () {
+    Auth.signUp(vm.form.data.email, vm.form.data.username, vm.form.data.password, function (data) {
       vm.form.loading = false;
-      vm.form.error = false;
-    }, function () {
+      vm.form.errors = null;
+    }, function (data) {
       vm.form.loading = false;
-      vm.form.error = true;
+      vm.form.errors = data.data;
     });
   };
 

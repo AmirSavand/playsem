@@ -148,7 +148,7 @@ app.controller("MainController", function (API, Auth, toaster, $scope, $state, $
   /**
    * Sign in event. Upon sign in, go to dash.
    */
-  $scope.$on("mr-player.SignInController:signIn", function () {
+  $scope.$on("mr-player.Auth:signIn", function () {
     $state.go("dash");
   });
 
