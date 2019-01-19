@@ -2,6 +2,7 @@
 
 ## v3.1
 
+- Update scrollbar design.
 - Add sign up page.
 - View party without authentication.
 - View dashboard without authentication.
