@@ -2,6 +2,7 @@
 
 ## v3.1
 
+- Add party rename for creator.
 - Update scrollbar design.
 - Add song thumbnails.
 - Add sign up page.

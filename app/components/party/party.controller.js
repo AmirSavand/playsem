@@ -184,6 +184,40 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster, $sc
     });
   };
 
+  /**
+   * Change party name
+   */
+  vm.renameParty = function () {
+    if (vm.party.loading) {
+      return;
+    }
+
+    // Prompt party name
+    let newName = prompt("Rename party:", vm.party.name);
+
+    // Check if name is actually changed
+    if (newName === vm.party.name) {
+      return;
+    }
+
+    /**
+     * API call to update party
+     */
+    vm.party.loading = true;
+    let payload = {
+      title: newName,
+    };
+    API.put("parties/" + vm.id + "/", payload, null, function (data) {
+      vm.party = Object.assign(vm.party, data.data);
+      $rootScope.$broadcast("mr-player.PartyController:updateParty", vm.party);
+      toaster.info("Updated", "Party renamed to \"" + vm.party.name + "\".");
+    }, function (data) {
+      vm.party.loading = false;
+      toaster.error("Error", "Failed to get party.");
+      console.error(data.data);
+    });
+  };
+
   constructor();
 
   /**

@@ -160,6 +160,14 @@ a, button {
     border-color: deeppink;
 }
 
+.bg-dark .input-group-append .btn {
+    border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+}
+
+.bg-dark .input-group-append .btn:active {
+    border-bottom-color: deeppink;
+}
+
 
 /* Button */
 

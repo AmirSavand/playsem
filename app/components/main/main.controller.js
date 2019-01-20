@@ -167,6 +167,19 @@ app.controller("MainController", function (API, Auth, toaster, $scope, $state, $
   });
 
   /**
+   * Party update event. Update the local instance too.
+   */
+  $scope.$on("mr-player.PartyController:updateParty", function (event, party) {
+    for (let userParty of vm.parties) {
+      if (userParty.id === party.id) {
+        let i = vm.parties.indexOf(userParty);
+        vm.parties[i] = party;
+      }
+    }
+    localStorage.setItem("parties", JSON.stringify(vm.parties));
+  });
+
+  /**
    * User left the party view, it's no longer selected.
    */
   $transitions.onSuccess({}, function (transition) {

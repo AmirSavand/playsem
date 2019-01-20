@@ -20,8 +20,15 @@
   <div class="card bg-dark br-0">
     <div class="card-body p-0">
       <form name="vm.songForm" ng-submit="vm.addSong()">
-        <input type="text" class="form-control px-3" placeholder="Song URL (YouTube or SoundCloud)"
-               ng-model="vm.songForm.data.source" required>
+        <div class="input-group">
+          <input type="text" class="form-control px-3" placeholder="Song URL (YouTube or SoundCloud)"
+                 ng-model="vm.songForm.data.source" required>
+          <div class="input-group-append" ng-if="main.user.id === vm.party.user.id">
+            <button class="btn btn-dark rounded-0" type="button" ng-click="vm.renameParty()">
+              <i class="fa fa-cog"></i>
+            </button>
+          </div>
+        </div>
       </form>
     </div>
   </div>
