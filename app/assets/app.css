@@ -121,6 +121,7 @@ a, button {
     margin-right: -15px;
 }
 
+
 /* Card */
 
 .card-header {
@@ -137,6 +138,7 @@ a, button {
 .card p {
     margin: 0;
 }
+
 
 /* Input */
 
@@ -178,11 +180,13 @@ a, button {
     margin: auto;
 }
 
+
 /* Border */
 
 .br-0 {
     border-radius: 0;
 }
+
 
 /* Player */
 
@@ -200,6 +204,7 @@ a, button {
     background: #eee;
     height: 160px;
 }
+
 
 /* Song */
 
@@ -240,6 +245,7 @@ a, button {
     font-weight: lighter;
 }
 
+
 /* Loading bar */
 
 #loading-bar .bar {
@@ -254,6 +260,7 @@ a, button {
     border-top-color: #fff;
     border-left-color: #fff;
 }
+
 
 /* Toaster */
 
