@@ -10,6 +10,13 @@ module.exports = function (grunt) {
         "app/**/*.js",
       ]
     },
+    clean: {
+      build: {
+        src: [
+          "build/",
+        ]
+      }
+    },
     copy: {
       options: {
         processContent: false,
@@ -130,6 +137,7 @@ module.exports = function (grunt) {
   });
 
   grunt.loadNpmTasks("grunt-contrib-jshint");
+  grunt.loadNpmTasks("grunt-contrib-clean");
   grunt.loadNpmTasks("grunt-contrib-copy");
   grunt.loadNpmTasks("grunt-contrib-concat");
   grunt.loadNpmTasks("grunt-contrib-uglify-es");
@@ -143,6 +151,7 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask("build", [
+    "clean",
     "copy",
     "concat",
     "uglify",
