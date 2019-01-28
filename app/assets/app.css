@@ -284,5 +284,5 @@ a, button {
 
 #toast-container > div {
     box-shadow: none !important;
-    z-index: 111;
+    z-index: 1111;
 }
