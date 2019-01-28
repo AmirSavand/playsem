@@ -2,6 +2,8 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster, $sc
 
   let vm = this;
 
+  let interval;
+
   let constructor = function () {
 
     vm.songForm = {
@@ -57,6 +59,13 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster, $sc
      * Get party songs
      */
     getPartySongs();
+
+    /**
+     * Start refreshing party songs every 60 seconds
+     */
+    interval = $interval(function () {
+      getPartySongs();
+    }, 60000);
   };
 
   /**
@@ -249,5 +258,12 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster, $sc
    */
   $scope.$on("youtube.player.ended", function (event, player) {
     vm.play();
+  });
+
+  /**
+   * DOM element is removed from the page, cancel interval
+   */
+  $scope.$on("$destroy", function (event) {
+    $interval.cancel(interval);
   });
 });

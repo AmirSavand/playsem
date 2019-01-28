@@ -1,6 +1,7 @@
 # Changelog
 
 - Fix playlist starts over.
+- Auto update party songs.
 - Update changelog design.
 
 ## v3.1
