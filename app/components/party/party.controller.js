@@ -1,5 +1,5 @@
 app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
-                                            $scope, $state, $stateParams, $rootScope, $interval) {
+                                            $scope, $state, $stateParams, $rootScope, $window, $interval) {
 
   let vm = this;
 
@@ -37,6 +37,11 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
      * Current song of party playing
      */
     vm.song = null;
+
+    /**
+     * Scrolled from top of the page
+     */
+    vm.scrolled = false;
 
     /**
      * There's no id in URL, return to dash
@@ -288,5 +293,34 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
    */
   $scope.$on("$destroy", function (event) {
     $interval.cancel(interval);
+  });
+
+  /**
+   * Scroll event. Minimize the player when scrolled down.
+   */
+  angular.element($window).on("scroll", function () {
+    // Get player height
+    let playerHeight = angular.element(".player").height();
+    // Is page scrolled
+    let scrolled = angular.element($window).scrollTop() > playerHeight;
+    // Did the value change
+    if (scrolled !== vm.scrolled) {
+      // Set the value and update view
+      $scope.$apply(function () {
+        vm.scrolled = scrolled;
+      });
+      // Is page scrolled
+      if (scrolled) {
+        // Set its height so the page doesn't instantly collapse and keep its not-scrolled form
+        angular.element(".player-wrapper").css("min-height", playerHeight);
+      }
+    }
+  });
+
+  /**
+   * Resize event. Update the min-height property of player wrapper.
+   */
+  angular.element($window).on("resize", function () {
+    angular.element(".player-wrapper").css("min-height", angular.element(".player").height());
   });
 });

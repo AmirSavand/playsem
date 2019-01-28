@@ -209,6 +209,17 @@ a, button {
 /* Player */
 
 .player-wrapper {
+    background: #000;
+}
+
+.player-wrapper.scrolled .player {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    width: 400px;
+    z-index: 100;
+    border: 3px solid #242a2c;
+    border-radius: 3px;
 }
 
 .player-soundcloud {

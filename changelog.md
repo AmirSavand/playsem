@@ -2,6 +2,7 @@
 
 ## v3.2
 
+- Show player preview when scrolled.
 - Fix playlist starts over.
 - Cache party songs.
 - Auto update party songs.

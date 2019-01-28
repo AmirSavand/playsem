@@ -1,7 +1,10 @@
 <div class="list-group">
 
   <!-- Player Wrapper -->
-  <div class="player-wrapper" ng-show="vm.songs.length">
+  <div class="player-wrapper"
+       ng-show="vm.songs.length"
+       ng-class="{scrolled: vm.scrolled}"
+       style="min-height: {{ vm.playerHeight }}">
 
     <!-- Player (YouTube) -->
     <div class="player embed-responsive embed-responsive-16by9" ng-show="vm.song.player == 0">
