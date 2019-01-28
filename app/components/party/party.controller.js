@@ -93,7 +93,21 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster, $sc
         toaster.error("Error", "Couldn't get party songs.");
         console.error(data.data);
       }
+  /**
+   * Find song index based on ID
+   * Not using indexOf because songs are reset when refreshed
+   *
+   * @param {object} song
+   * @returns {number}
+   */
+  let getSongIndex = function (song) {
+    let index = -1;
+    angular.forEach(vm.songs, function (song, i) {
+      if (song.id === vm.song.id) {
+        index = i;
+      }
     });
+    return index;
   };
 
   /**
@@ -120,7 +134,10 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster, $sc
     if (song) {
       vm.song = song;
     } else {
-      let nextIndex = vm.songs.indexOf(vm.song) + 1;
+      /**
+       * Find song index
+       */
+      let nextIndex = getSongIndex(vm.song) + 1;
       if (nextIndex >= vm.songs.length) {
         nextIndex = 0;
       }

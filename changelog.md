@@ -1,6 +1,8 @@
 # Changelog
 
+- Fix playlist starts over.
 - Update changelog design.
+
 ## v3.1
 
 - Add party rename for creator.
