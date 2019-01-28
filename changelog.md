@@ -2,8 +2,8 @@
 
 ## v3.2
 
-- Add button to scroll up
 - Fix playlist starts over.
+- Cache party songs.
 - Auto update party songs.
 - Update changelog design.
 
