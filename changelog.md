@@ -1,5 +1,6 @@
 # Changelog
 
+- Update changelog design.
 ## v3.1
 
 - Add party rename for creator.
