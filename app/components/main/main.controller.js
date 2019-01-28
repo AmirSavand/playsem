@@ -56,7 +56,7 @@ app.controller("MainController", function (API, Auth, toaster, $scope, $state, $
       });
       localStorage.setItem("parties", JSON.stringify(vm.parties));
     }, function (data) {
-      toaster.error("Erorr", "Couldn't get parties.");
+      toaster.error("Error", "Couldn't get parties.");
       console.error(data.data);
     });
   };
