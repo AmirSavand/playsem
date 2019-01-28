@@ -1,8 +1,11 @@
-app.controller("PartyController", function (API, youtubeEmbedUtils, toaster, $scope, $state, $stateParams, $rootScope) {
+app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
+                                            $scope, $state, $stateParams, $rootScope, $interval) {
 
   let vm = this;
 
   let interval;
+
+  let cacheKey;
 
   let constructor = function () {
 
@@ -14,6 +17,11 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster, $sc
      * Get party key from URL
      */
     vm.id = $stateParams.id;
+
+    /**
+     * Cache key for localStorage
+     */
+    cacheKey = "party-" + vm.id;
 
     /**
      * Get party data from state params (cache)
@@ -58,7 +66,7 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster, $sc
     /**
      * Get party songs
      */
-    getPartySongs();
+    getPartySongs(true);
 
     /**
      * Start refreshing party songs every 60 seconds
@@ -89,19 +97,35 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster, $sc
 
   /**
    * Get songs of party (API call)
+   * @param {boolean} cache
    */
-  let getPartySongs = function () {
+  let getPartySongs = function (cache) {
+    /**
+     * Try to load songs of this party from localStorage if requesting cache version.
+     */
+    if (cache && localStorage.hasOwnProperty(cacheKey)) {
+      vm.songs = JSON.parse(localStorage.getItem(cacheKey));
+      return;
+    }
+    /**
+     * No cache from localStorage, continue with the $http
+     */
     let payload = {
       party: vm.id
     };
     API.get("songs/", null, payload, function (data) {
       vm.songs = [];
       vm.songs = data.data.results;
+      // Update localStorage for cache
+      localStorage.setItem(cacheKey, JSON.stringify(data.data.results));
     }, function (data) {
       if (data.status !== 404) {
         toaster.error("Error", "Couldn't get party songs.");
         console.error(data.data);
       }
+    }, cache);
+  };
+
   /**
    * Find song index based on ID
    * Not using indexOf because songs are reset when refreshed
@@ -130,7 +154,6 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster, $sc
       return "https://i.ytimg.com/vi/" + youtubeEmbedUtils.getIdFromURL(song.source) + "/mqdefault.jpg";
     }
   };
-
 
   /**
    * Play song (store variable and pass to player)
@@ -170,10 +193,10 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster, $sc
       party: vm.party.id,
       source: vm.songForm.data.source,
     };
-
     API.post("songs/", payload, null, function (data) {
       vm.songs.push(data.data);
       toaster.info("Added", "Added \"" + data.data.name + "\" to the party.");
+      localStorage.setItem(cacheKey, JSON.stringify(vm.songs));
     }, function (data) {
       if (data.data.error) {
         toaster.error("Error", data.data.error);
@@ -190,7 +213,6 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster, $sc
 
   /**
    * Remove a song from the party (API call)
-   * @todo Don't get all songs again, just remove the one form the list
    */
   vm.removeSong = function (song) {
     /**
@@ -201,8 +223,9 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster, $sc
     }
     song.loading = true;
     API.delete("songs/" + song.id + "/", null, null, function () {
-      getPartySongs();
       toaster.info("Removed", "Song removed from the party.");
+      vm.songs.splice(vm.songs.indexOf(song), 1);
+      localStorage.setItem(cacheKey, JSON.stringify(vm.songs));
     }, function (data) {
       song.loading = false;
       toaster.error("Error", "Failed to remove song from the party.");

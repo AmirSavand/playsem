@@ -21,20 +21,22 @@ app.service("API", function ($http, ENV) {
    * @param {object|null} params
    * @param {function} success
    * @param {function} fail
+   * @param {boolean} cache
    */
-  let http = function (method, endpoint, payload, params, success, fail) {
+  let http = function (method, endpoint, payload, params, success, fail, cache) {
     return $http({
       url: apiUrl + endpoint,
       headers: headers,
       method: method,
       data: payload,
-      params: params
+      params: params,
+      cache: cache,
     }).then(success, fail);
   };
 
   angular.forEach(methods, function (method) {
-    service[method] = function (endpoint, payload, params, success, fail) {
-      return http(method, endpoint, payload, params, success, fail);
+    service[method] = function (endpoint, payload, params, success, fail, cache) {
+      return http(method, endpoint, payload, params, success, fail, cache);
     };
   });
 

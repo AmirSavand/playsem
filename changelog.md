@@ -1,5 +1,8 @@
 # Changelog
 
+## v3.2
+
+- Add button to scroll up
 - Fix playlist starts over.
 - Auto update party songs.
 - Update changelog design.
