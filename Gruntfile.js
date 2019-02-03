@@ -42,9 +42,9 @@ module.exports = function (grunt) {
       options: {
         processContent: false,
       },
-      images: {
+      assets: {
         expand: true,
-        src: "app/assets/*.{png,jpg}",
+        src: "app/assets/**/*.{png,jpg,json}",
         dest: "build/"
       },
       fonts: {
