@@ -16,15 +16,15 @@ Install dependencies first.
 
 ### Server
 
-Run the server using `live-server` package.
+Run the server with livereload.
 
 ```bash
-> npm run server
+> npm run start
 ```
 
 ### Code Quality
 
-Code quality runs JSHint via grunt.
+Code quality runs JSHint.
 
 ```bash
 > npm run cq
@@ -32,7 +32,7 @@ Code quality runs JSHint via grunt.
 
 ### Build
 
-Build the project into `build/` via grunt.
+Build the project into `build/`.
 
 ```bash
 > npm run build

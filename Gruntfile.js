@@ -1,6 +1,27 @@
 module.exports = function (grunt) {
 
   grunt.initConfig({
+    connect: {
+      server: {
+        options: {
+          port: 9000,
+          hostname: "localhost",
+          livereload: 35000,
+          open: true,
+        }
+      }
+    },
+    watch: {
+      options: {
+        livereload: 35000,
+      },
+      main: {
+        files: [
+          "**/*",
+        ],
+        tasks: []
+      },
+    },
     jshint: {
       options: {
         jshintrc: true
@@ -136,6 +157,8 @@ module.exports = function (grunt) {
     },
   });
 
+  grunt.loadNpmTasks("grunt-contrib-connect");
+  grunt.loadNpmTasks("grunt-contrib-watch");
   grunt.loadNpmTasks("grunt-contrib-jshint");
   grunt.loadNpmTasks("grunt-contrib-clean");
   grunt.loadNpmTasks("grunt-contrib-copy");
@@ -145,6 +168,11 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks("grunt-contrib-htmlmin");
   grunt.loadNpmTasks("grunt-cache-breaker");
   grunt.loadNpmTasks("grunt-md2html");
+
+  grunt.registerTask("server", [
+    "connect",
+    "watch",
+  ]);
 
   grunt.registerTask("cq", [
     "jshint",
