@@ -1,4 +1,6 @@
 {
+  "repository": "https://github.com/AmirSavand/mr-player",
+  "license": "https://github.com/AmirSavand/mr-player/blob/master/LICENSE",
   "scripts": {
     "start": "grunt server",
     "cq": "grunt cq",
