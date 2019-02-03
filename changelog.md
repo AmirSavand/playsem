@@ -2,6 +2,8 @@
 
 ## v3.2
 
+- Add new logo and icons.
+- Add standalone and add-to-homescreen support.
 - Show player preview when scrolled.
 - Fix playlist starts over.
 - Cache party songs.
