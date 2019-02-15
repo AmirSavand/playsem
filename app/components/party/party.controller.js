@@ -24,9 +24,9 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
     cacheKey = "party-" + vm.id;
 
     /**
-     * Get party data from state params (cache)
+     * Party object (will get from param (cache) or API)
      */
-    vm.party = $stateParams.party;
+    vm.party = null;
 
     /**
      * List of party categories with key as index (back-end IDs)
@@ -72,9 +72,11 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
     /**
      * There's no party cache, get it via API
      */
-    if (!vm.party) {
+    if (!$stateParams.party) {
       getParty();
     } else {
+      vm.party = $stateParams.party;
+      generateCategories();
       $rootScope.$broadcast("mr-player.PartyController:loadParty", vm.party);
     }
 
@@ -97,10 +99,7 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
   let getParty = function () {
     API.get("parties/" + vm.id + "/", null, null, function (data) {
       vm.party = data.data;
-      // Store categories
-      angular.forEach(vm.party.categories, function (category) {
-        vm.categories[category.id] = category;
-      });
+      generateCategories();
       $rootScope.$broadcast("mr-player.PartyController:loadParty", vm.party);
     }, function (data) {
       if (data.status === 404) {
@@ -133,16 +132,7 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
       party: vm.id
     };
     API.get("songs/", null, payload, function (data) {
-      vm.songs = [];
       vm.songs = data.data.results;
-      // Group songs by category
-      angular.forEach(vm.songs, function (song) {
-        let category = song.category ? vm.categories[song.category].name : null;
-        if (!vm.songCategories.hasOwnProperty(category)) {
-          vm.songCategories[category] = [];
-        }
-        vm.songCategories[category].push(song);
-      });
       // Update localStorage for cache
       localStorage.setItem(cacheKey, JSON.stringify(data.data.results));
     }, function (data) {
@@ -301,6 +291,7 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
     };
     API.put("parties/" + vm.id + "/", payload, null, function (data) {
       vm.party = Object.assign(vm.party, data.data);
+      generateCategories();
       $rootScope.$broadcast("mr-player.PartyController:updateParty", vm.party);
       toaster.info("Updated", "Party renamed to \"" + vm.party.name + "\".");
     }, function (data) {
