@@ -171,6 +171,19 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
   };
 
   /**
+   * Create an array of party categories with ID as index
+   * Should be called when vm.party is created or modified
+   */
+  let generateCategories = function() {
+    // Reset categories
+    vm.categories = [];
+    // Store categories
+    angular.forEach(vm.party.categories, function (category) {
+      vm.categories[category.id] = category;
+    });
+  };
+
+  /**
    * Retrieve song image URL
    *
    * @param song {object}
