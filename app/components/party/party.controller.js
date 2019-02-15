@@ -193,6 +193,9 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
     }
   };
 
+  /**
+   * Add a new song to the party (via input)
+   */
   vm.addSong = function () {
     let payload = {
       party: vm.party.id,
