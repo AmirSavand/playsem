@@ -29,6 +29,16 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
     vm.party = $stateParams.party;
 
     /**
+     * List of party categories with key as index (back-end IDs)
+     */
+    vm.categories = [];
+
+    /**
+     * List of categories with songs of this party
+     */
+    vm.songCategories = {};
+
+    /**
      * List of songs of this party
      */
     vm.songs = [];
@@ -87,6 +97,10 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
   let getParty = function () {
     API.get("parties/" + vm.id + "/", null, null, function (data) {
       vm.party = data.data;
+      // Store categories
+      angular.forEach(vm.party.categories, function (category) {
+        vm.categories[category.id] = category;
+      });
       $rootScope.$broadcast("mr-player.PartyController:loadParty", vm.party);
     }, function (data) {
       if (data.status === 404) {
@@ -121,6 +135,14 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
     API.get("songs/", null, payload, function (data) {
       vm.songs = [];
       vm.songs = data.data.results;
+      // Group songs by category
+      angular.forEach(vm.songs, function (song) {
+        let category = song.category ? vm.categories[song.category].name : null;
+        if (!vm.songCategories.hasOwnProperty(category)) {
+          vm.songCategories[category] = [];
+        }
+        vm.songCategories[category].push(song);
+      });
       // Update localStorage for cache
       localStorage.setItem(cacheKey, JSON.stringify(data.data.results));
     }, function (data) {
