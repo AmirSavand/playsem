@@ -36,11 +36,20 @@
     </div>
   </div>
 
-  <!-- Songs -->
-  <a class="list-group-item song" ng-repeat="song in vm.songs"
-     ng-click="vm.play(song)" ng-right-click="vm.removeSong(song)"
-     ng-class="{active: vm.song == song}" style="background-image: url({{ vm.getSongImage(song) }})">
-    <span class="user">{{ song.user.username }}</span>
-    <span class="name">{{ song.name }}</span>
-  </a>
+  <!-- Categories -->
+  <div ng-repeat="(category, songs) in vm.songs | groupBy: 'category'">
+
+    <!-- Header -->
+    <div class="p-3 pt-5 text-uppercase text-secondary font-weight-bold">
+      {{ vm.categories[category].name || 'Other' }}
+    </div>
+
+    <!-- Songs -->
+    <a class="list-group-item song" ng-repeat="song in songs"
+       ng-click="vm.play(song)" ng-right-click="vm.removeSong(song)"
+       ng-class="{active: vm.song == song}" style="background-image: url({{ vm.getSongImage(song) }})">
+      <span class="user">{{ song.user.username }}</span>
+      <span class="name">{{ song.name }}</span>
+    </a>
+  </div>
 </div>
