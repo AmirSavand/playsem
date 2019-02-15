@@ -7,7 +7,7 @@
     "build": "grunt build"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.7.0",
+    "@fortawesome/fontawesome-free": "^5.7.2",
     "@uirouter/angularjs": "^1.0.22",
     "angular": "^1.7.6",
     "angular-animate": "^1.7.6",
