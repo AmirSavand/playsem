@@ -298,3 +298,9 @@ a, button {
     box-shadow: none !important;
     z-index: 1111;
 }
+
+/* Reveal */
+
+.reveal-parent:not(:hover) .reveal {
+    opacity: 0;
+}
