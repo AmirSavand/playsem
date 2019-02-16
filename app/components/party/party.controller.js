@@ -164,7 +164,7 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
    * Create an array of party categories with ID as index
    * Should be called when vm.party is created or modified
    */
-  let generateCategories = function() {
+  let generateCategories = function () {
     // Reset categories
     vm.categories = [];
     // Store categories
@@ -282,13 +282,13 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
       return;
     }
 
-    /**
-     * API call to update party
-     */
     vm.party.loading = true;
-    let payload = {
+
+    const payload = {
       title: newName,
     };
+
+    // Rename party
     API.put("parties/" + vm.id + "/", payload, null, function (data) {
       vm.party = Object.assign(vm.party, data.data);
       generateCategories();
@@ -304,14 +304,14 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
   constructor();
 
   /**
-   * YouTube player ready
+   * YouTube player ready event
    */
   $scope.$on("youtube.player.ready", function (event, player) {
     vm.player.youtube = player;
   });
 
   /**
-   * YouTube player ended
+   * YouTube player ended event
    */
   $scope.$on("youtube.player.ended", function (event, player) {
     vm.play();
