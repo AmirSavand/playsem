@@ -298,6 +298,9 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
       vm.party.loading = false;
       toaster.error("Error", "Failed to rename party.");
       console.error(data.data);
+    });
+  };
+
   /**
    * Add category to this party
    */
@@ -349,6 +352,37 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
       console.log(data.data);
     });
   };
+
+  /**
+   * Rename category
+   */
+  vm.renameCategory = function (category) {
+    if (category.loading) {
+      return;
+    }
+
+    // Prompt category name
+    let newName = prompt("Rename category:", category.name);
+
+    // Check if name is actually changed
+    if (newName === category.name) {
+      return;
+    }
+
+    category.loading = true;
+
+    const payload = {
+      name: newName,
+    };
+
+    // Rename category
+    API.put("party-categories/" + category.id + "/", payload, null, function (data) {
+      category = data.data;
+      $rootScope.$broadcast("mr-player.PartyController:renameCategory", category);
+      toaster.info("Updated", "Category renamed to \"" + category.name + "\".");
+    }, function (data) {
+      category.loading = false;
+      toaster.error("Error", "Failed to rename category.");
       console.error(data.data);
     });
   };
