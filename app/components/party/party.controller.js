@@ -249,7 +249,7 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
    */
   vm.removeSong = function (song) {
     /**
-     * Stop if song is loading or user did not confirm delete
+     * Stop if song is loading or user did not confirm remove
      */
     if (song.loading || !confirm("Are you sure you want to remove this song from the party?")) {
       return;
@@ -277,8 +277,8 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
     // Prompt party name
     let newName = prompt("Rename party:", vm.party.name);
 
-    // Check if name is actually changed
-    if (newName === vm.party.name) {
+    // Check if name is actually changed and clicked "Done"
+    if (!newName || newName === vm.party.name) {
       return;
     }
 
@@ -302,9 +302,9 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
   };
 
   /**
-   * @todo Delete party
+   * @todo Remove party
    */
-  vm.deleteParty = function () {
+  vm.removeParty = function () {
     toaster.info("Coming soon", "Deleting party is not implemented yet.");
   };
 
@@ -316,6 +316,11 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
       party: vm.party.id,
       name: prompt("Enter category name:"),
     };
+
+    // Check if entered category name and clicked "Done"
+    if (!payload.name) {
+      return;
+    }
 
     // Create category
     API.post("party-categories/", payload, null, function (data) {
@@ -336,10 +341,10 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
   };
 
   /**
-   * Delete party category
+   * Remove party category
    * @param {object} category
    */
-  vm.deleteCategory = function (category) {
+  vm.removeCategory = function (category) {
     if (category.loading) {
       return;
     }
@@ -351,7 +356,7 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
 
     category.loading = true;
 
-    // Delete category
+    // Remove category
     API.delete("party-categories/" + category.id + "/", null, null, function () {
       // Remove category from list and regenerate vm.categories
       vm.party.categories.splice(vm.party.categories.indexOf(category), 1);
@@ -383,8 +388,8 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
     // Prompt category name
     let newName = prompt("Rename category:", category.name);
 
-    // Check if name is actually changed
-    if (newName === category.name) {
+    // Check if name is actually changed and clicked "Done"
+    if (!newName || newName === category.name) {
       return;
     }
 
@@ -399,7 +404,7 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
     API.put("party-categories/" + category.id + "/", payload, null, function (data) {
       vm.categories[data.data.id] = data.data;
       $rootScope.$broadcast("mr-player.PartyController:renameCategory", category);
-      toaster.info("Updated", "Category renamed to \"" + category.name + "\".");
+      toaster.info("Updated", "Category renamed to \"" + data.data.name + "\".");
     }, function (data) {
       category.loading = false;
       if (data.data.non_field_errors) {
