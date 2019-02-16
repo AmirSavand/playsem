@@ -322,11 +322,12 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
       // Add category to party
       vm.party.categories.push(data.data);
       generateCategories();
+      toaster.info("Added", "Added \"" + data.data.name + "\" category to the party.");
     }, function (data) {
       if (data.data.non_field_errors) {
-        toaster("Error", data.data.non_field_errors[0]);
-      } else if (data.data.category) {
-        toaster("Error", data.data.category);
+        toaster.error("Error", data.data.non_field_errors[0]);
+      } else if (data.data.name) {
+        toaster.error("Category name error", data.data.name[0]);
       } else {
         toaster.error("Error", "Failed to create category.");
         console.log(data.data);
