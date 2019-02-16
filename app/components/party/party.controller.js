@@ -302,6 +302,13 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
   };
 
   /**
+   * @todo Delete party
+   */
+  vm.deleteParty = function () {
+    toaster.info("Coming soon", "Deleting party is not implemented yet.");
+  };
+
+  /**
    * Add category to this party
    */
   vm.addCategory = function () {
