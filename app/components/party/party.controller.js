@@ -373,6 +373,7 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
 
   /**
    * Rename category
+   * @param {object} category
    */
   vm.renameCategory = function (category) {
     if (category.loading) {
