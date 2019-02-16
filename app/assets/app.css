@@ -284,6 +284,13 @@ a, button {
     font-weight: lighter;
 }
 
+.song .btn {
+    z-index: 1;
+    position: relative;
+    top: 18px;
+    right: 15px;
+}
+
 
 /* Loading bar */
 
