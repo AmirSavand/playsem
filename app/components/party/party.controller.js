@@ -322,6 +322,32 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
       }
     });
   };
+
+  /**
+   * Delete party category
+   * @param {object} category
+   */
+  vm.deleteCategory = function (category) {
+    if (category.loading) {
+      return;
+    }
+
+    // Confirm delete
+    if (!confirm("Are you sure you want to delete category: \"" + category.name + "\"?")) {
+      return;
+    }
+
+    category.loading = true;
+
+    // Delete category
+    API.delete("party-categories/" + category.id + "/", null, null, function () {
+      category.loading = false;
+    }, function (data) {
+      category.loading = false;
+      toaster.error("Error", "Failed to delete category.");
+      console.log(data.data);
+    });
+  };
       console.error(data.data);
     });
   };
