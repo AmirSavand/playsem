@@ -353,7 +353,17 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
 
     // Delete category
     API.delete("party-categories/" + category.id + "/", null, null, function () {
-      category.loading = false;
+      // Remove category from list and regenerate vm.categories
+      vm.party.categories.splice(vm.party.categories.indexOf(category), 1);
+      generateCategories();
+      // Move all songs of that category to Other (uncategorized)
+      angular.forEach(vm.songs, function (song) {
+        if (song.category === category.id) {
+          song.category = null;
+        }
+      });
+      // Update songs in local storage
+      localStorage.setItem(cacheKey, JSON.stringify(vm.songs));
     }, function (data) {
       category.loading = false;
       toaster.error("Error", "Failed to delete category.");
