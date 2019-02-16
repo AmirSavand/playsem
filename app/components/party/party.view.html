@@ -24,12 +24,32 @@
     <div class="card-body p-0">
       <form name="vm.songForm" ng-submit="vm.addSong()">
         <div class="input-group">
+          <!-- Source (URL) input -->
           <input type="text" class="form-control px-3" placeholder="Song URL (YouTube or SoundCloud)"
                  ng-model="vm.songForm.data.source" required>
-          <div class="input-group-append" ng-if="main.user.id === vm.party.user.id">
-            <button class="btn btn-dark rounded-0" type="button" ng-click="vm.renameParty()">
-              <i class="fa fa-pencil-alt"></i>
+          <!-- Dropdown -->
+          <div class="input-group-append dropdown" ng-if="main.user.id === vm.party.user.id">
+            <!-- Dropdown icon -->
+            <button class="btn btn-dark rounded-0 px-4" type="button" data-toggle="dropdown">
+              <i class="fa fa-caret-down"></i>
             </button>
+            <!-- Dropdown options -->
+            <div class="dropdown-menu dropdown-menu-right">
+              <!-- Create category -->
+              <a class="dropdown-item" ng-click="vm.addCategory()">
+                <i class="fa fa-fw fa-layer-group"></i> Create category
+              </a>
+              <!-- Rename party -->
+              <a class="dropdown-item" ng-click="vm.renameParty()">
+                <i class="fa fa-fw fa-pencil-alt"></i> Rename party
+              </a>
+              <!-- Separator -->
+              <div class="dropdown-divider"></div>
+              <!-- Delete party -->
+              <a class="dropdown-item" ng-click="vm.deleteParty()">
+                <i class="fa fa-fw fa-trash-alt text-danger"></i> Delete party
+              </a>
+            </div>
           </div>
         </div>
       </form>
