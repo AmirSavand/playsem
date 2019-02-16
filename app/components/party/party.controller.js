@@ -297,6 +297,31 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
     }, function (data) {
       vm.party.loading = false;
       toaster.error("Error", "Failed to get party.");
+  /**
+   * Add category to this party
+   */
+  vm.addCategory = function () {
+    const payload = {
+      party: vm.party.id,
+      name: prompt("Enter category name:"),
+    };
+
+    // Create category
+    API.post("party-categories/", payload, null, function (data) {
+      // Add category to party
+      vm.party.categories.push(data.data);
+      generateCategories();
+    }, function (data) {
+      if (data.data.non_field_errors) {
+        toaster("Error", data.data.non_field_errors[0]);
+      } else if (data.data.category) {
+        toaster("Error", data.data.category);
+      } else {
+        toaster.error("Error", "Failed to create category.");
+        console.log(data.data);
+      }
+    });
+  };
       console.error(data.data);
     });
   };
