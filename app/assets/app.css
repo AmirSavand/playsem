@@ -248,19 +248,11 @@ a, button {
     background-position: left center;
     padding-left: 125px;
     height: 67px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     margin: 0;
 }
 
 .song:nth-of-type(2) {
     border-top: 1px solid rgba(0, 0, 0, 0.1) !important;
-}
-
-.song > .list-group-item {
-    border: 0;
-    background: transparent;
 }
 
 .song:hover, .song:focus {
@@ -270,6 +262,14 @@ a, button {
 
 .song.active {
     background-color: rgba(0, 0, 0, 0.3);
+}
+
+.song > .list-group-item {
+    border: 0;
+    background: transparent;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .song .user {
