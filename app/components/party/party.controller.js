@@ -296,7 +296,8 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
       toaster.info("Updated", "Party renamed to \"" + vm.party.name + "\".");
     }, function (data) {
       vm.party.loading = false;
-      toaster.error("Error", "Failed to get party.");
+      toaster.error("Error", "Failed to rename party.");
+      console.error(data.data);
   /**
    * Add category to this party
    */
