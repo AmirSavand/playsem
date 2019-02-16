@@ -174,7 +174,8 @@ a, button {
     border-bottom: 2px solid rgba(0, 0, 0, 0.2);
 }
 
-.bg-dark .input-group-append .btn:active {
+.bg-dark .input-group-append .btn:active,
+.bg-dark .input-group-append.dropdown.show .btn {
     border-bottom-color: deeppink;
 }
 
