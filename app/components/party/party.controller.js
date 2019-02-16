@@ -390,17 +390,22 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
     category.loading = true;
 
     const payload = {
+      party: vm.party.id,
       name: newName,
     };
 
     // Rename category
     API.put("party-categories/" + category.id + "/", payload, null, function (data) {
-      category = data.data;
+      vm.categories[data.data.id] = data.data;
       $rootScope.$broadcast("mr-player.PartyController:renameCategory", category);
       toaster.info("Updated", "Category renamed to \"" + category.name + "\".");
     }, function (data) {
       category.loading = false;
-      toaster.error("Error", "Failed to rename category.");
+      if (data.data.non_field_errors) {
+        toaster.error("Error", data.data.non_field_errors[0]);
+      } else {
+        toaster.error("Error", "Failed to rename category.");
+      }
       console.error(data.data);
     });
   };
