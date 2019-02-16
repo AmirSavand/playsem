@@ -45,9 +45,9 @@
               </a>
               <!-- Separator -->
               <div class="dropdown-divider"></div>
-              <!-- Delete party -->
-              <a class="dropdown-item" ng-click="vm.deleteParty()">
-                <i class="fa fa-fw fa-trash-alt text-danger"></i> Delete party
+              <!-- Remove party -->
+              <a class="dropdown-item" ng-click="vm.removeParty()">
+                <i class="fa fa-fw fa-trash-alt text-danger"></i> Remove party
               </a>
             </div>
           </div>
@@ -69,19 +69,43 @@
         <button class="btn btn-outline-secondary" ng-click="vm.renameCategory(vm.categories[category])">
           <i class="fa fa-pencil-alt"></i>
         </button>
-        <!-- Delete -->
-        <button class="btn btn-outline-secondary" ng-click="vm.deleteCategory(vm.categories[category])">
+        <!-- Remove -->
+        <button class="btn btn-outline-secondary" ng-click="vm.removeCategory(vm.categories[category])">
           <i class="fa fa-trash"></i>
         </button>
       </div>
     </div>
 
     <!-- Songs -->
-    <a class="list-group-item song" ng-repeat="song in songs"
-       ng-click="vm.play(song)" ng-right-click="vm.removeSong(song)"
-       ng-class="{active: vm.song == song}" style="background-image: url({{ vm.getSongImage(song) }})">
-      <span class="user">{{ song.user.username }}</span>
-      <span class="name">{{ song.name }}</span>
-    </a>
+    <div class="song reveal-parent" ng-repeat="song in songs"
+         style="background-image: url({{ vm.getSongImage(song) }})">
+      <!-- Song option -->
+      <div class="dropdown float-right reveal" ng-if="main.user.id === vm.party.user.id">
+        <!-- Dropdown icon -->
+        <button class="btn btn-sm btn-outline-secondary rounded" data-toggle="dropdown">
+          <i class="fa fa-ellipsis-v"></i>
+        </button>
+        <!-- Dropdown options -->
+        <div class="dropdown-menu dropdown-menu-right">
+          <!-- Set category -->
+          <a class="dropdown-item">
+            <i class="fa fa-fw fa-layer-group"></i> Set category
+          </a>
+          <!-- Separator -->
+          <div class="dropdown-divider"></div>
+          <!-- Remove party -->
+          <a class="dropdown-item" ng-click="vm.removeSong(song)">
+            <i class="fa fa-fw fa-trash-alt text-danger"></i> Remove song
+          </a>
+        </div>
+      </div>
+      <!-- Song element -->
+      <div class="list-group-item" ng-click="vm.play(song)" ng-class="{active: vm.song == song}">
+        <!-- User -->
+        <span class="user">{{ song.user.username }}</span>
+        <!-- Name -->
+        <span class="name">{{ song.name }}</span>
+      </div>
+    </div>
   </div>
 </div>
