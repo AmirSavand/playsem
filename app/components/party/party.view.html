@@ -87,16 +87,35 @@
         </button>
         <!-- Dropdown options -->
         <div class="dropdown-menu dropdown-menu-right">
-          <!-- Set category -->
-          <a class="dropdown-item">
-            <i class="fa fa-fw fa-layer-group"></i> Set category
-          </a>
-          <!-- Separator -->
-          <div class="dropdown-divider"></div>
-          <!-- Remove party -->
-          <a class="dropdown-item" ng-click="vm.removeSong(song)">
-            <i class="fa fa-fw fa-trash-alt text-danger"></i> Remove song
-          </a>
+          <!-- LEVEL: Options -->
+          <span ng-if="!song.selectingCategory">
+            <!-- Set category -->
+            <a class="dropdown-item" ng-click="song.selectingCategory = true">
+              <i class="fa fa-fw fa-layer-group"></i> Set category
+            </a>
+            <!-- Separator -->
+            <div class="dropdown-divider"></div>
+            <!-- Remove party -->
+            <a class="dropdown-item" ng-click="vm.removeSong(song)">
+              <i class="fa fa-fw fa-trash-alt text-danger"></i> Remove song
+            </a>
+          </span>
+          <!-- LEVEL: Categories -->
+          <span ng-if="song.selectingCategory">
+            <!-- No category -->
+            <a class="dropdown-item" ng-class="{active: !song.category}" ng-click="vm.setSongCategory(song, null)">
+              None
+            </a>
+            <!-- Separator -->
+            <div class="dropdown-divider"></div>
+            <!-- HEADER: Select a category -->
+            <div class="dropdown-header">Select a category</div>
+            <!-- Categories -->
+            <a class="dropdown-item" ng-repeat="category in vm.party.categories"
+               ng-class="{active: song.category === category.id}" ng-click="vm.setSongCategory(song, category)">
+              {{ category.name }}
+            </a>
+          </span>
         </div>
       </div>
       <!-- Song element -->
