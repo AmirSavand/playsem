@@ -245,6 +245,42 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
   };
 
   /**
+   * Set song category
+   *
+   * @param {object} song
+   * @param {object|null} category
+   */
+  vm.setSongCategory = function (song, category) {
+    if (song.loading || (category && song.category === category.id) || (!category && !song.category)) {
+      delete song.selectingCategory;
+      return;
+    }
+
+    song.loading = true;
+
+    const payload = {
+      category: category ? category.id : null,
+    };
+
+    // Set category
+    API.put("songs/" + song.id + "/", payload, null, function (data) {
+      song.category = category ? category.id : null;
+      delete song.loading;
+      delete song.selectingCategory;
+      localStorage.setItem(cacheKey, JSON.stringify(vm.songs));
+      if (category) {
+        toaster.success("Done", "Moved song to \"" + category.name + "\".");
+      } else {
+        toaster.success("Done", "Removed song category.");
+      }
+    }, function (data) {
+      toaster.error("Error", "Failed to add song to category.");
+      console.log(data.data);
+      delete song.loading;
+    });
+  };
+
+  /**
    * Remove a song from the party (API call)
    */
   vm.removeSong = function (song) {
