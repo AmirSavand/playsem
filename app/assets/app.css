@@ -320,3 +320,10 @@ a, button {
 .reveal-parent:not(:hover) .reveal {
     opacity: 0;
 }
+
+/* Dropdown */
+
+.dropdown-menu {
+    max-height: 300px;
+    overflow-y: auto;
+}
