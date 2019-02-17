@@ -260,7 +260,7 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
       vm.songs.splice(vm.songs.indexOf(song), 1);
       localStorage.setItem(cacheKey, JSON.stringify(vm.songs));
     }, function (data) {
-      song.loading = false;
+      delete song.loading;
       toaster.error("Error", "Failed to remove song from the party.");
       console.error(data.data);
     });
