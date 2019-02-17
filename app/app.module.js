@@ -4,5 +4,6 @@ let app = angular.module("mr-player", [
   "youtube-embed",
   "angular-loading-bar",
   "angular-google-analytics",
+  "angular.filter",
   "ui.router",
 ]);

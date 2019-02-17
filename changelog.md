@@ -2,6 +2,7 @@
 
 ## v3.2
 
+- Add song category support.
 - Add new logo and icons.
 - Add standalone and add-to-homescreen support.
 - Show player preview when scrolled.

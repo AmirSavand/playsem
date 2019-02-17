@@ -24,9 +24,19 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
     cacheKey = "party-" + vm.id;
 
     /**
-     * Get party data from state params (cache)
+     * Party object (will get from param (cache) or API)
      */
-    vm.party = $stateParams.party;
+    vm.party = null;
+
+    /**
+     * List of party categories with key as index (back-end IDs)
+     */
+    vm.categories = [];
+
+    /**
+     * List of categories with songs of this party
+     */
+    vm.songCategories = {};
 
     /**
      * List of songs of this party
@@ -62,9 +72,11 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
     /**
      * There's no party cache, get it via API
      */
-    if (!vm.party) {
+    if (!$stateParams.party) {
       getParty();
     } else {
+      vm.party = $stateParams.party;
+      generateCategories();
       $rootScope.$broadcast("mr-player.PartyController:loadParty", vm.party);
     }
 
@@ -87,6 +99,7 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
   let getParty = function () {
     API.get("parties/" + vm.id + "/", null, null, function (data) {
       vm.party = data.data;
+      generateCategories();
       $rootScope.$broadcast("mr-player.PartyController:loadParty", vm.party);
     }, function (data) {
       if (data.status === 404) {
@@ -119,7 +132,6 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
       party: vm.id
     };
     API.get("songs/", null, payload, function (data) {
-      vm.songs = [];
       vm.songs = data.data.results;
       // Update localStorage for cache
       localStorage.setItem(cacheKey, JSON.stringify(data.data.results));
@@ -146,6 +158,19 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
       }
     });
     return index;
+  };
+
+  /**
+   * Create an array of party categories with ID as index
+   * Should be called when vm.party is created or modified
+   */
+  let generateCategories = function () {
+    // Reset categories
+    vm.categories = [];
+    // Store categories
+    angular.forEach(vm.party.categories, function (category) {
+      vm.categories[category.id] = category;
+    });
   };
 
   /**
@@ -193,6 +218,9 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
     }
   };
 
+  /**
+   * Add a new song to the party (via input)
+   */
   vm.addSong = function () {
     let payload = {
       party: vm.party.id,
@@ -217,11 +245,47 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
   };
 
   /**
+   * Set song category
+   *
+   * @param {object} song
+   * @param {object|null} category
+   */
+  vm.setSongCategory = function (song, category) {
+    if (song.loading || (category && song.category === category.id) || (!category && !song.category)) {
+      delete song.selectingCategory;
+      return;
+    }
+
+    song.loading = true;
+
+    const payload = {
+      category: category ? category.id : null,
+    };
+
+    // Set category
+    API.put("songs/" + song.id + "/", payload, null, function (data) {
+      song.category = category ? category.id : null;
+      delete song.loading;
+      delete song.selectingCategory;
+      localStorage.setItem(cacheKey, JSON.stringify(vm.songs));
+      if (category) {
+        toaster.success("Done", "Moved song to \"" + category.name + "\".");
+      } else {
+        toaster.success("Done", "Removed song category.");
+      }
+    }, function (data) {
+      toaster.error("Error", "Failed to add song to category.");
+      console.log(data.data);
+      delete song.loading;
+    });
+  };
+
+  /**
    * Remove a song from the party (API call)
    */
   vm.removeSong = function (song) {
     /**
-     * Stop if song is loading or user did not confirm delete
+     * Stop if song is loading or user did not confirm remove
      */
     if (song.loading || !confirm("Are you sure you want to remove this song from the party?")) {
       return;
@@ -232,7 +296,7 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
       vm.songs.splice(vm.songs.indexOf(song), 1);
       localStorage.setItem(cacheKey, JSON.stringify(vm.songs));
     }, function (data) {
-      song.loading = false;
+      delete song.loading;
       toaster.error("Error", "Failed to remove song from the party.");
       console.error(data.data);
     });
@@ -249,25 +313,141 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
     // Prompt party name
     let newName = prompt("Rename party:", vm.party.name);
 
-    // Check if name is actually changed
-    if (newName === vm.party.name) {
+    // Check if name is actually changed and clicked "Done"
+    if (!newName || newName === vm.party.name) {
       return;
     }
 
-    /**
-     * API call to update party
-     */
     vm.party.loading = true;
-    let payload = {
+
+    const payload = {
       title: newName,
     };
+
+    // Rename party
     API.put("parties/" + vm.id + "/", payload, null, function (data) {
       vm.party = Object.assign(vm.party, data.data);
+      generateCategories();
       $rootScope.$broadcast("mr-player.PartyController:updateParty", vm.party);
       toaster.info("Updated", "Party renamed to \"" + vm.party.name + "\".");
     }, function (data) {
       vm.party.loading = false;
-      toaster.error("Error", "Failed to get party.");
+      toaster.error("Error", "Failed to rename party.");
+      console.error(data.data);
+    });
+  };
+
+  /**
+   * @todo Remove party
+   */
+  vm.removeParty = function () {
+    toaster.info("Coming soon", "Deleting party is not implemented yet.");
+  };
+
+  /**
+   * Add category to this party
+   */
+  vm.addCategory = function () {
+    const payload = {
+      party: vm.party.id,
+      name: prompt("Enter category name:"),
+    };
+
+    // Check if entered category name and clicked "Done"
+    if (!payload.name) {
+      return;
+    }
+
+    // Create category
+    API.post("party-categories/", payload, null, function (data) {
+      // Add category to party
+      vm.party.categories.push(data.data);
+      generateCategories();
+      toaster.info("Added", "Added \"" + data.data.name + "\" category to the party.");
+    }, function (data) {
+      if (data.data.non_field_errors) {
+        toaster.error("Error", data.data.non_field_errors[0]);
+      } else if (data.data.name) {
+        toaster.error("Category name error", data.data.name[0]);
+      } else {
+        toaster.error("Error", "Failed to create category.");
+        console.log(data.data);
+      }
+    });
+  };
+
+  /**
+   * Remove party category
+   * @param {object} category
+   */
+  vm.removeCategory = function (category) {
+    if (category.loading) {
+      return;
+    }
+
+    // Confirm delete
+    if (!confirm("Are you sure you want to delete category: \"" + category.name + "\"?")) {
+      return;
+    }
+
+    category.loading = true;
+
+    // Remove category
+    API.delete("party-categories/" + category.id + "/", null, null, function () {
+      // Remove category from list and regenerate vm.categories
+      vm.party.categories.splice(vm.party.categories.indexOf(category), 1);
+      generateCategories();
+      // Move all songs of that category to Other (uncategorized)
+      angular.forEach(vm.songs, function (song) {
+        if (song.category === category.id) {
+          song.category = null;
+        }
+      });
+      // Update songs in local storage
+      localStorage.setItem(cacheKey, JSON.stringify(vm.songs));
+    }, function (data) {
+      category.loading = false;
+      toaster.error("Error", "Failed to delete category.");
+      console.log(data.data);
+    });
+  };
+
+  /**
+   * Rename category
+   * @param {object} category
+   */
+  vm.renameCategory = function (category) {
+    if (category.loading) {
+      return;
+    }
+
+    // Prompt category name
+    let newName = prompt("Rename category:", category.name);
+
+    // Check if name is actually changed and clicked "Done"
+    if (!newName || newName === category.name) {
+      return;
+    }
+
+    category.loading = true;
+
+    const payload = {
+      party: vm.party.id,
+      name: newName,
+    };
+
+    // Rename category
+    API.put("party-categories/" + category.id + "/", payload, null, function (data) {
+      vm.categories[data.data.id] = data.data;
+      $rootScope.$broadcast("mr-player.PartyController:renameCategory", category);
+      toaster.info("Updated", "Category renamed to \"" + data.data.name + "\".");
+    }, function (data) {
+      category.loading = false;
+      if (data.data.non_field_errors) {
+        toaster.error("Error", data.data.non_field_errors[0]);
+      } else {
+        toaster.error("Error", "Failed to rename category.");
+      }
       console.error(data.data);
     });
   };
@@ -275,14 +455,14 @@ app.controller("PartyController", function (API, youtubeEmbedUtils, toaster,
   constructor();
 
   /**
-   * YouTube player ready
+   * YouTube player ready event
    */
   $scope.$on("youtube.player.ready", function (event, player) {
     vm.player.youtube = player;
   });
 
   /**
-   * YouTube player ended
+   * YouTube player ended event
    */
   $scope.$on("youtube.player.ended", function (event, player) {
     vm.play();

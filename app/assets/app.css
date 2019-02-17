@@ -4,8 +4,8 @@
 }
 
 ::-webkit-scrollbar {
-    width: 6px;
-    height: 4px;
+    width: 8px;
+    height: 8px;
     background: transparent;
 }
 
@@ -174,7 +174,8 @@ a, button {
     border-bottom: 2px solid rgba(0, 0, 0, 0.2);
 }
 
-.bg-dark .input-group-append .btn:active {
+.bg-dark .input-group-append .btn:active,
+.bg-dark .input-group-append.dropdown.show .btn {
     border-bottom-color: deeppink;
 }
 
@@ -247,10 +248,11 @@ a, button {
     background-position: left center;
     padding-left: 125px;
     height: 67px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     margin: 0;
+}
+
+.song:nth-of-type(2) {
+    border-top: 1px solid rgba(0, 0, 0, 0.1) !important;
 }
 
 .song:hover, .song:focus {
@@ -260,6 +262,14 @@ a, button {
 
 .song.active {
     background-color: rgba(0, 0, 0, 0.3);
+}
+
+.song > .list-group-item {
+    border: 0;
+    background: transparent;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .song .user {
@@ -272,6 +282,13 @@ a, button {
 .song .name {
     margin: 0;
     font-weight: lighter;
+}
+
+.song .btn {
+    z-index: 1;
+    position: relative;
+    top: 18px;
+    right: 15px;
 }
 
 
@@ -296,4 +313,17 @@ a, button {
 #toast-container > div {
     box-shadow: none !important;
     z-index: 1111;
+}
+
+/* Reveal */
+
+.reveal-parent:not(:hover) .reveal {
+    opacity: 0;
+}
+
+/* Dropdown */
+
+.dropdown-menu {
+    max-height: 300px;
+    overflow-y: auto;
 }
