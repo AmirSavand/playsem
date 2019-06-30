@@ -6,7 +6,7 @@ import { ApiError } from '@app/interfaces/api-error';
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.scss']
+  styleUrls: ['./sign-in.component.scss'],
 })
 export class SignInComponent implements OnInit {
   form: FormGroup;
@@ -14,7 +14,8 @@ export class SignInComponent implements OnInit {
   errors: ApiError = {};
 
   constructor(private formBuilder: FormBuilder,
-              private authService: AuthService) { }
+              private authService: AuthService) {
+  }
 
   ngOnInit(): void {
     /**
@@ -34,7 +35,8 @@ export class SignInComponent implements OnInit {
     this.loading = true;
     this.errors = {};
 
-    this.authService.signIn(this.f.username.value, this.f.password.value).subscribe(null, error => {
+    this.authService.signIn(this.f.username.value, this.f.password.value).subscribe((): void => {
+    }, (error): void => {
       this.loading = false;
       this.errors = error.error as ApiError;
     });

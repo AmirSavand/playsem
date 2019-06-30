@@ -5,7 +5,7 @@ import { AuthService } from '@app/services/auth/auth.service';
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.scss']
+  styleUrls: ['./sign-up.component.scss'],
 })
 export class SignUpComponent implements OnInit {
 
@@ -14,7 +14,8 @@ export class SignUpComponent implements OnInit {
   errors: any = {};
 
   constructor(private formBuilder: FormBuilder,
-              private authService: AuthService) { }
+              private authService: AuthService) {
+  }
 
   ngOnInit(): void {
     /**
@@ -33,14 +34,15 @@ export class SignUpComponent implements OnInit {
 
   submit() {
     this.loading = true;
-
     this.authService.signUp(
       this.f.username.value,
       this.f.email.value,
-      this.f.password.value).subscribe(null, (data: any) => {
+      this.f.password.value,
+    ).subscribe((): void => {
+      }, (data: any): void => {
         this.loading = false;
         this.errors = data.error;
-      }
+      },
     );
   }
 }
