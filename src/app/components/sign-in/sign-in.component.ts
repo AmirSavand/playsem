@@ -9,7 +9,6 @@ import { ApiError } from '@app/interfaces/api-error';
   styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent implements OnInit {
-
   form: FormGroup;
   loading = false;
   errors: ApiError = {};
@@ -40,5 +39,4 @@ export class SignInComponent implements OnInit {
       this.errors = error.error as ApiError;
     });
   }
-
 }
