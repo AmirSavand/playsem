@@ -10,18 +10,13 @@
     <!-- Authenticated nav -->
     <div class="nav-item dropdown ml-auto" *ngIf="auth.isAuth()" dropdown>
       <!-- Dropdown label -->
-      <div class="nav-link dropdown-toggle" dropdownToggle>
-        <!-- User name -->
-        <span class="navbar-text">{{ user.username }}</span>
-      </div>
+      <a class="nav-link dropdown-toggle" dropdownToggle>{{ user.username }}</a>
       <!-- User dropdown -->
       <ul class="dropdown-menu dropdown-menu-right" *dropdownMenu>
         <!-- Separator -->
-        <li class="dropdown-divider"></li>
+        <!-- <li class="dropdown-divider"></li> -->
         <!-- Sign out -->
-        <li>
-          <a class="dropdown-item" (click)="auth.signOut()">SIGN_OUT</a>
-        </li>
+        <li><a class="dropdown-item" (click)="auth.signOut()">Sign Out</a></li>
       </ul>
     </div>
     <!-- Unauthenticated nav -->
