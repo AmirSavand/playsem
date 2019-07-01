@@ -25,4 +25,14 @@ export class AppComponent implements OnInit {
       this.user = user;
     });
   }
+
+  /**
+   * @returns Dashboard link if user is authenticated but home page if not
+   */
+  getTitleLink(): string {
+    if (this.auth.isAuth()) {
+      return '/dashboard';
+    }
+    return '/';
+  }
 }
