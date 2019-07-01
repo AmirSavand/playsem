@@ -1,1 +1,16 @@
-<p>party works!</p>
+<!-- Party -->
+<div class="container-fluid py-5" *ngIf="party">
+  <h1 class="font-weight-bold">{{ party.name }}</h1>
+  <h4>Created by {{ party.user.username }}</h4>
+</div>
+
+<!-- Songs -->
+<table class="table table-dark table-hover" *ngIf="songs">
+  <tbody>
+  <tr *ngFor="let song of songs; let index = index">
+    <td>{{ song.name }}</td>
+    <td>{{ song.user.username }}</td>
+    <td class="text-secondary">#{{ song.category.name }}</td>
+  </tr>
+  </tbody>
+</table>
