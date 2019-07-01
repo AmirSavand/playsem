@@ -35,8 +35,8 @@ export class SignUpComponent implements OnInit {
   submit() {
     this.loading = true;
     this.authService.signUp(
-      this.f.username.value,
       this.f.email.value,
+      this.f.username.value,
       this.f.password.value,
     ).subscribe((): void => {
       }, (data: any): void => {
