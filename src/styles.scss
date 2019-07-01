@@ -10,4 +10,11 @@ $font-weight-bold: 700;
 
 $navbar-padding-y: 15px;
 
+$link-decoration: none;
+$link-hover-decoration: none;
+
+$card-bg: $dark;
+$card-color: $light;
+$card-border-width: 0;
+
 @import "~bootstrap/scss/bootstrap";
