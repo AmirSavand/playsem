@@ -1,7 +1,14 @@
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { DashboardComponent } from '@app/components/dashboard/dashboard.component';
+import { HomeComponent } from '@app/components/home/home.component';
+import { PartyComponent } from '@app/components/party/party.component';
+import { SignInComponent } from '@app/components/sign-in/sign-in.component';
+import { SignUpComponent } from '@app/components/sign-up/sign-up.component';
+import { UserSettingsComponent } from '@app/components/user-settings/user-settings.component';
+import { UserComponent } from '@app/components/user/user.component';
 import { ApiService } from '@app/services/api/api-service.service';
 import { AuthInterceptorService } from '@app/services/auth-interceptor/auth-interceptor.service';
 import { AuthService } from '@app/services/auth/auth.service';
@@ -11,13 +18,6 @@ import { CookieService } from 'ngx-cookie-service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SignInComponent } from './components/sign-in/sign-in.component';
-import { SignUpComponent } from './components/sign-up/sign-up.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { UserSettingsComponent } from './components/user-settings/user-settings.component';
-import { PartyComponent } from './components/party/party.component';
-import { UserComponent } from './components/user/user.component';
-import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
