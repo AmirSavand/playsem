@@ -2,9 +2,9 @@ import { Account } from './account';
 
 export interface User {
   id: number;
-  account: Account;
+  account?: Account;
   username: string;
-  email: string;
-  date_joined: string;
-  last_login: string;
+  email?: string;
+  date_joined?: string;
+  last_login?: string;
 }
