@@ -1,6 +1,6 @@
 import { Account } from './account';
 
-export interface UserAuth {
+export interface User {
   id: number;
   account: Account;
   username: string;

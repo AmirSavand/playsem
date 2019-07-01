@@ -4,7 +4,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="nav">
-    <ul class="navbar-nav ml-auto">
+    <ul class="navbar-nav ml-auto" *ngIf="auth.isAuth()">
       <li class="nav-item">
         <a class="nav-link" routerLink="/sign-in" routerLinkActive="active">Sign In</a>
       </li>

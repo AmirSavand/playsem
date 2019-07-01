@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthResponse } from '@app/interfaces/auth-response';
 import { AuthToken } from '@app/interfaces/auth-token';
-import { UserAuth } from '@app/interfaces/user-auth';
+import { User } from '@app/interfaces/user';
 import { ApiService } from '@app/services/api/api-service.service';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -22,16 +22,17 @@ export class AuthService {
   /**
    * Authentication user subject
    */
-  private userSubject: BehaviorSubject<UserAuth> = new BehaviorSubject<UserAuth>(null);
+  private userSubject: BehaviorSubject<User> = new BehaviorSubject<User>(null);
 
   /**
    * Authenticated user
    */
-  user: Observable<UserAuth>;
+  user: Observable<User> = this.userSubject.asObservable();
 
   constructor(private http: HttpClient,
               private router: Router,
-              private cookie: CookieService) {
+              private cookie: CookieService,
+              private api: ApiService) {
   }
 
   /**
@@ -51,20 +52,20 @@ export class AuthService {
   }
 
   /**
+   * @return Is user authenticated
+   */
+  isAuth(): boolean {
+    return localStorage.getItem('user') && this.cookie.check('token');
+  }
+
+  /**
    * Update authenticated user data
    *
    * @param userData UserSettings data
    */
-  setAuth(userData: UserAuth): void {
+  setUser(userData: User): void {
     localStorage.setItem('user', JSON.stringify(userData));
     this.userSubject.next(userData);
-  }
-
-  /**
-   * @return Is user authenticated or not
-   */
-  isAuth(): boolean {
-    return this.cookie.check('token');
   }
 
   /**
@@ -105,7 +106,7 @@ export class AuthService {
    * @return String observable which can be subscribed to.
    */
   signIn(username: string, password: string): Observable<string> {
-    return this.http.post<AuthResponse>(`${ApiService.base}auth/`, { username, password }).pipe(
+    return this.http.post<AuthResponse>(`${this.api}auth/`, { username, password }).pipe(
       map((data: AuthResponse): string => {
         // Store token into cookies
         this.setToken(data.token);
@@ -127,7 +128,7 @@ export class AuthService {
    * @param password user password
    */
   signUp(email: string, username: string, password: string): Observable<void> {
-    return this.http.post(`${ApiService.base}users/`, {
+    return this.http.post(this.api + 'users/', {
       email, username, password,
     }).pipe(
       map((): void => {
