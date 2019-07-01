@@ -31,12 +31,7 @@ export class AuthService {
 
   constructor(private http: HttpClient,
               private router: Router,
-              private cookie: CookieService,
-              private api: ApiService) {
-    if (this.isAuth) {
-      this.userSubject.next(JSON.parse(localStorage.getItem('user')));
-    }
-    this.user = this.userSubject.asObservable();
+              private cookie: CookieService) {
   }
 
   /**
@@ -110,7 +105,7 @@ export class AuthService {
    * @return String observable which can be subscribed to.
    */
   signIn(username: string, password: string): Observable<string> {
-    return this.http.post<AuthResponse>(`${ this.api }auth/`, {username, password}).pipe(
+    return this.http.post<AuthResponse>(`${ApiService.base}auth/`, { username, password }).pipe(
       map((data: AuthResponse): string => {
         // Store token into cookies
         this.setToken(data.token);
@@ -132,7 +127,7 @@ export class AuthService {
    * @param password user password
    */
   signUp(email: string, username: string, password: string): Observable<void> {
-    return this.http.post(this.api + 'users/', {
+    return this.http.post(`${ApiService.base}users/`, {
       email, username, password,
     }).pipe(
       map((): void => {
