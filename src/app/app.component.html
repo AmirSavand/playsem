@@ -4,7 +4,14 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="nav">
+    <!-- Authenticated nav -->
     <ul class="navbar-nav ml-auto" *ngIf="auth.isAuth()">
+      <li class="nav-item">
+        <a class="nav-link">{{ user | json }}</a>
+      </li>
+    </ul>
+    <!-- Unauthenticated nav -->
+    <ul class="navbar-nav ml-auto" *ngIf="!auth.isAuth()">
       <li class="nav-item">
         <a class="nav-link" routerLink="/sign-in" routerLinkActive="active">Sign In</a>
       </li>

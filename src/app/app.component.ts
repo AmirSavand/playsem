@@ -9,6 +9,9 @@ import { AuthService } from '@app/services/auth/auth.service';
 })
 export class AppComponent implements OnInit {
 
+  /**
+   * Authenticated user
+   */
   user: User;
 
   constructor(public auth: AuthService) {
@@ -16,7 +19,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     /**
-     * Get user
+     * Watch and get user
      */
     this.auth.user.subscribe(user => {
       this.user = user;
