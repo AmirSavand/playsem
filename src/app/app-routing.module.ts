@@ -21,10 +21,10 @@ const routes: Routes = [{
   path: 'dashboard',
   component: DashboardComponent,
 }, {
-  path: 'party',
+  path: 'party/:partyId',
   component: PartyComponent,
 }, {
-  path: 'user',
+  path: 'user/:userId',
   component: UserComponent,
 }, {
   path: 'user-settings',
