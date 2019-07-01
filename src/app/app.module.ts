@@ -14,6 +14,7 @@ import { AuthInterceptorService } from '@app/services/auth-interceptor/auth-inte
 import { AuthService } from '@app/services/auth/auth.service';
 import { PlayerComponent } from '@app/shared/player/player.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { BsDropdownModule } from 'ngx-bootstrap';
 import { CookieService } from 'ngx-cookie-service';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -39,6 +40,7 @@ import { AppComponent } from './app.component';
     ReactiveFormsModule,
     FontAwesomeModule,
     FormsModule,
+    BsDropdownModule.forRoot(),
   ],
   providers: [
     {
