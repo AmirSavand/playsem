@@ -1,8 +1,13 @@
+@import url('https://fonts.googleapis.com/css?family=Rubik:400,700&display=swap');
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
 
-$body-bg: $dark;
+$body-bg: darken($dark, 10);
 
-$navbar-brand-height: 10px;
+$font-family-base: 'Rubik';
+$font-weight-light: 400;
+$font-weight-bold: 700;
+
+$navbar-padding-y: 15px;
 
 @import "~bootstrap/scss/bootstrap";

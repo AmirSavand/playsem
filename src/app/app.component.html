@@ -1,20 +1,30 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <!-- Brand -->
   <a class="navbar-brand" routerLink="/">PlayzEM</a>
+  <!-- Toggler -->
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav">
     <span class="navbar-toggler-icon"></span>
   </button>
+  <!-- Navs -->
   <div class="collapse navbar-collapse" id="nav">
     <!-- Authenticated nav -->
     <ul class="navbar-nav ml-auto" *ngIf="auth.isAuth()">
+      <!-- Username -->
       <li class="nav-item">
-        <a class="nav-link">{{ user | json }}</a>
+        <span class="navbar-text">{{ user.username }}</span>
+      </li>
+      <!-- Sign out -->
+      <li class="nav-item">
+        <a class="nav-link" (click)="auth.signOut()">Sign Out</a>
       </li>
     </ul>
     <!-- Unauthenticated nav -->
     <ul class="navbar-nav ml-auto" *ngIf="!auth.isAuth()">
+      <!-- Sign in -->
       <li class="nav-item">
         <a class="nav-link" routerLink="/sign-in" routerLinkActive="active">Sign In</a>
       </li>
+      <!-- Sign up -->
       <li class="nav-item">
         <a class="nav-link" routerLink="/sign-up" routerLinkActive="active">Sign Up</a>
       </li>
@@ -22,4 +32,5 @@
   </div>
 </nav>
 
+<!-- Pages -->
 <router-outlet></router-outlet>
