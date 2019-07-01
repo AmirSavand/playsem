@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ApiService } from '@app/services/api/api-service.service';
 import { AuthInterceptorService } from '@app/services/auth-interceptor/auth-interceptor.service';
 import { AuthService } from '@app/services/auth/auth.service';
+import { PlayerComponent } from '@app/shared/player/player.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -28,6 +29,7 @@ import { HomeComponent } from './components/home/home.component';
     PartyComponent,
     UserComponent,
     HomeComponent,
+    PlayerComponent,
   ],
   imports: [
     BrowserModule,
