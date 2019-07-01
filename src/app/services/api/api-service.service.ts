@@ -23,15 +23,29 @@ export class ApiService {
    * Get party list
    */
   getParties(): Observable<ApiResponse<Party>> {
-    return this.http.get<ApiResponse<Party>>(`${ApiService.base}parties`).pipe();
+    return this.http.get<ApiResponse<Party>>(`${ApiService.base}parties/`).pipe();
   }
 
   /**
-   * Get songs
+   * Get party data
+   */
+  getParty(id: string): Observable<Party> {
+    return this.http.get<Party>(`${ApiService.base}parties/${id}/`).pipe();
+  }
+
+  /**
+   * Get song list
    */
   getSongs(party: string): Observable<ApiResponse<Song>> {
-    return this.http.get<ApiResponse<Song>>(`${ApiService.base}songs`, {
+    return this.http.get<ApiResponse<Song>>(`${ApiService.base}songs/`, {
       params: { party },
     }).pipe();
+  }
+
+  /**
+   * Get song data
+   */
+  getSong(id: number): Observable<Song> {
+    return this.http.get<Song>(`${ApiService.base}songs/${id}/`).pipe();
   }
 }
