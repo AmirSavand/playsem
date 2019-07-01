@@ -91,7 +91,11 @@ export class AuthService {
   setToken(token: string): void {
     const parsedJwt: AuthToken = AuthService.parseJwt(token);
     if (parsedJwt) {
-      this.cookie.set('token', token, new Date(parsedJwt.exp * 1000), '/');
+      /**
+       * @fixme Use expiration date: new Date(parsedJwt.exp * 1000)
+       */
+      const fixMe = 1000000;
+      this.cookie.set('token', token, null, '/');
     }
   }
 
