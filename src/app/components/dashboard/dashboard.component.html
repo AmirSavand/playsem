@@ -1,1 +1,12 @@
-<p>dashboard works!</p>
+<div class="container-fluid py-3">
+  <div class="row">
+    <div class="col-md-4" *ngFor="let party of parties">
+      <a class="card" [routerLink]="['/party', party.id]">
+        <div class="card-body py-5">
+          <h1 class="font-weight-bold">{{ party.name }}</h1>
+          <h3 class="m-0">{{ party.user.username }}</h3>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
