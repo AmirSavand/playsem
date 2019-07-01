@@ -8,16 +8,22 @@
   <!-- Navs -->
   <div class="collapse navbar-collapse" id="nav">
     <!-- Authenticated nav -->
-    <ul class="navbar-nav ml-auto" *ngIf="auth.isAuth()">
-      <!-- Username -->
-      <li class="nav-item">
+    <div class="nav-item dropdown ml-auto" *ngIf="auth.isAuth()" dropdown>
+      <!-- Dropdown label -->
+      <div class="nav-link dropdown-toggle" dropdownToggle>
+        <!-- User name -->
         <span class="navbar-text">{{ user.username }}</span>
-      </li>
-      <!-- Sign out -->
-      <li class="nav-item">
-        <a class="nav-link" (click)="auth.signOut()">Sign Out</a>
-      </li>
-    </ul>
+      </div>
+      <!-- User dropdown -->
+      <ul class="dropdown-menu dropdown-menu-right" *dropdownMenu>
+        <!-- Separator -->
+        <li class="dropdown-divider"></li>
+        <!-- Sign out -->
+        <li>
+          <a class="dropdown-item" (click)="auth.signOut()">SIGN_OUT</a>
+        </li>
+      </ul>
+    </div>
     <!-- Unauthenticated nav -->
     <ul class="navbar-nav ml-auto" *ngIf="!auth.isAuth()">
       <!-- Sign in -->
