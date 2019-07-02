@@ -1,16 +1,32 @@
 <!-- Party -->
-<div class="container-fluid py-5" *ngIf="party">
-  <h1 class="font-weight-bold">{{ party.name }}</h1>
-  <h4>Created by {{ party.user.username }}</h4>
+<div class="party d-flex shadow" *ngIf="party">
+  <div class="cover" [ngStyle]="{backgroundImage: 'url(https://i.imgur.com/M3zgvc8.jpg)'}"></div>
+  <div class="d-flex flex-column justify-content-around ml-3">
+    <div>
+      <h1 class="font-weight-bold">{{ party.name }}</h1>
+      <p>
+        <a [routerLink]="['/user', party.user.id]">{{ party.user.username }}</a>
+        &bull; 86 SONGS
+        &bull; {{ party.date | date }}
+      </p>
+    </div>
+    <div>
+      <button class="btn btn-dark btn-sm">Play</button>
+      <button class="btn btn-dark btn-sm ml-2">Like</button>
+      <button class="btn btn-dark btn-sm ml-2">Join</button>
+    </div>
+  </div>
 </div>
 
 <!-- Songs -->
-<table class="table table-dark table-hover" *ngIf="songs">
+<table class="table table-hover" *ngIf="songs">
   <tbody>
-  <tr *ngFor="let song of songs; let index = index">
+  <tr *ngFor="let song of songs">
     <td>{{ song.name }}</td>
     <td>{{ song.user.username }}</td>
-    <td class="text-secondary">#{{ song.category.name }}</td>
+    <td class="text-secondary">
+      <span *ngIf="song.category">#{{ song.category.name }}</span>
+    </td>
   </tr>
   </tbody>
 </table>
