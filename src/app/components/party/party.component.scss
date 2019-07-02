@@ -1,3 +1,25 @@
+@import "~src/assets/variables";
+
+.btn {
+  padding-top: 6px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.party {
+  &, button {
+    text-transform: uppercase;
+  }
+
+  .cover {
+    width: 200px;
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    background-color: $info;
+  }
+}
+
 table {
   tbody {
     tr {

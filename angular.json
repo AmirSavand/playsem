@@ -48,7 +48,7 @@
               "src/_redirects"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/assets/styles.scss"
             ],
             "scripts": []
           },
@@ -108,7 +108,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/assets/styles.scss"
             ],
             "scripts": []
           }
