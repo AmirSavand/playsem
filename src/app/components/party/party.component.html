@@ -18,10 +18,25 @@
   </div>
 </div>
 
+<!-- Categories -->
+<div class="pl-4 pt-4 pb-2 text-uppercase" *ngIf="party">
+  <a class="btn btn-link mr-3"
+       [class.text-primary]="!category"
+       [class.text-light]="category"
+       (click)="category = null">All Songs</a>
+  <a class="btn btn-link mr-3"
+       [class.text-primary]="category === partyCategory"
+       [class.text-light]="category !== partyCategory"
+       (click)="category = partyCategory"
+       *ngFor="let partyCategory of party.categories">
+    {{ partyCategory.name }}
+  </a>
+</div>
+
 <!-- Songs -->
 <table class="table table-hover" *ngIf="songs">
   <tbody>
-  <tr *ngFor="let song of songs">
+  <tr *ngFor="let song of songs" (click)="play(song)">
     <td>{{ song.name }}</td>
     <td>{{ song.user.username }}</td>
     <td class="text-secondary">

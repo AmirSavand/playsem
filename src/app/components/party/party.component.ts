@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Category } from '@app/interfaces/category';
 import { Party } from '@app/interfaces/party';
 import { Song } from '@app/interfaces/song';
 import { ApiService } from '@app/services/api/api-service.service';
+import { PlayerService } from '@app/services/player/player.service';
 
 @Component({
   selector: 'app-party',
@@ -25,6 +27,11 @@ export class PartyComponent implements OnInit {
    * Song list of party
    */
   songs: Song[];
+
+  /**
+   * Category filter
+   */
+  category: Category;
 
   constructor(private api: ApiService,
               private route: ActivatedRoute) {
@@ -63,5 +70,13 @@ export class PartyComponent implements OnInit {
         song.party = this.party;
       }
     });
+  }
+
+  /**
+   * Play the song from the player
+   * @param song Song to play
+   */
+  play(song: Song): void {
+    PlayerService.play(song);
   }
 }

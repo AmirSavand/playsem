@@ -2,8 +2,6 @@
 
 $body-bg: #242429;
 $body-color: $light;
-$link-color: $light;
-$link-hover-color: darken($light, 20);
 
 $font-family-base: 'Rubik';
 
@@ -20,9 +18,13 @@ $enable-rounded: false;
 $transition-base: 0;
 $transition-fade: 0;
 
-$table-color: $light;
+$table-color: darken($light, 20);
 $table-hover-color: $light;
 $table-border-width: 0;
 $table-cell-padding: 20px;
 
 @import "~bootstrap/scss/bootstrap";
+
+body {
+  cursor: default;
+}
