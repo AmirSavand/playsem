@@ -1,47 +1,56 @@
 <!-- Player outer -->
-<div id="player" class="navbar navbar-expand navbar-dark bg-dark fixed-bottom row">
+<div id="outer" class="navbar navbar-expand navbar-dark bg-dark fixed-bottom">
 
-  <!-- Playing -->
-  <div id="playing" class="col-4">
-
-    <!-- Playing cover -->
-    <div class="cover" *ngIf="playing" [ngStyle]="{backgroundImage: 'url(https://i.imgur.com/M3zgvc8.jpg)'}"></div>
-
-    <!-- Player name and party and user -->
-    <div class="info d-flex flex-column justify-content-center ml-3" *ngIf="playing">
-      <span class="text-truncate">{{ playing.name }}</span>
-      <small class="text-truncate text-secondary">
-        {{ playing.party.name }} &bull; {{ playing.user.username }}
-      </small>
-    </div>
+  <!-- Timeline -->
+  <div id="timeline">
+    <progressbar [value]="30"></progressbar>
   </div>
 
-  <!-- Controls -->
-  <div id="controls" class="col-4 justify-content-center">
-    <div>
-      <fa-icon icon="backward"></fa-icon>
-    </div>
-    <div>
-      <fa-icon icon="play"></fa-icon>
-    </div>
-    <div>
-      <fa-icon icon="forward"></fa-icon>
-    </div>
-  </div>
+  <!-- Player -->
+  <div id="player" class="row">
 
-  <!-- Options -->
-  <div id="options" class="col-4 justify-content-end align-items-center">
-    <div>
-      <fa-icon icon="retweet"></fa-icon>
+    <!-- Playing -->
+    <div id="playing" class="col-4">
+
+      <!-- Playing cover -->
+      <div class="cover" *ngIf="playing" [ngStyle]="{backgroundImage: 'url(https://i.imgur.com/M3zgvc8.jpg)'}"></div>
+
+      <!-- Player name and party and user -->
+      <div class="info d-flex flex-column justify-content-center ml-3" *ngIf="playing">
+        <span class="text-truncate">{{ playing.name }}</span>
+        <small class="text-truncate text-secondary">
+          {{ playing.party.name }} &bull; {{ playing.user.username }}
+        </small>
+      </div>
     </div>
-    <div>
-      <fa-icon icon="random"></fa-icon>
+
+    <!-- Controls -->
+    <div id="controls" class="col-4 justify-content-center">
+      <div>
+        <fa-icon icon="backward"></fa-icon>
+      </div>
+      <div>
+        <fa-icon icon="play"></fa-icon>
+      </div>
+      <div>
+        <fa-icon icon="forward"></fa-icon>
+      </div>
     </div>
-    <div>
-      <fa-icon icon="volume-up"></fa-icon>
-    </div>
-    <div class="volume">
-      <progressbar [value]="90"></progressbar>
+
+    <!-- Options -->
+    <div id="options" class="col-4 justify-content-end align-items-center">
+      <div>
+        <fa-icon icon="retweet"></fa-icon>
+      </div>
+      <div>
+        <fa-icon icon="random"></fa-icon>
+      </div>
+      <div>
+        <fa-icon icon="volume-up"></fa-icon>
+      </div>
+      <div class="volume">
+        <progressbar [value]="90"></progressbar>
+      </div>
     </div>
   </div>
 </div>
