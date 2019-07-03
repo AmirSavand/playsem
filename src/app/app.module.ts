@@ -17,9 +17,19 @@ import { PlayerComponent } from '@app/shared/player/player.component';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
+import { faBackward } from '@fortawesome/free-solid-svg-icons/faBackward';
+import { faForward } from '@fortawesome/free-solid-svg-icons/faForward';
+import { faPause } from '@fortawesome/free-solid-svg-icons/faPause';
 import { faPlay } from '@fortawesome/free-solid-svg-icons/faPlay';
+import { faRandom } from '@fortawesome/free-solid-svg-icons/faRandom';
+import { faRetweet } from '@fortawesome/free-solid-svg-icons/faRetweet';
+import { faStop } from '@fortawesome/free-solid-svg-icons/faStop';
+import { faVolumeDown } from '@fortawesome/free-solid-svg-icons/faVolumeDown';
+import { faVolumeMute } from '@fortawesome/free-solid-svg-icons/faVolumeMute';
+import { faVolumeOff } from '@fortawesome/free-solid-svg-icons/faVolumeOff';
+import { faVolumeUp } from '@fortawesome/free-solid-svg-icons/faVolumeUp';
 
-import { BsDropdownModule } from 'ngx-bootstrap';
+import { BsDropdownModule, ProgressbarModule } from 'ngx-bootstrap';
 import { CookieService } from 'ngx-cookie-service';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -46,6 +56,7 @@ import { AppComponent } from './app.component';
     FontAwesomeModule,
     FormsModule,
     BsDropdownModule.forRoot(),
+    ProgressbarModule.forRoot(),
   ],
   providers: [
     {
@@ -62,5 +73,15 @@ import { AppComponent } from './app.component';
 export class AppModule {
   constructor() {
     library.add(faPlay);
+    library.add(faPause);
+    library.add(faStop);
+    library.add(faForward);
+    library.add(faBackward);
+    library.add(faRandom);
+    library.add(faRetweet);
+    library.add(faVolumeUp);
+    library.add(faVolumeDown);
+    library.add(faVolumeOff);
+    library.add(faVolumeMute);
   }
 }

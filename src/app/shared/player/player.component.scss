@@ -1,3 +1,46 @@
-.navbar {
+@import "~src/assets/variables";
+
+#player {
   height: 80px;
+
+  #playing,
+  #controls,
+  #options {
+    display: flex;
+
+    &:not(#playing) > div {
+      margin: 0 15px;
+    }
+  }
+
+  #playing {
+
+    .cover {
+      flex-basis: 50px;
+      min-width: 50px;
+      height: 50px;
+      background-size: cover;
+      background-position: center;
+      background-color: $info;
+    }
+
+    .info {
+      overflow: hidden;
+    }
+  }
+
+  #options {
+
+    .volume {
+      width: 100px;
+
+      .progress {
+        height: 10px;
+        border-radius: 1000px;
+        background: lighten($dark, 20);
+      }
+    }
+  }
 }
+
+
