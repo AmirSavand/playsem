@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Song } from '@app/interfaces/song';
 import { PlayerService } from '@app/services/player/player.service';
+import { NgxY2PlayerComponent, NgxY2PlayerOptions } from 'ngx-y2-player';
 
 @Component({
   selector: 'app-player',
@@ -8,6 +9,23 @@ import { PlayerService } from '@app/services/player/player.service';
   styleUrls: ['./player.component.scss'],
 })
 export class PlayerComponent implements OnInit {
+
+  /**
+   * YouTube player instance
+   */
+  @ViewChild('video', { static: false }) youtube: NgxY2PlayerComponent;
+
+  /**
+   * YouTube player options
+   */
+  private readonly videoPlayerOptions: NgxY2PlayerOptions = {
+    playerVars: {
+      autoplay: 1,
+      iv_load_policy: 0,
+    },
+    // @ts-ignore
+    width: '100%',
+  };
 
   /**
    * Song list of current playlist
@@ -18,6 +36,16 @@ export class PlayerComponent implements OnInit {
    * Song currently playing (active) from the playlist
    */
   playing: Song;
+
+  /**
+   * Song currently playing timeline
+   */
+  timeline: number;
+
+  /**
+   * Expand player
+   */
+  expand: boolean;
 
   constructor() {
   }
@@ -34,6 +62,56 @@ export class PlayerComponent implements OnInit {
      */
     PlayerService.playing.subscribe(data => {
       this.playing = data;
+      if (this.youtube) {
+        this.youtube.videoPlayer.loadVideoById(PlayerService.getYouTubeVideoID(this.playing.source));
+      }
     });
+    /**
+     * Update timeline
+     */
+    setInterval((): void => this.updateTimeline(), 250);
+  }
+
+  /**
+   * Seek to a time from the timeline
+   *
+   * @param event Mouse event
+   */
+  seek(event: MouseEvent): void {
+    this.youtube.videoPlayer.seekTo(
+      this.youtube.videoPlayer.getDuration() * (event.offsetX / window.innerWidth), true,
+    );
+    this.updateTimeline();
+  }
+
+  /**
+   * Update the song currently playing timeline
+   */
+  updateTimeline(): void {
+    if (this.youtube && this.youtube.videoPlayer && this.youtube.videoPlayer.getCurrentTime) {
+      this.timeline = this.youtube.videoPlayer.getCurrentTime() / this.youtube.videoPlayer.getDuration() * 100;
+    } else {
+      this.timeline = 0;
+    }
+  }
+
+  /**
+   * Called when YouTube player is ready
+   */
+  onYouTubePlayerRead(): void {
+    // Do something later
+  }
+
+  /**
+   * Called when YouTube player has changed state
+   */
+  onYouTubePlayerChange(): void {
+    /**
+     * Play the next song if this song ended
+     */
+    if (this.youtube.videoPlayer.getPlayerState() === YT.PlayerState.ENDED) {
+      PlayerService.playNext();
+    }
+    this.updateTimeline();
   }
 }
