@@ -1,22 +1,24 @@
-<!-- Player outer -->
-<div id="outer" class="navbar navbar-expand navbar-dark bg-dark fixed-bottom">
+<!-- Outer -->
+<div id="outer" class="fixed-bottom">
 
   <!-- Timeline -->
-  <div id="timeline">
-    <progressbar [value]="30"></progressbar>
+  <div id="timeline" (click)="seek($event)" *ngIf="playing">
+
+    <!-- Progress bar -->
+    <progressbar [value]="timeline"></progressbar>
   </div>
 
   <!-- Player -->
-  <div id="player" class="row">
+  <div id="player" class="navbar navbar-expand navbar-dark bg-dark row" *ngIf="playing">
 
     <!-- Playing -->
-    <div id="playing" class="col-4">
+    <div id="playing" class="col-4" (click)="expand= !expand">
 
       <!-- Playing cover -->
-      <div class="cover" *ngIf="playing" [ngStyle]="{backgroundImage: 'url(https://i.imgur.com/M3zgvc8.jpg)'}"></div>
+      <div class="cover" [ngStyle]="{backgroundImage: 'url(https://i.imgur.com/M3zgvc8.jpg)'}"></div>
 
       <!-- Player name and party and user -->
-      <div class="info d-flex flex-column justify-content-center ml-3" *ngIf="playing">
+      <div class="info d-flex flex-column justify-content-center ml-3">
         <span class="text-truncate">{{ playing.name }}</span>
         <small class="text-truncate text-secondary">
           {{ playing.party.name }} &bull; {{ playing.user.username }}
@@ -25,7 +27,7 @@
     </div>
 
     <!-- Controls -->
-    <div id="controls" class="col-4 justify-content-center">
+    <div id="controls" class="col-4 justify-content-center" *ngIf="playing">
       <div>
         <fa-icon icon="backward"></fa-icon>
       </div>
@@ -38,7 +40,7 @@
     </div>
 
     <!-- Options -->
-    <div id="options" class="col-4 justify-content-end align-items-center">
+    <div id="options" class="col-4 justify-content-end align-items-center" *ngIf="playing">
       <div>
         <fa-icon icon="retweet"></fa-icon>
       </div>
@@ -49,8 +51,19 @@
         <fa-icon icon="volume-up"></fa-icon>
       </div>
       <div class="volume">
-        <progressbar [value]="90"></progressbar>
+        <progressbar [value]="30"></progressbar>
       </div>
     </div>
+  </div>
+
+  <!-- YouTube -->
+  <div id="youtube" [class.open]="expand">
+    <ngx-y2-player #video
+                   [tabIndex]="-1"
+                   [videoId]="'nothing'"
+                   [playerOptions]="videoPlayerOptions"
+                   (ready)="onYouTubePlayerRead()"
+                   (stateChange)="onYouTubePlayerChange()">
+    </ngx-y2-player>
   </div>
 </div>
