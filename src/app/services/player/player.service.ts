@@ -79,4 +79,14 @@ export class PlayerService {
   static isPlaying(song: Song): boolean {
     return song === PlayerService.playingSubject.value;
   }
+
+  /**
+   * @returns Whether the song is the last one in the list or not
+   * @param song Song to check
+   */
+  static isLastSong(song: Song): boolean {
+    const songs: Song[] = this.songsSubject.value;
+    const index: number = songs.indexOf(song);
+    return songs.length === index + 1;
+  }
 }
