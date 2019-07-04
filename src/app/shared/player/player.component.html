@@ -28,13 +28,16 @@
 
     <!-- Controls -->
     <div id="controls" class="col-4 justify-content-center" *ngIf="playing">
-      <div>
+      <div class="button" (click)="previous()">
         <fa-icon icon="backward"></fa-icon>
       </div>
-      <div>
+      <div class="button" (click)="pause()" *ngIf="!isPaused()">
+        <fa-icon icon="pause"></fa-icon>
+      </div>
+      <div class="button" (click)="play()" *ngIf="isPaused()">
         <fa-icon icon="play"></fa-icon>
       </div>
-      <div>
+      <div class="button" (click)="next()">
         <fa-icon icon="forward"></fa-icon>
       </div>
     </div>
@@ -57,7 +60,7 @@
   </div>
 
   <!-- YouTube -->
-  <div id="youtube" [class.open]="expand">
+  <div id="youtube" [class.open]="expand" class="embed-responsive embed-responsive-16by9">
     <ngx-y2-player #video
                    [tabIndex]="-1"
                    [videoId]="'nothing'"

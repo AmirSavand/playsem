@@ -65,6 +65,21 @@ export class PlayerService {
   }
 
   /**
+   * Play the previous song (play the last if first song was playing)
+   */
+  static playPrevious() {
+    const songs: Song[] = PlayerService.songsSubject.value;
+    const playing: Song = PlayerService.playingSubject.value;
+    const index: number = songs.indexOf(playing);
+
+    if (!PlayerService.isFirstSong(playing)) {
+      PlayerService.play(songs[index - 1]);
+    } else {
+      PlayerService.play(songs[songs.length - 1]);
+    }
+  }
+
+  /**
    * @returns Whether the song is in queue or not
    * @param song Song to check
    */
@@ -86,7 +101,14 @@ export class PlayerService {
    */
   static isLastSong(song: Song): boolean {
     const songs: Song[] = this.songsSubject.value;
-    const index: number = songs.indexOf(song);
-    return songs.length === index + 1;
+    return songs.length === songs.indexOf(song) + 1;
+  }
+
+  /**
+   * @returns Whether the song is the first one in the list or not
+   * @param song Song to check
+   */
+  static isFirstSong(song: Song): boolean {
+    return this.songsSubject.value.indexOf(song) === 0;
   }
 }
