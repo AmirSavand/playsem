@@ -100,6 +100,20 @@ export class PlayerComponent {
   }
 
   /**
+   * UnMute the player
+   */
+  unMute(): void {
+    this.youtube.videoPlayer.unMute();
+  }
+
+  /**
+   * Mute the player
+   */
+  mute(): void {
+    this.youtube.videoPlayer.mute();
+  }
+
+  /**
    * @returns Whether the YouTube player is currently playing or not
    */
   isPaused(): boolean {
@@ -108,6 +122,13 @@ export class PlayerComponent {
       state !== YT.PlayerState.PLAYING &&
       state !== YT.PlayerState.BUFFERING
     );
+  }
+
+  /**
+   * @returns Whether the YouTube player is muted or not
+   */
+  isMute(): boolean {
+    return this.youtube.videoPlayer.isMuted();
   }
 
   /**

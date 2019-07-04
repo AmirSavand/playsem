@@ -19,7 +19,13 @@
       display: flex;
 
       &:not(#playing) > div {
-        margin: 0 15px;
+        margin: 0 5px;
+        padding: 10px;
+        cursor: pointer;
+
+        &:active {
+          opacity: 0.4;
+        }
       }
     }
 
@@ -55,7 +61,7 @@
     transition: height 250ms;
 
     &.open {
-      height: initial;
+      height: 480px;
     }
   }
 }

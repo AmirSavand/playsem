@@ -28,32 +28,35 @@
 
     <!-- Controls -->
     <div id="controls" class="col-4 justify-content-center" *ngIf="playing">
-      <div class="button" (click)="previous()">
+      <div (click)="previous()">
         <fa-icon icon="backward"></fa-icon>
       </div>
-      <div class="button" (click)="pause()" *ngIf="!isPaused()">
+      <div (click)="pause()" *ngIf="!isPaused()">
         <fa-icon icon="pause"></fa-icon>
       </div>
-      <div class="button" (click)="play()" *ngIf="isPaused()">
+      <div (click)="play()" *ngIf="isPaused()">
         <fa-icon icon="play"></fa-icon>
       </div>
-      <div class="button" (click)="next()">
+      <div (click)="next()">
         <fa-icon icon="forward"></fa-icon>
       </div>
     </div>
 
     <!-- Options -->
     <div id="options" class="col-4 justify-content-end align-items-center" *ngIf="playing">
-      <div>
+      <div (click)="repeat = !repeat">
         <fa-icon icon="retweet"></fa-icon>
       </div>
-      <div>
+      <div (click)="random = !random">
         <fa-icon icon="random"></fa-icon>
       </div>
-      <div>
+      <div (click)="mute()" *ngIf="!isMute()">
         <fa-icon icon="volume-up"></fa-icon>
       </div>
-      <div class="volume">
+      <div (click)="unMute()" *ngIf="isMute()">
+        <fa-icon icon="volume-mute"></fa-icon>
+      </div>
+      <div class="volume" [hidden]="true">
         <progressbar [value]="30"></progressbar>
       </div>
     </div>
