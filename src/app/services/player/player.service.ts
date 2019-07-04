@@ -29,6 +29,13 @@ export class PlayerService {
   }
 
   /**
+   * Clear song list
+   */
+  static clear(): void {
+    PlayerService.songsSubject.next([]);
+  }
+
+  /**
    * Add a song into the list
    * @param song Song to add
    */

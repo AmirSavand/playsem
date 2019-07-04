@@ -4,6 +4,7 @@
   padding-top: 6px;
   padding-left: 15px;
   padding-right: 15px;
+  cursor: pointer;
 }
 
 .party {
@@ -24,6 +25,15 @@ table {
   tbody {
     tr {
       cursor: pointer;
+
+      &.active {
+        color: white;
+        background: $table-hover-bg;
+      }
+
+      &:active {
+        opacity: 0.5;
+      }
     }
   }
 }

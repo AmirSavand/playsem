@@ -6,14 +6,20 @@
       <h1 class="font-weight-bold">{{ party.name }}</h1>
       <p>
         <a [routerLink]="['/user', party.user.id]">{{ party.user.username }}</a>
-        &bull; 86 SONGS
+        &bull; {{ songs.length }} SONGS
         &bull; {{ party.date | date }}
       </p>
     </div>
     <div>
-      <button class="btn btn-dark btn-sm">Play</button>
-      <button class="btn btn-dark btn-sm ml-2">Like</button>
-      <button class="btn btn-dark btn-sm ml-2">Join</button>
+      <button class="btn btn-dark btn-sm" (click)="play()">
+        <fa-icon [fixedWidth]="true" icon="play"></fa-icon>
+      </button>
+      <button class="btn btn-dark btn-sm ml-2">
+        <fa-icon [fixedWidth]="true" icon="heart"></fa-icon>
+      </button>
+      <button class="btn btn-dark btn-sm ml-2">
+        <fa-icon [fixedWidth]="true" icon="user-plus"></fa-icon>
+      </button>
     </div>
   </div>
 </div>
@@ -21,14 +27,14 @@
 <!-- Categories -->
 <div class="pl-4 pt-4 pb-2 text-uppercase" *ngIf="party">
   <a class="btn btn-link mr-3"
-       [class.text-primary]="!category"
-       [class.text-light]="category"
-       (click)="category = null">All Songs</a>
+     [class.text-primary]="!category"
+     [class.text-light]="category"
+     (click)="category = null">All Songs</a>
   <a class="btn btn-link mr-3"
-       [class.text-primary]="category === partyCategory"
-       [class.text-light]="category !== partyCategory"
-       (click)="category = partyCategory"
-       *ngFor="let partyCategory of party.categories">
+     [class.text-primary]="category === partyCategory"
+     [class.text-light]="category !== partyCategory"
+     (click)="category = partyCategory"
+     *ngFor="let partyCategory of party.categories">
     {{ partyCategory.name }}
   </a>
 </div>
@@ -36,7 +42,7 @@
 <!-- Songs -->
 <table class="table table-hover" *ngIf="songs">
   <tbody>
-  <tr *ngFor="let song of songs" (click)="play(song)">
+  <tr *ngFor="let song of songs" (click)="play(song)" [class.active]="song === playing">
     <td>{{ song.name }}</td>
     <td>{{ song.user.username }}</td>
     <td class="text-secondary">

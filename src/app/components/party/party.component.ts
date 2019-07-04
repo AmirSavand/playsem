@@ -26,12 +26,17 @@ export class PartyComponent implements OnInit {
   /**
    * Song list of party
    */
-  songs: Song[];
+  songs: Song[] = [];
 
   /**
    * Category filter
    */
   category: Category;
+
+  /**
+   * Song currently playing
+   */
+  playing: Song;
 
   constructor(private api: ApiService,
               private route: ActivatedRoute) {
@@ -57,6 +62,12 @@ export class PartyComponent implements OnInit {
         this.loadSongs();
       });
     });
+    /**
+     * Get song currently playing and subscribe
+     */
+    PlayerService.playing.subscribe(data => {
+      this.playing = data;
+    });
   }
 
   /**
@@ -73,10 +84,24 @@ export class PartyComponent implements OnInit {
   }
 
   /**
-   * Play the song from the player
-   * @param song Song to play
+   * Queue all party songs and play the song (if not set, play the first)
+   * @param song Song to play (not provided when clicking "Play")
    */
-  play(song: Song): void {
-    PlayerService.play(song);
+  play(song?: Song): void {
+    // Clear songs
+    PlayerService.clear();
+    // If there are any party songs
+    if (this.songs.length) {
+      // If song is not provided, start playing the first one
+      if (!song) {
+        song = this.songs[0];
+      }
+      // Queue all songs
+      for (const partySong of this.songs) {
+        PlayerService.queue(partySong);
+      }
+      // Play the song (first or selected)
+      PlayerService.play(song);
+    }
   }
 }

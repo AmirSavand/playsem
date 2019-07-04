@@ -19,11 +19,13 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faBackward } from '@fortawesome/free-solid-svg-icons/faBackward';
 import { faForward } from '@fortawesome/free-solid-svg-icons/faForward';
+import { faHeart } from '@fortawesome/free-solid-svg-icons/faHeart';
 import { faPause } from '@fortawesome/free-solid-svg-icons/faPause';
 import { faPlay } from '@fortawesome/free-solid-svg-icons/faPlay';
 import { faRandom } from '@fortawesome/free-solid-svg-icons/faRandom';
 import { faRetweet } from '@fortawesome/free-solid-svg-icons/faRetweet';
 import { faStop } from '@fortawesome/free-solid-svg-icons/faStop';
+import { faUserPlus } from '@fortawesome/free-solid-svg-icons/faUserPlus';
 import { faVolumeDown } from '@fortawesome/free-solid-svg-icons/faVolumeDown';
 import { faVolumeMute } from '@fortawesome/free-solid-svg-icons/faVolumeMute';
 import { faVolumeOff } from '@fortawesome/free-solid-svg-icons/faVolumeOff';
@@ -85,5 +87,7 @@ export class AppModule {
     library.add(faVolumeDown);
     library.add(faVolumeOff);
     library.add(faVolumeMute);
+    library.add(faHeart);
+    library.add(faUserPlus);
   }
 }
