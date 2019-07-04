@@ -1,14 +1,17 @@
 @import "~src/assets/variables";
 
 #outer {
-  height: 80px;
-  display: block;;
 
   #timeline {
+    position: relative;
+    z-index: 1;
+    height: 12px;
+    margin-bottom: -6px;
+    padding-top: 3px;
   }
 
   #player {
-    width: 100%;
+    height: 80px;
 
     #playing,
     #controls,
@@ -23,9 +26,10 @@
     #playing {
 
       .cover {
-        flex-basis: 50px;
-        min-width: 50px;
-        height: 50px;
+        flex-basis: 80px;
+        min-width: 80px;
+        height: 80px;
+        margin-left: -16px;
         background-size: cover;
         background-position: center;
         background-color: $info;
@@ -40,13 +44,19 @@
 
       .volume {
         width: 100px;
-
-        .progress {
-          height: 10px;
-          border-radius: 1000px;
-          background: lighten($dark, 20);
-        }
       }
+    }
+  }
+
+  #youtube {
+    display: flex;
+    width: 100%;
+    height: 0;
+    pointer-events: none;
+    transition: height 250ms;
+
+    &.open {
+      height: 480px;
     }
   }
 }
