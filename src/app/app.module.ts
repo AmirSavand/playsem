@@ -31,6 +31,7 @@ import { faVolumeUp } from '@fortawesome/free-solid-svg-icons/faVolumeUp';
 
 import { BsDropdownModule, ProgressbarModule } from 'ngx-bootstrap';
 import { CookieService } from 'ngx-cookie-service';
+import { NgxY2PlayerModule } from 'ngx-y2-player';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -55,6 +56,7 @@ import { AppComponent } from './app.component';
     ReactiveFormsModule,
     FontAwesomeModule,
     FormsModule,
+    NgxY2PlayerModule,
     BsDropdownModule.forRoot(),
     ProgressbarModule.forRoot(),
   ],
