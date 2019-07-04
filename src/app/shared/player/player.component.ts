@@ -24,7 +24,6 @@ export class PlayerComponent {
       iv_load_policy: 0,
       controls: YT.Controls.Hide,
       disablekb: 1,
-      fs: 0,
       rel: 0,
     },
     // @ts-ignore
