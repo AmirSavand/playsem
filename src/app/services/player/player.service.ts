@@ -50,6 +50,21 @@ export class PlayerService {
   }
 
   /**
+   * Play the next song (play the first if last song was playing)
+   */
+  static playNext(): void {
+    const songs: Song[] = PlayerService.songsSubject.value;
+    const playing: Song = PlayerService.playingSubject.value;
+    const index: number = songs.indexOf(playing);
+
+    if (!PlayerService.isLastSong(playing)) {
+      PlayerService.play(songs[index + 1]);
+    } else {
+      PlayerService.play(songs[0]);
+    }
+  }
+
+  /**
    * @returns Whether the song is in queue or not
    * @param song Song to check
    */
