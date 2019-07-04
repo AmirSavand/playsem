@@ -3,5 +3,8 @@
 $primary: #ff1493;
 $dark: #121216;
 
+$progress-bg: lighten($dark, 20);
+$progress-height: 5px;
+
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
