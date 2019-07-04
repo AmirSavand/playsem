@@ -17,6 +17,18 @@ export class PlayerService {
   }
 
   /**
+   * @returns The ID of the YouTube video URL
+   *
+   * @param url YouTube video URL
+   */
+  static getYouTubeVideoID(url: string): string {
+    if (url.includes('?v=')) {
+      return url.split('?v=')[1];
+    }
+    return url.split('be/')[1];
+  }
+
+  /**
    * Add a song into the list
    * @param song Song to add
    */
