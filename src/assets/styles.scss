@@ -28,3 +28,8 @@ $table-cell-padding: 20px;
 body {
   cursor: default;
 }
+
+body,
+html {
+  height: 100%;
+}
