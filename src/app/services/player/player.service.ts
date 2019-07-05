@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Song } from '@app/interfaces/song';
+import { ShufflePipe } from 'ngx-pipes';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
@@ -84,6 +85,18 @@ export class PlayerService {
     } else {
       PlayerService.play(songs[songs.length - 1]);
     }
+  }
+
+  /**
+   * Shuffle song list and make the current song the first
+   */
+  static shuffle() {
+    const playing: Song = PlayerService.playingSubject.value;
+    let songs: Song[] = PlayerService.songsSubject.value;
+    songs = songs.filter(item => item !== playing);
+    songs = new ShufflePipe().transform(songs);
+    songs.unshift(playing);
+    this.songsSubject.next(songs);
   }
 
   /**

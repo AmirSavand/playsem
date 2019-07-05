@@ -1,4 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
+import { PlayerPlayMode } from '@app/enums/player-play-mode';
 import { Song } from '@app/interfaces/song';
 import { PlayerService } from '@app/services/player/player.service';
 import { NgxY2PlayerComponent, NgxY2PlayerOptions } from 'ngx-y2-player';
@@ -55,6 +56,11 @@ export class PlayerComponent {
    */
   expand: boolean;
 
+  /**
+   * Player play mode
+   */
+  playMode: PlayerPlayMode = PlayerPlayMode.NORMAL;
+
   constructor() {
   }
 
@@ -99,6 +105,13 @@ export class PlayerComponent {
   }
 
   /**
+   * Shuffle song list
+   */
+  shuffle(): void {
+    PlayerService.shuffle();
+  }
+
+  /**
    * UnMute the player
    */
   unMute(): void {
@@ -128,6 +141,19 @@ export class PlayerComponent {
    */
   isMute(): boolean {
     return this.youtube.videoPlayer.isMuted();
+  }
+
+  /**
+   * Cycle play mode
+   */
+  switchPlayMode(): void {
+    if (this.playMode === PlayerPlayMode.NORMAL) {
+      this.playMode = PlayerPlayMode.REPEAT;
+    } else if (this.playMode === PlayerPlayMode.REPEAT) {
+      this.playMode = PlayerPlayMode.REPEAT_SINGLE;
+    } else {
+      this.playMode = PlayerPlayMode.NORMAL;
+    }
   }
 
   /**

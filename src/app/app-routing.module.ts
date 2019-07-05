@@ -24,7 +24,7 @@ const routes: Routes = [{
   path: 'party/:partyId',
   component: PartyComponent,
 }, {
-  path: 'user/:userId',
+  path: 'user/:username',
   component: UserComponent,
 }, {
   path: 'user-settings',

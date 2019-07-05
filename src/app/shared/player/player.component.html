@@ -43,10 +43,10 @@
 
     <!-- Options -->
     <div id="options" class="col-4 justify-content-end align-items-center" *ngIf="playing">
-      <div (click)="repeat = !repeat">
+      <div (click)="switchPlayMode()">
         <fa-icon icon="retweet"></fa-icon>
       </div>
-      <div (click)="random = !random">
+      <div (click)="shuffle()">
         <fa-icon icon="random"></fa-icon>
       </div>
       <div (click)="mute()" *ngIf="!isMute()">
