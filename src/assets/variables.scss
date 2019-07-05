@@ -8,3 +8,26 @@ $progress-height: 5px;
 
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
+
+$body-bg: #242429;
+$body-color: $light;
+
+$font-family-base: 'Rubik';
+
+$link-decoration: none;
+$link-hover-decoration: none;
+
+$navbar-padding-y: 15px;
+
+$card-bg: $dark;
+$card-color: $light;
+$card-border-width: 0;
+
+$enable-rounded: false;
+$transition-base: 0;
+$transition-fade: 0;
+
+$table-color: darken($light, 20);
+$table-hover-color: $light;
+$table-border-width: 0;
+$table-cell-padding: 20px;
