@@ -99,6 +99,13 @@ export class PlayerComponent {
   }
 
   /**
+   * Shuffle song list
+   */
+  shuffle(): void {
+    PlayerService.shuffle();
+  }
+
+  /**
    * UnMute the player
    */
   unMute(): void {

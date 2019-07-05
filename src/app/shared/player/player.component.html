@@ -47,7 +47,7 @@
       <div (click)="repeat = !repeat">
         <fa-icon icon="retweet"></fa-icon>
       </div>
-      <div (click)="random = !random">
+      <div (click)="shuffle()">
         <fa-icon icon="random"></fa-icon>
       </div>
       <div (click)="mute()" *ngIf="!isMute()">
