@@ -1,42 +1,65 @@
-<nav class="navbar navbar-expand navbar-dark bg-dark">
-  <!-- Brand -->
-  <a class="navbar-brand" [routerLink]="getTitleLink()">PlayzEM</a>
-  <!-- Toggler -->
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <!-- Navs -->
-  <div class="collapse navbar-collapse" id="nav">
-    <!-- Authenticated nav -->
-    <div class="nav-item dropdown ml-auto" *ngIf="auth.isAuth()" dropdown>
-      <!-- Dropdown label -->
-      <a class="nav-link dropdown-toggle" dropdownToggle>{{ user.username }}</a>
-      <!-- User dropdown -->
-      <ul class="dropdown-menu dropdown-menu-right" *dropdownMenu>
-        <!-- Separator -->
-        <!-- <li class="dropdown-divider"></li> -->
-        <!-- Sign out -->
-        <li><a class="dropdown-item" (click)="auth.signOut()">Sign Out</a></li>
-      </ul>
+<!--<nav class="navbar navbar-expand navbar-dark bg-dark">-->
+<!--  &lt;!&ndash; Brand &ndash;&gt;-->
+<!--  <a class="navbar-brand" [routerLink]="getTitleLink()">PlayzEM</a>-->
+<!--  &lt;!&ndash; Toggler &ndash;&gt;-->
+<!--  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav">-->
+<!--    <span class="navbar-toggler-icon"></span>-->
+<!--  </button>-->
+<!--  &lt;!&ndash; Navs &ndash;&gt;-->
+<!--  <div class="collapse navbar-collapse" id="nav">-->
+<!--    &lt;!&ndash; Authenticated nav &ndash;&gt;-->
+<!--    <div class="nav-item dropdown ml-auto" *ngIf="auth.isAuth()" dropdown>-->
+<!--      &lt;!&ndash; Dropdown label &ndash;&gt;-->
+<!--      <a class="nav-link dropdown-toggle" dropdownToggle>{{ user.username }}</a>-->
+<!--      &lt;!&ndash; User dropdown &ndash;&gt;-->
+<!--      <ul class="dropdown-menu dropdown-menu-right" *dropdownMenu>-->
+<!--        &lt;!&ndash; Separator &ndash;&gt;-->
+<!--        &lt;!&ndash; <li class="dropdown-divider"></li> &ndash;&gt;-->
+<!--        &lt;!&ndash; Sign out &ndash;&gt;-->
+<!--        <li><a class="dropdown-item" (click)="auth.signOut()">Sign Out</a></li>-->
+<!--      </ul>-->
+<!--    </div>-->
+<!--    &lt;!&ndash; Unauthenticated nav &ndash;&gt;-->
+<!--    <ul class="navbar-nav ml-auto" *ngIf="!auth.isAuth()">-->
+<!--      &lt;!&ndash; Sign in &ndash;&gt;-->
+<!--      <li class="nav-item">-->
+<!--        <a class="nav-link" routerLink="/sign-in" routerLinkActive="active">Sign In</a>-->
+<!--      </li>-->
+<!--      &lt;!&ndash; Sign up &ndash;&gt;-->
+<!--      <li class="nav-item">-->
+<!--        <a class="nav-link" routerLink="/sign-up" routerLinkActive="active">Sign Up</a>-->
+<!--      </li>-->
+<!--    </ul>-->
+<!--  </div>-->
+<!--</nav>-->
+
+<div class="page">
+  <!-- Sidebar -->
+  <div class="d-flex flex-column h-100">
+    <div class="d-flex h-100 flex-grow-1">
+      <div class="sidebar d-flex flex-column" [ngClass]="{'is-closed': isClosed}">
+        <button class="btn btn-link" (click)="isClosed = !isClosed">Toggle</button>
+        <ul class="list-unstyled p-0 m-0">
+          <li>
+            <a [routerLink]="['dashboard']" [routerLinkActive]="'active'">Main</a>
+          </li>
+        </ul>
+        <ul class="list-unstyled p-0 m-0 mt-auto mb-3">
+          <li>
+            <a>User</a>
+          </li>
+        </ul>
+      </div>
+      <div class="main-content">
+        <!-- Pages -->
+        <div class="wrapper">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
     </div>
-    <!-- Unauthenticated nav -->
-    <ul class="navbar-nav ml-auto" *ngIf="!auth.isAuth()">
-      <!-- Sign in -->
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/sign-in" routerLinkActive="active">Sign In</a>
-      </li>
-      <!-- Sign up -->
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/sign-up" routerLinkActive="active">Sign Up</a>
-      </li>
-    </ul>
+    <div class="d-flex flex-column">
+      <!-- Player -->
+      <app-player></app-player>
+    </div>
   </div>
-</nav>
-
-<!-- Pages -->
-<div class="pages">
-  <router-outlet></router-outlet>
 </div>
-
-<!-- Player -->
-<app-player></app-player>
