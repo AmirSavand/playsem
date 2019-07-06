@@ -48,8 +48,11 @@
           </a>
         </div>
 
-        <!-- Items (bottom) -->
-        <div class="list-group list-group-flush mt-auto">
+        <!-- Items -->
+        <div class="list-group list-group-flush" *ngIf="!auth.isAuth()">
+
+          <!-- Title -->
+          <div class="list-group-item header mt-5">JOIN</div>
 
           <!-- Sign In -->
           <a class="list-group-item list-group-item-action" *ngIf="!auth.isAuth()"
@@ -64,6 +67,10 @@
             <fa-icon [fixedWidth]="true" icon="user-plus"></fa-icon>
             <span>SIGN UP</span>
           </a>
+        </div>
+
+        <!-- Items (bottom) -->
+        <div class="list-group list-group-flush mt-auto">
 
           <!-- Sign Out -->
           <button class="list-group-item list-group-item-action" (click)="auth.signOut()" *ngIf="auth.isAuth()">
