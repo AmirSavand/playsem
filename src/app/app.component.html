@@ -33,32 +33,39 @@
 <!--  </div>-->
 <!--</nav>-->
 
-<div class="page">
+<!-- Wrapper -->
+<div id="wrapper">
+
   <!-- Sidebar -->
   <div class="d-flex flex-column h-100">
     <div class="d-flex h-100 flex-grow-1">
-      <div class="sidebar d-flex flex-column" [ngClass]="{'is-closed': isClosed}">
-        <button class="btn btn-link" (click)="isClosed = !isClosed">Toggle</button>
+
+      <div id="sidebar" class="sidebar d-flex flex-column" [class.closed]="sidebarClosed">
+
+        <!-- Toggler -->
+        <button class="btn btn-link" (click)="sidebarClosed = !sidebarClosed">Toggle</button>
+
+        <!-- Items -->
         <ul class="list-unstyled p-0 m-0">
-          <li>
-            <a [routerLink]="['dashboard']" [routerLinkActive]="'active'">Main</a>
-          </li>
+          <li><a [routerLink]="['dashboard']" [routerLinkActive]="'active'">Main</a></li>
         </ul>
+
+        <!-- Items (bottom) -->
         <ul class="list-unstyled p-0 m-0 mt-auto mb-3">
-          <li>
-            <a>User</a>
-          </li>
+          <li><a>User</a></li>
         </ul>
       </div>
-      <div class="main-content">
-        <!-- Pages -->
-        <div class="wrapper">
+
+      <!-- Pages -->
+      <div id="pages-wrapper">
+        <div id="pages">
           <router-outlet></router-outlet>
         </div>
       </div>
     </div>
+
+    <!-- Player -->
     <div class="d-flex flex-column">
-      <!-- Player -->
       <app-player></app-player>
     </div>
   </div>

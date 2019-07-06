@@ -1,82 +1,62 @@
 @import '~src/assets/variables';
 
-a {
-  cursor: pointer;
-}
-
-.navbar {
-
-  .navbar-brand {
-    font-weight: bold;
-  }
-
-  .navbar-nav {
-
-    .nav-item {
-
-      .nav-link {
-        cursor: pointer;
-      }
-    }
-  }
-}
-
-.page {
+#wrapper {
   display: flex;
   flex-direction: column;
   height: 100%;
-}
 
-.sidebar {
-  flex: 0 0 auto;
-  flex-basis: 300px;
-  max-width: 300px;
-  overflow-y: auto;
+  #sidebar {
+    flex: 0 0 auto;
+    flex-basis: 300px;
+    max-width: 300px;
+    overflow-y: auto;
 
-  ul {
-    li {
-      position: relative;
+    ul {
 
-      a {
-        color: #ffffff;
-        border-top-right-radius: 50px;
-        border-bottom-right-radius: 50px;
-        display: flex;
-        align-items: center;
-        height: 45px;
-        overflow: hidden;
-        white-space: nowrap;
-        padding: 0 2em;
-        flex: 1;
+      li {
+        position: relative;
 
-        &.active {
-          font-weight: 600;
-          background-color: rgba($primary, 0.15);
-          color: $primary;
-        }
+        a {
+          color: #ffffff;
+          border-top-right-radius: 50px;
+          border-bottom-right-radius: 50px;
+          display: flex;
+          align-items: center;
+          height: 45px;
+          overflow: hidden;
+          white-space: nowrap;
+          padding: 0 2em;
+          flex: 1;
 
-        &:hover:not(.active) {
-          background-color: rgba($primary, 0.08);
-          color: $primary;
+          &.active {
+            font-weight: 600;
+            background-color: rgba($primary, 0.15);
+            color: $primary;
+          }
+
+          &:hover:not(.active) {
+            background-color: rgba($primary, 0.08);
+            color: $primary;
+          }
         }
       }
     }
+
+    &.closed {
+      flex-basis: 75px;
+      max-width: 75px;
+    }
   }
 
-  &.is-closed {
-    flex-basis: 75px;
-    max-width: 75px;
-  }
-}
-
-.main-content {
-  flex: 1 1 auto;
-  height: 100%;
-  min-width: 0;
-  width: 100%;
-
-  .wrapper {
+  #pages-wrapper {
+    flex: 1 1 auto;
     height: 100%;
-    overflow: auto;
+    min-width: 0;
+    width: 100%;
+
+    #pages {
+      height: 100%;
+      overflow: auto;
+    }
   }
 }

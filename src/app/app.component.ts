@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
   /**
    * Indicates whether sidebar is closed or not
    */
-  isClosed: boolean;
+  sidebarClosed: boolean;
 
   constructor(public auth: AuthService) {
   }
@@ -30,15 +30,5 @@ export class AppComponent implements OnInit {
     this.auth.user.subscribe(user => {
       this.user = user;
     });
-  }
-
-  /**
-   * @returns Dashboard link if user is authenticated but home page if not
-   */
-  getTitleLink(): string {
-    if (this.auth.isAuth()) {
-      return '/dashboard';
-    }
-    return '/';
   }
 }
