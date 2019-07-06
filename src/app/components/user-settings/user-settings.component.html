@@ -1,1 +1,26 @@
-<p>user-settings works!</p>
+<div class="container py-3">
+  <div class="row justify-content-center">
+    <div class="col-lg-3">
+      <div class="card my-3">
+        <div class="card-header">Setting</div>
+          <div class="card-body">
+            <form (ngSubmit)="change()" [formGroup]="form">
+              <div class="form-group">
+                <!-- display name -->
+                <input class="form-control" type="text" placeholder="Display name" formControlName="display_name">
+                <!-- Bio -->
+                <input class="form-control" type="text" placeholder="Your bio" formControlName="bio">
+                <!-- Color -->
+                <input class="form-control" type="color" formControlName="color">
+                <!-- Submit -->
+                <div class="input-group-append mt-2 justify-content-center">
+                  <button class="btn btn-success">Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+

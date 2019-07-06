@@ -18,6 +18,9 @@
         <!-- Sign out -->
         <li><a class="dropdown-item" (click)="auth.signOut()">Sign Out</a></li>
       </ul>
+        <li nav-item>
+          <a routerLink="/user-settings">Setting</a>
+        </li>
     </div>
     <!-- Unauthenticated nav -->
     <ul class="navbar-nav ml-auto" *ngIf="!auth.isAuth()">
