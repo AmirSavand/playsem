@@ -1,59 +1,76 @@
-<!--<nav class="navbar navbar-expand navbar-dark bg-dark">-->
-<!--  &lt;!&ndash; Brand &ndash;&gt;-->
-<!--  <a class="navbar-brand" [routerLink]="getTitleLink()">PlayzEM</a>-->
-<!--  &lt;!&ndash; Toggler &ndash;&gt;-->
-<!--  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav">-->
-<!--    <span class="navbar-toggler-icon"></span>-->
-<!--  </button>-->
-<!--  &lt;!&ndash; Navs &ndash;&gt;-->
-<!--  <div class="collapse navbar-collapse" id="nav">-->
-<!--    &lt;!&ndash; Authenticated nav &ndash;&gt;-->
-<!--    <div class="nav-item dropdown ml-auto" *ngIf="auth.isAuth()" dropdown>-->
-<!--      &lt;!&ndash; Dropdown label &ndash;&gt;-->
-<!--      <a class="nav-link dropdown-toggle" dropdownToggle>{{ user.username }}</a>-->
-<!--      &lt;!&ndash; User dropdown &ndash;&gt;-->
-<!--      <ul class="dropdown-menu dropdown-menu-right" *dropdownMenu>-->
-<!--        &lt;!&ndash; Separator &ndash;&gt;-->
-<!--        &lt;!&ndash; <li class="dropdown-divider"></li> &ndash;&gt;-->
-<!--        &lt;!&ndash; Sign out &ndash;&gt;-->
-<!--        <li><a class="dropdown-item" (click)="auth.signOut()">Sign Out</a></li>-->
-<!--      </ul>-->
-<!--    </div>-->
-<!--    &lt;!&ndash; Unauthenticated nav &ndash;&gt;-->
-<!--    <ul class="navbar-nav ml-auto" *ngIf="!auth.isAuth()">-->
-<!--      &lt;!&ndash; Sign in &ndash;&gt;-->
-<!--      <li class="nav-item">-->
-<!--        <a class="nav-link" routerLink="/sign-in" routerLinkActive="active">Sign In</a>-->
-<!--      </li>-->
-<!--      &lt;!&ndash; Sign up &ndash;&gt;-->
-<!--      <li class="nav-item">-->
-<!--        <a class="nav-link" routerLink="/sign-up" routerLinkActive="active">Sign Up</a>-->
-<!--      </li>-->
-<!--    </ul>-->
-<!--  </div>-->
-<!--</nav>-->
-
 <!-- Wrapper -->
 <div id="wrapper">
 
-  <!-- Sidebar -->
-  <div class="d-flex flex-column h-100">
+  <!-- Container -->
+  <div id="container" class="d-flex flex-column h-100">
+
+    <!-- Sidebar and Pages -->
     <div class="d-flex h-100 flex-grow-1">
 
+      <!-- Sidebar -->
       <div id="sidebar" class="sidebar d-flex flex-column" [class.closed]="sidebarClosed">
 
-        <!-- Toggler -->
-        <button class="btn btn-link" (click)="sidebarClosed = !sidebarClosed">Toggle</button>
+        <!-- Items -->
+        <div class="list-group list-group-flush">
+
+          <!-- Toggler -->
+          <button class="list-group-item list-group-item-action mb-3 toggler" (click)="sidebarClosed = !sidebarClosed">
+            <fa-icon [fixedWidth]="true" icon="bars" class="text-dark"></fa-icon>
+            <span class="font-weight-bold text-dark">PlayzEM</span>
+          </button>
+        </div>
 
         <!-- Items -->
-        <ul class="list-unstyled p-0 m-0">
-          <li><a [routerLink]="['dashboard']" [routerLinkActive]="'active'">Main</a></li>
-        </ul>
+        <div class="list-group list-group-flush" *ngIf="auth.isAuth()">
+
+          <!-- Dashboard -->
+          <a class="list-group-item list-group-item-action"
+             routerLink="dashboard" routerLinkActive="active">
+            <fa-icon [fixedWidth]="true" icon="tachometer-alt"></fa-icon>
+            <span>Dashboard</span>
+          </a>
+
+          <!-- Explore -->
+          <a class="list-group-item list-group-item-action"
+             routerLink="explore" routerLinkActive="active">
+            <fa-icon [fixedWidth]="true" icon="search"></fa-icon>
+            <span>Explore</span>
+          </a>
+
+          <!-- Title -->
+          <div class="list-group-item header mt-5">PARTIES</div>
+
+          <!-- Parties -->
+          <a class="list-group-item list-group-item-action"
+             *ngFor="let party of parties" [routerLink]="['party', party.id]" routerLinkActive="active">
+            <fa-icon [fixedWidth]="true" icon="compact-disc"></fa-icon>
+            <span>{{ party.name }}</span>
+          </a>
+        </div>
 
         <!-- Items (bottom) -->
-        <ul class="list-unstyled p-0 m-0 mt-auto mb-3">
-          <li><a>User</a></li>
-        </ul>
+        <div class="list-group list-group-flush mt-auto">
+
+          <!-- Sign In -->
+          <a class="list-group-item list-group-item-action" *ngIf="!auth.isAuth()"
+             routerLink="sign-in" routerLinkActive="active">
+            <fa-icon [fixedWidth]="true" icon="sign-in-alt"></fa-icon>
+            <span>SIGN IN</span>
+          </a>
+
+          <!-- Sign Up -->
+          <a class="list-group-item list-group-item-action" *ngIf="!auth.isAuth()"
+             routerLink="sign-up" routerLinkActive="active">
+            <fa-icon [fixedWidth]="true" icon="user-plus"></fa-icon>
+            <span>SIGN UP</span>
+          </a>
+
+          <!-- Sign Out -->
+          <button class="list-group-item list-group-item-action" (click)="auth.signOut()" *ngIf="auth.isAuth()">
+            <fa-icon [fixedWidth]="true" icon="sign-out-alt"></fa-icon>
+            <span>SIGN OUT</span>
+          </button>
+        </div>
       </div>
 
       <!-- Pages -->

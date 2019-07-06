@@ -18,13 +18,19 @@ import { PlayerComponent } from '@app/shared/player/player.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faBackward } from '@fortawesome/free-solid-svg-icons/faBackward';
+import { faBars } from '@fortawesome/free-solid-svg-icons/faBars';
+import { faCompactDisc } from '@fortawesome/free-solid-svg-icons/faCompactDisc';
 import { faForward } from '@fortawesome/free-solid-svg-icons/faForward';
 import { faHeart } from '@fortawesome/free-solid-svg-icons/faHeart';
 import { faPause } from '@fortawesome/free-solid-svg-icons/faPause';
 import { faPlay } from '@fortawesome/free-solid-svg-icons/faPlay';
 import { faRandom } from '@fortawesome/free-solid-svg-icons/faRandom';
 import { faRetweet } from '@fortawesome/free-solid-svg-icons/faRetweet';
+import { faSearch } from '@fortawesome/free-solid-svg-icons/faSearch';
+import { faSignInAlt } from '@fortawesome/free-solid-svg-icons/faSignInAlt';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons/faSignOutAlt';
 import { faStop } from '@fortawesome/free-solid-svg-icons/faStop';
+import { faTachometerAlt } from '@fortawesome/free-solid-svg-icons/faTachometerAlt';
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons/faUserPlus';
 import { faVolumeDown } from '@fortawesome/free-solid-svg-icons/faVolumeDown';
 import { faVolumeMute } from '@fortawesome/free-solid-svg-icons/faVolumeMute';
@@ -38,6 +44,7 @@ import { NgxY2PlayerModule } from 'ngx-y2-player';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ExploreComponent } from './components/explore/explore.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +58,7 @@ import { AppComponent } from './app.component';
     HomeComponent,
     PlayerComponent,
     ShufflePipe,
+    ExploreComponent,
   ],
   imports: [
     BrowserModule,
@@ -91,5 +99,11 @@ export class AppModule {
     library.add(faVolumeMute);
     library.add(faHeart);
     library.add(faUserPlus);
+    library.add(faBars);
+    library.add(faTachometerAlt);
+    library.add(faCompactDisc);
+    library.add(faSignInAlt);
+    library.add(faSignOutAlt);
+    library.add(faSearch);
   }
 }

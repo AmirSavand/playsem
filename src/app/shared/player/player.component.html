@@ -10,6 +10,7 @@
 
   <!-- Player -->
   <div id="player" class="navbar navbar-expand navbar-dark bg-dark px-0" *ngIf="playing">
+
     <!-- Playing -->
     <div id="playing" class="col-4" (click)="expand= !expand">
 
@@ -62,13 +63,15 @@
   </div>
 
   <!-- YouTube -->
-  <div id="youtube" [class.open]="expand" class="embed-responsive embed-responsive-16by9">
+  <div id="youtube" [class.open]="expand">
+    <div class="embed-responsive embed-responsive-16by9" #container>
     <ngx-y2-player #video
+                   [container]="container"
                    [tabIndex]="-1"
                    [videoId]="'nothing'"
                    [playerOptions]="videoPlayerOptions"
                    (ready)="onYouTubePlayerRead()"
                    (stateChange)="onYouTubePlayerChange()">
-    </ngx-y2-player>
+    </ngx-y2-player></div>
   </div>
 </div>
