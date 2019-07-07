@@ -1,96 +1,90 @@
 <!-- Wrapper -->
 <div id="wrapper">
 
-  <!-- Container -->
-  <div id="container" class="d-flex flex-column h-100">
+  <!-- Sidebar and Pages -->
+  <div class="d-flex h-100 flex-grow-1">
 
-    <!-- Sidebar and Pages -->
-    <div class="d-flex h-100 flex-grow-1">
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar d-flex flex-column" [class.closed]="sidebarClosed">
 
-      <!-- Sidebar -->
-      <div id="sidebar" class="sidebar d-flex flex-column" [class.closed]="sidebarClosed">
+      <!-- Items -->
+      <div class="list-group list-group-flush">
 
-        <!-- Items -->
-        <div class="list-group list-group-flush">
-
-          <!-- Toggler -->
-          <button class="list-group-item list-group-item-action mb-3 toggler" (click)="sidebarClosed = !sidebarClosed">
-            <fa-icon [fixedWidth]="true" icon="bars" class="text-dark"></fa-icon>
-            <span class="font-weight-bold text-dark">PlayzEM</span>
-          </button>
-        </div>
-
-        <!-- Items -->
-        <div class="list-group list-group-flush" *ngIf="auth.isAuth()">
-
-          <!-- Dashboard -->
-          <a class="list-group-item list-group-item-action"
-             routerLink="dashboard" routerLinkActive="active">
-            <fa-icon [fixedWidth]="true" icon="tachometer-alt"></fa-icon>
-            <span>Dashboard</span>
-          </a>
-
-          <!-- Explore -->
-          <a class="list-group-item list-group-item-action"
-             routerLink="explore" routerLinkActive="active">
-            <fa-icon [fixedWidth]="true" icon="search"></fa-icon>
-            <span>EXPLORE</span>
-          </a>
-
-          <!-- Title -->
-          <div class="list-group-item header mt-5">PARTIES</div>
-
-          <!-- Parties -->
-          <a class="list-group-item list-group-item-action"
-             *ngFor="let party of parties" [routerLink]="['party', party.id]" routerLinkActive="active">
-            <fa-icon [fixedWidth]="true" icon="compact-disc"></fa-icon>
-            <span>{{ party.name }}</span>
-          </a>
-        </div>
-
-        <!-- Items -->
-        <div class="list-group list-group-flush" *ngIf="!auth.isAuth()">
-
-          <!-- Title -->
-          <div class="list-group-item header mt-5">JOIN</div>
-
-          <!-- Sign In -->
-          <a class="list-group-item list-group-item-action" *ngIf="!auth.isAuth()"
-             routerLink="sign-in" routerLinkActive="active">
-            <fa-icon [fixedWidth]="true" icon="sign-in-alt"></fa-icon>
-            <span>SIGN IN</span>
-          </a>
-
-          <!-- Sign Up -->
-          <a class="list-group-item list-group-item-action" *ngIf="!auth.isAuth()"
-             routerLink="sign-up" routerLinkActive="active">
-            <fa-icon [fixedWidth]="true" icon="user-plus"></fa-icon>
-            <span>SIGN UP</span>
-          </a>
-        </div>
-
-        <!-- Items (bottom) -->
-        <div class="list-group list-group-flush mt-auto">
-
-          <!-- Sign Out -->
-          <button class="list-group-item list-group-item-action" (click)="auth.signOut()" *ngIf="auth.isAuth()">
-            <fa-icon [fixedWidth]="true" icon="sign-out-alt"></fa-icon>
-            <span>SIGN OUT</span>
-          </button>
-        </div>
+        <!-- Toggler -->
+        <button class="list-group-item list-group-item-action mb-3 toggler" (click)="sidebarClosed = !sidebarClosed">
+          <fa-icon [fixedWidth]="true" icon="bars" class="text-dark"></fa-icon>
+          <span class="font-weight-bold text-dark">PlayzEM</span>
+        </button>
       </div>
 
-      <!-- Pages -->
-      <div id="pages-wrapper">
-        <div id="pages">
-          <router-outlet></router-outlet>
-        </div>
+      <!-- Items -->
+      <div class="list-group list-group-flush" *ngIf="auth.isAuth()">
+
+        <!-- Dashboard -->
+        <a class="list-group-item list-group-item-action"
+           routerLink="dashboard" routerLinkActive="active">
+          <fa-icon [fixedWidth]="true" icon="tachometer-alt"></fa-icon>
+          <span>Dashboard</span>
+        </a>
+
+        <!-- Explore -->
+        <a class="list-group-item list-group-item-action"
+           routerLink="explore" routerLinkActive="active">
+          <fa-icon [fixedWidth]="true" icon="search"></fa-icon>
+          <span>EXPLORE</span>
+        </a>
+
+        <!-- Title -->
+        <div class="list-group-item header mt-5">PARTIES</div>
+
+        <!-- Parties -->
+        <a class="list-group-item list-group-item-action"
+           *ngFor="let party of parties" [routerLink]="['party', party.id]" routerLinkActive="active">
+          <fa-icon [fixedWidth]="true" icon="compact-disc"></fa-icon>
+          <span>{{ party.name }}</span>
+        </a>
+      </div>
+
+      <!-- Items -->
+      <div class="list-group list-group-flush" *ngIf="!auth.isAuth()">
+
+        <!-- Title -->
+        <div class="list-group-item header mt-5">JOIN</div>
+
+        <!-- Sign In -->
+        <a class="list-group-item list-group-item-action" *ngIf="!auth.isAuth()"
+           routerLink="sign-in" routerLinkActive="active">
+          <fa-icon [fixedWidth]="true" icon="sign-in-alt"></fa-icon>
+          <span>SIGN IN</span>
+        </a>
+
+        <!-- Sign Up -->
+        <a class="list-group-item list-group-item-action" *ngIf="!auth.isAuth()"
+           routerLink="sign-up" routerLinkActive="active">
+          <fa-icon [fixedWidth]="true" icon="user-plus"></fa-icon>
+          <span>SIGN UP</span>
+        </a>
+      </div>
+
+      <!-- Items (bottom) -->
+      <div class="list-group list-group-flush mt-auto">
+
+        <!-- Sign Out -->
+        <button class="list-group-item list-group-item-action" (click)="auth.signOut()" *ngIf="auth.isAuth()">
+          <fa-icon [fixedWidth]="true" icon="sign-out-alt"></fa-icon>
+          <span>SIGN OUT</span>
+        </button>
       </div>
     </div>
 
-    <!-- Player -->
-    <div class="d-flex flex-column">
-      <app-player></app-player>
+    <!-- Pages -->
+    <div id="pages-wrapper">
+      <div id="pages">
+        <router-outlet></router-outlet>
+      </div>
     </div>
   </div>
+
+  <!-- Player -->
+  <app-player></app-player>
 </div>
