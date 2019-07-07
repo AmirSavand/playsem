@@ -63,8 +63,7 @@
   </div>
 
   <!-- YouTube -->
-  <div id="youtube" [class.open]="expand">
-    <div class="embed-responsive embed-responsive-16by9" #container>
+  <div id="youtube" [class.open]="expand" class="embed-responsive embed-responsive-16by9" #container>
     <ngx-y2-player #video
                    [container]="container"
                    [tabIndex]="-1"
@@ -72,6 +71,6 @@
                    [playerOptions]="videoPlayerOptions"
                    (ready)="onYouTubePlayerRead()"
                    (stateChange)="onYouTubePlayerChange()">
-    </ngx-y2-player></div>
+    </ngx-y2-player>
   </div>
 </div>
