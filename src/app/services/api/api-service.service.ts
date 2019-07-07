@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiResponse } from '@app/interfaces/api-response';
 import { Party } from '@app/interfaces/party';
+import { PartyUser } from '@app/interfaces/party-user';
 import { Song } from '@app/interfaces/song';
 import { environment } from '@environments/environment';
 import { Observable } from 'rxjs';
@@ -34,6 +35,13 @@ export class ApiService {
   }
 
   /**
+   * Get party user list
+   */
+  getPartyUsers(params: { user?: string, party?: string, }): Observable<ApiResponse<PartyUser>> {
+    return this.http.get<ApiResponse<PartyUser>>(`${ApiService.base}party-users/`, { params }).pipe();
+  }
+
+  /**
    * Get song list
    */
   getSongs(party: string): Observable<ApiResponse<Song>> {
@@ -50,7 +58,10 @@ export class ApiService {
   }
 
   /**
-   * Update user.
+   * Update user
+   *
+   * @param username User username
+   * @param payload Update data
    */
   uapdateUser(username: string, payload: Account): Observable<Account> {
     return this.http.put<Account>(`${ApiService.base}accounts/${username}`, payload).pipe();

@@ -1,5 +1,5 @@
 <!-- Outer -->
-<div id="outer" class="fixed-bottom">
+<div id="outer">
 
   <!-- Timeline -->
   <div id="timeline" (click)="seek($event)" *ngIf="playing">
@@ -9,7 +9,7 @@
   </div>
 
   <!-- Player -->
-  <div id="player" class="navbar navbar-expand navbar-dark bg-dark row" *ngIf="playing">
+  <div id="player" class="navbar navbar-expand navbar-dark bg-dark px-0" *ngIf="playing">
 
     <!-- Playing -->
     <div id="playing" class="col-4" (click)="expand= !expand">
@@ -63,8 +63,9 @@
   </div>
 
   <!-- YouTube -->
-  <div id="youtube" [class.open]="expand" class="embed-responsive embed-responsive-16by9">
+  <div id="youtube" [class.open]="expand" class="embed-responsive embed-responsive-16by9" #container>
     <ngx-y2-player #video
+                   [container]="container"
                    [tabIndex]="-1"
                    [videoId]="'nothing'"
                    [playerOptions]="videoPlayerOptions"
