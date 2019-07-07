@@ -78,7 +78,7 @@
         </div>
 
         <!-- Bottom links -->
-        <div class="list-group list-group-flush mt-auto">
+        <div class="list-group list-group-flush mt-auto" *ngIf="auth.isAuth()">
 
           <!-- Settings -->
           <button class="list-group-item list-group-item-action" routerLink="user-settings" routerLinkActive="active">
@@ -87,7 +87,7 @@
           </button>
 
           <!-- Sign Out -->
-          <button class="list-group-item list-group-item-action" (click)="auth.signOut()" *ngIf="auth.isAuth()">
+          <button class="list-group-item list-group-item-action" (click)="auth.signOut()">
             <fa-icon [fixedWidth]="true" icon="sign-out-alt"></fa-icon>
             <span>Sign Out</span>
           </button>

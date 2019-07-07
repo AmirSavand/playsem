@@ -7,8 +7,8 @@
 
   #sidebar {
     background: white;
-    background: -webkit-linear-gradient(to bottom, white, #ddd);
-    background: linear-gradient(to bottom, white, #ddd);
+    background: -webkit-linear-gradient(to bottom, white, #eee);
+    background: linear-gradient(to bottom, white, #eee);
 
     flex: 0 0 auto;
     flex-basis: 300px;
@@ -32,20 +32,24 @@
           margin-left: 50px;
         }
 
-        &.toggler:not(:focus),
-        &.toggler:not(:hover) {
+        &:not(:hover),
+        &:not(.active) {
           background: transparent;
         }
 
+        &:active,
         &.active {
           background: $list-group-action-active-bg;
 
-          span {
-            color: $dark;
-          }
+          &.active {
 
-          fa-icon {
-            color: $primary;
+            span {
+              color: $dark;
+            }
+
+            fa-icon {
+              color: $primary;
+            }
           }
         }
 
