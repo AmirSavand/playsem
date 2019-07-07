@@ -19,6 +19,7 @@
 
       .list-group-item {
         white-space: nowrap;
+        overflow: hidden;
         padding-left: 30px;
         padding-right: 30px;
         border: none;
@@ -62,6 +63,10 @@
     &.closed {
       flex-basis: 80px;
       max-width: 80px;
+
+      .list-group .list-group-item.header {
+        display: none;
+      }
     }
   }
 
