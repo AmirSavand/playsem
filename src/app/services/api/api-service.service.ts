@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiResponse } from '@app/interfaces/api-response';
 import { Party } from '@app/interfaces/party';
+import { PartyUser } from '@app/interfaces/party-user';
 import { Song } from '@app/interfaces/song';
 import { environment } from '@environments/environment';
 import { Observable } from 'rxjs';
@@ -31,6 +32,13 @@ export class ApiService {
    */
   getParty(id: string): Observable<Party> {
     return this.http.get<Party>(`${ApiService.base}parties/${id}/`).pipe();
+  }
+
+  /**
+   * Get party user list
+   */
+  getPartyUsers(params: { user?: string, party?: string, }): Observable<ApiResponse<PartyUser>> {
+    return this.http.get<ApiResponse<PartyUser>>(`${ApiService.base}party-users/`, { params }).pipe();
   }
 
   /**

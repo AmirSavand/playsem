@@ -27,8 +27,6 @@ export class PlayerComponent {
       disablekb: 1,
       rel: 0,
     },
-    // @ts-ignore
-    width: '100%',
   };
 
   /**

@@ -1,42 +1,104 @@
-<nav class="navbar navbar-expand navbar-dark bg-dark">
-  <!-- Brand -->
-  <a class="navbar-brand" [routerLink]="getTitleLink()">PlayzEM</a>
-  <!-- Toggler -->
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <!-- Navs -->
-  <div class="collapse navbar-collapse" id="nav">
-    <!-- Authenticated nav -->
-    <div class="nav-item dropdown ml-auto" *ngIf="auth.isAuth()" dropdown>
-      <!-- Dropdown label -->
-      <a class="nav-link dropdown-toggle" dropdownToggle>{{ user.username }}</a>
-      <!-- User dropdown -->
-      <ul class="dropdown-menu dropdown-menu-right" *dropdownMenu>
-        <!-- Separator -->
-        <!-- <li class="dropdown-divider"></li> -->
-        <!-- Sign out -->
-        <li><a class="dropdown-item" (click)="auth.signOut()">Sign Out</a></li>
-      </ul>
+<!-- Wrapper -->
+<div id="wrapper">
+
+  <!-- Container -->
+  <div id="container" class="d-flex flex-column h-100">
+
+    <!-- Sidebar and Pages -->
+    <div class="d-flex h-100 flex-grow-1">
+
+      <!-- Sidebar -->
+      <div id="sidebar" class="sidebar d-flex flex-column" [class.closed]="sidebarClosed">
+
+        <!-- Title as toggler -->
+        <div class="list-group list-group-flush">
+
+          <!-- Toggler -->
+          <button class="list-group-item list-group-item-action toggler" (click)="sidebarClosed = !sidebarClosed">
+            <fa-icon [fixedWidth]="true" icon="bars" class="text-dark"></fa-icon>
+            <span class="font-weight-bold text-dark">PlayzEM</span>
+          </button>
+        </div>
+
+        <!-- Profile and cover -->
+        <div id="cover" *ngIf="auth.isAuth()">
+          <a [routerLink]="['user', user.username]">
+            <h4>{{ user.account.display_name }}</h4>
+            <p>@{{ user.username }}</p>
+          </a>
+        </div>
+
+        <!-- Pages and parties -->
+        <div class="list-group list-group-flush mt-3  " *ngIf="auth.isAuth()">
+
+          <!-- Dashboard -->
+          <a class="list-group-item list-group-item-action"
+             routerLink="dashboard" routerLinkActive="active">
+            <fa-icon [fixedWidth]="true" icon="tachometer-alt"></fa-icon>
+            <span>Dashboard</span>
+          </a>
+
+          <!-- Explore -->
+          <a class="list-group-item list-group-item-action"
+             routerLink="explore" routerLinkActive="active">
+            <fa-icon [fixedWidth]="true" icon="search"></fa-icon>
+            <span>Explore</span>
+          </a>
+
+          <!-- Title -->
+          <div class="list-group-item header mt-5">PARTIES</div>
+
+          <!-- Parties -->
+          <a class="list-group-item list-group-item-action"
+             *ngFor="let party of parties" [routerLink]="['party', party.id]" routerLinkActive="active">
+            <fa-icon [fixedWidth]="true" icon="compact-disc"></fa-icon>
+            <span>{{ party.name }}</span>
+          </a>
+        </div>
+
+        <!-- Join links -->
+        <div class="list-group list-group-flush" *ngIf="!auth.isAuth()">
+
+          <!-- Title -->
+          <div class="list-group-item header mt-5">JOIN</div>
+
+          <!-- Sign In -->
+          <a class="list-group-item list-group-item-action" *ngIf="!auth.isAuth()"
+             routerLink="sign-in" routerLinkActive="active">
+            <fa-icon [fixedWidth]="true" icon="sign-in-alt"></fa-icon>
+            <span>SIGN IN</span>
+          </a>
+
+          <!-- Sign Up -->
+          <a class="list-group-item list-group-item-action" *ngIf="!auth.isAuth()"
+             routerLink="sign-up" routerLinkActive="active">
+            <fa-icon [fixedWidth]="true" icon="user-plus"></fa-icon>
+            <span>SIGN UP</span>
+          </a>
+        </div>
+
+        <!-- Bottom links -->
+        <div class="list-group list-group-flush mt-auto">
+
+          <!-- Sign Out -->
+          <button class="list-group-item list-group-item-action" (click)="auth.signOut()" *ngIf="auth.isAuth()">
+            <fa-icon [fixedWidth]="true" icon="sign-out-alt"></fa-icon>
+            <span>SIGN OUT</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Pages -->
+      <div id="pages-wrapper">
+        <div id="pages">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
     </div>
-    <!-- Unauthenticated nav -->
-    <ul class="navbar-nav ml-auto" *ngIf="!auth.isAuth()">
-      <!-- Sign in -->
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/sign-in" routerLinkActive="active">Sign In</a>
-      </li>
-      <!-- Sign up -->
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/sign-up" routerLinkActive="active">Sign Up</a>
-      </li>
-    </ul>
+
+    <!-- Player -->
+    <div class="d-flex flex-column">
+      <app-player></app-player>
+    </div>
   </div>
-</nav>
-
-<!-- Pages -->
-<div class="pages">
-  <router-outlet></router-outlet>
 </div>
-
-<!-- Player -->
-<app-player></app-player>
