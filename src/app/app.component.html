@@ -10,17 +10,25 @@
       <!-- Sidebar -->
       <div id="sidebar" class="sidebar d-flex flex-column" [class.closed]="sidebarClosed">
 
-        <!-- Items -->
+        <!-- Title as toggler -->
         <div class="list-group list-group-flush">
 
           <!-- Toggler -->
-          <button class="list-group-item list-group-item-action mb-3 toggler" (click)="sidebarClosed = !sidebarClosed">
+          <button class="list-group-item list-group-item-action toggler" (click)="sidebarClosed = !sidebarClosed">
             <fa-icon [fixedWidth]="true" icon="bars" class="text-dark"></fa-icon>
             <span class="font-weight-bold text-dark">PlayzEM</span>
           </button>
         </div>
 
-        <!-- Items -->
+        <!-- Profile and cover -->
+        <div id="cover" *ngIf="auth.isAuth()">
+          <a [routerLink]="['user', user.username]">
+            <h4>{{ user.account.display_name }}</h4>
+            <p>@{{ user.username }}</p>
+          </a>
+        </div>
+
+        <!-- Pages and parties -->
         <div class="list-group list-group-flush" *ngIf="auth.isAuth()">
 
           <!-- Dashboard -->
@@ -34,7 +42,7 @@
           <a class="list-group-item list-group-item-action"
              routerLink="explore" routerLinkActive="active">
             <fa-icon [fixedWidth]="true" icon="search"></fa-icon>
-            <span>EXPLORE</span>
+            <span>Explore</span>
           </a>
 
           <!-- Title -->
@@ -48,7 +56,7 @@
           </a>
         </div>
 
-        <!-- Items -->
+        <!-- Join links -->
         <div class="list-group list-group-flush" *ngIf="!auth.isAuth()">
 
           <!-- Title -->
@@ -69,7 +77,7 @@
           </a>
         </div>
 
-        <!-- Items (bottom) -->
+        <!-- Bottom links -->
         <div class="list-group list-group-flush mt-auto">
 
           <!-- Sign Out -->
