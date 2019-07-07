@@ -80,10 +80,16 @@
         <!-- Bottom links -->
         <div class="list-group list-group-flush mt-auto">
 
+          <!-- Settings -->
+          <button class="list-group-item list-group-item-action" routerLink="user-settings" routerLinkActive="active">
+            <fa-icon [fixedWidth]="true" icon="cog"></fa-icon>
+            <span>Settings</span>
+          </button>
+
           <!-- Sign Out -->
           <button class="list-group-item list-group-item-action" (click)="auth.signOut()" *ngIf="auth.isAuth()">
             <fa-icon [fixedWidth]="true" icon="sign-out-alt"></fa-icon>
-            <span>SIGN OUT</span>
+            <span>Sign Out</span>
           </button>
         </div>
       </div>
