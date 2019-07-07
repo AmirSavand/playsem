@@ -19,7 +19,7 @@ export class PlayerComponent {
   /**
    * YouTube player options
    */
-  private readonly videoPlayerOptions: NgxY2PlayerOptions = {
+  readonly videoPlayerOptions: NgxY2PlayerOptions = {
     playerVars: {
       autoplay: 1,
       iv_load_policy: 0,

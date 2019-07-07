@@ -40,7 +40,6 @@ import { faVolumeUp } from '@fortawesome/free-solid-svg-icons/faVolumeUp';
 
 import { BsDropdownModule, ProgressbarModule } from 'ngx-bootstrap';
 import { CookieService } from 'ngx-cookie-service';
-import { ShufflePipe } from 'ngx-pipes';
 import { NgxY2PlayerModule } from 'ngx-y2-player';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -58,7 +57,6 @@ import { ExploreComponent } from './components/explore/explore.component';
     UserComponent,
     HomeComponent,
     PlayerComponent,
-    ShufflePipe,
     ExploreComponent,
   ],
   imports: [
