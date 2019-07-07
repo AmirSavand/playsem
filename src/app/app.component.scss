@@ -24,18 +24,7 @@
         padding-right: 30px;
         border: none;
         font-weight: 300;
-
-        &.header {
-          font-size: small;
-          letter-spacing: 1px;
-          color: lighten($secondary, 20);
-          margin-left: 50px;
-        }
-
-        &:not(:hover),
-        &:not(.active) {
-          background: transparent;
-        }
+        cursor: pointer;
 
         &:active,
         &.active {
@@ -51,6 +40,15 @@
               color: $primary;
             }
           }
+        }
+
+        &.header {
+          font-size: small;
+          letter-spacing: 1px;
+          color: lighten($secondary, 20);
+          margin-left: 50px;
+          background: transparent;
+          cursor: default;
         }
 
         span {
