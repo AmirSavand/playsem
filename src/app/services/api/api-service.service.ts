@@ -48,4 +48,11 @@ export class ApiService {
   getSong(id: number): Observable<Song> {
     return this.http.get<Song>(`${ApiService.base}songs/${id}/`).pipe();
   }
+
+  /**
+   * Update user.
+   */
+  uapdateUser(username: string, payload: Account): Observable<Account> {
+    return this.http.put<Account>(`${ApiService.base}accounts/${username}`, payload).pipe();
+  }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder} from '@angular/forms';
-import { Account } from '@app/interfaces/account';
+import { AuthService } from '@app/services/auth/auth.service';
+import { User } from '@app/interfaces/user';
 import { ApiService } from '@app/services/api/api-service.service';
 
 @Component({
@@ -9,7 +10,9 @@ import { ApiService } from '@app/services/api/api-service.service';
   styleUrls: ['./user-settings.component.scss']
 })
 export class UserSettingsComponent implements OnInit {
-  
+
+  user: User;
+
 
   /**
    * Settings form
@@ -17,17 +20,21 @@ export class UserSettingsComponent implements OnInit {
   form: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
-              private api: ApiService) { }
+              private api: ApiService,
+              private auth: AuthService) { }
 
   ngOnInit(): void {
 
     /**
-     * Setup form
+     * Get user
      */
-    this.form = this.formBuilder.group({
-      display_name:[null],
-      bio:[null],
-      color:[null],
+    this.auth.user.subscribe( user => {
+      this.user = user;
+      this.form = this.formBuilder.group({
+        display_name: [user.account.display_name],
+        bio: [user.account.bio],
+        color: [user.account.color],
+      });
     });
   }
 
