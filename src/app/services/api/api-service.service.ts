@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Account } from '@app/interfaces/account';
 import { ApiResponse } from '@app/interfaces/api-response';
 import { Party } from '@app/interfaces/party';
 import { PartyUser } from '@app/interfaces/party-user';
@@ -55,5 +56,15 @@ export class ApiService {
    */
   getSong(id: number): Observable<Song> {
     return this.http.get<Song>(`${ApiService.base}songs/${id}/`).pipe();
+  }
+
+  /**
+   * Update user
+   *
+   * @param username User username
+   * @param payload Update data
+   */
+  updateUser(username: string, payload: Account): Observable<Account> {
+    return this.http.put<Account>(`${ApiService.base}accounts/${username}`, payload).pipe();
   }
 }

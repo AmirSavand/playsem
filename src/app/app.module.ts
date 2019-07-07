@@ -19,6 +19,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faBackward } from '@fortawesome/free-solid-svg-icons/faBackward';
 import { faBars } from '@fortawesome/free-solid-svg-icons/faBars';
+import { faCog } from '@fortawesome/free-solid-svg-icons/faCog';
 import { faCompactDisc } from '@fortawesome/free-solid-svg-icons/faCompactDisc';
 import { faForward } from '@fortawesome/free-solid-svg-icons/faForward';
 import { faHeart } from '@fortawesome/free-solid-svg-icons/faHeart';
@@ -105,5 +106,6 @@ export class AppModule {
     library.add(faSignInAlt);
     library.add(faSignOutAlt);
     library.add(faSearch);
+    library.add(faCog);
   }
 }
