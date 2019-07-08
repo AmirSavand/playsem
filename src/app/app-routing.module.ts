@@ -8,6 +8,7 @@ import { SignInComponent } from '@app/components/sign-in/sign-in.component';
 import { SignUpComponent } from '@app/components/sign-up/sign-up.component';
 import { UserSettingsComponent } from '@app/components/user-settings/user-settings.component';
 import { UserComponent } from '@app/components/user/user.component';
+import { PartySettingsComponent } from '@app/components/party-settings/party-settings.component';
 
 const routes: Routes = [{
   path: '',
@@ -33,7 +34,11 @@ const routes: Routes = [{
 }, {
   path: 'user-settings',
   component: UserSettingsComponent,
-}];
+},
+  {
+    path: 'party-settings/:partyId',
+    component: PartySettingsComponent,
+  }];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

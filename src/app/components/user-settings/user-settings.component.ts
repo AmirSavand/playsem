@@ -18,7 +18,7 @@ export class UserSettingsComponent implements OnInit {
   user: User;
 
   /**
-   * Settings form
+   * User settings form
    */
   form: FormGroup;
 
