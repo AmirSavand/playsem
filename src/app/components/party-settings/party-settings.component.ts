@@ -50,7 +50,7 @@ export class PartySettingsComponent implements OnInit {
       /**
        * Get party id from params
        */
-      this.partyId = params.get('partyId');
+      this.partyId = params.get('id');
       /**
        * Get party name and fill the form
        */

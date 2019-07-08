@@ -55,7 +55,7 @@ export class PartyComponent implements OnInit {
       /**
        * Get party ID from params
        */
-      this.partyId = params.get('partyId');
+      this.partyId = params.get('id');
       /**
        * Load party data
        */
