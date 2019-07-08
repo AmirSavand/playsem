@@ -7,8 +7,8 @@
 
   #sidebar {
     background: white;
-    background: -webkit-linear-gradient(to bottom, white, #ddd);
-    background: linear-gradient(to bottom, white, #ddd);
+    background: -webkit-linear-gradient(to bottom, white, #eee);
+    background: linear-gradient(to bottom, white, #eee);
 
     flex: 0 0 auto;
     flex-basis: 300px;
@@ -24,29 +24,31 @@
         padding-right: 30px;
         border: none;
         font-weight: 300;
+        cursor: pointer;
+
+        &:active,
+        &.active {
+          background: $list-group-action-active-bg;
+
+          &.active {
+
+            span {
+              color: $dark;
+            }
+
+            fa-icon {
+              color: $primary;
+            }
+          }
+        }
 
         &.header {
           font-size: small;
           letter-spacing: 1px;
           color: lighten($secondary, 20);
           margin-left: 50px;
-        }
-
-        &.toggler:not(:focus),
-        &.toggler:not(:hover) {
           background: transparent;
-        }
-
-        &.active {
-          background: $list-group-action-active-bg;
-
-          span {
-            color: $dark;
-          }
-
-          fa-icon {
-            color: $primary;
-          }
+          cursor: default;
         }
 
         span {

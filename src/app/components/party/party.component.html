@@ -1,15 +1,23 @@
-<!-- Party -->
+<!-- Party info -->
 <div class="party d-flex shadow" *ngIf="party">
-  <div class="cover" [ngStyle]="{backgroundImage: 'url(https://i.imgur.com/M3zgvc8.jpg)'}"></div>
-  <div class="d-flex flex-column justify-content-around ml-3">
+
+  <!-- Image -->
+  <div class="cover"></div>
+
+  <!-- Info -->
+  <div class="d-flex flex-column justify-content-around mx-3">
+
+    <!-- Name, creator, song count and date -->
     <div>
       <h1 class="font-weight-bold">{{ party.name }}</h1>
-      <p>
+      <p class="text-secondary">
         <a [routerLink]="['/user', party.user.username]">{{ party.user.username }}</a>
-        &bull; {{ songs.length }} SONGS
+        &bull; {{ partySongCount }} SONGS
         &bull; {{ party.date | date }}
       </p>
     </div>
+
+    <!-- Buttons -->
     <div>
       <button class="btn btn-dark btn-sm" (click)="play()">
         <fa-icon [fixedWidth]="true" icon="play"></fa-icon>
@@ -45,9 +53,7 @@
   <tr *ngFor="let song of songs" (click)="play(song)" [class.active]="song === playing">
     <td>{{ song.name }}</td>
     <td class="text-light">{{ song.user.username }}</td>
-    <td class="text-secondary">
-      <span *ngIf="song.category">#{{ song.category.name }}</span>
-    </td>
+    <td class="text-secondary"><span *ngIf="song.category">#{{ song.category.name }}</span></td>
   </tr>
   </tbody>
 </table>

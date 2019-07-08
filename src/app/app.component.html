@@ -14,10 +14,10 @@
         <div class="list-group list-group-flush">
 
           <!-- Toggler -->
-          <button class="list-group-item list-group-item-action toggler" (click)="sidebarClosed = !sidebarClosed">
+          <a class="list-group-item list-group-item-action m-0" (click)="sidebarClosed = !sidebarClosed">
             <fa-icon [fixedWidth]="true" icon="bars" class="text-dark"></fa-icon>
             <span class="font-weight-bold text-dark">PlayzEM</span>
-          </button>
+          </a>
         </div>
 
         <!-- Profile and cover -->
@@ -78,19 +78,19 @@
         </div>
 
         <!-- Bottom links -->
-        <div class="list-group list-group-flush mt-auto">
+        <div class="list-group list-group-flush mt-auto" *ngIf="auth.isAuth()">
 
           <!-- Settings -->
-          <button class="list-group-item list-group-item-action" routerLink="user-settings" routerLinkActive="active">
+          <a class="list-group-item list-group-item-action" routerLink="user-settings" routerLinkActive="active">
             <fa-icon [fixedWidth]="true" icon="cog"></fa-icon>
             <span>Settings</span>
-          </button>
+          </a>
 
           <!-- Sign Out -->
-          <button class="list-group-item list-group-item-action" (click)="auth.signOut()" *ngIf="auth.isAuth()">
+          <a class="list-group-item list-group-item-action" (click)="auth.signOut()">
             <fa-icon [fixedWidth]="true" icon="sign-out-alt"></fa-icon>
             <span>Sign Out</span>
-          </button>
+          </a>
         </div>
       </div>
 

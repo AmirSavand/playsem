@@ -24,6 +24,11 @@ export class PartyComponent implements OnInit {
   party: Party;
 
   /**
+   * Party song count
+   */
+  partySongCount: number;
+
+  /**
    * Song list of party
    */
   songs: Song[] = [];
@@ -76,6 +81,7 @@ export class PartyComponent implements OnInit {
   loadSongs(): void {
     this.api.getSongs(this.party.id).subscribe(data => {
       this.songs = data.results;
+      this.partySongCount = data.count;
       // Set party of each song
       for (const song of this.songs) {
         song.party = this.party;
