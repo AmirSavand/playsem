@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { ApiService } from '@app/services/api/api-service.service';
-import { Party } from '@app/interfaces/party';
 import { ActivatedRoute } from '@angular/router';
+import { Party } from '@app/interfaces/party';
+import { ApiService } from '@app/services/api/api-service.service';
 
 @Component({
   selector: 'app-party-settings',
@@ -14,7 +14,7 @@ export class PartySettingsComponent implements OnInit {
   /**
    * Party ID from param
    */
-  partyid: string;
+  partyId: string;
 
   /**
    * Party data
@@ -26,12 +26,23 @@ export class PartySettingsComponent implements OnInit {
    */
   form: FormGroup;
 
+  /**
+   * API loading indicator
+   */
+  loading: boolean;
+
   constructor(private formBuilder: FormBuilder,
               private api: ApiService,
               private route: ActivatedRoute) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    /**
+     * Setup form
+     */
+    this.form = this.formBuilder.group({
+      title: [''],
+    });
     /**
      * Watch param changes
      */
@@ -39,21 +50,24 @@ export class PartySettingsComponent implements OnInit {
       /**
        * Get party id from params
        */
-      this.partyid = params.get('partyId');
+      this.partyId = params.get('partyId');
       /**
        * Get party name and fill the form
        */
-      this.api.getParty(this.partyid).subscribe(party => {
+      this.api.getParty(this.partyId).subscribe(party => {
         this.party = party;
         /**
          * Set up the party form with default values
          */
-        this.form = this.formBuilder.group({
-          title: [party.name],
+        this.form.patchValue({
+          title: party.name,
         });
       });
     });
 
   }
 
+  submit(): void {
+
+  }
 }
