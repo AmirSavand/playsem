@@ -68,6 +68,14 @@ export class PartySettingsComponent implements OnInit {
   }
 
   submit(): void {
+    if(this.loading) {
+      return;
+    }
+    this.loading = true;
+    this.api.updateParty(this.party.id, this.form.value.title).subscribe((party: Party) => {
+      this.loading = false;
+      this.party = party;
+    });
 
   }
 }
