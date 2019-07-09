@@ -139,4 +139,12 @@ export class PartyComponent implements OnInit {
       this.categorySelected = category;
     }
   }
+
+  /**
+   * @returns Song count of this category
+   * @param category Party category to check
+   */
+  getCategorySongCount(category: Category): number {
+    return this.songs.filter(song => song.category && song.category.id === category.id).length;
+  }
 }

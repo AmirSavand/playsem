@@ -1,4 +1,4 @@
-<!-- Party info -->
+<!-- Party -->
 <div class="party d-flex bg-dark" *ngIf="party">
 
   <!-- Image -->
@@ -35,13 +35,10 @@
 <!-- Categories -->
 <div class="container-fluid">
   <div class="row" *ngIf="party && party.categories">
-    <div class="col-lg-3 col-md-4 d-flex card-columns"
-         *ngFor="let category of party.categories">
-      <a class="card my-3"
-         (click)="selectCategory(category)"
-         [class.bg-primary]="categorySelected === category">
+    <div class="col-lg-3 col-md-4 d-flex card-columns" *ngFor="let category of party.categories">
+      <a class="card my-3" (click)="selectCategory(category)" [class.bg-primary]="categorySelected === category">
         <div class="card-body">
-          <p class="card-text">{{ category.name | uppercase }}</p>
+          <p class="card-text">{{ category.name | uppercase }}<br>{{ getCategorySongCount(category) }}</p>
         </div>
       </a>
     </div>
@@ -51,9 +48,7 @@
 <!-- Songs -->
 <table class="table" *ngIf="songs">
   <tbody>
-  <tr *ngFor="let song of songsFilter"
-      (click)="play(song)"
-      [class.active]="song === playing">
+  <tr *ngFor="let song of songsFilter" (click)="play(song)" [class.active]="song === playing">
     <td>{{ song.name }}</td>
     <td class="text-light">{{ song.user.username }}</td>
   </tr>
