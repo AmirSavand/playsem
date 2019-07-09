@@ -34,9 +34,9 @@ export class PartyComponent implements OnInit {
   songs: Song[] = [];
 
   /**
-   * Category filter
+   * Selected category (for filtering)
    */
-  category: Category;
+  categorySelected: Category;
 
   /**
    * Song currently playing
@@ -47,11 +47,28 @@ export class PartyComponent implements OnInit {
               private route: ActivatedRoute) {
   }
 
+  /**
+   * @returns Songs with category filter if selected
+   */
+  get songsFilter(): Song[] {
+    if (this.categorySelected) {
+      return this.songs.filter(song => song.category && song.category.id === this.categorySelected.id);
+    }
+    return this.songs;
+  }
+
   ngOnInit(): void {
     /**
      * Watch param changes
      */
     this.route.paramMap.subscribe(params => {
+      /**
+       * Reset data
+       */
+      this.party = null;
+      this.songs = [];
+      this.categorySelected = null;
+      this.partySongCount = null;
       /**
        * Get party ID from params
        */
@@ -108,6 +125,18 @@ export class PartyComponent implements OnInit {
       }
       // Play the song (first or selected)
       PlayerService.play(song);
+    }
+  }
+
+  /**
+   * Select party category (toggle behaviour)
+   * @param category Party category to select
+   */
+  selectCategory(category: Category): void {
+    if (this.categorySelected === category) {
+      this.categorySelected = null;
+    } else {
+      this.categorySelected = category;
     }
   }
 }
