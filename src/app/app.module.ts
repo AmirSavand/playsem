@@ -4,7 +4,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { DashboardComponent } from '@app/components/dashboard/dashboard.component';
+import { ExploreComponent } from '@app/components/explore/explore.component';
 import { HomeComponent } from '@app/components/home/home.component';
+import { PartySettingsComponent } from '@app/components/party-settings/party-settings.component';
 import { PartyComponent } from '@app/components/party/party.component';
 import { SignInComponent } from '@app/components/sign-in/sign-in.component';
 import { SignUpComponent } from '@app/components/sign-up/sign-up.component';
@@ -44,8 +46,6 @@ import { NgxY2PlayerModule } from 'ngx-y2-player';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ExploreComponent } from './components/explore/explore.component';
-import { PartySettingsComponent } from './components/party-settings/party-settings.component';
 
 @NgModule({
   declarations: [
