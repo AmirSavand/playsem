@@ -30,6 +30,8 @@ export class ApiService {
 
   /**
    * Get party data
+   *
+   * @param id Party ID
    */
   getParty(id: string): Observable<Party> {
     return this.http.get<Party>(`${ApiService.base}parties/${id}/`).pipe();
@@ -37,13 +39,26 @@ export class ApiService {
 
   /**
    * Get party user list
+   *
+   * @param params Filter data
    */
-  getPartyUsers(params: { user?: string, party?: string, }): Observable<ApiResponse<PartyUser>> {
+  getPartyUsers(params?: { user?: string, party?: string, }): Observable<ApiResponse<PartyUser>> {
     return this.http.get<ApiResponse<PartyUser>>(`${ApiService.base}party-users/`, { params }).pipe();
   }
 
   /**
+   * Create a party user (Make authenticated join a party)
+   *
+   * @param party Party ID
+   */
+  postPartyUsers(party: string): Observable<PartyUser> {
+    return this.http.post<PartyUser>(`${ApiService.base}party-users/`, { party }).pipe();
+  }
+
+  /**
    * Get song list
+   *
+   * @param party Song party ID
    */
   getSongs(party: string): Observable<ApiResponse<Song>> {
     return this.http.get<ApiResponse<Song>>(`${ApiService.base}songs/`, {
@@ -53,6 +68,8 @@ export class ApiService {
 
   /**
    * Get song data
+   *
+   * @param id Song ID
    */
   getSong(id: number): Observable<Song> {
     return this.http.get<Song>(`${ApiService.base}songs/${id}/`).pipe();
@@ -68,6 +85,12 @@ export class ApiService {
     return this.http.put<Account>(`${ApiService.base}accounts/${username}`, payload).pipe();
   }
 
+  /**
+   * Update party title
+   *
+   * @param id Party ID
+   * @param title Party title
+   */
   updateParty(id: string, title: string): Observable<Party> {
     return this.http.put<Party>(`${ApiService.base}party/${id}`, { title }).pipe();
   }

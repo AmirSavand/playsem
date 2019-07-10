@@ -93,6 +93,15 @@ export class AuthService {
   }
 
   /**
+   * @returns Whether the authenticated user is one of the users
+   *
+   * @param users Users to check
+   */
+  isAnyUser(users: User[]): boolean {
+    return this.userSubject.value && users.some(user => user.id === this.userSubject.value.id);
+  }
+
+  /**
    * Save/update token to localStorage
    *
    * @param token Authentication token

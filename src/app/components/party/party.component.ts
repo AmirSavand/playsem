@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Category } from '@app/interfaces/category';
 import { Party } from '@app/interfaces/party';
+import { PartyUser } from '@app/interfaces/party-user';
 import { Song } from '@app/interfaces/song';
 import { User } from '@app/interfaces/user';
 import { ApiService } from '@app/services/api/api-service.service';
@@ -14,11 +15,6 @@ import { PlayerService } from '@app/services/player/player.service';
   styleUrls: ['./party.component.scss'],
 })
 export class PartyComponent implements OnInit {
-
-  /**
-   * Authenticated user
-   */
-  user: User;
 
   /**
    * Party ID from param
@@ -36,9 +32,19 @@ export class PartyComponent implements OnInit {
   partySongCount: number;
 
   /**
+   * Party users (members) count
+   */
+  partyUserCount: number;
+
+  /**
    * Song list of party
    */
-  songs: Song[] = [];
+  songs: Song[];
+
+  /**
+   * User (member) list of party (PartyUser objects)
+   */
+  partyUsers: PartyUser[];
 
   /**
    * Selected category (for filtering)
@@ -74,7 +80,8 @@ export class PartyComponent implements OnInit {
        * Reset data
        */
       this.party = null;
-      this.songs = [];
+      this.songs = null;
+      this.partyUsers = null;
       this.categorySelected = null;
       this.partySongCount = null;
       /**
@@ -90,6 +97,10 @@ export class PartyComponent implements OnInit {
          * Load party songs
          */
         this.loadSongs();
+        /**
+         * Load party members
+         */
+        this.loadUsers();
       });
     });
     /**
@@ -111,6 +122,16 @@ export class PartyComponent implements OnInit {
       for (const song of this.songs) {
         song.party = this.party;
       }
+    });
+  }
+
+  /**
+   * Load users (members) of party
+   */
+  loadUsers(): void {
+    this.api.getPartyUsers({ party: this.party.id }).subscribe(data => {
+      this.partyUsers = data.results;
+      this.partyUserCount = data.count;
     });
   }
 
@@ -153,6 +174,31 @@ export class PartyComponent implements OnInit {
    * @param category Party category to check
    */
   getCategorySongCount(category: Category): number {
+    if (!this.songs) {
+      return 0;
+    }
     return this.songs.filter(song => song.category && song.category.id === category.id).length;
+  }
+
+  /**
+   * @returns Whether user is a member of this party
+   */
+  isPartyMember(): boolean | void {
+    if (this.partyUsers) {
+      const users: User[] = [];
+      for (const partyUser of this.partyUsers) {
+        users.push(partyUser.user);
+      }
+      return this.auth.isAnyUser(users);
+    }
+  }
+
+  /**
+   * Make authenticated user to join this party
+   */
+  joinParty(): void {
+    this.api.postPartyUsers(this.party.id).subscribe(() => {
+      this.loadUsers();
+    });
   }
 }

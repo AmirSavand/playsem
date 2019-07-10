@@ -13,6 +13,7 @@
       <p class="text-secondary">
         <a [routerLink]="['/user', party.user.username]">{{ party.user.username }}</a>
         <span *ngIf="partySongCount"> &bull; {{ partySongCount }} SONGS</span>
+        <span *ngIf="partyUserCount"> &bull; {{ partyUserCount }} MEMBERS</span>
         &bull; {{ party.date | date }}
       </p>
     </div>
@@ -21,15 +22,19 @@
     <div>
       <button class="btn btn-dark btn-sm" (click)="play()">
         <fa-icon [fixedWidth]="true" icon="play"></fa-icon>
+        Play
       </button>
       <button class="btn btn-dark btn-sm ml-2">
         <fa-icon [fixedWidth]="true" icon="heart"></fa-icon>
+        Like
       </button>
-      <button class="btn btn-dark btn-sm ml-2">
+      <button class="btn btn-dark btn-sm ml-2" *ngIf="isPartyMember() === false" (click)="joinParty()">
         <fa-icon [fixedWidth]="true" icon="user-plus"></fa-icon>
+        Join Party
       </button>
       <a class="btn btn-dark btn-sm ml-2" routerLink="settings" *ngIf="auth.isUser(party.user)">
         <fa-icon [fixedWidth]="true" icon="cog"></fa-icon>
+        Settings
       </a>
     </div>
   </div>
