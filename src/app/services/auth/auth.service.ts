@@ -84,6 +84,15 @@ export class AuthService {
   }
 
   /**
+   * @returns Whether the authenticated user is the user
+   *
+   * @param user User to check
+   */
+  isUser(user: User): boolean {
+    return this.userSubject.value && this.userSubject.value.id === user.id;
+  }
+
+  /**
    * Save/update token to localStorage
    *
    * @param token Authentication token
