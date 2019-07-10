@@ -3,7 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Category } from '@app/interfaces/category';
 import { Party } from '@app/interfaces/party';
 import { Song } from '@app/interfaces/song';
+import { User } from '@app/interfaces/user';
 import { ApiService } from '@app/services/api/api-service.service';
+import { AuthService } from '@app/services/auth/auth.service';
 import { PlayerService } from '@app/services/player/player.service';
 
 @Component({
@@ -12,6 +14,11 @@ import { PlayerService } from '@app/services/player/player.service';
   styleUrls: ['./party.component.scss'],
 })
 export class PartyComponent implements OnInit {
+
+  /**
+   * Authenticated user
+   */
+  user: User;
 
   /**
    * Party ID from param
@@ -43,7 +50,8 @@ export class PartyComponent implements OnInit {
    */
   playing: Song;
 
-  constructor(private api: ApiService,
+  constructor(public auth: AuthService,
+              private api: ApiService,
               private route: ActivatedRoute) {
   }
 
