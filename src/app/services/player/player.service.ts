@@ -33,6 +33,7 @@ export class PlayerService {
    * Clear song list
    */
   static clear(): void {
+    PlayerService.playingSubject.next(null);
     PlayerService.songsSubject.next([]);
   }
 

@@ -179,11 +179,11 @@ export class PlayerComponent {
      * Get playing song and subscribe
      */
     PlayerService.playing.subscribe(data => {
-      if (data) {
-        this.playing = data;
-        if (this.youtube) {
-          this.youtube.videoPlayer.loadVideoById(PlayerService.getYouTubeVideoID(this.playing.source));
-        }
+      this.playing = data;
+      if (this.playing && this.youtube) {
+        this.youtube.videoPlayer.loadVideoById(PlayerService.getYouTubeVideoID(this.playing.source));
+      } else {
+        this.youtube.videoPlayer.stopVideo();
       }
     });
     /**
