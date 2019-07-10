@@ -114,13 +114,13 @@ export class PartyComponent implements OnInit {
     // Clear songs
     PlayerService.clear();
     // If there are any party songs
-    if (this.songs.length) {
+    if (this.songsFilter.length) {
       // If song is not provided, start playing the first one
       if (!song) {
-        song = this.songs[0];
+        song = this.songsFilter[0];
       }
       // Queue all songs
-      for (const partySong of this.songs) {
+      for (const partySong of this.songsFilter) {
         PlayerService.queue(partySong);
       }
       // Play the song (first or selected)
