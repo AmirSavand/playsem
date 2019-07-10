@@ -67,4 +67,8 @@ export class ApiService {
   updateUser(username: string, payload: Account): Observable<Account> {
     return this.http.put<Account>(`${ApiService.base}accounts/${username}`, payload).pipe();
   }
+
+  updateParty(id: string, title: string): Observable<Party> {
+    return this.http.put<Party>(`${ApiService.base}party/${id}`, { title }).pipe();
+  }
 }
