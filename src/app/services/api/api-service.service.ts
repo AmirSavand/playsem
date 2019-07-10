@@ -38,6 +38,16 @@ export class ApiService {
   }
 
   /**
+   * Update party title
+   *
+   * @param id Party ID
+   * @param title Party title
+   */
+  updateParty(id: string, title: string): Observable<Party> {
+    return this.http.put<Party>(`${ApiService.base}parties/${id}`, { title }).pipe();
+  }
+
+  /**
    * Get party user list
    *
    * @param params Filter data
@@ -83,15 +93,5 @@ export class ApiService {
    */
   updateUser(username: string, payload: Account): Observable<Account> {
     return this.http.put<Account>(`${ApiService.base}accounts/${username}`, payload).pipe();
-  }
-
-  /**
-   * Update party title
-   *
-   * @param id Party ID
-   * @param title Party title
-   */
-  updateParty(id: string, title: string): Observable<Party> {
-    return this.http.put<Party>(`${ApiService.base}party/${id}`, { title }).pipe();
   }
 }
