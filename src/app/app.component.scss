@@ -1,20 +1,5 @@
 @import '~src/assets/variables';
 
-::-webkit-scrollbar-track,
-::-webkit-scrollbar {
-  background: transparent;
-}
-
-::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: deeppink;
-}
-
 #wrapper {
   display: flex;
   flex-direction: column;
