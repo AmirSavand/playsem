@@ -48,6 +48,14 @@ export class ApiService {
   }
 
   /**
+   * Delete party
+   * @param id
+   */
+  deleteParty(id: string): Observable<Party> {
+    return  this.http.delete<Party>(`${ApiService.base}parties/${id}`).pipe();
+  }
+
+  /**
    * Get party user list
    *
    * @param params Filter data
