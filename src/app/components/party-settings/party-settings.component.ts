@@ -77,4 +77,21 @@ export class PartySettingsComponent implements OnInit {
       this.party = party;
     });
   }
+
+  /**
+   * Delete party
+   */
+  deleteParty(): void {
+    if (!confirm('Are you sure you want to delete this party?')) {
+      return;
+    }
+    if (this.loading) {
+      return;
+    }
+    this.loading = true;
+    this.api.deleteParty(this.party.id).subscribe(party => {
+      this.loading = false;
+      this.party = party;
+    });
+  }
 }
