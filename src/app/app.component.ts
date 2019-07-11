@@ -6,8 +6,7 @@ import { AuthService } from '@app/services/auth/auth.service';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html ' +
-    '<ngx-loading-bar></ngx-loading-bar>',
+  templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
 
