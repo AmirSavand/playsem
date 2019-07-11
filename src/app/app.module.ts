@@ -46,6 +46,7 @@ import { NgxY2PlayerModule } from 'ngx-y2-player';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { AppComponent } from './app.component';
     FontAwesomeModule,
     FormsModule,
     NgxY2PlayerModule,
+    LoadingBarRouterModule,
     BsDropdownModule.forRoot(),
     ProgressbarModule.forRoot(),
   ],
