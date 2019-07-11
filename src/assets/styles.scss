@@ -1,6 +1,21 @@
 @import "variables";
 @import "~bootstrap/scss/bootstrap";
 
+::-webkit-scrollbar-track,
+::-webkit-scrollbar {
+  background: transparent;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $primary;
+}
+
 body {
   cursor: default;
 }
