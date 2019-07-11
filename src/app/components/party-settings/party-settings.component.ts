@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Party } from '@app/interfaces/party';
 import { ApiService } from '@app/services/api/api-service.service';
 
@@ -10,6 +10,11 @@ import { ApiService } from '@app/services/api/api-service.service';
   styleUrls: ['./party-settings.component.scss'],
 })
 export class PartySettingsComponent implements OnInit {
+
+  /**
+   * Redirect to path after deletion
+   */
+  static readonly partyDeleteRedirect = '/dashboard';
 
   /**
    * Party ID from param
@@ -25,7 +30,6 @@ export class PartySettingsComponent implements OnInit {
    * Party settings form
    */
   form: FormGroup;
-
   /**
    * API loading indicator
    */
@@ -33,7 +37,8 @@ export class PartySettingsComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private api: ApiService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -67,6 +72,9 @@ export class PartySettingsComponent implements OnInit {
 
   }
 
+  /**
+   * Submit party update form
+   */
   submit(): void {
     if (this.loading) {
       return;
@@ -79,19 +87,18 @@ export class PartySettingsComponent implements OnInit {
   }
 
   /**
-   * Delete party
+   * Delete party and redirect
    */
   deleteParty(): void {
-    if (!confirm('Are you sure you want to delete this party?')) {
-      return;
-    }
     if (this.loading) {
       return;
     }
+    if (prompt('Enter party ID to delete:') !== this.partyId) {
+      return alert('Party deletion was not confirmed.');
+    }
     this.loading = true;
-    this.api.deleteParty(this.party.id).subscribe(party => {
-      this.loading = false;
-      this.party = party;
+    this.api.deleteParty(this.party.id).subscribe(() => {
+      this.router.navigate([PartySettingsComponent.partyDeleteRedirect]);
     });
   }
 }
