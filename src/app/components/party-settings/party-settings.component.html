@@ -12,6 +12,8 @@
           <button class="btn btn-info btn-block" [disabled]="loading">Update</button>
         </form>
         <div class="card-footer">
+          <!-- Leave party button -->
+          <button (click)="leaveParty()" class="btn btn-info btn-block" [disabled]="loading">Leave Party</button>
           <!-- Delete party button -->
           <button (click)="deleteParty()" class="btn btn-danger btn-block" [disabled]="loading">Delete Party</button>
         </div>

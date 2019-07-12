@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Party } from '@app/interfaces/party';
 import { ApiService } from '@app/services/api/api-service.service';
+import { PartyUser } from '@app/interfaces/party-user';
 
 @Component({
   selector: 'app-party-settings',
@@ -11,10 +12,13 @@ import { ApiService } from '@app/services/api/api-service.service';
 })
 export class PartySettingsComponent implements OnInit {
 
+  partyUser: PartyUser;
+
   /**
    * Redirect to path after deletion
    */
   static readonly partyDeleteRedirect = '/dashboard';
+  static readonly leavePartyRedirect = '/dashboard';
 
   /**
    * Party ID from param
@@ -99,6 +103,20 @@ export class PartySettingsComponent implements OnInit {
     this.loading = true;
     this.api.deleteParty(this.party.id).subscribe(() => {
       this.router.navigate([PartySettingsComponent.partyDeleteRedirect]);
+    });
+  }
+
+  leaveParty() {
+    if (this.loading) {
+      return;
+    }
+    if (prompt('Enter party ID to leave:') !== this.partyId) {
+      return alert('Leave party was not confirmed');
+    }
+    this.loading = true;
+    this.api.leaveParty(this.partyUser.id).subscribe( party => {
+      this.partyUser = party;
+      this.router.navigate([PartySettingsComponent.leavePartyRedirect]);
     });
   }
 }

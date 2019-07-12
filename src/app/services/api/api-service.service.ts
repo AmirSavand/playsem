@@ -102,4 +102,8 @@ export class ApiService {
   updateUser(username: string, payload: Account): Observable<Account> {
     return this.http.put<Account>(`${ApiService.base}accounts/${username}`, payload).pipe();
   }
+
+  leaveParty(id: number): Observable<PartyUser> {
+    return this.http.delete<PartyUser>(`${ApiService.base}accounts/${id}`).pipe();
+  }
 }
