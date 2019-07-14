@@ -16,6 +16,18 @@
           <button (click)="deleteParty()" class="btn btn-danger btn-block" [disabled]="loading">Delete Party</button>
         </div>
       </div>
+      <!-- Categories -->
+      <div class="card my-3">
+        <div class="card-header">Categories</div>
+        <div class="card-body">
+          <div *ngFor="let category of party.categories">
+            <span class="text-uppercase">{{ category.name }}</span>
+            <div class="float-right">
+              <button class="btn btn-primary btn-sm py-0" (click)="deleteCategory(category)">X</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

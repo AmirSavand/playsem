@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Party } from '@app/interfaces/party';
 import { ApiService } from '@app/services/api/api-service.service';
+import {Category } from '@app/interfaces/category';
 
 @Component({
   selector: 'app-party-settings',
@@ -100,5 +101,9 @@ export class PartySettingsComponent implements OnInit {
     this.api.deleteParty(this.party.id).subscribe(() => {
       this.router.navigate([PartySettingsComponent.partyDeleteRedirect]);
     });
+  }
+
+  deleteCategory(category: Category): void {
+    this.api.deleteCategory(category.id).subscribe();
   }
 }
