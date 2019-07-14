@@ -77,9 +77,6 @@
         <span *ngIf="song.category">  &bull; {{ song.category.name }}</span>
       </small>
     </div>
-    <!-- Icon -->
-    <div class="icon">
-      <fa-icon [fixedWidth]="true" icon="ellipsis-v"></fa-icon>
-    </div>
+    <button class="btn btn-primary" (click)="deleteSong(song)">X</button>
   </div>
 </div>

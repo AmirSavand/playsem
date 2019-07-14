@@ -41,6 +41,8 @@ export class PartyComponent implements OnInit {
    */
   songs: Song[];
 
+  song: Song;
+
   /**
    * User (member) list of party (PartyUser objects)
    */
@@ -200,5 +202,15 @@ export class PartyComponent implements OnInit {
     this.api.postPartyUsers(this.party.id).subscribe(() => {
       this.loadUsers();
     });
+  }
+
+  deleteSong(song: Song): void {
+    if (!confirm('Are you sure you want to delete this song?')) {
+      return;
+    }
+    this.songs.splice(this.songs.indexOf(song), 1);
+    this.api.deleteSong(this.song.id).subscribe(song => {
+      this.song = song;
+    })
   }
 }
