@@ -59,11 +59,27 @@
 </div>
 
 <!-- Songs -->
-<table class="table" *ngIf="songs">
-  <tbody>
-  <tr *ngFor="let song of songsFilter" (click)="play(song)" [class.active]="song === playing">
-    <td>{{ song.name }}</td>
-    <td class="text-light">{{ song.user.username }}</td>
-  </tr>
-  </tbody>
-</table>
+<div class="songs" *ngIf="songs">
+  <!-- Song -->
+  <div class="song d-flex align-items-center" *ngFor="let song of songsFilter" (click)="play(song)"
+       [class.active]="song === playing">
+    <!-- Icon -->
+    <div class="icon">
+      <fa-icon [fixedWidth]="true" icon="play"></fa-icon>
+    </div>
+    <!-- Image -->
+    <div class="cover mr-3" [style.background-image]="'url(https://i.imgur.com/M3zgvc8.jpg)'"></div>
+    <!-- Info -->
+    <div class="info d-flex flex-column text-truncate">
+      <span class="text-truncate">{{ song.name }}</span>
+      <small>
+        <span>{{ song.user.username }}</span>
+        <span *ngIf="song.category">  &bull; {{ song.category.name }}</span>
+      </small>
+    </div>
+    <!-- Icon -->
+    <div class="icon">
+      <fa-icon [fixedWidth]="true" icon="ellipsis-v"></fa-icon>
+    </div>
+  </div>
+</div>

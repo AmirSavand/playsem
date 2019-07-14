@@ -23,6 +23,7 @@ import { faBackward } from '@fortawesome/free-solid-svg-icons/faBackward';
 import { faBars } from '@fortawesome/free-solid-svg-icons/faBars';
 import { faCog } from '@fortawesome/free-solid-svg-icons/faCog';
 import { faCompactDisc } from '@fortawesome/free-solid-svg-icons/faCompactDisc';
+import { faEllipsisV } from '@fortawesome/free-solid-svg-icons/faEllipsisV';
 import { faForward } from '@fortawesome/free-solid-svg-icons/faForward';
 import { faHeart } from '@fortawesome/free-solid-svg-icons/faHeart';
 import { faPause } from '@fortawesome/free-solid-svg-icons/faPause';
@@ -111,5 +112,6 @@ export class AppModule {
     library.add(faSignOutAlt);
     library.add(faSearch);
     library.add(faCog);
+    library.add(faEllipsisV);
   }
 }
