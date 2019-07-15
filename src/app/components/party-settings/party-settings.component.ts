@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Party } from '@app/interfaces/party';
 import { ApiService } from '@app/services/api/api-service.service';
-import {Category } from '@app/interfaces/category';
+import { Category } from '@app/interfaces/category';
 
 @Component({
   selector: 'app-party-settings',
@@ -103,7 +103,16 @@ export class PartySettingsComponent implements OnInit {
     });
   }
 
+  /**
+   * Delete category
+   * @param category
+   */
   deleteCategory(category: Category): void {
-    this.api.deleteCategory(category.id).subscribe();
+    if (!confirm('Are you sure you want to delete this category ?')) {
+      return;
+    }
+    this.api.deleteCategory(category.id).subscribe(() => {
+      this.party.categories.splice(this.party.categories.indexOf(category), 1);
+    });
   }
 }

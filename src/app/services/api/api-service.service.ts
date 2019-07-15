@@ -102,8 +102,12 @@ export class ApiService {
   updateUser(username: string, payload: Account): Observable<Account> {
     return this.http.put<Account>(`${ApiService.base}accounts/${username}`, payload).pipe();
   }
-  
+
+  /**
+   * Delete category
+   * @param id
+   */
   deleteCategory(id: number): Observable<void> {
-    return this.http.delete<void>(`${ApiService.base}categories/${id}`).pipe();
+    return this.http.delete<void>(`${ApiService.base}party-categories/${id}`).pipe();
   }
 }
