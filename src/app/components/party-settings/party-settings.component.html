@@ -23,7 +23,7 @@
           <div *ngFor="let category of party.categories">
             <span class="text-uppercase">{{ category.name }}</span>
             <div class="float-right">
-              <button class="btn btn-primary btn-sm py-0" (click)="deleteCategory(category)">X</button>
+              <button class="btn btn-primary btn-sm py-0" [disabled]="loading" (click)="deleteCategory(category)">X</button>
             </div>
           </div>
         </div>

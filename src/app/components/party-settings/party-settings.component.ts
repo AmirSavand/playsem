@@ -108,9 +108,13 @@ export class PartySettingsComponent implements OnInit {
    * @param category
    */
   deleteCategory(category: Category): void {
+    if (this.loading) {
+      return;
+    }
     if (!confirm('Are you sure you want to delete this category ?')) {
       return;
     }
+    this.loading = true;
     this.api.deleteCategory(category.id).subscribe(() => {
       this.party.categories.splice(this.party.categories.indexOf(category), 1);
     });

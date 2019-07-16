@@ -105,7 +105,7 @@ export class ApiService {
 
   /**
    * Delete category
-   * @param id
+   * @param id Category ID to
    */
   deleteCategory(id: number): Observable<void> {
     return this.http.delete<void>(`${ApiService.base}party-categories/${id}`).pipe();
