@@ -23,14 +23,30 @@ export class PartySettingsComponent implements OnInit {
   partyId: string;
 
   /**
+   * Category ID from param
+   */
+  categoryId: string;
+
+  /**
    * Party data
    */
   party: Party;
 
   /**
+   * Category data
+   */
+  category: Category;
+
+  /**
    * Party settings form
    */
   form: FormGroup;
+
+  /**
+   * Category rename form
+   */
+  renameForm: FormGroup;
+
   /**
    * API loading indicator
    */
@@ -43,8 +59,38 @@ export class PartySettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     /**
-     * Setup form
+     * Setup category rename form
+     */
+    this.renameForm = this.formBuilder.group({
+      name: [''],
+    });
+    // /**
+    //  * Watch param changes
+    //  */
+    // this.route.paramMap.subscribe(params => {
+    //   /**
+    //    * Get category id from params
+    //    */
+    //   this.categoryId = params.get('id');
+    //   /**
+    //    * Get category form and fill the form
+    //    */
+    //   this.api.getCategory(this.categoryId).subscribe(category => {
+    //     this.category = category;
+    //     /**
+    //      * Set up the category form with default values
+    //      */
+    //     this.renameForm.patchValue({
+    //       title: category.name,
+    //     });
+    //   });
+    // });
+
+
+    /**
+     * Setup party form
      */
     this.form = this.formBuilder.group({
       title: [''],
@@ -104,6 +150,20 @@ export class PartySettingsComponent implements OnInit {
   }
 
   /**
+   * Rename category
+   */
+  renameCategory(): void {
+    if (this.loading) {
+      return;
+    }
+    this.loading = true;
+    this.api.updateCategory(this.category.id, this.renameForm.value.name).subscribe(category => {
+      this.loading = false;
+      this.category = category;
+    });
+  }
+
+  /**
    * Delete category
    * @param category
    */
@@ -119,4 +179,5 @@ export class PartySettingsComponent implements OnInit {
       this.party.categories.splice(this.party.categories.indexOf(category), 1);
     });
   }
+
 }

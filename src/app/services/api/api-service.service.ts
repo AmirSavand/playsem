@@ -7,6 +7,7 @@ import { PartyUser } from '@app/interfaces/party-user';
 import { Song } from '@app/interfaces/song';
 import { environment } from '@environments/environment';
 import { Observable } from 'rxjs';
+import { Category } from '@app/interfaces/category';
 
 @Injectable({
   providedIn: 'root',
@@ -53,6 +54,23 @@ export class ApiService {
    */
   deleteParty(id: string): Observable<Party> {
     return  this.http.delete<Party>(`${ApiService.base}parties/${id}`).pipe();
+  }
+
+  /**
+   * Get category data
+   * @param id category ID
+   */
+  getCategory(id: string): Observable<Category> {
+    return this.http.get<Category>(`${ApiService.base}party-categories/${id}/`).pipe();
+  }
+
+  /**
+   * Update category name
+   * @param id
+   * @param name
+   */
+  updateCategory(id: number, name: string): Observable<Category> {
+    return this.http.put<Category>(`${ApiService.base}party-categories/${id}`, {name}).pipe();
   }
 
   /**
