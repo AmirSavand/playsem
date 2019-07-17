@@ -7,6 +7,7 @@ import { PartyUser } from '@app/interfaces/party-user';
 import { Song } from '@app/interfaces/song';
 import { environment } from '@environments/environment';
 import { Observable } from 'rxjs';
+import { Category } from '@app/interfaces/category';
 
 @Injectable({
   providedIn: 'root',
@@ -101,5 +102,13 @@ export class ApiService {
    */
   updateUser(username: string, payload: Account): Observable<Account> {
     return this.http.put<Account>(`${ApiService.base}accounts/${username}`, payload).pipe();
+  }
+
+  /**
+   * Create new Category
+   * @param name
+   */
+  addCategory(name: string): Observable<Category> {
+    return this.http.post<Category>(`${ApiService.base}party-categories/`, {name}).pipe();
   }
 }

@@ -16,6 +16,18 @@
           <button (click)="deleteParty()" class="btn btn-danger btn-block" [disabled]="loading">Delete Party</button>
         </div>
       </div>
+      <!-- Add category -->
+      <div class="card my-3">
+        <div class="card-header">Add category</div>
+        <form class="card-body" (ngSubmit)="addCategory()" [formGroup]="categoryForm">
+          <!-- Name -->
+          <div class="form-group">
+            <input class="form-control" type="text" placeholder="Category name" formControlName="name">
+          </div>
+          <!-- Submit button -->
+          <button class="btn btn-info btn-block">Add</button>
+        </form>
+      </div>
     </div>
   </div>
 </div>

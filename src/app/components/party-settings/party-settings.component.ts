@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Party } from '@app/interfaces/party';
 import { ApiService } from '@app/services/api/api-service.service';
@@ -29,6 +29,8 @@ export class PartySettingsComponent implements OnInit {
   /**
    * Party settings form
    */
+  categoryForm: FormGroup;
+
   form: FormGroup;
   /**
    * API loading indicator
@@ -42,6 +44,14 @@ export class PartySettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    /**
+     * Setup category form
+     */
+    this.categoryForm = this.formBuilder.group({
+      name: [''],
+    });
+
     /**
      * Setup form
      */
@@ -100,5 +110,12 @@ export class PartySettingsComponent implements OnInit {
     this.api.deleteParty(this.party.id).subscribe(() => {
       this.router.navigate([PartySettingsComponent.partyDeleteRedirect]);
     });
+  }
+
+  /**
+   * Create new category
+   */
+  addCategory(): void {
+    this.api.addCategory(this.categoryForm.value).subscribe();
   }
 }
