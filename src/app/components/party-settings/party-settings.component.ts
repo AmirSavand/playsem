@@ -29,9 +29,13 @@ export class PartySettingsComponent implements OnInit {
   /**
    * Party settings form
    */
+  form: FormGroup;
+
+  /**
+   * Category form
+   */
   categoryForm: FormGroup;
 
-  form: FormGroup;
   /**
    * API loading indicator
    */
