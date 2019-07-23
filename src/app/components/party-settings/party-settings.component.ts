@@ -23,29 +23,14 @@ export class PartySettingsComponent implements OnInit {
   partyId: string;
 
   /**
-   * Category ID from param
-   */
-  categoryId: string;
-
-  /**
    * Party data
    */
   party: Party;
 
   /**
-   * Category data
-   */
-  category: Category;
-
-  /**
    * Party settings form
    */
   form: FormGroup;
-
-  /**
-   * Category rename form
-   */
-  renameForm: FormGroup;
 
   /**
    * API loading indicator
@@ -59,36 +44,6 @@ export class PartySettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    /**
-     * Setup category rename form
-     */
-    this.renameForm = this.formBuilder.group({
-      name: [''],
-    });
-    // /**
-    //  * Watch param changes
-    //  */
-    // this.route.paramMap.subscribe(params => {
-    //   /**
-    //    * Get category id from params
-    //    */
-    //   this.categoryId = params.get('id');
-    //   /**
-    //    * Get category form and fill the form
-    //    */
-    //   this.api.getCategory(this.categoryId).subscribe(category => {
-    //     this.category = category;
-    //     /**
-    //      * Set up the category form with default values
-    //      */
-    //     this.renameForm.patchValue({
-    //       title: category.name,
-    //     });
-    //   });
-    // });
-
-
     /**
      * Setup party form
      */
@@ -107,6 +62,7 @@ export class PartySettingsComponent implements OnInit {
        * Get party name and fill the form
        */
       this.api.getParty(this.partyId).subscribe(party => {
+        this.loading = false;
         this.party = party;
         /**
          * Set up the party form with default values
@@ -116,7 +72,6 @@ export class PartySettingsComponent implements OnInit {
         });
       });
     });
-
   }
 
   /**
@@ -150,28 +105,23 @@ export class PartySettingsComponent implements OnInit {
   }
 
   /**
-   * Rename category
+   * Update category
    */
-  renameCategory(): void {
-    if (this.loading) {
-      return;
+  updateCategories(): void {
+    for (let category of this.party.categories) {
+      this.api.updateCategory(category.id, category.name).subscribe(data => {
+        category = data;
+      });
     }
-    this.loading = true;
-    this.api.updateCategory(this.category.id, this.renameForm.value.name).subscribe(category => {
-      this.loading = false;
-      this.category = category;
-    });
   }
 
   /**
-   * Delete category
-   * @param category
+   * Delete a category
+   *
+   * @param category Category to delete
    */
   deleteCategory(category: Category): void {
-    if (this.loading) {
-      return;
-    }
-    if (!confirm('Are you sure you want to delete this category ?')) {
+    if (this.loading || !confirm('Are you sure you want to delete this category?')) {
       return;
     }
     this.loading = true;
@@ -179,5 +129,4 @@ export class PartySettingsComponent implements OnInit {
       this.party.categories.splice(this.party.categories.indexOf(category), 1);
     });
   }
-
 }

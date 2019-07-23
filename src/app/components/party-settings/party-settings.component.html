@@ -3,7 +3,7 @@
     <div class="col-lg-6">
       <div class="card my-3">
         <div class="card-header">Settings</div>
-        <form class="card-body" (ngSubmit)="submit()" [formGroup]="form">
+        <form class="card-body" (ngSubmit)="submit()" [formGroup]="form" *ngIf="form">
           <!-- Title -->
           <div class="form-group">
             <input class="form-control" type="text" placeholder="Title" formControlName="title">
@@ -17,17 +17,23 @@
         </div>
       </div>
       <!-- Categories -->
-      <div class="card my-3">
+      <div class="card my-3" *ngIf="party">
         <div class="card-header">Categories</div>
-        <form class="d-flex card-body" [formGroup]="renameForm" *ngFor="let category of party.categories">
-          <!-- Title -->
-          <input class="form-control" type="text" placeholder="{{category.name}}" formControlName="name">
-          <!-- Rename category -->
-          <button class="btn btn-info btn-sm py-0 mr-2" (click)="renameCategory()" [disabled]="loading">Rename</button>
-          <!-- Delete category -->
-          <button class="btn btn-danger btn-sm py-0" [disabled]="loading" (click)="deleteCategory(category)">Delete
-          </button>
-        </form>
+        <div class="card-body">
+          <div class="input-group my-2" *ngFor="let category of party.categories">
+            <!-- Name -->
+            <input class="form-control" type="text" [(ngModel)]="category.name">
+            <!-- Delete button -->
+            <div class="input-group-append">
+              <button class="btn btn-danger" (click)="deleteCategory(category)">
+                <fa-icon icon="trash"></fa-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="btn btn-info btn-block" (click)="updateCategories()">Update</div>
+        </div>
       </div>
     </div>
   </div>
