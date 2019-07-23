@@ -72,7 +72,7 @@ export class ApiService {
    * @param name New category name
    */
   updateCategory(id: number, name: string): Observable<Category> {
-    return this.http.put<Category>(`${ApiService.base}party-categories/${id}`, {name}).pipe();
+    return this.http.patch<Category>(`${ApiService.base}party-categories/${id}`, {name}).pipe();
   }
 
   /**
