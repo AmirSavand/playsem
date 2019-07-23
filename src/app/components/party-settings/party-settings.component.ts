@@ -106,6 +106,12 @@ export class PartySettingsComponent implements OnInit {
        */
       party.categories = this.party.categories;
       this.party = party;
+      /**
+       * Update the form with the new value
+       */
+      this.form.patchValue({
+        title: this.party.name,
+      });
     });
   }
 
