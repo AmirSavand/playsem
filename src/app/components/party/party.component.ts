@@ -203,14 +203,18 @@ export class PartyComponent implements OnInit {
   }
 
   /**
-   * Delete song
-   * @param song
+   * Delete a song from the party
+   *
+   * @param song Song to delete
    */
   deleteSong(song: Song): void {
     if (!confirm('Are you sure you want to delete this song?')) {
       return;
     }
-    this.songs.splice(this.songs.indexOf(song), 1);
-    this.api.deleteSong(song.id).subscribe();
+    // API call
+    this.api.deleteSong(song.id).subscribe(() => {
+      // Remove song from the list
+      this.songs.splice(this.songs.indexOf(song), 1);
+    });
   }
 }
