@@ -7,6 +7,7 @@ import { PartyUser } from '@app/interfaces/party-user';
 import { Song } from '@app/interfaces/song';
 import { environment } from '@environments/environment';
 import { Observable } from 'rxjs';
+import { Category } from '@app/interfaces/category';
 
 @Injectable({
   providedIn: 'root',
@@ -57,6 +58,16 @@ export class ApiService {
   }
 
   /**
+   * Update category
+   *
+   * @param id Category ID
+   * @param name New category name
+   */
+  updateCategory(id: number, name: string): Observable<Category> {
+    return this.http.patch<Category>(`${ApiService.base}party-categories/${id}`, {name}).pipe();
+  }
+
+  /**
    * Get party user list
    *
    * @param params Filter data
@@ -86,15 +97,6 @@ export class ApiService {
   }
 
   /**
-   * Get song data
-   *
-   * @param id Song ID
-   */
-  getSong(id: number): Observable<Song> {
-    return this.http.get<Song>(`${ApiService.base}songs/${id}/`).pipe();
-  }
-
-  /**
    * Delete a song
    *
    * @param id Song ID
@@ -111,5 +113,13 @@ export class ApiService {
    */
   updateUser(username: string, payload: Account): Observable<Account> {
     return this.http.put<Account>(`${ApiService.base}accounts/${username}`, payload).pipe();
+  }
+
+  /**
+   * Delete category
+   * @param id Category ID to
+   */
+  deleteCategory(id: number): Observable<void> {
+    return this.http.delete<void>(`${ApiService.base}party-categories/${id}`).pipe();
   }
 }

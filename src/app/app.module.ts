@@ -35,6 +35,7 @@ import { faSignInAlt } from '@fortawesome/free-solid-svg-icons/faSignInAlt';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons/faSignOutAlt';
 import { faStop } from '@fortawesome/free-solid-svg-icons/faStop';
 import { faTachometerAlt } from '@fortawesome/free-solid-svg-icons/faTachometerAlt';
+import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash';
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons/faUserPlus';
 import { faVolumeDown } from '@fortawesome/free-solid-svg-icons/faVolumeDown';
 import { faVolumeMute } from '@fortawesome/free-solid-svg-icons/faVolumeMute';
@@ -113,5 +114,6 @@ export class AppModule {
     library.add(faSearch);
     library.add(faCog);
     library.add(faEllipsisV);
+    library.add(faTrash);
   }
 }

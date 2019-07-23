@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Party } from '@app/interfaces/party';
 import { ApiService } from '@app/services/api/api-service.service';
+import { Category } from '@app/interfaces/category';
 
 @Component({
   selector: 'app-party-settings',
@@ -30,6 +31,7 @@ export class PartySettingsComponent implements OnInit {
    * Party settings form
    */
   form: FormGroup;
+
   /**
    * API loading indicator
    */
@@ -43,7 +45,7 @@ export class PartySettingsComponent implements OnInit {
 
   ngOnInit(): void {
     /**
-     * Setup form
+     * Setup party form
      */
     this.form = this.formBuilder.group({
       title: [''],
@@ -60,6 +62,7 @@ export class PartySettingsComponent implements OnInit {
        * Get party name and fill the form
        */
       this.api.getParty(this.partyId).subscribe(party => {
+        this.loading = false;
         this.party = party;
         /**
          * Set up the party form with default values
@@ -69,7 +72,6 @@ export class PartySettingsComponent implements OnInit {
         });
       });
     });
-
   }
 
   /**
@@ -99,6 +101,32 @@ export class PartySettingsComponent implements OnInit {
     this.loading = true;
     this.api.deleteParty(this.party.id).subscribe(() => {
       this.router.navigate([PartySettingsComponent.partyDeleteRedirect]);
+    });
+  }
+
+  /**
+   * Update category
+   */
+  updateCategories(): void {
+    for (let category of this.party.categories) {
+      this.api.updateCategory(category.id, category.name).subscribe(data => {
+        category = data;
+      });
+    }
+  }
+
+  /**
+   * Delete a category
+   *
+   * @param category Category to delete
+   */
+  deleteCategory(category: Category): void {
+    if (this.loading || !confirm('Are you sure you want to delete this category?')) {
+      return;
+    }
+    this.loading = true;
+    this.api.deleteCategory(category.id).subscribe(() => {
+      this.party.categories.splice(this.party.categories.indexOf(category), 1);
     });
   }
 }
