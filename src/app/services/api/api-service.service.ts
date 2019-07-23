@@ -81,7 +81,7 @@ export class ApiService {
    *
    * @param party Party ID
    */
-  postPartyUsers(party: string): Observable<PartyUser> {
+  createPartyUsers(party: string): Observable<PartyUser> {
     return this.http.post<PartyUser>(`${ApiService.base}party-users/`, { party }).pipe();
   }
 

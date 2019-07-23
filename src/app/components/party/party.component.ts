@@ -197,7 +197,7 @@ export class PartyComponent implements OnInit {
    * Make authenticated user to join this party
    */
   joinParty(): void {
-    this.api.postPartyUsers(this.party.id).subscribe(() => {
+    this.api.createPartyUsers(this.party.id).subscribe(() => {
       this.loadUsers();
     });
   }
