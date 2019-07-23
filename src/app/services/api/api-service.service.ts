@@ -66,9 +66,10 @@ export class ApiService {
   }
 
   /**
-   * Update category name
-   * @param id
-   * @param name
+   * Update category
+   *
+   * @param id Category ID
+   * @param name New category name
    */
   updateCategory(id: number, name: string): Observable<Category> {
     return this.http.put<Category>(`${ApiService.base}party-categories/${id}`, {name}).pipe();
