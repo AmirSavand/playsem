@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ApiError } from '@app/interfaces/api-error';
 import { Category } from '@app/interfaces/category';
 import { Party } from '@app/interfaces/party';
 import { ApiService } from '@app/services/api/api-service.service';
@@ -36,6 +37,11 @@ export class PartySettingsComponent implements OnInit {
    * Category form
    */
   categoryForm: FormGroup;
+
+  /**
+   * Category form errors
+   */
+  categoryErrors: ApiError = {};
 
   /**
    * API loading indicator
@@ -95,6 +101,10 @@ export class PartySettingsComponent implements OnInit {
     this.loading = true;
     this.api.updateParty(this.party.id, this.form.value.title).subscribe(party => {
       this.loading = false;
+      /**
+       * Response data does not include the categories, let's add it to the response so we don't lose them
+       */
+      party.categories = this.party.categories;
       this.party = party;
     });
   }
@@ -111,6 +121,7 @@ export class PartySettingsComponent implements OnInit {
     }
     this.loading = true;
     this.api.deleteParty(this.party.id).subscribe(() => {
+      this.loading = false;
       this.router.navigate([PartySettingsComponent.partyDeleteRedirect]);
     });
   }
@@ -126,6 +137,10 @@ export class PartySettingsComponent implements OnInit {
     this.api.addCategory(this.party.id, this.categoryForm.value.name).subscribe(data => {
       this.loading = false;
       this.party.categories.push(data);
+      this.categoryForm.reset();
+    }, error => {
+      this.loading = false;
+      this.categoryErrors = error.error;
     });
   }
 
