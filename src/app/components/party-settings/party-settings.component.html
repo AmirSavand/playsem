@@ -1,8 +1,12 @@
 <div class="container py-3">
   <div class="row justify-content-center">
+
+    <!-- Party settings -->
     <div class="col-lg-6">
       <div class="card my-3">
+        <!-- Header -->
         <div class="card-header">Settings</div>
+        <!-- Party form -->
         <form class="card-body" (ngSubmit)="submit()" [formGroup]="form">
           <!-- Title -->
           <div class="form-group">
@@ -10,16 +14,19 @@
           </div>
           <!-- Submit button -->
           <button class="btn btn-info btn-block" [disabled]="loading">Update</button>
-        </form>
-        <div class="card-footer">
           <!-- Delete party button -->
-          <button (click)="deleteParty()" class="btn btn-danger btn-block" [disabled]="loading">Delete Party</button>
-        </div>
+          <button type="button" class="btn btn-danger btn-block" (click)="deleteParty()" [disabled]="loading">
+            Delete Party
+          </button>
+        </form>
       </div>
-      <!-- Categories -->
+
+      <!-- Party categories -->
       <div class="card my-3">
         <div class="card my-3" *ngIf="party">
+          <!-- Header -->
           <div class="card-header">Categories</div>
+          <!-- Categories -->
           <div class="card-body">
             <div class="input-group my-2" *ngFor="let category of party.categories">
               <!-- Name -->
@@ -27,27 +34,35 @@
               <!-- Delete button -->
               <div class="input-group-append">
                 <button class="btn btn-danger" (click)="deleteCategory(category)">
-                  <fa-icon icon="trash"></fa-icon>
+                  <fa-icon [fixedWidth]="true" icon="trash"></fa-icon>
                 </button>
               </div>
             </div>
-          </div>
-          <div class="card-footer">
+            <!-- Update button -->
             <div class="btn btn-info btn-block" (click)="updateCategories()">Update</div>
           </div>
+          <!-- Create category -->
+          <form class="card-footer" (ngSubmit)="submitCategory()" [formGroup]="categoryForm">
+            <!-- Title -->
+            <p>Add category</p>
+            <!-- Name and submit button -->
+            <div class="input-group my-2">
+              <!-- Name -->
+              <input class="form-control" type="text" placeholder="Category name" formControlName="name">
+              <!-- Submit button -->
+              <div class="input-group-append">
+                <button class="btn btn-primary btn-block" [disabled]="loading">
+                  <fa-icon [fixedWidth]="true" icon="plus"></fa-icon>
+                </button>
+              </div>
+            </div>
+            <!-- Error -->
+            <div class="text-danger" *ngIf="categoryErrors.name">{{ categoryErrors.name[0] }}</div>
+            <div class="text-danger" *ngIf="categoryErrors.non_field_errors">
+              {{ categoryErrors.non_field_errors[0] }}
+            </div>
+          </form>
         </div>
-      </div>
-      <!-- Add category -->
-      <div class="card my-3">
-        <div class="card-header">Add category</div>
-        <form class="card-body" (ngSubmit)="addCategory()" [formGroup]="categoryForm">
-          <!-- Name -->
-          <div class="form-group">
-            <input class="form-control" type="text" placeholder="Category name" formControlName="name">
-          </div>
-          <!-- Submit button -->
-          <button class="btn btn-info btn-block">Submit</button>
-        </form>
       </div>
     </div>
   </div>
