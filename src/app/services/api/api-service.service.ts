@@ -49,11 +49,12 @@ export class ApiService {
   }
 
   /**
-   * Delete party
-   * @param id
+   * Delete a party
+   *
+   * @param id Party ID
    */
   deleteParty(id: string): Observable<Party> {
-    return  this.http.delete<Party>(`${ApiService.base}parties/${id}`).pipe();
+    return this.http.delete<Party>(`${ApiService.base}parties/${id}`).pipe();
   }
 
   /**
@@ -109,6 +110,15 @@ export class ApiService {
    */
   getSong(id: number): Observable<Song> {
     return this.http.get<Song>(`${ApiService.base}songs/${id}/`).pipe();
+  }
+
+  /**
+   * Delete a song
+   *
+   * @param id Song ID
+   */
+  deleteSong(id: number): Observable<void> {
+    return this.http.delete<void>(`${ApiService.base}songs/${id}`).pipe();
   }
 
   /**
