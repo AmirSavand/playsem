@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Party } from '@app/interfaces/party';
 import { ApiService } from '@app/services/api/api-service.service';
@@ -48,19 +48,17 @@ export class PartySettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    /**
-     * Setup category form
-     */
-    this.categoryForm = this.formBuilder.group({
-      name: [''],
-    });
-
     /**
      * Setup form
      */
     this.form = this.formBuilder.group({
       title: [''],
+    });
+    /**
+     * Setup category form
+     */
+    this.categoryForm = this.formBuilder.group({
+      name: [''],
     });
     /**
      * Watch param changes
@@ -83,7 +81,6 @@ export class PartySettingsComponent implements OnInit {
         });
       });
     });
-
   }
 
   /**
@@ -117,9 +114,11 @@ export class PartySettingsComponent implements OnInit {
   }
 
   /**
-   * Create new category
+   * Submit category form
    */
-  addCategory(): void {
-    this.api.addCategory(this.categoryForm.value).subscribe();
+  submitCategory(): void {
+    this.api.addCategory(this.categoryForm.value.name).subscribe(data => {
+      this.party.categories.push(data);
+    });
   }
 }
