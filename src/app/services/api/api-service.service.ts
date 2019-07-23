@@ -58,14 +58,6 @@ export class ApiService {
   }
 
   /**
-   * Get category data
-   * @param id category ID
-   */
-  getCategory(id: string): Observable<Category> {
-    return this.http.get<Category>(`${ApiService.base}party-categories/${id}/`).pipe();
-  }
-
-  /**
    * Update category
    *
    * @param id Category ID
@@ -102,15 +94,6 @@ export class ApiService {
     return this.http.get<ApiResponse<Song>>(`${ApiService.base}songs/`, {
       params: { party },
     }).pipe();
-  }
-
-  /**
-   * Get song data
-   *
-   * @param id Song ID
-   */
-  getSong(id: number): Observable<Song> {
-    return this.http.get<Song>(`${ApiService.base}songs/${id}/`).pipe();
   }
 
   /**
