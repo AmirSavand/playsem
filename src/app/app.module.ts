@@ -28,6 +28,7 @@ import { faForward } from '@fortawesome/free-solid-svg-icons/faForward';
 import { faHeart } from '@fortawesome/free-solid-svg-icons/faHeart';
 import { faPause } from '@fortawesome/free-solid-svg-icons/faPause';
 import { faPlay } from '@fortawesome/free-solid-svg-icons/faPlay';
+import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
 import { faRandom } from '@fortawesome/free-solid-svg-icons/faRandom';
 import { faRetweet } from '@fortawesome/free-solid-svg-icons/faRetweet';
 import { faSearch } from '@fortawesome/free-solid-svg-icons/faSearch';
@@ -115,5 +116,6 @@ export class AppModule {
     library.add(faCog);
     library.add(faEllipsisV);
     library.add(faTrash);
+    library.add(faPlus);
   }
 }

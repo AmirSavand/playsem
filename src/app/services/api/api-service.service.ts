@@ -2,12 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Account } from '@app/interfaces/account';
 import { ApiResponse } from '@app/interfaces/api-response';
+import { Category } from '@app/interfaces/category';
 import { Party } from '@app/interfaces/party';
 import { PartyUser } from '@app/interfaces/party-user';
 import { Song } from '@app/interfaces/song';
 import { environment } from '@environments/environment';
 import { Observable } from 'rxjs';
-import { Category } from '@app/interfaces/category';
 
 @Injectable({
   providedIn: 'root',
@@ -64,7 +64,7 @@ export class ApiService {
    * @param name New category name
    */
   updateCategory(id: number, name: string): Observable<Category> {
-    return this.http.patch<Category>(`${ApiService.base}party-categories/${id}`, {name}).pipe();
+    return this.http.patch<Category>(`${ApiService.base}party-categories/${id}`, { name }).pipe();
   }
 
   /**
@@ -116,8 +116,19 @@ export class ApiService {
   }
 
   /**
-   * Delete category
-   * @param id Category ID to
+   * Create a new category for party
+   *
+   * @param party Party ID to add category to
+   * @param name Category name
+   */
+  addCategory(party: string, name: string): Observable<Category> {
+    return this.http.post<Category>(`${ApiService.base}party-categories/`, { party, name }).pipe();
+  }
+
+  /**
+   * Delete a category
+   *
+   * @param id Category ID to delete
    */
   deleteCategory(id: number): Observable<void> {
     return this.http.delete<void>(`${ApiService.base}party-categories/${id}`).pipe();

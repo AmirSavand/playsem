@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ApiError } from '@app/interfaces/api-error';
+import { Category } from '@app/interfaces/category';
 import { Party } from '@app/interfaces/party';
 import { ApiService } from '@app/services/api/api-service.service';
-import { Category } from '@app/interfaces/category';
 
 @Component({
   selector: 'app-party-settings',
@@ -33,6 +34,16 @@ export class PartySettingsComponent implements OnInit {
   form: FormGroup;
 
   /**
+   * Category form
+   */
+  categoryForm: FormGroup;
+
+  /**
+   * Category form errors
+   */
+  categoryErrors: ApiError = {};
+
+  /**
    * API loading indicator
    */
   loading: boolean;
@@ -49,6 +60,12 @@ export class PartySettingsComponent implements OnInit {
      */
     this.form = this.formBuilder.group({
       title: [''],
+    });
+    /**
+     * Setup category form
+     */
+    this.categoryForm = this.formBuilder.group({
+      name: [''],
     });
     /**
      * Watch param changes
@@ -84,7 +101,17 @@ export class PartySettingsComponent implements OnInit {
     this.loading = true;
     this.api.updateParty(this.party.id, this.form.value.title).subscribe(party => {
       this.loading = false;
+      /**
+       * Response data does not include the categories, let's add it to the response so we don't lose them
+       */
+      party.categories = this.party.categories;
       this.party = party;
+      /**
+       * Update the form with the new value
+       */
+      this.form.patchValue({
+        title: this.party.name,
+      });
     });
   }
 
@@ -100,7 +127,26 @@ export class PartySettingsComponent implements OnInit {
     }
     this.loading = true;
     this.api.deleteParty(this.party.id).subscribe(() => {
+      this.loading = false;
       this.router.navigate([PartySettingsComponent.partyDeleteRedirect]);
+    });
+  }
+
+  /**
+   * Submit category form
+   */
+  submitCategory(): void {
+    if (this.loading) {
+      return;
+    }
+    this.loading = true;
+    this.api.addCategory(this.party.id, this.categoryForm.value.name).subscribe(data => {
+      this.loading = false;
+      this.party.categories.push(data);
+      this.categoryForm.reset();
+    }, error => {
+      this.loading = false;
+      this.categoryErrors = error.error;
     });
   }
 
