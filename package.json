@@ -26,7 +26,7 @@
     "@ngx-loading-bar/core": "^4.2.0",
     "@ngx-loading-bar/http-client": "^4.2.0",
     "bootstrap": "^4.3.1",
-    "ngx-bootstrap": "^5.0.0",
+    "ngx-bootstrap": "^5.1.0",
     "ngx-cookie-service": "^2.2.0",
     "ngx-pipes": "^2.5.1",
     "ngx-y2-player": "^2.1.1",
