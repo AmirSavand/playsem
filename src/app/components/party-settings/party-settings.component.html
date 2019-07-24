@@ -73,7 +73,9 @@
         <div class="card-body">
           <ul class="list-group" *ngFor="let partyUser of partyUsers">
             <!-- Members name -->
-            <li class="list-group-item list-group-item-secondary">{{ partyUser.user.username }}</li>
+            <li class="list-group-item list-group-item-secondary">{{ partyUser.user.username }} &bull;
+              <span>{{ partyUser.date | date }}</span>
+            </li>
           </ul>
         </div>
       </div>
