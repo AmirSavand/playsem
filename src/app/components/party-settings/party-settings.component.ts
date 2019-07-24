@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiError } from '@app/interfaces/api-error';
 import { Category } from '@app/interfaces/category';
 import { Party } from '@app/interfaces/party';
+import { PartyUser } from '@app/interfaces/party-user';
 import { ApiService } from '@app/services/api/api-service.service';
 
 @Component({
@@ -22,6 +23,16 @@ export class PartySettingsComponent implements OnInit {
    * Party ID from param
    */
   partyId: string;
+
+  /**
+   * User (member) list of party (PartyUser objects)
+   */
+  partyUsers: PartyUser [];
+
+  /**
+   * Party users (members) count
+   */
+  partyUserCount: number;
 
   /**
    * Party data
@@ -81,6 +92,10 @@ export class PartySettingsComponent implements OnInit {
       this.api.getParty(this.partyId).subscribe(party => {
         this.loading = false;
         this.party = party;
+        /**
+         * Load party members
+         */
+        this.loadUsers();
         /**
          * Set up the party form with default values
          */
@@ -173,6 +188,16 @@ export class PartySettingsComponent implements OnInit {
     this.loading = true;
     this.api.deleteCategory(category.id).subscribe(() => {
       this.party.categories.splice(this.party.categories.indexOf(category), 1);
+    });
+  }
+
+  /**
+   * Load users (members) of party
+   */
+  loadUsers(): void {
+    this.api.getPartyUsers({ party: this.party.id }).subscribe(data => {
+      this.partyUsers = data.results;
+      this.partyUserCount = data.count;
     });
   }
 }

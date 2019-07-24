@@ -64,6 +64,19 @@
           </form>
         </div>
       </div>
+
+      <!-- Show party members -->
+      <div class="card my-3">
+        <!-- Header -->
+        <div class="card-header">Members</div>
+        <!-- Members list -->
+        <div class="card-body">
+          <ul class="list-group" *ngFor="let partyUser of partyUsers">
+            <!-- Members name -->
+            <li class="list-group-item list-group-item-secondary">{{ partyUser.user.username }}</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </div>
