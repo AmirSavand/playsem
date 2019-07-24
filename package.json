@@ -30,7 +30,7 @@
     "ngx-cookie-service": "^2.2.0",
     "ngx-pipes": "^2.5.1",
     "ngx-y2-player": "^2.1.1",
-    "rxjs": "~6.4.0",
+    "rxjs": "~6.5.2",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
   },
