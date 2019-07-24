@@ -172,7 +172,6 @@ export class PartySettingsComponent implements OnInit {
     }
     this.loading = true;
     this.api.deleteCategory(category.id).subscribe(() => {
-      this.loading = false;
       this.party.categories.splice(this.party.categories.indexOf(category), 1);
     });
   }
