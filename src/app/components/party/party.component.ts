@@ -217,4 +217,12 @@ export class PartyComponent implements OnInit {
       this.songs.splice(this.songs.indexOf(song), 1);
     });
   }
+
+  leaveParty(): void {
+    for (const user of this.partyUsers) {
+      if (user.id == this.auth.isAuth()) {
+
+      }
+    }
+  }
 }

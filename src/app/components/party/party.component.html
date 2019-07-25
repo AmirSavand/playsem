@@ -32,6 +32,10 @@
         <fa-icon [fixedWidth]="true" icon="user-plus"></fa-icon>
         Join Party
       </button>
+      <button class="btn btn-dark btn-sm ml-2" (click)="leaveParty()">
+        <fa-icon [fixedWidth]="true" icon="sign-out-alt"></fa-icon>
+        Leave Party
+      </button>
       <a class="btn btn-dark btn-sm ml-2" routerLink="settings" *ngIf="auth.isUser(party.user)">
         <fa-icon [fixedWidth]="true" icon="cog"></fa-icon>
         Settings
