@@ -201,4 +201,10 @@ export class PartySettingsComponent implements OnInit {
       this.partyUserCount = data.count;
     });
   }
+
+  deleteUser(partyUser: PartyUser): void {
+    this.api.deleteUser(partyUser.id).subscribe(() => {
+      this.partyUsers.splice(this.partyUsers.indexOf(partyUser), 1);
+    });
+  }
 }

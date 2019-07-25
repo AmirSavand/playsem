@@ -66,12 +66,16 @@
         <!-- Header -->
         <div class="card-header">Members</div>
         <!-- Members list -->
-        <div class="card-body">
-          <ul class="list-group" *ngFor="let partyUser of partyUsers">
+        <div class="card-body" *ngFor="let partyUser of partyUsers">
+          <ul class="list-group">
             <!-- Members name -->
             <li class="list-group-item list-group-item-secondary my-1">{{ partyUser.user.username }} &bull;
               <span>{{ partyUser.date | date }}</span>
             </li>
+            <!-- Delete button -->
+            <button class="btn btn-danger" (click)="deleteUser(partyUser)">
+              <fa-icon [fixedWidth]="true" icon="trash"></fa-icon>
+            </button>
           </ul>
         </div>
       </div>
