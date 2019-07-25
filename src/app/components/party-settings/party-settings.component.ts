@@ -202,8 +202,13 @@ export class PartySettingsComponent implements OnInit {
     });
   }
 
-  deleteUser(partyUser: PartyUser): void {
-    this.api.deleteUser(partyUser.id).subscribe(() => {
+  /**
+   * Remove member from partyUsers
+   *
+   * @param partyUser
+   */
+  removeMember(partyUser: PartyUser): void {
+    this.api.removeMember(partyUser.id).subscribe(() => {
       this.partyUsers.splice(this.partyUsers.indexOf(partyUser), 1);
     });
   }
