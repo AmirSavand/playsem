@@ -8,6 +8,7 @@ import { User } from '@app/interfaces/user';
 import { ApiService } from '@app/services/api/api-service.service';
 import { AuthService } from '@app/services/auth/auth.service';
 import { PlayerService } from '@app/services/player/player.service';
+import  { Router } from '@angular/router';
 
 @Component({
   selector: 'app-party',
@@ -15,6 +16,16 @@ import { PlayerService } from '@app/services/player/player.service';
   styleUrls: ['./party.component.scss'],
 })
 export class PartyComponent implements OnInit {
+
+  /**
+   * Redirect to path after deletion
+   */
+  static readonly partyLeaveRedirect = '/dashboard';
+
+  /**
+   * Authenticated user
+   */
+  user: User;
 
   /**
    * Party ID from param
@@ -58,7 +69,8 @@ export class PartyComponent implements OnInit {
 
   constructor(public auth: AuthService,
               private api: ApiService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private  router: Router) {
   }
 
   /**
@@ -72,6 +84,14 @@ export class PartyComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    /**
+     * Get authenticated user data and watch for changes
+     */
+    this.auth.user.subscribe(user => {
+      this.user = user;
+    });
+
     /**
      * Watch param changes
      */
@@ -129,7 +149,7 @@ export class PartyComponent implements OnInit {
    * Load users (members) of party
    */
   loadUsers(): void {
-    this.api.getPartyUsers({ party: this.party.id }).subscribe(data => {
+    this.api.getPartyUsers({party: this.party.id}).subscribe(data => {
       this.partyUsers = data.results;
       this.partyUserCount = data.count;
     });
@@ -219,9 +239,14 @@ export class PartyComponent implements OnInit {
   }
 
   leaveParty(): void {
-    for (const user of this.partyUsers) {
-      if (user.id == this.auth.isAuth()) {
-
+    if (!confirm('Are you sure you want to leave this party?')) {
+      return;
+    }
+    for (const partyUser of this.partyUsers) {
+      if (partyUser.user.id === this.user.id) {
+        this.api.removeMember(partyUser.user.id).subscribe(() => {
+          this.router.navigate([PartyComponent.partyLeaveRedirect]);
+        });
       }
     }
   }
