@@ -222,7 +222,7 @@ export class PartySettingsComponent implements OnInit {
       return;
     }
     this.loading = true;
-    this.api.removeMember(partyUser.id).subscribe(() => {
+    this.api.deletePartyUser(partyUser.id).subscribe(() => {
       this.loading = false;
       this.partyUsers.splice(this.partyUsers.indexOf(partyUser), 1);
     });
