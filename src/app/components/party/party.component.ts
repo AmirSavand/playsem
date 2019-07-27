@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Category } from '@app/interfaces/category';
 import { Party } from '@app/interfaces/party';
 import { PartyUser } from '@app/interfaces/party-user';
@@ -63,8 +63,7 @@ export class PartyComponent implements OnInit {
 
   constructor(public auth: AuthService,
               private api: ApiService,
-              private route: ActivatedRoute,
-              private  router: Router) {
+              private route: ActivatedRoute) {
   }
 
   /**
