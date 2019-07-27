@@ -244,7 +244,7 @@ export class PartyComponent implements OnInit {
     }
     for (const partyUser of this.partyUsers) {
       if (partyUser.user.id === this.user.id) {
-        this.api.removeMember(partyUser.user.id).subscribe(() => {
+        this.api.removeMember(this.user.id).subscribe(() => {
           this.router.navigate([PartyComponent.partyLeaveRedirect]);
         });
       }
