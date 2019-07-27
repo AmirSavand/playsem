@@ -15,6 +15,11 @@ import { ApiService } from '@app/services/api/api-service.service';
 export class PartySettingsComponent implements OnInit {
 
   /**
+   * Filter members
+   */
+  searchMembers: string;
+
+  /**
    * Redirect to path after deletion
    */
   static readonly partyDeleteRedirect = '/dashboard';
