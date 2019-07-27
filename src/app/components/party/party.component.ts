@@ -8,7 +8,7 @@ import { User } from '@app/interfaces/user';
 import { ApiService } from '@app/services/api/api-service.service';
 import { AuthService } from '@app/services/auth/auth.service';
 import { PlayerService } from '@app/services/player/player.service';
-import  { Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-party',
@@ -149,7 +149,7 @@ export class PartyComponent implements OnInit {
    * Load users (members) of party
    */
   loadUsers(): void {
-    this.api.getPartyUsers({party: this.party.id}).subscribe(data => {
+    this.api.getPartyUsers({ party: this.party.id }).subscribe(data => {
       this.partyUsers = data.results;
       this.partyUserCount = data.count;
     });
@@ -204,7 +204,7 @@ export class PartyComponent implements OnInit {
    * @returns Whether user is a member of this party
    */
   isPartyMember(): boolean | void {
-    if (this.partyUsers) {
+    if (!this.auth.isUser(this.party.user) && this.partyUsers) {
       const users: User[] = [];
       for (const partyUser of this.partyUsers) {
         users.push(partyUser.user);
@@ -239,15 +239,9 @@ export class PartyComponent implements OnInit {
   }
 
   leaveParty(): void {
-    if (!confirm('Are you sure you want to leave this party?')) {
-      return;
-    }
-    for (const partyUser of this.partyUsers) {
-      if (partyUser.user.id === this.user.id) {
-        this.api.removeMember(partyUser.id).subscribe(() => {
-          this.partyUsers.splice(this.partyUsers.indexOf(partyUser), 1);
-        });
-      }
-    }
+    const partyUser: PartyUser = this.partyUsers.find(item => item.user.id === this.user.id);
+    this.api.deletePartyUser(partyUser.id).subscribe(() => {
+      this.loadUsers();
+    });
   }
 }
