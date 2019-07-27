@@ -44,6 +44,7 @@ import { faVolumeOff } from '@fortawesome/free-solid-svg-icons/faVolumeOff';
 import { faVolumeUp } from '@fortawesome/free-solid-svg-icons/faVolumeUp';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
+import { NgPipesModule} from 'ngx-pipes';
 
 import { BsDropdownModule, ProgressbarModule } from 'ngx-bootstrap';
 import { CookieService } from 'ngx-cookie-service';
@@ -76,6 +77,7 @@ import { AppComponent } from './app.component';
     FormsModule,
     NgxY2PlayerModule,
     LoadingBarModule,
+    NgPipesModule,
     LoadingBarHttpClientModule,
     BsDropdownModule.forRoot(),
     ProgressbarModule.forRoot(),
