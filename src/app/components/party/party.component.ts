@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Category } from '@app/interfaces/category';
 import { Party } from '@app/interfaces/party';
 import { PartyUser } from '@app/interfaces/party-user';
@@ -8,7 +8,6 @@ import { User } from '@app/interfaces/user';
 import { ApiService } from '@app/services/api/api-service.service';
 import { AuthService } from '@app/services/auth/auth.service';
 import { PlayerService } from '@app/services/player/player.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-party',
@@ -16,11 +15,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./party.component.scss'],
 })
 export class PartyComponent implements OnInit {
-
-  /**
-   * Redirect to path after deletion
-   */
-  static readonly partyLeaveRedirect = '/dashboard';
 
   /**
    * Authenticated user
