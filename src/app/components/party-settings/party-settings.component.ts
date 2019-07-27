@@ -17,7 +17,7 @@ export class PartySettingsComponent implements OnInit {
   /**
    * Filter members
    */
-  searchMembers: string;
+  searchPartyUsers: string;
 
   /**
    * Redirect to path after deletion
