@@ -17,6 +17,11 @@ import { PlayerService } from '@app/services/player/player.service';
 export class PartyComponent implements OnInit {
 
   /**
+   * Authenticated user
+   */
+  user: User;
+
+  /**
    * Party ID from param
    */
   partyId: string;
@@ -72,6 +77,12 @@ export class PartyComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    /**
+     * Get authenticated user data and watch for changes
+     */
+    this.auth.user.subscribe(user => {
+      this.user = user;
+    });
     /**
      * Watch param changes
      */
@@ -184,7 +195,7 @@ export class PartyComponent implements OnInit {
    * @returns Whether user is a member of this party
    */
   isPartyMember(): boolean | void {
-    if (this.partyUsers) {
+    if (!this.auth.isUser(this.party.user) && this.partyUsers) {
       const users: User[] = [];
       for (const partyUser of this.partyUsers) {
         users.push(partyUser.user);
@@ -198,6 +209,16 @@ export class PartyComponent implements OnInit {
    */
   joinParty(): void {
     this.api.createPartyUsers(this.party.id).subscribe(() => {
+      this.loadUsers();
+    });
+  }
+
+  /**
+   * Make authenticated user to leave this party
+   */
+  leaveParty(): void {
+    const partyUser: PartyUser = this.partyUsers.find(item => item.user.id === this.user.id);
+    this.api.deletePartyUser(partyUser.id).subscribe(() => {
       this.loadUsers();
     });
   }
