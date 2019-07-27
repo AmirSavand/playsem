@@ -1,5 +1,7 @@
 <div class="container py-3">
   <div class="row justify-content-center">
+
+    <!-- Left -->
     <div class="col-lg-4">
 
       <!-- Party settings -->
@@ -60,23 +62,31 @@
           <button class="btn btn-info btn-block mt-3" (click)="updateCategories()">Update</button>
         </div>
       </div>
+    </div>
 
-      <!-- Show party members -->
-      <div class="card my-3">
+    <!-- Right -->
+    <div class="col-lg-4">
+
+      <!-- Show party users -->
+      <div class="card my-3" *ngIf="partyUsers">
         <!-- Header -->
         <div class="card-header">Members</div>
-        <!-- Members list -->
-        <div class="card-body" *ngFor="let partyUser of partyUsers">
-          <ul class="list-group">
-            <!-- Members name -->
-            <li class="list-group-item list-group-item-secondary my-1">{{ partyUser.user.username }} &bull;
-              <span>{{ partyUser.date | date }}</span>
-            </li>
-            <!-- Delete button -->
-            <button class="btn btn-danger" (click)="removeMember(partyUser)">
-              <fa-icon [fixedWidth]="true" icon="trash"></fa-icon>
+        <!-- Search party users -->
+        <div class="card-body">
+          <input class="form-control" type="text" name="search" [(ngModel)]="searchPartyUsers" autocomplete="off"
+                 placeholder="Search">
+        </div>
+        <!-- Party user list -->
+        <div class="list-group list-group-flush">
+          <div class="list-group-item" *ngFor="let partyUser of partyUsersFiltered">
+            <b [class.text-primary]="partyUser.user.id === party.user.id">{{ partyUser.user.username }}</b>
+            <button class="btn btn-sm btn-danger float-right" title="Kick" (click)="removePartyUser(partyUser)"
+                    *ngIf="partyUser.user.id !== party.user.id" [disabled]="loading">
+              <fa-icon [fixedWidth]="true" icon="user-minus"></fa-icon>
             </button>
-          </ul>
+            <br>
+            <small class="text-secondary">{{ partyUser.date | date }}</small>
+          </div>
         </div>
       </div>
     </div>

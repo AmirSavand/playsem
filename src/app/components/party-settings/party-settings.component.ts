@@ -6,6 +6,7 @@ import { Category } from '@app/interfaces/category';
 import { Party } from '@app/interfaces/party';
 import { PartyUser } from '@app/interfaces/party-user';
 import { ApiService } from '@app/services/api/api-service.service';
+import { FilterByPipe } from 'ngx-pipes';
 
 @Component({
   selector: 'app-party-settings',
@@ -20,6 +21,11 @@ export class PartySettingsComponent implements OnInit {
   static readonly partyDeleteRedirect = '/dashboard';
 
   /**
+   * Filter members
+   */
+  searchPartyUsers: string;
+
+  /**
    * Party ID from param
    */
   partyId: string;
@@ -28,11 +34,6 @@ export class PartySettingsComponent implements OnInit {
    * User (member) list of party (PartyUser objects)
    */
   partyUsers: PartyUser [];
-
-  /**
-   * Party users (members) count
-   */
-  partyUserCount: number;
 
   /**
    * Party data
@@ -62,7 +63,8 @@ export class PartySettingsComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private api: ApiService,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private filterBy: FilterByPipe) {
   }
 
   ngOnInit(): void {
@@ -95,7 +97,7 @@ export class PartySettingsComponent implements OnInit {
         /**
          * Load party members
          */
-        this.loadUsers();
+        this.loadPartyUsers();
         /**
          * Set up the party form with default values
          */
@@ -104,6 +106,14 @@ export class PartySettingsComponent implements OnInit {
         });
       });
     });
+  }
+
+  /**
+   * @returns Party users filtered
+   */
+  get partyUsersFiltered(): PartyUser[] {
+    const fields: string[] = ['user.username', 'user.account.display_name'];
+    return this.filterBy.transform<PartyUser[]>(this.partyUsers, fields, this.searchPartyUsers);
   }
 
   /**
@@ -117,9 +127,10 @@ export class PartySettingsComponent implements OnInit {
     this.api.updateParty(this.party.id, this.form.value.title).subscribe(party => {
       this.loading = false;
       /**
-       * Response data does not include the categories, let's add it to the response so we don't lose them
+       * Response data does not include some data, let's add them to the response so we don't lose them
        */
       party.categories = this.party.categories;
+      party.user = this.party.user;
       this.party = party;
       /**
        * Update the form with the new value
@@ -193,22 +204,26 @@ export class PartySettingsComponent implements OnInit {
   }
 
   /**
-   * Load users (members) of party
+   * Load party users (party members)
    */
-  loadUsers(): void {
+  loadPartyUsers(): void {
     this.api.getPartyUsers({ party: this.party.id }).subscribe(data => {
       this.partyUsers = data.results;
-      this.partyUserCount = data.count;
     });
   }
 
   /**
-   * Remove member from partyUsers
+   * Delete party user (kick party member)
    *
-   * @param partyUser
+   * @param partyUser Party user ID
    */
-  removeMember(partyUser: PartyUser): void {
-    this.api.removeMember(partyUser.id).subscribe(() => {
+  removePartyUser(partyUser: PartyUser): void {
+    if (this.loading) {
+      return;
+    }
+    this.loading = true;
+    this.api.deletePartyUser(partyUser.id).subscribe(() => {
+      this.loading = false;
       this.partyUsers.splice(this.partyUsers.indexOf(partyUser), 1);
     });
   }

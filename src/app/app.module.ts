@@ -37,6 +37,7 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons/faSignOutAlt';
 import { faStop } from '@fortawesome/free-solid-svg-icons/faStop';
 import { faTachometerAlt } from '@fortawesome/free-solid-svg-icons/faTachometerAlt';
 import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash';
+import { faUserMinus } from '@fortawesome/free-solid-svg-icons/faUserMinus';
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons/faUserPlus';
 import { faVolumeDown } from '@fortawesome/free-solid-svg-icons/faVolumeDown';
 import { faVolumeMute } from '@fortawesome/free-solid-svg-icons/faVolumeMute';
@@ -47,6 +48,7 @@ import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 
 import { BsDropdownModule, ProgressbarModule } from 'ngx-bootstrap';
 import { CookieService } from 'ngx-cookie-service';
+import { FilterByPipe } from 'ngx-pipes';
 import { NgxY2PlayerModule } from 'ngx-y2-player';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -89,33 +91,42 @@ import { AppComponent } from './app.component';
     CookieService,
     ApiService,
     AuthService,
+    FilterByPipe,
   ],
   bootstrap: [AppComponent],
 })
 export class AppModule {
+
+  static readonly icons = [
+    faPlay,
+    faPause,
+    faStop,
+    faForward,
+    faBackward,
+    faRandom,
+    faRetweet,
+    faVolumeUp,
+    faVolumeDown,
+    faVolumeOff,
+    faVolumeMute,
+    faHeart,
+    faUserPlus,
+    faUserMinus,
+    faBars,
+    faTachometerAlt,
+    faCompactDisc,
+    faSignInAlt,
+    faSignOutAlt,
+    faSearch,
+    faCog,
+    faEllipsisV,
+    faTrash,
+    faPlus,
+  ];
+
   constructor() {
-    library.add(faPlay);
-    library.add(faPause);
-    library.add(faStop);
-    library.add(faForward);
-    library.add(faBackward);
-    library.add(faRandom);
-    library.add(faRetweet);
-    library.add(faVolumeUp);
-    library.add(faVolumeDown);
-    library.add(faVolumeOff);
-    library.add(faVolumeMute);
-    library.add(faHeart);
-    library.add(faUserPlus);
-    library.add(faBars);
-    library.add(faTachometerAlt);
-    library.add(faCompactDisc);
-    library.add(faSignInAlt);
-    library.add(faSignOutAlt);
-    library.add(faSearch);
-    library.add(faCog);
-    library.add(faEllipsisV);
-    library.add(faTrash);
-    library.add(faPlus);
+    for (const icon of AppModule.icons) {
+      library.add(icon);
+    }
   }
 }

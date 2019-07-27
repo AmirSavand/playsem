@@ -116,11 +116,11 @@ export class ApiService {
   }
 
   /**
-   * Remove member from partyUser
+   * Delete party user (party member)
    *
-   * @param id
+   * @param id Party user ID
    */
-  removeMember(id: number):Observable<void> {
+  deletePartyUser(id: number): Observable<void> {
     return this.http.delete<void>(`${ApiService.base}party-users/${id}`).pipe();
   }
 
