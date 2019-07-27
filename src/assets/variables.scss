@@ -3,11 +3,6 @@
 $primary: #ff1493;
 $dark: #121216;
 
-$progress-bg: lighten($dark, 20);
-$progress-height: 5px;
-
-$list-group-bg: none;
-
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
 
@@ -15,6 +10,9 @@ $body-bg: #242429;
 $body-color: $light;
 
 $font-family-base: 'Rubik';
+
+$progress-bg: lighten($dark, 20);
+$progress-height: 5px;
 
 $link-decoration: none;
 $link-hover-decoration: none;
@@ -42,3 +40,6 @@ $input-border-width: 0;
 $input-focus-bg: $input-bg;
 $input-focus-color: $white;
 $input-placeholder-color: darken($input-color, 30);
+
+$list-group-bg: none;
+$list-group-color: $light;

@@ -116,6 +116,15 @@ export class ApiService {
   }
 
   /**
+   * Delete party user (party member)
+   *
+   * @param id Party user ID
+   */
+  deletePartyUser(id: number): Observable<void> {
+    return this.http.delete<void>(`${ApiService.base}party-users/${id}`).pipe();
+  }
+
+  /**
    * Create a new category for party
    *
    * @param party Party ID to add category to
