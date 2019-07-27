@@ -77,14 +77,12 @@ export class PartyComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     /**
      * Get authenticated user data and watch for changes
      */
     this.auth.user.subscribe(user => {
       this.user = user;
     });
-
     /**
      * Watch param changes
      */
@@ -216,6 +214,16 @@ export class PartyComponent implements OnInit {
   }
 
   /**
+   * Make authenticated user to leave this party
+   */
+  leaveParty(): void {
+    const partyUser: PartyUser = this.partyUsers.find(item => item.user.id === this.user.id);
+    this.api.deletePartyUser(partyUser.id).subscribe(() => {
+      this.loadUsers();
+    });
+  }
+
+  /**
    * Delete a song from the party
    *
    * @param song Song to delete
@@ -228,13 +236,6 @@ export class PartyComponent implements OnInit {
     this.api.deleteSong(song.id).subscribe(() => {
       // Remove song from the list
       this.songs.splice(this.songs.indexOf(song), 1);
-    });
-  }
-
-  leaveParty(): void {
-    const partyUser: PartyUser = this.partyUsers.find(item => item.user.id === this.user.id);
-    this.api.deletePartyUser(partyUser.id).subscribe(() => {
-      this.loadUsers();
     });
   }
 }
