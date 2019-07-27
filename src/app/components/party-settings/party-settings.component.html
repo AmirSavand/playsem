@@ -65,15 +65,22 @@
       <div class="card my-3">
         <!-- Header -->
         <div class="card-header">Members</div>
+        <!-- Search members -->
+        <input class="form-control search" type="text" name="search" [(ngModel)]="searchMembers" autocapitalize="off"
+               placeholder="Search by username, display name">
         <!-- Members list -->
-        <div class="card-body" *ngFor="let partyUser of partyUsers">
+        <div class="card-body"
+             *ngFor="let partyUser of partyUsers | filterBy: ['user.username' , 'user.account.display_name']: searchMembers">
           <ul class="list-group">
             <!-- Members name -->
-            <li class="list-group-item list-group-item-secondary my-1">{{ partyUser.user.username }} &bull;
+            <li
+              class="list-group-item list-group-item-secondary my-1">{{ partyUser.user.username}}
+              &bull;
               <span>{{ partyUser.date | date }}</span>
             </li>
             <!-- Delete button -->
-            <button class="btn btn-danger" (click)="removeMember(partyUser)">
+            <button class="btn btn-danger" (click)="removeMember(partyUser)"
+                    *ngIf="partyUser.user.id !== party.user.id">
               <fa-icon [fixedWidth]="true" icon="trash"></fa-icon>
             </button>
           </ul>
