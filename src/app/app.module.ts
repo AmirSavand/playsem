@@ -37,6 +37,7 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons/faSignOutAlt';
 import { faStop } from '@fortawesome/free-solid-svg-icons/faStop';
 import { faTachometerAlt } from '@fortawesome/free-solid-svg-icons/faTachometerAlt';
 import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash';
+import { faUserMinus } from '@fortawesome/free-solid-svg-icons/faUserMinus';
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons/faUserPlus';
 import { faVolumeDown } from '@fortawesome/free-solid-svg-icons/faVolumeDown';
 import { faVolumeMute } from '@fortawesome/free-solid-svg-icons/faVolumeMute';
@@ -110,6 +111,7 @@ export class AppModule {
     faVolumeMute,
     faHeart,
     faUserPlus,
+    faUserMinus,
     faBars,
     faTachometerAlt,
     faCompactDisc,
