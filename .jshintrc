@@ -1,9 +1,0 @@
-{
-  "quotmark": "double",
-  "esversion": 6,
-  "globals": {
-    "app": true,
-    "angular": true,
-    "console": false
-  }
-}
