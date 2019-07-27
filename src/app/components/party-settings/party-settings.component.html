@@ -78,7 +78,7 @@
                 <span>{{ partyUser.date | date }}</span>
               </li>
               <!-- Delete button -->
-              <button class="btn btn-danger" (click)="removeMember(partyUser)">
+              <button class="btn btn-danger" (click)="removeMember(partyUser)" *ngIf="partyUser.user.id !== party.user.id">
                 <fa-icon [fixedWidth]="true" icon="trash"></fa-icon>
               </button>
             </ul>
