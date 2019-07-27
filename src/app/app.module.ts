@@ -93,29 +93,36 @@ import { AppComponent } from './app.component';
   bootstrap: [AppComponent],
 })
 export class AppModule {
+
+  static readonly icons = [
+    faPlay,
+    faPause,
+    faStop,
+    faForward,
+    faBackward,
+    faRandom,
+    faRetweet,
+    faVolumeUp,
+    faVolumeDown,
+    faVolumeOff,
+    faVolumeMute,
+    faHeart,
+    faUserPlus,
+    faBars,
+    faTachometerAlt,
+    faCompactDisc,
+    faSignInAlt,
+    faSignOutAlt,
+    faSearch,
+    faCog,
+    faEllipsisV,
+    faTrash,
+    faPlus,
+  ];
+
   constructor() {
-    library.add(faPlay);
-    library.add(faPause);
-    library.add(faStop);
-    library.add(faForward);
-    library.add(faBackward);
-    library.add(faRandom);
-    library.add(faRetweet);
-    library.add(faVolumeUp);
-    library.add(faVolumeDown);
-    library.add(faVolumeOff);
-    library.add(faVolumeMute);
-    library.add(faHeart);
-    library.add(faUserPlus);
-    library.add(faBars);
-    library.add(faTachometerAlt);
-    library.add(faCompactDisc);
-    library.add(faSignInAlt);
-    library.add(faSignOutAlt);
-    library.add(faSearch);
-    library.add(faCog);
-    library.add(faEllipsisV);
-    library.add(faTrash);
-    library.add(faPlus);
+    for (const icon of AppModule.icons) {
+      library.add(icon);
+    }
   }
 }
