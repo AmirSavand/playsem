@@ -6,6 +6,7 @@ import { Category } from '@app/interfaces/category';
 import { Party } from '@app/interfaces/party';
 import { PartyUser } from '@app/interfaces/party-user';
 import { ApiService } from '@app/services/api/api-service.service';
+import { FilterByPipe } from 'ngx-pipes';
 
 @Component({
   selector: 'app-party-settings',
@@ -15,14 +16,14 @@ import { ApiService } from '@app/services/api/api-service.service';
 export class PartySettingsComponent implements OnInit {
 
   /**
-   * Filter members
-   */
-  searchPartyUsers: string;
-
-  /**
    * Redirect to path after deletion
    */
   static readonly partyDeleteRedirect = '/dashboard';
+
+  /**
+   * Filter members
+   */
+  searchPartyUsers: string;
 
   /**
    * Party ID from param
@@ -33,11 +34,6 @@ export class PartySettingsComponent implements OnInit {
    * User (member) list of party (PartyUser objects)
    */
   partyUsers: PartyUser [];
-
-  /**
-   * Party users (members) count
-   */
-  partyUserCount: number;
 
   /**
    * Party data
@@ -67,7 +63,8 @@ export class PartySettingsComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private api: ApiService,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private filterBy: FilterByPipe) {
   }
 
   ngOnInit(): void {
@@ -100,7 +97,7 @@ export class PartySettingsComponent implements OnInit {
         /**
          * Load party members
          */
-        this.loadUsers();
+        this.loadPartyUsers();
         /**
          * Set up the party form with default values
          */
@@ -109,6 +106,14 @@ export class PartySettingsComponent implements OnInit {
         });
       });
     });
+  }
+
+  /**
+   * @returns Party users filtered
+   */
+  get partyUsersFiltered(): PartyUser[] {
+    const fields: string[] = ['user.username', 'user.account.display_name'];
+    return this.filterBy.transform<PartyUser[]>(this.partyUsers, fields, this.searchPartyUsers);
   }
 
   /**
@@ -198,22 +203,26 @@ export class PartySettingsComponent implements OnInit {
   }
 
   /**
-   * Load users (members) of party
+   * Load party users (party members)
    */
-  loadUsers(): void {
+  loadPartyUsers(): void {
     this.api.getPartyUsers({ party: this.party.id }).subscribe(data => {
       this.partyUsers = data.results;
-      this.partyUserCount = data.count;
     });
   }
 
   /**
-   * Remove member from partyUsers
+   * Delete party user (kick party member)
    *
-   * @param partyUser
+   * @param partyUser Party user ID
    */
-  removeMember(partyUser: PartyUser): void {
+  removePartyUser(partyUser: PartyUser): void {
+    if (this.loading) {
+      return;
+    }
+    this.loading = true;
     this.api.removeMember(partyUser.id).subscribe(() => {
+      this.loading = false;
       this.partyUsers.splice(this.partyUsers.indexOf(partyUser), 1);
     });
   }

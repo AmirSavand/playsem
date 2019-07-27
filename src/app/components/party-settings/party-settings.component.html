@@ -78,11 +78,10 @@
         </div>
         <!-- Party user list -->
         <div class="list-group list-group-flush">
-          <div class="list-group-item" *ngFor="let partyUser of partyUsers |
-             filterBy:['user.username', 'user.account.display_name']: searchPartyUsers">
+          <div class="list-group-item" *ngFor="let partyUser of partyUsersFiltered">
             <b [class.text-primary]="partyUser.user.id === party.user.id">{{ partyUser.user.username }}</b>
-            <button class="btn btn-sm btn-danger float-right" title="Kick" (click)="removeMember(partyUser)"
-                    *ngIf="partyUser.user.id !== party.user.id">
+            <button class="btn btn-sm btn-danger float-right" title="Kick" (click)="removePartyUser(partyUser)"
+                    *ngIf="partyUser.user.id !== party.user.id" [disabled]="loading">
               <fa-icon [fixedWidth]="true" icon="trash"></fa-icon>
             </button>
             <br>
