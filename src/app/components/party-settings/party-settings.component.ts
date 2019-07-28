@@ -139,6 +139,7 @@ export class PartySettingsComponent implements OnInit {
       this.form.patchValue({
         title: this.party.name,
       });
+      PartyService.rename(this.party.id);
     });
   }
 

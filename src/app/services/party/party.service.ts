@@ -26,6 +26,20 @@ export class PartyService {
   }
 
   /**
+   * Rename a party
+   *
+   * @param id Party ID
+   */
+  static rename(id: string): void {
+    const parties: Party[] = PartyService.partiesSubject.getValue();
+    const party: Party = parties.find(item => item.id === id);
+    /**
+     *  Mistake, I know its wrong.
+     */
+    // PartyService.partiesSubject.next(party);
+  }
+
+  /**
    * Load parties of user
    *
    * @param user User ID
