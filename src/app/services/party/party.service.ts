@@ -32,11 +32,9 @@ export class PartyService {
    */
   load(user: number): void {
     this.api.getPartyUsers({ user: user.toString() }).subscribe(data => {
-      const parties: Party[] = [];
       for (const partyUser of data.results) {
-        parties.push(partyUser.party);
+        PartyService.partiesSubject.getValue().push(partyUser.party);
       }
-      PartyService.partiesSubject.next(parties);
     });
   }
 }
