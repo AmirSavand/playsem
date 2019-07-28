@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Party } from '@app/interfaces/party';
 import { User } from '@app/interfaces/user';
-import { ApiService } from '@app/services/api/api-service.service';
 import { AuthService } from '@app/services/auth/auth.service';
+import { PartyService } from '@app/services/party/party.service';
 
 @Component({
   selector: 'app-root',
@@ -27,27 +27,28 @@ export class AppComponent implements OnInit {
    */
   sidebarClosed: boolean;
 
-  constructor(public auth: AuthService,
-              private api: ApiService) {
+  constructor(private party: PartyService,
+              public auth: AuthService) {
   }
 
   ngOnInit(): void {
     /**
      * Get authenticated user data and watch for changes
      */
-    this.auth.user.subscribe(user => {
-      this.user = user;
+    this.auth.user.subscribe(data => {
+      this.user = data;
       /**
-       * Get authenticated user parties
+       * If user is authenticated, load parties
        */
       if (this.auth.isAuth()) {
-        this.api.getPartyUsers({ user: this.user.id.toString() }).subscribe(data => {
-          this.parties = [];
-          for (const partyUser of data.results) {
-            this.parties.push(partyUser.party);
-          }
-        });
+        this.party.load(this.user.id);
       }
+    });
+    /**
+     * Get authenticated user parties and watch for changes
+     */
+    PartyService.parties.subscribe(data => {
+      this.parties = data;
     });
   }
 }

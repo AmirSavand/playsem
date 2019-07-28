@@ -6,6 +6,7 @@ import { Category } from '@app/interfaces/category';
 import { Party } from '@app/interfaces/party';
 import { PartyUser } from '@app/interfaces/party-user';
 import { ApiService } from '@app/services/api/api-service.service';
+import { PartyService } from '@app/services/party/party.service';
 import { FilterByPipe } from 'ngx-pipes';
 
 @Component({
@@ -153,6 +154,7 @@ export class PartySettingsComponent implements OnInit {
     }
     this.loading = true;
     this.api.deleteParty(this.party.id).subscribe(() => {
+      PartyService.delete(this.party.id);
       this.loading = false;
       this.router.navigate([PartySettingsComponent.partyDeleteRedirect]);
     });
