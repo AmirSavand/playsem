@@ -24,11 +24,6 @@ export class AppComponent implements OnInit {
   parties: Party[];
 
   /**
-   * user new party
-   */
-  newParty: string;
-
-  /**
    * Indicates whether sidebar is closed or not
    */
   sidebarClosed: boolean;
@@ -56,11 +51,6 @@ export class AppComponent implements OnInit {
      */
     PartyService.parties.subscribe(data => {
       this.parties = data;
-    });
-  }
-
-  addParty(): void {
-    this.api.createParty(this.newParty).subscribe( () => {
     });
   }
 }

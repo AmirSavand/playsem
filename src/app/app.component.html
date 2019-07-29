@@ -51,11 +51,6 @@
           <!-- Title -->
           <div class="list-group-item header mt-5">PARTIES</div>
 
-          <!-- Create new party -->
-          <form class="input-group" (ngSubmit)="addParty()">
-            <input class="form-control" type="text" placeholder="Create party" [(ngModel)]="newParty">
-          </form>
-
           <!-- Parties -->
           <a class="list-group-item list-group-item-action"
              *ngFor="let party of parties" [routerLink]="['party', party.id]" routerLinkActive="active">

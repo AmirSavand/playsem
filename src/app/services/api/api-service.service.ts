@@ -43,8 +43,8 @@ export class ApiService {
    *
    * @param title Party title
    */
-  createParty(title: string): Observable<Party> {
-    return this.http.post<Party>(`${ApiService.base}parties/new`, { title }).pipe();
+  createParty(name: string): Observable<Party> {
+    return this.http.post<Party>(`${ApiService.base}parties/`, { name }).pipe();
   }
 
   /**
