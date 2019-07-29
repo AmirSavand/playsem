@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Party } from '@app/interfaces/party';
 import { ApiService } from '@app/services/api/api-service.service';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -19,10 +20,12 @@ export class PartyService {
    *
    * @param id Party ID
    */
-  static delete(id: string): void {
-    const parties: Party[] = PartyService.partiesSubject.getValue();
-    const party: Party = parties.find(item => item.id === id);
-    parties.splice(parties.indexOf(party), 1);
+  delete(id: string) {
+    return this.api.deleteParty(id).pipe(map(() => {
+      const parties: Party[] = PartyService.partiesSubject.getValue();
+      const party: Party = parties.find(item => item.id === id);
+      parties.splice(parties.indexOf(party), 1);
+    }));
   }
 
   /**

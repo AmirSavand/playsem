@@ -63,6 +63,7 @@ export class PartySettingsComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private api: ApiService,
+              private partyService: PartyService,
               private route: ActivatedRoute,
               private router: Router,
               private filterBy: FilterByPipe) {
@@ -153,9 +154,7 @@ export class PartySettingsComponent implements OnInit {
       return alert('Party deletion was not confirmed.');
     }
     this.loading = true;
-    this.api.deleteParty(this.party.id).subscribe(() => {
-      PartyService.delete(this.party.id);
-      this.loading = false;
+    this.partyService.delete(this.party.id).subscribe(() => {
       this.router.navigate([PartySettingsComponent.partyDeleteRedirect]);
     });
   }
