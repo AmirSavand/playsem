@@ -53,8 +53,8 @@ export class ApiService {
    *
    * @param id Party ID
    */
-  deleteParty(id: string): Observable<Party> {
-    return this.http.delete<Party>(`${ApiService.base}parties/${id}`).pipe();
+  deleteParty(id: string): Observable<void> {
+    return this.http.delete<void>(`${ApiService.base}parties/${id}`).pipe();
   }
 
   /**
