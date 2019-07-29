@@ -126,14 +126,9 @@ export class PartySettingsComponent implements OnInit {
       return;
     }
     this.loading = true;
-    this.api.updateParty(this.party.id, this.form.value.title).subscribe(party => {
+    this.partyService.update(this.party, this.form.value.title).subscribe(data => {
       this.loading = false;
-      /**
-       * Response data does not include some data, let's add them to the response so we don't lose them
-       */
-      party.categories = this.party.categories;
-      party.user = this.party.user;
-      this.party = party;
+      this.party.name = data.name;
       /**
        * Update the form with the new value
        */
