@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Party } from '@app/interfaces/party';
 import { User } from '@app/interfaces/user';
+import { ApiService } from '@app/services/api/api-service.service';
 import { AuthService } from '@app/services/auth/auth.service';
 import { PartyService } from '@app/services/party/party.service';
 
@@ -23,12 +24,18 @@ export class AppComponent implements OnInit {
   parties: Party[];
 
   /**
+   * user new party
+   */
+  newParty: string;
+
+  /**
    * Indicates whether sidebar is closed or not
    */
   sidebarClosed: boolean;
 
   constructor(private party: PartyService,
-              public auth: AuthService) {
+              public auth: AuthService,
+              private api: ApiService) {
   }
 
   ngOnInit(): void {
@@ -49,6 +56,11 @@ export class AppComponent implements OnInit {
      */
     PartyService.parties.subscribe(data => {
       this.parties = data;
+    });
+  }
+
+  addParty(): void {
+    this.api.createParty(this.newParty).subscribe( () => {
     });
   }
 }
