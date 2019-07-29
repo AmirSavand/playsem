@@ -7,6 +7,7 @@ import { Song } from '@app/interfaces/song';
 import { User } from '@app/interfaces/user';
 import { ApiService } from '@app/services/api/api-service.service';
 import { AuthService } from '@app/services/auth/auth.service';
+import { PartyService } from '@app/services/party/party.service';
 import { PlayerService } from '@app/services/player/player.service';
 
 @Component({
@@ -210,6 +211,7 @@ export class PartyComponent implements OnInit {
   joinParty(): void {
     this.api.createPartyUsers(this.party.id).subscribe(() => {
       this.loadUsers();
+      PartyService.add(this.party);
     });
   }
 
@@ -220,6 +222,7 @@ export class PartyComponent implements OnInit {
     const partyUser: PartyUser = this.partyUsers.find(item => item.user.id === this.user.id);
     this.api.deletePartyUser(partyUser.id).subscribe(() => {
       this.loadUsers();
+      PartyService.remove(this.party.id);
     });
   }
 

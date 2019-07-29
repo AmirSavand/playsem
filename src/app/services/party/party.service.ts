@@ -9,10 +9,29 @@ import { map } from 'rxjs/operators';
 })
 export class PartyService {
 
+  constructor(private api: ApiService) {
+  }
+
   private static partiesSubject: BehaviorSubject<Party[]> = new BehaviorSubject<Party[]>([]);
   static parties: Observable<Party[]> = PartyService.partiesSubject.asObservable();
 
-  constructor(private api: ApiService) {
+  /**
+   * Add a party
+   *
+   * @param party Party
+   */
+  static add(party: Party) {
+    PartyService.partiesSubject.getValue().push(party);
+  }
+
+  /**
+   * Remove a party
+   *
+   * @param id Party ID
+   */
+  static remove(id: string): void {
+    const parties: Party[] = PartyService.partiesSubject.getValue();
+    parties.splice(parties.indexOf(parties.find(item => item.id === id)), 1);
   }
 
   /**
@@ -21,6 +40,9 @@ export class PartyService {
    * @param user User ID
    */
   load(user: number): void {
+    // Reset party list
+    PartyService.partiesSubject.next([]);
+    // Get party list
     this.api.getPartyUsers({ user: user.toString() }).subscribe(data => {
       for (const partyUser of data.results) {
         PartyService.partiesSubject.getValue().push(partyUser.party);
@@ -46,11 +68,9 @@ export class PartyService {
    *
    * @param id Party ID
    */
-  delete(id: string) {
+  delete(id: string): Observable<void> {
     return this.api.deleteParty(id).pipe(map(() => {
-      const parties: Party[] = PartyService.partiesSubject.getValue();
-      const party: Party = parties.find(item => item.id === id);
-      parties.splice(parties.indexOf(party), 1);
+      PartyService.remove(id);
     }));
   }
 }
