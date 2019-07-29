@@ -58,9 +58,9 @@ export class PartyComponent implements OnInit {
   categorySelected: Category;
 
   /**
-   * Song currently playing
+   * Is playing
    */
-  playing: Song;
+  isPlaying = PlayerService.isPlaying;
 
   constructor(public auth: AuthService,
               private api: ApiService,
@@ -114,12 +114,6 @@ export class PartyComponent implements OnInit {
          */
         this.loadUsers();
       });
-    });
-    /**
-     * Get song currently playing and subscribe
-     */
-    PlayerService.playing.subscribe(data => {
-      this.playing = data;
     });
   }
 

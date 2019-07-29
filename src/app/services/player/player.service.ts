@@ -113,7 +113,8 @@ export class PlayerService {
    * @param song Song to check
    */
   static isPlaying(song: Song): boolean {
-    return song === PlayerService.playingSubject.value;
+    const playing: Song = PlayerService.playingSubject.value;
+    return playing && song.id === PlayerService.playingSubject.value.id;
   }
 
   /**
