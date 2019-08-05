@@ -23,11 +23,6 @@ export class UserSettingsComponent implements OnInit {
   form: FormGroup;
 
   /**
-   * Party form
-   */
-  partyForm: FormGroup;
-
-  /**
    * API loading indicator
    */
   loading: boolean;
@@ -38,12 +33,6 @@ export class UserSettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    /**
-     * Setup party form
-     */
-    this.partyForm = this.formBuilder.group({
-      name: [''],
-    });
     /**
      * Get user data and fill the form
      */
@@ -75,21 +64,6 @@ export class UserSettingsComponent implements OnInit {
       this.user.account = account;
       // Update the auth data too
       this.auth.setUser(this.user);
-    });
-  }
-
-  /**
-   * Create new party
-   */
-  createParty(): void {
-    if (this.loading) {
-      return;
-    }
-    this.loading = true;
-    // API call
-    this.api.createParty(this.partyForm.value).subscribe(() => {
-      this.loading = false;
-      this.partyForm.reset();
     });
   }
 }

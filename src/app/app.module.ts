@@ -53,6 +53,7 @@ import { NgxY2PlayerModule } from 'ngx-y2-player';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { PartiesComponent } from './components/parties/parties.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { AppComponent } from './app.component';
     PlayerComponent,
     ExploreComponent,
     PartySettingsComponent,
+    PartiesComponent,
   ],
   imports: [
     BrowserModule,

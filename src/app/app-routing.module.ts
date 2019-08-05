@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from '@app/components/dashboard/dashboard.component';
 import { ExploreComponent } from '@app/components/explore/explore.component';
 import { HomeComponent } from '@app/components/home/home.component';
+import { PartiesComponent } from '@app/components/parties/parties.component';
 import { PartySettingsComponent } from '@app/components/party-settings/party-settings.component';
 import { PartyComponent } from '@app/components/party/party.component';
 import { SignInComponent } from '@app/components/sign-in/sign-in.component';
@@ -37,6 +38,9 @@ const routes: Routes = [{
 }, {
   path: 'user-settings',
   component: UserSettingsComponent,
+}, {
+  path: 'parties',
+  component: PartiesComponent,
 }];
 
 @NgModule({

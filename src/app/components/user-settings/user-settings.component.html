@@ -20,23 +20,6 @@
           <button class="btn btn-block btn-info" [disabled]="loading">Update</button>
         </form>
       </div>
-
-      <!-- Create Party -->
-      <div class="card my-3">
-        <div class="card-header">Create party</div>
-        <form class="card-body" (ngSubmit)="createParty()" [formGroup]="partyForm">
-          <div class="input-group">
-            <!-- Name -->
-            <input class="form-control" type="text" placeholder="Create party" formControlName="name">
-            <!-- Submit button -->
-            <div class="input-group-append">
-              <button class="btn btn-primary btn-block" [disabled]="loading">
-                <fa-icon [fixedWidth]="true" icon="plus"></fa-icon>
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
     </div>
   </div>
 </div>
