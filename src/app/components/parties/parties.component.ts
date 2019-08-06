@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Party } from '@app/interfaces/party';
 import { ApiService } from '@app/services/api/api-service.service';
+import { PartyService } from '@app/services/party/party.service';
 
 @Component({
   selector: 'app-parties',
@@ -8,6 +10,11 @@ import { ApiService } from '@app/services/api/api-service.service';
   styleUrls: ['./parties.component.scss']
 })
 export class PartiesComponent implements OnInit {
+
+  /**
+   * Party data
+   */
+  party: Party;
 
   /**
    * Party form
@@ -42,6 +49,7 @@ export class PartiesComponent implements OnInit {
     // API call
     this.api.createParty(this.partyForm.value.title).subscribe(() => {
       this.loading = false;
+      PartyService.addParty(this.party);
       this.partyForm.reset();
     });
   }
