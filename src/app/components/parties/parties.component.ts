@@ -7,14 +7,9 @@ import { PartyService } from '@app/services/party/party.service';
 @Component({
   selector: 'app-parties',
   templateUrl: './parties.component.html',
-  styleUrls: ['./parties.component.scss']
+  styleUrls: ['./parties.component.scss'],
 })
 export class PartiesComponent implements OnInit {
-
-  /**
-   * Party data
-   */
-  party: Party;
 
   /**
    * Party form
@@ -27,7 +22,8 @@ export class PartiesComponent implements OnInit {
   loading: boolean;
 
   constructor(private formBuilder: FormBuilder,
-              private api: ApiService) { }
+              private api: ApiService) {
+  }
 
   ngOnInit(): void {
     /**
@@ -46,10 +42,9 @@ export class PartiesComponent implements OnInit {
       return;
     }
     this.loading = true;
-    // API call
-    this.api.createParty(this.partyForm.value.title).subscribe(() => {
+    this.api.createParty(this.partyForm.value.title).subscribe(data => {
       this.loading = false;
-      PartyService.addParty(this.party);
+      PartyService.add(data);
       this.partyForm.reset();
     });
   }
