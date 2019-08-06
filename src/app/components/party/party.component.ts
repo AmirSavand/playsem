@@ -258,7 +258,7 @@ export class PartyComponent implements OnInit {
    * Add a new song to this party
    */
   addSong(): void {
-    if (this.isPartyMember() !== true) {
+    if (this.isPartyMember() === false) {
       this.songForm.reset();
       return alert('You need to be a member of this party to add songs.');
     }
