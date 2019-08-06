@@ -1,15 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Party } from '@app/interfaces/party';
 import { ApiService } from '@app/services/api/api-service.service';
 import { PartyService } from '@app/services/party/party.service';
 
 @Component({
-  selector: 'app-parties',
-  templateUrl: './parties.component.html',
-  styleUrls: ['./parties.component.scss'],
+  selector: 'app-party-new',
+  templateUrl: './party-new.component.html',
 })
-export class PartiesComponent implements OnInit {
+export class PartyNewComponent implements OnInit {
 
   /**
    * Party form
