@@ -27,7 +27,7 @@ export class PartiesComponent implements OnInit {
      * Setup party form
      */
     this.partyForm = this.formBuilder.group({
-      name: [''],
+      title: [''],
     });
   }
 
@@ -40,7 +40,7 @@ export class PartiesComponent implements OnInit {
     }
     this.loading = true;
     // API call
-    this.api.createParty(this.partyForm.value).subscribe(() => {
+    this.api.createParty(this.partyForm.value.title).subscribe(() => {
       this.loading = false;
       this.partyForm.reset();
     });
