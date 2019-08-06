@@ -63,9 +63,9 @@
 </div>
 
 <!-- Add song -->
-<form class="input-group" [formGroup]="songForm" (ngSubmit)="addSong()"
-      *ngIf="isPartyMember() === true || auth.isUser(party.user)">
-  <input class="form-control" type="text" placeholder="Song URL (YouTube)" formControlName="source">
+<form class="input-group" [formGroup]="songForm" (ngSubmit)="addSong()">
+  <input class="form-control py-4" type="text" placeholder="Add new song (YouTube)" formControlName="source"
+         [disabled]="loading">
 </form>
 
 <!-- Songs -->

@@ -76,7 +76,7 @@ export class PartyComponent implements OnInit {
   constructor(public auth: AuthService,
               private api: ApiService,
               private route: ActivatedRoute,
-              private formbuilder: FormBuilder) {
+              private formBuilder: FormBuilder) {
   }
 
   /**
@@ -93,7 +93,7 @@ export class PartyComponent implements OnInit {
     /**
      * Setup song form
      */
-    this.songForm = this.formbuilder.group( {
+    this.songForm = this.formBuilder.group({
       source: [''],
     });
     /**
@@ -255,18 +255,21 @@ export class PartyComponent implements OnInit {
   }
 
   /**
-   * Add song
+   * Add a new song to this party
    */
   addSong(): void {
+    if (this.isPartyMember() === false || !this.auth.isUser(this.party.user)) {
+      alert('You need to be a member of this party to add songs.');
+    }
     if (this.loading) {
       return;
     }
     this.loading = true;
     this.api.addSong(this.party.id, this.songForm.value.source).subscribe(data => {
       this.loading = false;
-      this.party = data.party;
+      data.party = this.party;
       this.songs.push(data);
       this.songForm.reset();
-    })
+    });
   }
 }
