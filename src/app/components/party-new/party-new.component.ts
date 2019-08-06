@@ -33,7 +33,7 @@ export class PartyNewComponent implements OnInit {
   }
 
   /**
-   * Create new party
+   * Create a new party
    */
   createParty(): void {
     if (this.loading) {
