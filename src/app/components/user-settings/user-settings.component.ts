@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Account } from '@app/interfaces/account';
 import { User } from '@app/interfaces/user';
 import { ApiService } from '@app/services/api/api-service.service';
