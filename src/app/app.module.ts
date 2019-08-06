@@ -6,6 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { DashboardComponent } from '@app/components/dashboard/dashboard.component';
 import { ExploreComponent } from '@app/components/explore/explore.component';
 import { HomeComponent } from '@app/components/home/home.component';
+import { PartyNewComponent } from '@app/components/party-new/party-new.component';
 import { PartySettingsComponent } from '@app/components/party-settings/party-settings.component';
 import { PartyComponent } from '@app/components/party/party.component';
 import { SignInComponent } from '@app/components/sign-in/sign-in.component';
@@ -53,7 +54,6 @@ import { NgxY2PlayerModule } from 'ngx-y2-player';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PartyNewComponent } from 'src/app/components/party-new/party-new.component';
 
 @NgModule({
   declarations: [
