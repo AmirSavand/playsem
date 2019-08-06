@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ApiService } from '@app/services/api/api-service.service';
 import { PartyService } from '@app/services/party/party.service';
 
@@ -8,6 +9,11 @@ import { PartyService } from '@app/services/party/party.service';
   templateUrl: './party-new.component.html',
 })
 export class PartyNewComponent implements OnInit {
+
+  /**
+   * Path to go to after party creation (party ID needs to be added)
+   */
+  static readonly partyCreationRedirect: string = '/party';
 
   /**
    * Party form
@@ -20,7 +26,8 @@ export class PartyNewComponent implements OnInit {
   loading: boolean;
 
   constructor(private formBuilder: FormBuilder,
-              private api: ApiService) {
+              private api: ApiService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -41,9 +48,8 @@ export class PartyNewComponent implements OnInit {
     }
     this.loading = true;
     this.api.createParty(this.partyForm.value.title).subscribe(data => {
-      this.loading = false;
       PartyService.add(data);
-      this.partyForm.reset();
+      this.router.navigate([PartyNewComponent.partyCreationRedirect, data.id]);
     });
   }
 }
