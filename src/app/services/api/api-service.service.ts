@@ -106,6 +106,16 @@ export class ApiService {
   }
 
   /**
+   * Add song to party
+   *
+   * @param party Party ID to add song to
+   * @param source song URL
+   */
+  addSong(party: string, source: string): Observable<Song> {
+    return this.http.post<Song>(`${ApiService.base}songs/`,  { party, source }).pipe();
+  }
+
+  /**
    * Update user
    *
    * @param username User username

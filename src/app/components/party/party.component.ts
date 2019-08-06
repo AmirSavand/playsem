@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Category } from '@app/interfaces/category';
 import { Party } from '@app/interfaces/party';
@@ -48,6 +49,11 @@ export class PartyComponent implements OnInit {
   songs: Song[];
 
   /**
+   * Song form
+   */
+  songForm: FormGroup;
+
+  /**
    * User (member) list of party (PartyUser objects)
    */
   partyUsers: PartyUser[];
@@ -58,13 +64,19 @@ export class PartyComponent implements OnInit {
   categorySelected: Category;
 
   /**
+   * API loading indicator
+   */
+  loading: boolean;
+
+  /**
    * Is playing
    */
   isPlaying = PlayerService.isPlaying;
 
   constructor(public auth: AuthService,
               private api: ApiService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private formbuilder: FormBuilder) {
   }
 
   /**
@@ -78,6 +90,12 @@ export class PartyComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    /**
+     * Setup song form
+     */
+    this.songForm = this.formbuilder.group( {
+      source: [''],
+    });
     /**
      * Get authenticated user data and watch for changes
      */
@@ -234,5 +252,21 @@ export class PartyComponent implements OnInit {
       // Remove song from the list
       this.songs.splice(this.songs.indexOf(song), 1);
     });
+  }
+
+  /**
+   * Add song
+   */
+  addSong(): void {
+    if (this.loading) {
+      return;
+    }
+    this.loading = true;
+    this.api.addSong(this.party.id, this.songForm.value.source).subscribe(data => {
+      this.loading = false;
+      this.party = data.party;
+      this.songs.push(data);
+      this.songForm.reset();
+    })
   }
 }
