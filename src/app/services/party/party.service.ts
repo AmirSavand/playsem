@@ -25,17 +25,6 @@ export class PartyService {
   }
 
   /**
-   * Add new party
-   *
-   * @param party Party
-   */
-  static addParty(party: Party) {
-    const parties = PartyService.partiesSubject.value;
-    parties.push(party);
-    PartyService.partiesSubject.next(parties);
-  }
-
-  /**
    * Remove a party
    *
    * @param id Party ID
