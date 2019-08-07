@@ -244,6 +244,12 @@ export class PartyComponent implements OnInit {
    * @param song Song to delete
    */
   deleteSong(song: Song): void {
+    /**
+     * Only member of the party who is either owner of party or song has permission
+     */
+    if (this.isPartyMember() === false || !this.auth.isUser(song.user) && !this.auth.isUser(this.party.user)) {
+      return alert('You do not have permission do delete this song.');
+    }
     if (!confirm('Are you sure you want to delete this song?')) {
       return;
     }
