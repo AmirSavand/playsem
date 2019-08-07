@@ -35,7 +35,7 @@
     &.active {
       background: $dark;
 
-      .icon:first-child {
+      .icon:first-child:not(.action) {
         color: $primary;
         opacity: 1;
       }
@@ -46,6 +46,10 @@
       flex-basis: 60px;
       max-width: 60px;
       opacity: 0.1;
+
+      &.action:hover {
+        opacity: 1;
+      }
     }
 
     .cover {
