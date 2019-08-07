@@ -64,23 +64,22 @@
 
 <!-- Add song -->
 <form class="input-group" [formGroup]="songForm" (ngSubmit)="addSong()">
-  <input class="form-control py-4" type="text" placeholder="Add new song (YouTube)" formControlName="source"
-         [disabled]="loading">
+  <input class="form-control py-4 rounded-0" type="text" placeholder="Add new song (YouTube)" formControlName="source">
 </form>
 
 <!-- Songs -->
 <div class="songs" *ngIf="songs">
   <!-- Song -->
-  <div class="song d-flex align-items-center" *ngFor="let song of songsFilter" (click)="play(song)"
-       [class.active]="isPlaying(song)">
+  <div class="song d-flex align-items-center" *ngFor="let song of songsFilter" [class.active]="isPlaying(song)">
     <!-- Icon -->
-    <div class="icon">
+    <div class="icon" (click)="play(song)">
       <fa-icon [fixedWidth]="true" icon="play"></fa-icon>
     </div>
     <!-- Image -->
-    <div class="cover mr-3" [style.background-image]="'url(https://i.imgur.com/M3zgvc8.jpg)'"></div>
+    <div class="cover mr-3" (click)="play(song)"
+         [style.background-image]="'url(https://i.imgur.com/M3zgvc8.jpg)'"></div>
     <!-- Info -->
-    <div class="info d-flex flex-column text-truncate">
+    <div class="info d-flex flex-column text-truncate" (click)="play(song)">
       <span class="text-truncate">{{ song.name }}</span>
       <small>
         <span>{{ song.user.username }}</span>
@@ -88,10 +87,18 @@
       </small>
     </div>
     <!-- Icon -->
-    <div class="icon">
+    <div class="icon action" [popover]="songOptions" [outsideClick]="true" [popoverContext]="{ song: song }"
+         placement="left">
       <fa-icon [fixedWidth]="true" icon="ellipsis-v"></fa-icon>
     </div>
-    <!-- Delete -->
-    <button class="btn btn-primary" (click)="deleteSong(song)">X</button>
   </div>
 </div>
+
+<!-- Song popup -->
+<ng-template #songOptions let-song="song">
+  <div class="list-group list-group-flush">
+    <a class="list-group-item list-group-item-action" [class.active]="isPlaying(song)" (click)="play(song)">Play</a>
+    <a class="list-group-item list-group-item-action">Album</a>
+    <a class="list-group-item list-group-item-action text-danger" (click)="deleteSong(song)">Delete</a>
+  </div>
+</ng-template>
