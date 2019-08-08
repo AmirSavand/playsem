@@ -232,7 +232,7 @@ export class PartySettingsComponent implements OnInit {
   /**
    * Edit category
    */
-  editCategory(): void {
+  editCategory() {
     const initialState = {
       list: [
         'Open a modal with component',

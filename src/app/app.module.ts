@@ -88,6 +88,9 @@ import { EditCategoryComponent } from './components/edit-category/edit-category.
     ProgressbarModule.forRoot(),
     ModalModule.forRoot(),
   ],
+  entryComponents: [
+    EditCategoryComponent,
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
