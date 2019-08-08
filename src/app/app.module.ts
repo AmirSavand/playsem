@@ -24,6 +24,7 @@ import { faBackward } from '@fortawesome/free-solid-svg-icons/faBackward';
 import { faBars } from '@fortawesome/free-solid-svg-icons/faBars';
 import { faCog } from '@fortawesome/free-solid-svg-icons/faCog';
 import { faCompactDisc } from '@fortawesome/free-solid-svg-icons/faCompactDisc';
+import { faEdit } from '@fortawesome/free-solid-svg-icons/faEdit';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons/faEllipsisV';
 import { faForward } from '@fortawesome/free-solid-svg-icons/faForward';
 import { faHeart } from '@fortawesome/free-solid-svg-icons/faHeart';
@@ -47,13 +48,14 @@ import { faVolumeUp } from '@fortawesome/free-solid-svg-icons/faVolumeUp';
 
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
-import { PopoverModule, ProgressbarModule } from 'ngx-bootstrap';
+import { ModalModule, PopoverModule, ProgressbarModule } from 'ngx-bootstrap';
 import { CookieService } from 'ngx-cookie-service';
 import { FilterByPipe } from 'ngx-pipes';
 import { NgxY2PlayerModule } from 'ngx-y2-player';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { EditCategoryComponent } from './components/edit-category/edit-category.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +71,7 @@ import { AppComponent } from './app.component';
     ExploreComponent,
     PartySettingsComponent,
     PartyNewComponent,
+    EditCategoryComponent,
   ],
   imports: [
     BrowserModule,
@@ -83,6 +86,7 @@ import { AppComponent } from './app.component';
     LoadingBarHttpClientModule,
     PopoverModule.forRoot(),
     ProgressbarModule.forRoot(),
+    ModalModule.forRoot(),
   ],
   providers: [
     {
@@ -124,6 +128,7 @@ export class AppModule {
     faEllipsisV,
     faTrash,
     faPlus,
+    faEdit,
   ];
 
   constructor() {

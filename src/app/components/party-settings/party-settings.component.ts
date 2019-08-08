@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { EditCategoryComponent } from '@app/components/edit-category/edit-category.component';
 import { ApiError } from '@app/interfaces/api-error';
 import { Category } from '@app/interfaces/category';
 import { Party } from '@app/interfaces/party';
 import { PartyUser } from '@app/interfaces/party-user';
 import { ApiService } from '@app/services/api/api-service.service';
 import { PartyService } from '@app/services/party/party.service';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { FilterByPipe } from 'ngx-pipes';
 
 @Component({
@@ -15,6 +17,8 @@ import { FilterByPipe } from 'ngx-pipes';
   styleUrls: ['./party-settings.component.scss'],
 })
 export class PartySettingsComponent implements OnInit {
+
+  bsModalRef: BsModalRef;
 
   /**
    * Redirect to path after deletion
@@ -66,7 +70,8 @@ export class PartySettingsComponent implements OnInit {
               private partyService: PartyService,
               private route: ActivatedRoute,
               private router: Router,
-              private filterBy: FilterByPipe) {
+              private filterBy: FilterByPipe,
+              private modalService: BsModalService) {
   }
 
   ngOnInit(): void {
@@ -222,5 +227,22 @@ export class PartySettingsComponent implements OnInit {
       this.loading = false;
       this.partyUsers.splice(this.partyUsers.indexOf(partyUser), 1);
     });
+  }
+
+  /**
+   * Edit category
+   */
+  editCategory(): void {
+    const initialState = {
+      list: [
+        'Open a modal with component',
+        'Pass your data',
+        'Do something else',
+        '...',
+      ],
+      title: 'Modal with component',
+    };
+    this.bsModalRef = this.modalService.show(EditCategoryComponent, {initialState});
+    this.bsModalRef.content.closeBtnName = 'Close';
   }
 }

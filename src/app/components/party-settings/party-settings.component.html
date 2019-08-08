@@ -39,6 +39,10 @@
                 <fa-icon [fixedWidth]="true" icon="trash"></fa-icon>
               </button>
             </div>
+            <!-- Edit Category -->
+            <button type="button" class="btn btn-info rounded-0" (click)="editCategory()">
+              <fa-icon [fixedWidth]="true" icon="edit"></fa-icon>
+            </button>
           </div>
           <!-- Create category -->
           <form class="mb-2" (ngSubmit)="submitCategory()" [formGroup]="categoryForm">
