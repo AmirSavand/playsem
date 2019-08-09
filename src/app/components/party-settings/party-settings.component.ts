@@ -235,9 +235,9 @@ export class PartySettingsComponent implements OnInit {
    * @param category Category to edit
    */
   editCategory(category: Category) {
+    category.party = this.party.id;
     this.bsModalRef = this.modalService.show(EditCategoryComponent, {
-      initialState: { category }
+      initialState: { category },
     });
-    this.bsModalRef.content.closeBtnName = 'Close';
   }
 }
