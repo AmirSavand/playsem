@@ -230,19 +230,14 @@ export class PartySettingsComponent implements OnInit {
   }
 
   /**
-   * Edit category
+   * Edit category (show modal to select songs for this category)
+   *
+   * @param category Category to edit
    */
-  editCategory() {
-    const initialState = {
-      list: [
-        'Open a modal with component',
-        'Pass your data',
-        'Do something else',
-        '...',
-      ],
-      title: 'Modal with component',
-    };
-    this.bsModalRef = this.modalService.show(EditCategoryComponent, {initialState});
+  editCategory(category: Category) {
+    this.bsModalRef = this.modalService.show(EditCategoryComponent, {
+      initialState: { category }
+    });
     this.bsModalRef.content.closeBtnName = 'Close';
   }
 }
