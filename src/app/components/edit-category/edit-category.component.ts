@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Party } from '@app/interfaces/party';
+import { Category } from '@app/interfaces/category';
+import { Song } from '@app/interfaces/song';
 import { ApiService } from '@app/services/api/api-service.service';
 import { BsModalRef } from 'ngx-bootstrap';
 
@@ -11,16 +12,33 @@ import { BsModalRef } from 'ngx-bootstrap';
 export class EditCategoryComponent implements OnInit {
 
   /**
-   * Party data
+   * Editing category
    */
-  party: Party;
+  category: Category;
 
-  constructor(public bsModalRef: BsModalRef,
+  /**
+   * Songs of the party of this category
+   */
+  songs: Song[];
+
+  constructor(public modal: BsModalRef,
               private api: ApiService) {
   }
 
   ngOnInit(): void {
-    // Get songs
-    this.api.getSongs(this.party.id).subscribe()
+    /**
+     * Get songs of the party of this category
+     */
+    this.api.getSongs(this.category.party).subscribe(data => {
+      this.songs = data.results;
+      /**
+       * Update all select status
+       */
+      for (const song of this.songs) {
+        if (song.category) {
+          song.selected = song.category.id === this.category.id;
+        }
+      }
+    });
   }
 }
