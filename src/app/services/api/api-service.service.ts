@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Account } from '@app/interfaces/account';
+import { ApiPayload } from '@app/interfaces/api-payload';
 import { ApiResponse } from '@app/interfaces/api-response';
 import { Category } from '@app/interfaces/category';
 import { Party } from '@app/interfaces/party';
@@ -121,7 +122,7 @@ export class ApiService {
    * @param source song URL
    */
   addSong(party: string, source: string): Observable<Song> {
-    return this.http.post<Song>(`${ApiService.base}songs/`,  { party, source }).pipe();
+    return this.http.post<Song>(`${ApiService.base}songs/`, { party, source }).pipe();
   }
 
   /**
@@ -160,5 +161,15 @@ export class ApiService {
    */
   deleteCategory(id: number): Observable<void> {
     return this.http.delete<void>(`${ApiService.base}party-categories/${id}`).pipe();
+  }
+
+  /**
+   * Update song
+   *
+   * @param id Song ID
+   * @param payload Song data
+   */
+  updateSong(id: number, payload: ApiPayload): Observable<Song> {
+    return this.http.patch<Song>(`${ApiService.base}songs/${id}`, payload).pipe();
   }
 }

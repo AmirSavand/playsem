@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { DashboardComponent } from '@app/components/dashboard/dashboard.component';
+import { CategoryModalComponent } from '@app/components/category-modal/category-modal.component';
 import { ExploreComponent } from '@app/components/explore/explore.component';
 import { HomeComponent } from '@app/components/home/home.component';
 import { PartyNewComponent } from '@app/components/party-new/party-new.component';
@@ -24,6 +25,7 @@ import { faBackward } from '@fortawesome/free-solid-svg-icons/faBackward';
 import { faBars } from '@fortawesome/free-solid-svg-icons/faBars';
 import { faCog } from '@fortawesome/free-solid-svg-icons/faCog';
 import { faCompactDisc } from '@fortawesome/free-solid-svg-icons/faCompactDisc';
+import { faEdit } from '@fortawesome/free-solid-svg-icons/faEdit';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons/faEllipsisV';
 import { faForward } from '@fortawesome/free-solid-svg-icons/faForward';
 import { faHeart } from '@fortawesome/free-solid-svg-icons/faHeart';
@@ -47,7 +49,11 @@ import { faVolumeUp } from '@fortawesome/free-solid-svg-icons/faVolumeUp';
 
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
-import { PopoverModule, ProgressbarModule } from 'ngx-bootstrap';
+
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { PopoverModule } from 'ngx-bootstrap/popover';
+import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
+
 import { CookieService } from 'ngx-cookie-service';
 import { FilterByPipe } from 'ngx-pipes';
 import { NgxY2PlayerModule } from 'ngx-y2-player';
@@ -69,6 +75,7 @@ import { AppComponent } from './app.component';
     ExploreComponent,
     PartySettingsComponent,
     PartyNewComponent,
+    CategoryModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -83,6 +90,10 @@ import { AppComponent } from './app.component';
     LoadingBarHttpClientModule,
     PopoverModule.forRoot(),
     ProgressbarModule.forRoot(),
+    ModalModule.forRoot(),
+  ],
+  entryComponents: [
+    CategoryModalComponent,
   ],
   providers: [
     {
@@ -95,7 +106,9 @@ import { AppComponent } from './app.component';
     AuthService,
     FilterByPipe,
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [
+    AppComponent,
+  ],
 })
 export class AppModule {
 
@@ -124,6 +137,7 @@ export class AppModule {
     faEllipsisV,
     faTrash,
     faPlus,
+    faEdit,
   ];
 
   constructor() {

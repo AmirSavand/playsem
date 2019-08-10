@@ -11,4 +11,8 @@ export interface Song {
   source: string;
   name: string;
   category: Category;
+  /**
+   * Extra properties
+   */
+  selected: boolean;
 }
