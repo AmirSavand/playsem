@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EditCategoryComponent } from '@app/components/edit-category/edit-category.component';
+import { CategoryModalComponent } from '@app/components/category-modal/category-modal.component';
 import { ApiError } from '@app/interfaces/api-error';
 import { Category } from '@app/interfaces/category';
 import { Party } from '@app/interfaces/party';
@@ -236,7 +236,7 @@ export class PartySettingsComponent implements OnInit {
    */
   editCategory(category: Category) {
     category.party = this.party.id;
-    this.bsModalRef = this.modalService.show(EditCategoryComponent, {
+    this.bsModalRef = this.modalService.show(CategoryModalComponent, {
       initialState: { category },
     });
   }

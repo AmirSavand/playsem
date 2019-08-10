@@ -6,10 +6,10 @@ import { BsModalRef } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-edit-category',
-  templateUrl: './edit-category.component.html',
-  styleUrls: ['./edit-category.component.scss'],
+  templateUrl: './category-modal.component.html',
+  styleUrls: ['./category-modal.component.scss'],
 })
-export class EditCategoryComponent implements OnInit {
+export class CategoryModalComponent implements OnInit {
 
   /**
    * Editing category
@@ -49,9 +49,9 @@ export class EditCategoryComponent implements OnInit {
     for (const song of this.songs) {
       let category: number;
       if (song.selected) {
-        category = this.category.id
+        category = this.category.id;
       }
-      this.api.updateSong(song.id, category).subscribe();
+      this.api.updateSong(song.id, { category }).subscribe();
     }
     this.modal.hide();
   }
