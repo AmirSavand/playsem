@@ -161,4 +161,14 @@ export class ApiService {
   deleteCategory(id: number): Observable<void> {
     return this.http.delete<void>(`${ApiService.base}party-categories/${id}`).pipe();
   }
+
+  /**
+   * Update song to set song to category
+   *
+   * @param id
+   * @param category
+   */
+  updateSong(id: number, category: number): Observable<Song> {
+    return this.http.patch<Song>(`${ApiService.base}songs/${id}`, { category }).pipe();
+  }
 }

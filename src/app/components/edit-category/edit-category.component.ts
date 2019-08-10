@@ -41,4 +41,18 @@ export class EditCategoryComponent implements OnInit {
       }
     });
   }
+
+  /**
+   * Update all songs categories and close modal
+   */
+  save(): void {
+    for (const song of this.songs) {
+      let category: number;
+      if (song.selected) {
+        category = this.category.id
+      }
+      this.api.updateSong(song.id, category).subscribe();
+    }
+    this.modal.hide();
+  }
 }
