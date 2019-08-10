@@ -60,6 +60,7 @@ import { NgxY2PlayerModule } from 'ngx-y2-player';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { SongModalComponent } from './components/song-modal/song-modal.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { AppComponent } from './app.component';
     PartySettingsComponent,
     PartyNewComponent,
     CategoryModalComponent,
+    SongModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -94,6 +96,7 @@ import { AppComponent } from './app.component';
   ],
   entryComponents: [
     CategoryModalComponent,
+    SongModalComponent,
   ],
   providers: [
     {

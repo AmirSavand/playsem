@@ -98,7 +98,8 @@
 <ng-template #songOptions let-song="song">
   <div class="list-group list-group-flush">
     <a class="list-group-item list-group-item-action" [class.active]="isPlaying(song)" (click)="play(song)">Play</a>
-    <a class="list-group-item list-group-item-action">Album</a>
+    <!-- Edit song -->
+    <a class="list-group-item list-group-item-action" (click)="editSong(song)">Album</a>
     <a class="list-group-item list-group-item-action text-danger" (click)="deleteSong(song)">Delete</a>
   </div>
 </ng-template>

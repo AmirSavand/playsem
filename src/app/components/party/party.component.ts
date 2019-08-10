@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { SongModalComponent } from '@app/components/song-modal/song-modal.component';
 import { Category } from '@app/interfaces/category';
 import { Party } from '@app/interfaces/party';
 import { PartyUser } from '@app/interfaces/party-user';
@@ -10,6 +11,7 @@ import { ApiService } from '@app/services/api/api-service.service';
 import { AuthService } from '@app/services/auth/auth.service';
 import { PartyService } from '@app/services/party/party.service';
 import { PlayerService } from '@app/services/player/player.service';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-party',
@@ -17,6 +19,11 @@ import { PlayerService } from '@app/services/player/player.service';
   styleUrls: ['./party.component.scss'],
 })
 export class PartyComponent implements OnInit {
+
+  /**
+   * Modal
+   */
+  bsModalRef: BsModalRef;
 
   /**
    * Authenticated user
@@ -76,7 +83,8 @@ export class PartyComponent implements OnInit {
   constructor(public auth: AuthService,
               private api: ApiService,
               private route: ActivatedRoute,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private modalService: BsModalService) {
   }
 
   /**
@@ -277,6 +285,17 @@ export class PartyComponent implements OnInit {
       data.party = this.party;
       this.songs.push(data);
       this.songForm.reset();
+    });
+  }
+
+  /**
+   * Edit category (show modal to select category for this song)
+   *
+   * @param song Song to edit
+   */
+  editSong(song: Song) {
+    this.bsModalRef = this.modalService.show(SongModalComponent, {
+      initialState: { song },
     });
   }
 }
