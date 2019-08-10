@@ -47,7 +47,7 @@ export class CategoryModalComponent implements OnInit {
    */
   save(): void {
     for (const song of this.songs) {
-      let category: number;
+      let category: number = null;
       if (song.selected) {
         category = this.category.id;
       }
