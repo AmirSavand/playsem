@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Account } from '@app/interfaces/account';
+import { ApiPayload } from '@app/interfaces/api-payload';
 import { ApiResponse } from '@app/interfaces/api-response';
 import { Category } from '@app/interfaces/category';
 import { Party } from '@app/interfaces/party';
@@ -163,12 +164,12 @@ export class ApiService {
   }
 
   /**
-   * Update song to set song to category
+   * Update song
    *
-   * @param id
-   * @param category
+   * @param id Song ID
+   * @param payload Song data
    */
-  updateSong(id: number, category: number): Observable<Song> {
-    return this.http.patch<Song>(`${ApiService.base}songs/${id}`, { category }).pipe();
+  updateSong(id: number, payload: ApiPayload): Observable<Song> {
+    return this.http.patch<Song>(`${ApiService.base}songs/${id}`, payload).pipe();
   }
 }
