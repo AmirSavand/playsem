@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { DashboardComponent } from '@app/components/dashboard/dashboard.component';
+import { CategoryModalComponent } from '@app/components/category-modal/category-modal.component';
 import { ExploreComponent } from '@app/components/explore/explore.component';
 import { HomeComponent } from '@app/components/home/home.component';
 import { PartyNewComponent } from '@app/components/party-new/party-new.component';
@@ -48,14 +49,17 @@ import { faVolumeUp } from '@fortawesome/free-solid-svg-icons/faVolumeUp';
 
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
-import { ModalModule, PopoverModule, ProgressbarModule } from 'ngx-bootstrap';
+
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { PopoverModule } from 'ngx-bootstrap/popover';
+import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
+
 import { CookieService } from 'ngx-cookie-service';
 import { FilterByPipe } from 'ngx-pipes';
 import { NgxY2PlayerModule } from 'ngx-y2-player';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { EditCategoryComponent } from './components/edit-category/edit-category.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +75,7 @@ import { EditCategoryComponent } from './components/edit-category/edit-category.
     ExploreComponent,
     PartySettingsComponent,
     PartyNewComponent,
-    EditCategoryComponent,
+    CategoryModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -89,7 +93,7 @@ import { EditCategoryComponent } from './components/edit-category/edit-category.
     ModalModule.forRoot(),
   ],
   entryComponents: [
-    EditCategoryComponent,
+    CategoryModalComponent,
   ],
   providers: [
     {
@@ -102,7 +106,9 @@ import { EditCategoryComponent } from './components/edit-category/edit-category.
     AuthService,
     FilterByPipe,
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [
+    AppComponent,
+  ],
 })
 export class AppModule {
 
