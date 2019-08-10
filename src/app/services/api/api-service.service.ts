@@ -121,7 +121,7 @@ export class ApiService {
    * @param source song URL
    */
   addSong(party: string, source: string): Observable<Song> {
-    return this.http.post<Song>(`${ApiService.base}songs/`,  { party, source }).pipe();
+    return this.http.post<Song>(`${ApiService.base}songs/`, { party, source }).pipe();
   }
 
   /**
