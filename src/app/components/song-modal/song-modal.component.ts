@@ -1,16 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Category } from '@app/interfaces/category';
+import { Song } from '@app/interfaces/song';
+import { ApiService } from '@app/services/api/api-service.service';
 import { BsModalRef } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-song-modal',
   templateUrl: './song-modal.component.html',
-  styleUrls: ['./song-modal.component.scss']
+  styleUrls: ['./song-modal.component.scss'],
 })
-export class SongModalComponent implements OnInit {
+export class SongModalComponent {
 
-  constructor(public modal: BsModalRef) { }
+  /**
+   * Editing songs
+   */
+  song: Song;
 
-  ngOnInit() {
+  /**
+   * Categories of the party of this song
+   */
+  categories: Category[];
+
+  constructor(public modal: BsModalRef,
+              private api: ApiService) {
   }
 
+  save(): void {
+      this.api.updateSong(this.song.id, { category: this.song.category.id }).subscribe();
+      this.modal.hide();
+  }
 }

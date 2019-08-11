@@ -5,12 +5,16 @@
 <div class="modal-body">
   <!-- Text -->
   <p>Select songs to add to this album:</p>
-  <!-- Songs -->
-  <ul>
-    <li>Hi</li>
-    <li>Hi</li>
-    <li>Hi</li>
-  </ul>
+  <!-- Categories -->
+  <div class="list-group">
+    <a></a>
+    <a class="list-group-item list-group-item-action"
+       *ngFor="let category of categories"
+       (click)="song.category = category"
+       [class.active]="category.id === song.category.id">
+      {{ category.name }}
+    </a>
+  </div>
 </div>
 
 <!-- Footer -->
@@ -18,5 +22,5 @@
   <!-- Cancel -->
   <button type="button" class="btn btn-default text-dark" (click)="modal.hide()">Cancel</button>
   <!-- Save -->
-  <button type="button" class="btn btn-primary">Save</button>
+  <button type="button" class="btn btn-primary" (click)="save()">Save</button>
 </div>

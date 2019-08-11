@@ -295,7 +295,7 @@ export class PartyComponent implements OnInit {
    */
   editSong(song: Song) {
     this.bsModalRef = this.modalService.show(SongModalComponent, {
-      initialState: { song },
+      initialState: { song, categories: this.party.categories },
     });
   }
 }
