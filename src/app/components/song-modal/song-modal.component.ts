@@ -25,8 +25,11 @@ export class SongModalComponent {
               private api: ApiService) {
   }
 
+  /**
+   * Update song (set or remove category)
+   */
   save(): void {
-      this.api.updateSong(this.song.id, { category: this.song.category.id }).subscribe();
-      this.modal.hide();
+    this.api.updateSong(this.song.id, { category: this.song.category.id }).subscribe();
+    this.modal.hide();
   }
 }
