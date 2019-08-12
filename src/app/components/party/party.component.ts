@@ -21,11 +21,6 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 export class PartyComponent implements OnInit {
 
   /**
-   * Modal
-   */
-  bsModalRef: BsModalRef;
-
-  /**
    * Authenticated user
    */
   user: User;
@@ -59,6 +54,11 @@ export class PartyComponent implements OnInit {
    * Song form
    */
   songForm: FormGroup;
+
+  /**
+   * Song model (for editing song by clicking on "Album")
+   */
+  songModal: BsModalRef;
 
   /**
    * User (member) list of party (PartyUser objects)
@@ -294,7 +294,7 @@ export class PartyComponent implements OnInit {
     if (!this.hasSongPermission(song)) {
       alert('You do not have permission to edit this song.');
     }
-    this.bsModalRef = this.modalService.show(SongModalComponent, {
+    this.songModal = this.modalService.show(SongModalComponent, {
       initialState: { song, categories: this.party.categories },
     });
   }
