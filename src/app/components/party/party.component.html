@@ -87,18 +87,30 @@
       </small>
     </div>
     <!-- Icon -->
-    <div class="icon action" [popover]="songOptions" [outsideClick]="true" [popoverContext]="{ song: song }"
+    <div class="icon action"
+         [popover]="songOptions"
+         [outsideClick]="true"
+         [popoverContext]="{ song: song }"
+         [isOpen]="song.popover"
+         (onShown)="song.popover = true"
+         (onHidden)="song.popover = false"
          placement="left">
       <fa-icon [fixedWidth]="true" icon="ellipsis-v"></fa-icon>
     </div>
   </div>
 </div>
 
-<!-- Song popup -->
+<!-- Song popover -->
 <ng-template #songOptions let-song="song">
-  <div class="list-group list-group-flush">
-    <a class="list-group-item list-group-item-action" [class.active]="isPlaying(song)" (click)="play(song)">Play</a>
-    <a class="list-group-item list-group-item-action">Album</a>
-    <a class="list-group-item list-group-item-action text-danger" (click)="deleteSong(song)">Delete</a>
+  <div class="list-group list-group-flush" (click)="song.popover = false">
+    <!-- Play song -->
+    <a class="list-group-item list-group-item-action" (click)="play(song)">Play</a>
+    <!-- Edit song -->
+    <a class="list-group-item list-group-item-action" (click)="editSong(song)" *ngIf="hasSongPermission(song)">Album</a>
+    <!-- Delete song -->
+    <a class="list-group-item list-group-item-action text-danger" (click)="deleteSong(song)"
+       *ngIf="hasSongPermission(song)">
+      Delete
+    </a>
   </div>
 </ng-template>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { SongModalComponent } from '@app/components/song-modal/song-modal.component';
 import { Category } from '@app/interfaces/category';
 import { Party } from '@app/interfaces/party';
 import { PartyUser } from '@app/interfaces/party-user';
@@ -10,6 +11,7 @@ import { ApiService } from '@app/services/api/api-service.service';
 import { AuthService } from '@app/services/auth/auth.service';
 import { PartyService } from '@app/services/party/party.service';
 import { PlayerService } from '@app/services/player/player.service';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-party',
@@ -54,6 +56,11 @@ export class PartyComponent implements OnInit {
   songForm: FormGroup;
 
   /**
+   * Song model (for editing song by clicking on "Album")
+   */
+  songModal: BsModalRef;
+
+  /**
    * User (member) list of party (PartyUser objects)
    */
   partyUsers: PartyUser[];
@@ -76,7 +83,8 @@ export class PartyComponent implements OnInit {
   constructor(public auth: AuthService,
               private api: ApiService,
               private route: ActivatedRoute,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private modalService: BsModalService) {
   }
 
   /**
@@ -244,11 +252,8 @@ export class PartyComponent implements OnInit {
    * @param song Song to delete
    */
   deleteSong(song: Song): void {
-    /**
-     * Only member of the party who is either owner of party or song has permission
-     */
-    if (this.isPartyMember() === false || !this.auth.isUser(song.user) && !this.auth.isUser(this.party.user)) {
-      return alert('You do not have permission do delete this song.');
+    if (!this.hasSongPermission(song)) {
+      alert('You do not have permission to delete this song.');
     }
     if (!confirm('Are you sure you want to delete this song?')) {
       return;
@@ -278,5 +283,28 @@ export class PartyComponent implements OnInit {
       this.songs.push(data);
       this.songForm.reset();
     });
+  }
+
+  /**
+   * Edit category (show modal to select category for this song)
+   *
+   * @param song Song to edit
+   */
+  editSong(song: Song) {
+    if (!this.hasSongPermission(song)) {
+      alert('You do not have permission to edit this song.');
+    }
+    this.songModal = this.modalService.show(SongModalComponent, {
+      initialState: { song, categories: this.party.categories },
+    });
+  }
+
+  /**
+   * Only member of the party who is either owner of party or song has permission
+   * @param song Song to check permission for
+   * @returns Whether user has permission over this song or not
+   */
+  hasSongPermission(song: Song): boolean {
+    return !(this.isPartyMember() === false || !this.auth.isUser(song.user) && !this.auth.isUser(this.party.user));
   }
 }
