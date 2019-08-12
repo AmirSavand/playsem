@@ -15,4 +15,5 @@ export interface Song {
    * Extra properties
    */
   selected: boolean;
+  popover: boolean;
 }
