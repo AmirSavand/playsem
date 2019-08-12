@@ -252,11 +252,8 @@ export class PartyComponent implements OnInit {
    * @param song Song to delete
    */
   deleteSong(song: Song): void {
-    /**
-     * Only member of the party who is either owner of party or song has permission
-     */
-    if (this.isPartyMember() === false || !this.auth.isUser(song.user) && !this.auth.isUser(this.party.user)) {
-      return alert('You do not have permission do delete this song.');
+    if (!this.hasSongPermission(song)) {
+      alert('You do not have permission to delete this song.');
     }
     if (!confirm('Are you sure you want to delete this song?')) {
       return;
@@ -294,8 +291,20 @@ export class PartyComponent implements OnInit {
    * @param song Song to edit
    */
   editSong(song: Song) {
+    if (!this.hasSongPermission(song)) {
+      alert('You do not have permission to edit this song.');
+    }
     this.bsModalRef = this.modalService.show(SongModalComponent, {
       initialState: { song, categories: this.party.categories },
     });
+  }
+
+  /**
+   * Only member of the party who is either owner of party or song has permission
+   * @param song Song to check permission for
+   * @returns Whether user has permission over this song or not
+   */
+  hasSongPermission(song: Song): boolean {
+    return !(this.isPartyMember() === false || !this.auth.isUser(song.user) && !this.auth.isUser(this.party.user));
   }
 }

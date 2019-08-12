@@ -102,10 +102,15 @@
 
 <!-- Song popover -->
 <ng-template #songOptions let-song="song">
-    <a class="list-group-item list-group-item-action" [class.active]="isPlaying(song)" (click)="play(song)">Play</a>
   <div class="list-group list-group-flush" (click)="song.popover = false">
+    <!-- Play song -->
+    <a class="list-group-item list-group-item-action" (click)="play(song)">Play</a>
     <!-- Edit song -->
-    <a class="list-group-item list-group-item-action" (click)="editSong(song)">Album</a>
-    <a class="list-group-item list-group-item-action text-danger" (click)="deleteSong(song)">Delete</a>
+    <a class="list-group-item list-group-item-action" (click)="editSong(song)" *ngIf="hasSongPermission(song)">Album</a>
+    <!-- Delete song -->
+    <a class="list-group-item list-group-item-action text-danger" (click)="deleteSong(song)"
+       *ngIf="hasSongPermission(song)">
+      Delete
+    </a>
   </div>
 </ng-template>
