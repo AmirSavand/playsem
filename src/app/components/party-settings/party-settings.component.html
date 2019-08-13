@@ -59,7 +59,7 @@
             <!-- Error -->
             <div class="text-danger" *ngIf="categoryErrors.name">{{ categoryErrors.name[0] }}</div>
             <div class="text-danger" *ngIf="categoryErrors.non_field_errors">
-              Playlist with this name already exists.
+              {{ categoryErrors.non_field_errors[0] }}
             </div>
           </form>
           <!-- Update button -->
