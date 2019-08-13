@@ -16,7 +16,7 @@ export class SongModalComponent {
   /**
    * Filter categories
    */
-  searchSongCategories: string
+  search: string
 
   /**
    * Editing songs
@@ -46,6 +46,6 @@ export class SongModalComponent {
    */
   get songCategoriesFiltered(): Category[] {
     const fields: string[] = ['name'];
-    return this.filterBy.transform<Category[]>(this.categories, fields, this.searchSongCategories);
+    return this.filterBy.transform<Category[]>(this.categories, fields, this.search);
   }
 }
