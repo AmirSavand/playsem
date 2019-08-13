@@ -49,7 +49,7 @@ export class PartySettingsComponent implements OnInit {
   form: FormGroup;
 
   /**
-   * Category model (for editing Category by clicking on "Song")
+   * Category model
    */
   categoryModal: BsModalRef;
 
