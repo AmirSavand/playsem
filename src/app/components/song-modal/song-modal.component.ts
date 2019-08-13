@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Category } from '@app/interfaces/category';
-import { PartyUser } from '@app/interfaces/party-user';
 import { Song } from '@app/interfaces/song';
 import { ApiService } from '@app/services/api/api-service.service';
 import { BsModalRef } from 'ngx-bootstrap';
@@ -11,12 +10,7 @@ import { FilterByPipe } from 'ngx-pipes';
   templateUrl: './song-modal.component.html',
   styleUrls: ['./song-modal.component.scss'],
 })
-export class SongModalComponent {
-
-  /**
-   * Filter categories
-   */
-  search: string
+export class SongModalComponent implements OnInit {
 
   /**
    * Editing songs
@@ -28,17 +22,19 @@ export class SongModalComponent {
    */
   categories: Category[];
 
+  /**
+   * Selected category
+   */
+  categorySelected: Category;
+
+  /**
+   * Filter categories
+   */
+  search: string;
+
   constructor(public modal: BsModalRef,
               private filterBy: FilterByPipe,
               private api: ApiService) {
-  }
-
-  /**
-   * Update song (set or remove category)
-   */
-  save(): void {
-    this.api.updateSong(this.song.id, { category: this.song.category.id }).subscribe();
-    this.modal.hide();
   }
 
   /**
@@ -47,5 +43,21 @@ export class SongModalComponent {
   get songCategoriesFiltered(): Category[] {
     const fields: string[] = ['name'];
     return this.filterBy.transform<Category[]>(this.categories, fields, this.search);
+  }
+
+  ngOnInit(): void {
+    /**
+     * Set default category
+     */
+    this.categorySelected = this.song.category;
+  }
+
+  /**
+   * Update song (set or remove category)
+   */
+  save(): void {
+    this.song.category = this.categorySelected;
+    this.api.updateSong(this.song.id, { category: this.categorySelected.id }).subscribe();
+    this.modal.hide();
   }
 }

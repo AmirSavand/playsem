@@ -4,18 +4,18 @@
 <!-- Body -->
 <div class="modal-body">
   <!-- Text -->
-  <p>Select songs to add to this playlist:</p>
+  <p>Select song category:</p>
   <!-- Search song categories -->
   <input class="form-control mb-1" type="text" name="search" autocomplete="off"
          [(ngModel)]="search" placeholder="Search">
   <!-- Categories -->
   <div class="list-group">
     <a class="list-group-item list-group-item-action"
-       (click)="song.category = null" [class.active]="!song.category">None</a>
+       (click)="categorySelected = null" [class.active]="!categorySelected">None</a>
     <a class="list-group-item list-group-item-action"
        *ngFor="let category of songCategoriesFiltered"
-       (click)="song.category = category"
-       [class.active]="song.category && category.id === song.category.id">
+       (click)="categorySelected = category"
+       [class.active]="categorySelected && category.id === categorySelected.id">
       {{ category.name }}
     </a>
   </div>
