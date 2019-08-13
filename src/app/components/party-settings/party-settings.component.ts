@@ -18,8 +18,6 @@ import { FilterByPipe } from 'ngx-pipes';
 })
 export class PartySettingsComponent implements OnInit {
 
-  bsModalRef: BsModalRef;
-
   /**
    * Redirect to path after deletion
    */
@@ -49,6 +47,11 @@ export class PartySettingsComponent implements OnInit {
    * Party settings form
    */
   form: FormGroup;
+
+  /**
+   * Category model (for editing Category by clicking on "Song")
+   */
+  bsModalRef: BsModalRef;
 
   /**
    * Category form
