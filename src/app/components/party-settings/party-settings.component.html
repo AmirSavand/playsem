@@ -26,7 +26,7 @@
       <!-- Party categories -->
       <div class="card my-3" *ngIf="party">
         <!-- Header -->
-        <div class="card-header">Categories</div>
+        <div class="card-header">Playlists</div>
         <!-- Categories -->
         <div class="card-body">
           <!-- Category -->
@@ -48,7 +48,7 @@
           <form class="mb-2" (ngSubmit)="submitCategory()" [formGroup]="categoryForm">
             <div class="input-group">
               <!-- Name -->
-              <input class="form-control" type="text" placeholder="Category name" formControlName="name">
+              <input class="form-control" type="text" placeholder="Playlist name" formControlName="name">
               <!-- Submit button -->
               <div class="input-group-append">
                 <button class="btn btn-primary btn-block" [disabled]="loading">

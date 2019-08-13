@@ -197,7 +197,7 @@ export class PartySettingsComponent implements OnInit {
    * @param category Category to delete
    */
   deleteCategory(category: Category): void {
-    if (this.loading || !confirm('Are you sure you want to delete this category?')) {
+    if (this.loading || !confirm('Are you sure you want to delete this playlist?')) {
       return;
     }
     this.loading = true;

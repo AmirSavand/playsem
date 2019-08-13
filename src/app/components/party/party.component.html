@@ -46,9 +46,9 @@
 
 <!-- Categories -->
 <div class="container-fluid">
-  <div class="row" *ngIf="party && party.categories">
-    <div class="col-lg-3 col-md-4 d-flex card-columns" *ngFor="let category of party.categories">
-      <a class="card my-3" (click)="selectCategory(category)" [class.bg-primary]="categorySelected === category">
+  <div class="row pt-3" *ngIf="party && party.categories">
+    <div class="col-lg-2 col-md-4 d-flex card-columns" *ngFor="let category of party.categories">
+      <a class="card mb-3" (click)="selectCategory(category)" [class.bg-primary]="categorySelected === category">
         <div class="card-body text-uppercase">
           <p class="card-text">
             {{ category.name }}<br>
@@ -106,7 +106,8 @@
     <!-- Play song -->
     <a class="list-group-item list-group-item-action" (click)="play(song)">Play</a>
     <!-- Edit song -->
-    <a class="list-group-item list-group-item-action" (click)="editSong(song)" *ngIf="hasSongPermission(song)">Album</a>
+    <a class="list-group-item list-group-item-action" (click)="editSong(song)"
+       *ngIf="hasSongPermission(song)">Playlist</a>
     <!-- Delete song -->
     <a class="list-group-item list-group-item-action text-danger" (click)="deleteSong(song)"
        *ngIf="hasSongPermission(song)">
