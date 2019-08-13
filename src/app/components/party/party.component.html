@@ -106,7 +106,8 @@
     <!-- Play song -->
     <a class="list-group-item list-group-item-action" (click)="play(song)">Play</a>
     <!-- Edit song -->
-    <a class="list-group-item list-group-item-action" (click)="editSong(song)" *ngIf="hasSongPermission(song)">Playlist</a>
+    <a class="list-group-item list-group-item-action" (click)="editSong(song)"
+       *ngIf="hasSongPermission(song)">Playlist</a>
     <!-- Delete song -->
     <a class="list-group-item list-group-item-action text-danger" (click)="deleteSong(song)"
        *ngIf="hasSongPermission(song)">
