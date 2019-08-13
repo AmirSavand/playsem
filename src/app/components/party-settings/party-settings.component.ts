@@ -51,7 +51,7 @@ export class PartySettingsComponent implements OnInit {
   /**
    * Category model (for editing Category by clicking on "Song")
    */
-  bsModalRef: BsModalRef;
+  categoryModal: BsModalRef;
 
   /**
    * Category form
@@ -239,7 +239,7 @@ export class PartySettingsComponent implements OnInit {
    */
   editCategory(category: Category) {
     category.party = this.party.id;
-    this.bsModalRef = this.modalService.show(CategoryModalComponent, {
+    this.categoryModal = this.modalService.show(CategoryModalComponent, {
       initialState: { category },
     });
   }
