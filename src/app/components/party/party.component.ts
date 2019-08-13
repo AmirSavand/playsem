@@ -11,6 +11,7 @@ import { ApiService } from '@app/services/api/api-service.service';
 import { AuthService } from '@app/services/auth/auth.service';
 import { PartyService } from '@app/services/party/party.service';
 import { PlayerService } from '@app/services/player/player.service';
+import { ImplementingService } from '@app/shared/implementing/implementing.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 
 @Component({
@@ -79,6 +80,11 @@ export class PartyComponent implements OnInit {
    * Is playing
    */
   isPlaying = PlayerService.isPlaying;
+
+  /**
+   * Not implemented alert
+   */
+  alert = ImplementingService.alert;
 
   constructor(public auth: AuthService,
               private api: ApiService,

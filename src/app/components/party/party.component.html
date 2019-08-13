@@ -5,7 +5,7 @@
   <div class="cover"></div>
 
   <!-- Info -->
-  <div class="d-flex flex-column justify-content-around mx-3">
+  <div class="d-flex flex-column justify-content-around mx-4">
 
     <!-- Name, creator, song count and date -->
     <div>
@@ -24,7 +24,7 @@
         <fa-icon [fixedWidth]="true" icon="play"></fa-icon>
         Play
       </button>
-      <button class="btn btn-dark btn-sm ml-2">
+      <button class="btn btn-dark btn-sm ml-2" (click)="alert('Liking party')">
         <fa-icon [fixedWidth]="true" icon="heart"></fa-icon>
         Like
       </button>
@@ -103,12 +103,14 @@
 <!-- Song popover -->
 <ng-template #songOptions let-song="song">
   <div class="list-group list-group-flush" (click)="song.popover = false">
-    <!-- Play song -->
+    <!-- Play -->
     <a class="list-group-item list-group-item-action" (click)="play(song)">Play</a>
-    <!-- Edit song -->
+    <!-- Like -->
+    <a class="list-group-item list-group-item-action" (click)="alert('Liking song')">Like</a>
+    <!-- Edit -->
     <a class="list-group-item list-group-item-action" (click)="editSong(song)"
        *ngIf="hasSongPermission(song)">Playlist</a>
-    <!-- Delete song -->
+    <!-- Delete -->
     <a class="list-group-item list-group-item-action text-danger" (click)="deleteSong(song)"
        *ngIf="hasSongPermission(song)">
       Delete
