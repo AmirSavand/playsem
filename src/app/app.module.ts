@@ -2,9 +2,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { CategoryModalComponent } from '@app/components/category-modal/category-modal.component';
 
 import { DashboardComponent } from '@app/components/dashboard/dashboard.component';
-import { CategoryModalComponent } from '@app/components/category-modal/category-modal.component';
 import { ExploreComponent } from '@app/components/explore/explore.component';
 import { HomeComponent } from '@app/components/home/home.component';
 import { PartyNewComponent } from '@app/components/party-new/party-new.component';
@@ -38,6 +38,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons/faSearch';
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons/faSignInAlt';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons/faSignOutAlt';
 import { faStop } from '@fortawesome/free-solid-svg-icons/faStop';
+import { faSyncAlt } from '@fortawesome/free-solid-svg-icons/faSyncAlt';
 import { faTachometerAlt } from '@fortawesome/free-solid-svg-icons/faTachometerAlt';
 import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash';
 import { faUserMinus } from '@fortawesome/free-solid-svg-icons/faUserMinus';
@@ -130,6 +131,7 @@ export class AppModule {
     faVolumeOff,
     faVolumeMute,
     faHeart,
+    faSyncAlt,
     faUserPlus,
     faUserMinus,
     faBars,

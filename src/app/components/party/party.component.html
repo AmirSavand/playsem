@@ -28,6 +28,10 @@
         <fa-icon [fixedWidth]="true" icon="heart"></fa-icon>
         Like
       </button>
+      <button class="btn btn-dark btn-sm ml-2" (click)="loadSongs()">
+        <fa-icon [fixedWidth]="true" icon="sync-alt"></fa-icon>
+        Refresh
+      </button>
       <button class="btn btn-dark btn-sm ml-2" *ngIf="isPartyMember() === false" (click)="joinParty()">
         <fa-icon [fixedWidth]="true" icon="user-plus"></fa-icon>
         Join Party
