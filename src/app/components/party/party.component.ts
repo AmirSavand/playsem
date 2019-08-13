@@ -56,7 +56,7 @@ export class PartyComponent implements OnInit {
   songForm: FormGroup;
 
   /**
-   * Song model (for editing song by clicking on "Category")
+   * Song model
    */
   songModal: BsModalRef;
 
