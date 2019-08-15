@@ -49,7 +49,7 @@ export class ApiService {
   }
 
   /**
-   * Update party title and party description
+   * Update party title and description
    *
    * @param id Party ID
    * @param title Party title
