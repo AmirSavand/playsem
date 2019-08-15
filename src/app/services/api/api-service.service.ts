@@ -49,13 +49,14 @@ export class ApiService {
   }
 
   /**
-   * Update party title
+   * Update party title and party description
    *
    * @param id Party ID
    * @param title Party title
+   * @param description Party description
    */
-  updateParty(id: string, title: string): Observable<Party> {
-    return this.http.put<Party>(`${ApiService.base}parties/${id}`, { title }).pipe();
+  updateParty(id: string, title: string, description: string): Observable<Party> {
+    return this.http.put<Party>(`${ApiService.base}parties/${id}`, { title, description }).pipe();
   }
 
   /**

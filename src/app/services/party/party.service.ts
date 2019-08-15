@@ -51,13 +51,14 @@ export class PartyService {
   }
 
   /**
-   * Update a party
+   * Update a party and party description
    *
    * @param party Party
    * @param title Party title
+   * @param description Party description
    */
-  update(party: Party, title: string): Observable<Party> {
-    return this.api.updateParty(party.id, title).pipe(map(data => {
+  update(party: Party, title: string, description: string): Observable<Party> {
+    return this.api.updateParty(party.id, title, description).pipe(map(data => {
       PartyService.partiesSubject.getValue().find(item => item.id === party.id).name = data.name;
       return data;
     }));

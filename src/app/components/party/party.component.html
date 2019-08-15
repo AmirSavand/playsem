@@ -10,7 +10,7 @@
     <!-- Name, description, creator, song count and date -->
     <div>
       <h1 class="font-weight-bold">{{ party.name }}</h1>
-      <p *ngIf="true" class="text-capitalize">Here's party description</p>
+      <p *ngIf="party.description" class="text-capitalize">{{ party.description }}</p>
       <p class="text-secondary">
         <a [routerLink]="['/user', party.user.username]">{{ party.user.username }}</a>
         <span *ngIf="partySongCount"> &bull; {{ partySongCount }} SONGS</span>
