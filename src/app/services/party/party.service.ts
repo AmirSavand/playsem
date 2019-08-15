@@ -51,7 +51,7 @@ export class PartyService {
   }
 
   /**
-   * Update a party and party description
+   * Update a party
    *
    * @param party Party
    * @param title Party title
