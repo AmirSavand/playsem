@@ -5,6 +5,7 @@ export interface Party {
   id: string;
   user: User;
   name: string;
+  description: string;
   date: string;
   categories: Category[];
 }
