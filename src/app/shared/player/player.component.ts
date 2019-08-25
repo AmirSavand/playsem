@@ -35,7 +35,7 @@ export class PlayerComponent {
   private readonly timelineUpdateTime = 250;
 
   /**
-   * Song list of current playlist
+   * Song list of current category
    */
   songs: Song[];
 
