@@ -25,7 +25,8 @@ export class AppComponent implements OnInit {
   parties: Party[];
 
   /**
-   * Sidebar open/close status
+   * Sidebar open/close status (load initial value from storage)
+   * @see Storage.settings.sidebarOpen
    */
   sidebarStatus: boolean = StorageService.storage.settings.sidebarOpen;
 
@@ -57,10 +58,10 @@ export class AppComponent implements OnInit {
   /**
    * Open or close sidebar and save to storage
    */
-  setSidebarStatus(status = true) {
-    this.sidebarStatus = status;
+  toggleSidebar() {
+    this.sidebarStatus = !this.sidebarStatus;
     const storage: Storage = StorageService.storage;
-    storage.settings.sidebarOpen = status;
+    storage.settings.sidebarOpen = this.sidebarStatus;
     StorageService.save(storage);
   }
 }
