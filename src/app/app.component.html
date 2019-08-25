@@ -11,13 +11,13 @@
     <div class="d-flex h-100 flex-grow-1">
 
       <!-- Sidebar -->
-      <div id="sidebar" class="sidebar d-flex flex-column" [class.closed]="sidebarClosed">
+      <div id="sidebar" class="sidebar d-flex flex-column" [class.closed]="!sidebarStatus">
 
         <!-- Title as toggler -->
         <div class="list-group list-group-flush">
 
           <!-- Toggler -->
-          <a class="list-group-item list-group-item-action m-0" (click)="sidebarClosed = !sidebarClosed">
+          <a class="list-group-item list-group-item-action m-0" (click)="setSidebarStatus(!sidebarStatus)">
             <fa-icon [fixedWidth]="true" icon="bars" class="text-dark"></fa-icon>
             <span class="font-weight-bold text-dark">PlayzEM</span>
           </a>

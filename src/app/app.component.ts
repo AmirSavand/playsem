@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Party } from '@app/interfaces/party';
+import { Storage } from '@app/interfaces/storage';
 import { User } from '@app/interfaces/user';
 import { AuthService } from '@app/services/auth/auth.service';
 import { PartyService } from '@app/services/party/party.service';
+import { StorageService } from '@app/services/storage/storage.service';
 
 @Component({
   selector: 'app-root',
@@ -23,9 +25,9 @@ export class AppComponent implements OnInit {
   parties: Party[];
 
   /**
-   * Indicates whether sidebar is closed or not
+   * Sidebar open/close status
    */
-  sidebarClosed: boolean;
+  sidebarStatus: boolean = StorageService.storage.settings.sidebarOpen;
 
   constructor(private party: PartyService,
               public auth: AuthService) {
@@ -50,5 +52,15 @@ export class AppComponent implements OnInit {
     PartyService.parties.subscribe(data => {
       this.parties = data;
     });
+  }
+
+  /**
+   * Open or close sidebar and save to storage
+   */
+  setSidebarStatus(status = true) {
+    this.sidebarStatus = status;
+    const storage: Storage = StorageService.storage;
+    storage.settings.sidebarOpen = status;
+    StorageService.save(storage);
   }
 }
