@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from '@app/services/api/api-service.service';
 import { PartyService } from '@app/services/party/party.service';
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 
 @Component({
   selector: 'app-party-new',
@@ -25,7 +26,8 @@ export class PartyNewComponent implements OnInit {
    */
   loading: boolean;
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(protected googleAnalytics: GoogleAnalyticsService,
+              private formBuilder: FormBuilder,
               private api: ApiService,
               private router: Router) {
   }
@@ -50,6 +52,7 @@ export class PartyNewComponent implements OnInit {
     this.api.createParty(this.partyForm.value.title).subscribe(data => {
       PartyService.add(data);
       this.router.navigate([PartyNewComponent.partyCreationRedirect, data.id]);
+      this.googleAnalytics.event('create_party', 'party', 'Party');
     });
   }
 }

@@ -18,6 +18,7 @@ import { ApiService } from '@app/services/api/api-service.service';
 import { AuthInterceptorService } from '@app/services/auth-interceptor/auth-interceptor.service';
 import { AuthService } from '@app/services/auth/auth.service';
 import { PlayerComponent } from '@app/shared/player/player.component';
+import { environment } from '@environments/environment';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -56,6 +57,7 @@ import { PopoverModule } from 'ngx-bootstrap/popover';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 
 import { CookieService } from 'ngx-cookie-service';
+import { NgxGoogleAnalyticsModule, NgxGoogleAnalyticsRouterModule } from 'ngx-google-analytics';
 import { FilterByPipe } from 'ngx-pipes';
 import { NgxY2PlayerModule } from 'ngx-y2-player';
 
@@ -96,6 +98,8 @@ import { ImplementingComponent } from './shared/implementing/implementing.compon
     PopoverModule.forRoot(),
     ProgressbarModule.forRoot(),
     ModalModule.forRoot(),
+    NgxGoogleAnalyticsModule.forRoot(environment.googleAnalytics),
+    NgxGoogleAnalyticsRouterModule,
   ],
   entryComponents: [
     CategoryModalComponent,

@@ -6,6 +6,7 @@ import { AuthToken } from '@app/interfaces/auth-token';
 import { User } from '@app/interfaces/user';
 import { ApiService } from '@app/services/api/api-service.service';
 import { CookieService } from 'ngx-cookie-service';
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -14,7 +15,8 @@ import { map } from 'rxjs/operators';
 })
 export class AuthService {
 
-  constructor(private http: HttpClient,
+  constructor(protected googleAnalytics: GoogleAnalyticsService,
+              private http: HttpClient,
               private router: Router,
               private cookie: CookieService) {
   }
@@ -170,6 +172,7 @@ export class AuthService {
     }).pipe(
       map((): void => {
         this.signIn(username, password).subscribe();
+        this.googleAnalytics.event('sign_up', 'user', 'User');
       }),
     );
   }
