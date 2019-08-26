@@ -1,6 +1,5 @@
 export const environment: Environment = {
-  production: false,
-  name: 'development',
-  api: 'https://playzem-api.herokuapp.com/',
+  development: true,
+  api: 'http://localhost:8000/',
   googleAnalytics: '',
 };

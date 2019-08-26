@@ -76,6 +76,14 @@
                   "maximumError": "5mb"
                 }
               ]
+            },
+            "dev-prod": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev-prod.ts"
+                }
+              ]
             }
           }
         },
@@ -87,6 +95,9 @@
           "configurations": {
             "production": {
               "browserTarget": "playzem:build:production"
+            },
+            "dev-prod": {
+              "browserTarget": "playzem:build:dev-prod"
             }
           }
         },

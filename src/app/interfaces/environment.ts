@@ -1,6 +1,5 @@
 interface Environment {
-  production: boolean;
-  name: string;
+  development: boolean;
   api: string;
   googleAnalytics: string;
 }
