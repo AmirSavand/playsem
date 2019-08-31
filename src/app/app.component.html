@@ -1,6 +1,32 @@
 <!-- Loading bar -->
 <ngx-loading-bar color="#ff1493" [includeSpinner]="false"></ngx-loading-bar>
 
+<!-- Mobile navbar -->
+<nav class="navbar navbar-dark bg-primary d-sm-none">
+
+  <!-- Brand -->
+  <a class="navbar-brand" routerLink="/">PlayzEM</a>
+
+  <!-- Toggler -->
+  <button class="navbar-toggler collapsed" type="button" (click)="navbarOpen = !navbarOpen">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Content -->
+  <div class="navbar-collapse collapse" [collapse]="!navbarOpen" [isAnimated]="true">
+    <ul class="navbar-nav">
+
+      <!-- Dashboard -->
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" routerLink="dashboard">
+          <fa-icon [fixedWidth]="true" icon="tachometer-alt"></fa-icon>
+          <span>Dashboard</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
 <!-- Wrapper -->
 <div id="wrapper">
 
@@ -11,7 +37,7 @@
     <div class="d-flex h-100 flex-grow-1">
 
       <!-- Sidebar -->
-      <div id="sidebar" class="sidebar d-flex flex-column" [class.closed]="!sidebarStatus">
+      <div id="sidebar" class="sidebar d-none d-sm-flex flex-column" [class.closed]="!sidebarStatus">
 
         <!-- Title as toggler -->
         <div class="list-group list-group-flush">

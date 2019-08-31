@@ -15,6 +15,11 @@ import { StorageService } from '@app/services/storage/storage.service';
 export class AppComponent implements OnInit {
 
   /**
+   * Navbar collapse status
+   */
+  navbarOpen = false;
+
+  /**
    * Authenticated user
    */
   user: User;
@@ -23,7 +28,6 @@ export class AppComponent implements OnInit {
    * Authenticated user parties
    */
   parties: Party[];
-
   /**
    * Sidebar open/close status (load initial value from storage)
    * @see Storage.settings.sidebarOpen

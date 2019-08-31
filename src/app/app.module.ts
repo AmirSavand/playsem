@@ -2,6 +2,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CategoryModalComponent } from '@app/components/category-modal/category-modal.component';
 
 import { DashboardComponent } from '@app/components/dashboard/dashboard.component';
@@ -51,6 +52,7 @@ import { faVolumeUp } from '@fortawesome/free-solid-svg-icons/faVolumeUp';
 
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
+import { CollapseModule } from 'ngx-bootstrap';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { PopoverModule } from 'ngx-bootstrap/popover';
@@ -98,6 +100,8 @@ import { ImplementingComponent } from './shared/implementing/implementing.compon
     PopoverModule.forRoot(),
     ProgressbarModule.forRoot(),
     ModalModule.forRoot(),
+    CollapseModule.forRoot(),
+    BrowserAnimationsModule,
     NgxGoogleAnalyticsModule.forRoot(environment.googleAnalytics),
     NgxGoogleAnalyticsRouterModule,
   ],
