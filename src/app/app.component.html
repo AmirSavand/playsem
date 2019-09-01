@@ -16,6 +16,7 @@
   <div class="navbar-collapse collapse" [collapse]="!navbarOpen" [isAnimated]="true">
     <ul class="navbar-nav">
 
+      <!-- User login -->
       <!-- Dashboard -->
       <li class="nav-item" routerLinkActive="active" *ngIf="auth.isAuth()">
         <a class="nav-link" routerLink="dashboard">
@@ -61,6 +62,7 @@
           <span class="ml-1">Sign Out</span>
         </a>
       </li>
+
       <!-- User not login -->
       <!-- Join links -->
       <li class="nav-item">
