@@ -1,51 +1,62 @@
 <!-- Party -->
-<div class="party d-flex bg-dark" *ngIf="party">
+<div class="party" *ngIf="party">
 
-  <!-- Image -->
-  <div class="cover"></div>
+  <!-- Content -->
+  <div class="container">
 
-  <!-- Info -->
-  <div class="d-flex flex-column justify-content-around mx-4">
+    <!-- Name -->
+    <h1 class="font-weight-bold">{{ party.name }}</h1>
 
-    <!-- Name, description, creator, song count and date -->
-    <div>
-      <h1 class="font-weight-bold">{{ party.name }}</h1>
-      <p *ngIf="party.description" class="text-capitalize">{{ party.description }}</p>
-      <p class="text-secondary">
-        <a [routerLink]="['/user', party.user.username]">{{ party.user.username }}</a>
-        <span *ngIf="partySongCount"> &bull; {{ partySongCount }} SONGS</span>
-        <span *ngIf="partyUserCount"> &bull; {{ partyUserCount }} MEMBERS</span>
-        &bull; {{ party.date | date }}
-      </p>
-    </div>
+    <!-- Description -->
+    <p class="text-pre">{{ party.description }}</p>
 
-    <!-- Buttons -->
-    <div>
-      <button class="btn btn-dark btn-sm" (click)="play()">
-        <fa-icon [fixedWidth]="true" icon="play"></fa-icon>
-        Play
-      </button>
-      <button class="btn btn-dark btn-sm ml-2" (click)="alert('Liking party')">
-        <fa-icon [fixedWidth]="true" icon="heart"></fa-icon>
-        Like
-      </button>
-      <button class="btn btn-dark btn-sm ml-2" (click)="loadSongs()">
-        <fa-icon [fixedWidth]="true" icon="sync-alt"></fa-icon>
-        Refresh
-      </button>
-      <button class="btn btn-dark btn-sm ml-2" *ngIf="isPartyMember() === false" (click)="joinParty()">
-        <fa-icon [fixedWidth]="true" icon="user-plus"></fa-icon>
-        Join Party
-      </button>
-      <button class="btn btn-dark btn-sm ml-2" *ngIf="isPartyMember() === true" (click)="leaveParty()">
-        <fa-icon [fixedWidth]="true" icon="sign-out-alt"></fa-icon>
-        Leave Party
-      </button>
-      <a class="btn btn-dark btn-sm ml-2" routerLink="settings" *ngIf="auth.isUser(party.user)">
-        <fa-icon [fixedWidth]="true" icon="cog"></fa-icon>
-        Settings
-      </a>
-    </div>
+    <!-- Info -->
+    <p class="mb-2">
+      <!-- Creator -->
+      <a class="text-light" [routerLink]="['/user', party.user.username]">{{ party.user.account.display_name }}</a>
+      <!-- Songs count -->
+      <span *ngIf="partySongCount"> &bull; {{ partySongCount }} Songs</span>
+      <!-- Members count -->
+      <span *ngIf="partyUserCount"> &bull; {{ partyUserCount }} Members</span>
+      <!-- Date -->
+      &bull; {{ party.date | date }}
+    </p>
+
+    <!-- Play -->
+    <button class="btn btn-light btn-sm mr-2 mt-2" (click)="play()">
+      <fa-icon [fixedWidth]="true" icon="play"></fa-icon>
+      Play
+    </button>
+
+    <!-- Like -->
+    <button class="btn btn-light btn-sm mr-2 mt-2" (click)="alert('Liking party')">
+      <fa-icon [fixedWidth]="true" icon="heart"></fa-icon>
+      Like
+    </button>
+
+    <!-- Refresh -->
+    <button class="btn btn-light btn-sm mr-2 mt-2" (click)="loadSongs()">
+      <fa-icon [fixedWidth]="true" icon="sync-alt"></fa-icon>
+      Refresh
+    </button>
+
+    <!-- Join Party -->
+    <button class="btn btn-light btn-sm mr-2 mt-2" *ngIf="isPartyMember() === false" (click)="joinParty()">
+      <fa-icon [fixedWidth]="true" icon="user-plus"></fa-icon>
+      Join Party
+    </button>
+
+    <!-- Leave Party -->
+    <button class="btn btn-light btn-sm mr-2 mt-2" *ngIf="isPartyMember() === true" (click)="leaveParty()">
+      <fa-icon [fixedWidth]="true" icon="sign-out-alt"></fa-icon>
+      Leave Party
+    </button>
+
+    <!-- Settings -->
+    <a class="btn btn-light btn-sm mr-2 mt-2" routerLink="settings" *ngIf="auth.isUser(party.user)">
+      <fa-icon [fixedWidth]="true" icon="cog"></fa-icon>
+      Settings
+    </a>
   </div>
 </div>
 

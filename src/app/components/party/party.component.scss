@@ -1,25 +1,15 @@
 @import "~src/assets/variables";
 
-.btn {
-  padding-top: 6px;
-  padding-left: 15px;
-  padding-right: 15px;
-  cursor: pointer;
-}
-
 .party {
-  &, button {
-    text-transform: uppercase;
-  }
-
-  .cover {
-    width: 246px;
-    height: 246px;
-    background-image: url("~src/assets/party.jpg");
-    background-size: cover;
-    background-position: center;
-    background-color: $info;
-  }
+  background-image: url("~src/assets/party-cover.jpg");
+  background-size: cover;
+  background-position: center;
+  background-color: $info;
+  box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.75);
+  display: flex;
+  place-items: flex-end;
+  min-height: 450px;
+  padding-bottom: 30px;
 }
 
 .category {
