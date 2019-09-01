@@ -1,5 +1,17 @@
 @import "src/assets/variables";
 
+nav {
+  .navbar-collapse {
+    .navbar-nav {
+      li {
+        h6 {
+          opacity: 0.5;
+        }
+      }
+    }
+  }
+}
+
 #wrapper {
   display: flex;
   flex-direction: column;
