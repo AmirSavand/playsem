@@ -35,7 +35,7 @@ export class CategoryModalComponent implements OnInit {
   /**
    * @returns Party songs filtered
    */
-  get partySongsFiltered(): Song[] {
+  get songsFiltered(): Song[] {
     const fields: string[] = ['name'];
     return this.filterBy.transform<Song[]>(this.songs, fields, this.search);
   }

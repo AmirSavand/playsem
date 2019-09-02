@@ -16,7 +16,7 @@
   <!-- Songs -->
   <div class="list-group">
     <a class="list-group-item list-group-item-action"
-       *ngFor="let song of partySongsFiltered"
+       *ngFor="let song of songsFiltered"
        (click)="song.selected = !song.selected"
        [class.active]="song.selected">
       {{ song.name }}
