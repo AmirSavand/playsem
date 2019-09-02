@@ -1,14 +1,22 @@
 <!-- Header -->
-<div class="modal-header">{{ category.name }}</div>
+<div class="modal-header">
+  <h5 class="modal-title">{{ category.name }}</h5>
+  <button type="button" class="close" (click)="modal.hide()">
+    <span>&times;</span>
+  </button>
+</div>
 
 <!-- Body -->
 <div class="modal-body">
   <!-- Text -->
   <p>Select songs to add to this playlist:</p>
+  <!-- Search party songs -->
+  <input class="form-control mb-1" type="text" name="search" autocomplete="off"
+         [(ngModel)]="search" placeholder="Search">
   <!-- Songs -->
   <div class="list-group">
     <a class="list-group-item list-group-item-action"
-       *ngFor="let song of songs"
+       *ngFor="let song of songsFiltered"
        (click)="song.selected = !song.selected"
        [class.active]="song.selected">
       {{ song.name }}

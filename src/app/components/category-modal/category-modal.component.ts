@@ -3,6 +3,7 @@ import { Category } from '@app/interfaces/category';
 import { Song } from '@app/interfaces/song';
 import { ApiService } from '@app/services/api/api-service.service';
 import { BsModalRef } from 'ngx-bootstrap';
+import { FilterByPipe } from 'ngx-pipes';
 
 @Component({
   selector: 'app-edit-category',
@@ -21,8 +22,22 @@ export class CategoryModalComponent implements OnInit {
    */
   songs: Song[];
 
+  /**
+   * Filter songs
+   */
+  search: string;
+
   constructor(public modal: BsModalRef,
-              private api: ApiService) {
+              private api: ApiService,
+              private filterBy: FilterByPipe) {
+  }
+
+  /**
+   * @returns Party songs filtered
+   */
+  get songsFiltered(): Song[] {
+    const fields: string[] = ['name'];
+    return this.filterBy.transform<Song[]>(this.songs, fields, this.search);
   }
 
   ngOnInit(): void {
