@@ -2,8 +2,7 @@
 <ngx-loading-bar color="#ff1493" [includeSpinner]="false"></ngx-loading-bar>
 
 <!-- Mobile navbar -->
-<nav class="navbar navbar-dark d-sm-none"
-     [class.bg-dark]="navbarOpen" [class.bg-primary]="!navbarOpen">
+<nav class="navbar navbar-dark d-sm-none" [class.bg-dark]="navbarOpen" [class.bg-primary]="!navbarOpen">
 
   <!-- Brand -->
   <a class="navbar-brand" routerLink="/">PlayzEM</a>
@@ -37,8 +36,8 @@
         <span class="navbar-text">PARTIES</span>
       </li>
       <!-- Parties -->
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" *ngFor="let party of parties" [routerLink]="['party', party.id]">
+      <li class="nav-item" *ngFor="let party of parties" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['party', party.id]">
           <fa-icon [fixedWidth]="true" icon="compact-disc"></fa-icon>
           <span class="ml-1">{{ party.name }}</span>
         </a>
