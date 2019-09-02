@@ -124,3 +124,13 @@
     }
   }
 }
+
+@media (max-width: map-get($grid-breakpoints, 'sm')) {
+  #wrapper {
+    #container {
+      .d-flex {
+        flex-direction: column;
+      }
+    }
+  }
+}
