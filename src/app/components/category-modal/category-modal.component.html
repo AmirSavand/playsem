@@ -5,10 +5,13 @@
 <div class="modal-body">
   <!-- Text -->
   <p>Select songs to add to this playlist:</p>
+  <!-- Search party songs -->
+  <input class="form-control mb-1" type="text" name="search" autocomplete="off"
+         [(ngModel)]="search" placeholder="Search">
   <!-- Songs -->
   <div class="list-group">
     <a class="list-group-item list-group-item-action"
-       *ngFor="let song of songs"
+       *ngFor="let song of partySongsFiltered"
        (click)="song.selected = !song.selected"
        [class.active]="song.selected">
       {{ song.name }}
