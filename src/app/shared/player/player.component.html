@@ -1,0 +1,76 @@
+<!-- Outer -->
+<div id="outer">
+
+  <!-- Timeline -->
+  <div id="timeline" (click)="seek($event)" *ngIf="playing">
+
+    <!-- Progress bar -->
+    <progressbar [value]="timeline"></progressbar>
+  </div>
+
+  <!-- Player -->
+  <div id="player" class="navbar navbar-expand navbar-dark bg-dark px-0" *ngIf="playing">
+
+    <!-- Playing -->
+    <div id="playing" class="col-4" (click)="expand= !expand">
+
+      <!-- Playing cover -->
+      <div class="cover" [ngStyle]="{backgroundImage: 'url(/assets/song.jpg)'}"></div>
+
+      <!-- Player name and party and user -->
+      <div class="info d-flex flex-column justify-content-center ml-3">
+        <span class="text-truncate">{{ playing.name }}</span>
+        <small class="text-truncate text-secondary">
+          {{ playing.party.name }} &bull; {{ playing.user.username }}
+        </small>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div id="controls" class="col-4 justify-content-center" *ngIf="playing">
+      <div (click)="previous()">
+        <fa-icon icon="backward"></fa-icon>
+      </div>
+      <div (click)="pause()" *ngIf="!isPaused()">
+        <fa-icon icon="pause"></fa-icon>
+      </div>
+      <div (click)="play()" *ngIf="isPaused()">
+        <fa-icon icon="play"></fa-icon>
+      </div>
+      <div (click)="next()">
+        <fa-icon icon="forward"></fa-icon>
+      </div>
+    </div>
+
+    <!-- Options -->
+    <div id="options" class="col-4 justify-content-end align-items-center" *ngIf="playing">
+      <div (click)="switchPlayMode()">
+        <fa-icon icon="retweet"></fa-icon>
+      </div>
+      <div (click)="shuffle()">
+        <fa-icon icon="random"></fa-icon>
+      </div>
+      <div (click)="mute()" *ngIf="!isMute()">
+        <fa-icon icon="volume-up"></fa-icon>
+      </div>
+      <div (click)="unMute()" *ngIf="isMute()">
+        <fa-icon icon="volume-mute"></fa-icon>
+      </div>
+      <div class="volume" [hidden]="true">
+        <progressbar [value]="30"></progressbar>
+      </div>
+    </div>
+  </div>
+
+  <!-- YouTube -->
+  <div id="youtube" [class.open]="expand" class="embed-responsive embed-responsive-16by9" #container>
+    <ngx-y2-player #video
+                   [container]="container"
+                   [tabIndex]="-1"
+                   [videoId]="'nothing'"
+                   [playerOptions]="videoPlayerOptions"
+                   (ready)="onYouTubePlayerRead()"
+                   (stateChange)="onYouTubePlayerChange()">
+    </ngx-y2-player>
+  </div>
+</div>

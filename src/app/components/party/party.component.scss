@@ -1,0 +1,68 @@
+@import "~src/assets/variables";
+
+.party {
+  background-image: url("~src/assets/party-cover.jpg");
+  background-size: cover;
+  background-position: center;
+  background-color: $info;
+  box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.75);
+  display: flex;
+  place-items: flex-end;
+  min-height: 450px;
+  padding-bottom: 30px;
+}
+
+.category {
+  .card {
+    width: 100%;
+  }
+}
+
+.songs {
+  .song {
+    padding-top: 15px;
+    padding-bottom: 15px;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+    }
+
+    &.active {
+      background: $dark;
+
+      .icon:first-child:not(.action) {
+        color: $primary;
+        opacity: 1;
+      }
+    }
+
+    .icon {
+      text-align: center;
+      flex-basis: 60px;
+      max-width: 60px;
+      opacity: 0.1;
+
+      &.action:hover {
+        opacity: 1;
+      }
+    }
+
+    .cover {
+      flex-basis: 48px;
+      max-width: 48px;
+      height: 48px;
+      background-size: cover;
+      background-position: center;
+      background-color: $info;
+    }
+
+    .info {
+      flex: 1;
+
+      small {
+        opacity: 0.4;
+      }
+    }
+  }
+}

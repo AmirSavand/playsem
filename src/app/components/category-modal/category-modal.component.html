@@ -1,0 +1,25 @@
+<!-- Header -->
+<div class="modal-header">{{ category.name }}</div>
+
+<!-- Body -->
+<div class="modal-body">
+  <!-- Text -->
+  <p>Select songs to add to this playlist:</p>
+  <!-- Songs -->
+  <div class="list-group">
+    <a class="list-group-item list-group-item-action"
+       *ngFor="let song of songs"
+       (click)="song.selected = !song.selected"
+       [class.active]="song.selected">
+      {{ song.name }}
+    </a>
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="modal-footer">
+  <!-- Cancel -->
+  <button type="button" class="btn btn-default text-dark" (click)="modal.hide()">Cancel</button>
+  <!-- Save -->
+  <button type="button" class="btn btn-primary" (click)="save()">Save</button>
+</div>

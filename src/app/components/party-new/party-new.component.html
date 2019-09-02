@@ -1,0 +1,23 @@
+<div class="container py-3">
+  <div class="row justify-content-center">
+    <div class="col-lg-4">
+      <div class="card my-3">
+        <!-- Header -->
+        <div class="card-header">Create Party</div>
+        <!-- Body -->
+        <form class="card-body" (ngSubmit)="createParty()" [formGroup]="partyForm">
+          <div class="input-group">
+            <!-- Title -->
+            <input class="form-control" type="text" placeholder="Party name" formControlName="title">
+            <!-- Button -->
+            <div class="input-group-append">
+              <button class="btn btn-primary btn-block" [disabled]="loading">
+                <fa-icon [fixedWidth]="true" icon="plus"></fa-icon>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

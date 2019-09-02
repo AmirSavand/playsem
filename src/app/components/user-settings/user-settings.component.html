@@ -1,0 +1,25 @@
+<div class="container py-3">
+  <div class="row justify-content-center">
+    <div class="col-lg-4">
+      <div class="card my-3">
+        <div class="card-header">Settings</div>
+        <form class="card-body" (ngSubmit)="submit()" [formGroup]="form">
+          <!-- Display name -->
+          <div class="form-group">
+            <input class="form-control" type="text" placeholder="Display name" formControlName="display_name">
+          </div>
+          <!-- Bio -->
+          <div class="form-group">
+            <input class="form-control" type="text" placeholder="Your bio" formControlName="bio">
+          </div>
+          <!-- Color -->
+          <div class="form-group">
+            <input class="form-control" type="color" formControlName="color">
+          </div>
+          <!-- Submit -->
+          <button class="btn btn-block btn-info" [disabled]="loading">Update</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,102 @@
+<div class="container py-3">
+  <div class="row justify-content-center">
+
+    <!-- Left -->
+    <div class="col-lg-4">
+
+      <!-- Party settings -->
+      <div class="card my-3">
+        <!-- Header -->
+        <div class="card-header">Settings</div>
+        <!-- Party form -->
+        <form class="card-body" (ngSubmit)="submit()" [formGroup]="form">
+          <!-- Title -->
+          <div class="form-group">
+            <input class="form-control" type="text" placeholder="Title" formControlName="title">
+          </div>
+          <!-- Description -->
+          <div class="form-group">
+            <textarea class="form-control" placeholder="Description" formControlName="description"></textarea>
+          </div>
+          <!-- Submit button -->
+          <button class="btn btn-info btn-block" [disabled]="loading">Update</button>
+          <!-- Delete party button -->
+          <button type="button" class="btn btn-danger btn-block" (click)="deleteParty()" [disabled]="loading">
+            Delete
+          </button>
+        </form>
+      </div>
+
+      <!-- Party categories -->
+      <div class="card my-3" *ngIf="party">
+        <!-- Header -->
+        <div class="card-header">Playlists</div>
+        <!-- Categories -->
+        <div class="card-body">
+          <!-- Category -->
+          <div class="input-group mb-2" *ngFor="let category of party.categories">
+            <!-- Name -->
+            <input class="form-control" type="text" [(ngModel)]="category.name">
+            <!-- Edit Category -->
+            <button type="button" class="btn btn-secondary rounded-0" (click)="editCategory(category)">
+              <fa-icon [fixedWidth]="true" icon="edit"></fa-icon>
+            </button>
+            <!-- Delete button -->
+            <div class="input-group-append">
+              <button class="btn btn-danger" (click)="deleteCategory(category)">
+                <fa-icon [fixedWidth]="true" icon="trash"></fa-icon>
+              </button>
+            </div>
+          </div>
+          <!-- Create category -->
+          <form class="mb-2" (ngSubmit)="submitCategory()" [formGroup]="categoryForm">
+            <div class="input-group">
+              <!-- Name -->
+              <input class="form-control" type="text" placeholder="Playlist name" formControlName="name">
+              <!-- Submit button -->
+              <div class="input-group-append">
+                <button class="btn btn-primary btn-block" [disabled]="loading">
+                  <fa-icon [fixedWidth]="true" icon="plus"></fa-icon>
+                </button>
+              </div>
+            </div>
+            <!-- Error -->
+            <div class="text-danger" *ngIf="categoryErrors.name">{{ categoryErrors.name[0] }}</div>
+            <div class="text-danger" *ngIf="categoryErrors.non_field_errors">
+              {{ categoryErrors.non_field_errors[0] }}
+            </div>
+          </form>
+          <!-- Update button -->
+          <button class="btn btn-info btn-block mt-3" (click)="updateCategories()">Update</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right -->
+    <div class="col-lg-4">
+
+      <!-- Show party users -->
+      <div class="card my-3" *ngIf="partyUsers">
+        <!-- Header -->
+        <div class="card-header">Members</div>
+        <!-- Search party users -->
+        <div class="card-body">
+          <input class="form-control" type="text" name="search" [(ngModel)]="searchPartyUsers" autocomplete="off"
+                 placeholder="Search">
+        </div>
+        <!-- Party user list -->
+        <div class="list-group list-group-flush">
+          <div class="list-group-item" *ngFor="let partyUser of partyUsersFiltered">
+            <b [class.text-primary]="partyUser.user.id === party.user.id">{{ partyUser.user.username }}</b>
+            <button class="btn btn-sm btn-danger float-right" title="Kick" (click)="removePartyUser(partyUser)"
+                    *ngIf="partyUser.user.id !== party.user.id" [disabled]="loading">
+              <fa-icon [fixedWidth]="true" icon="user-minus"></fa-icon>
+            </button>
+            <br>
+            <small class="text-secondary">{{ partyUser.date | date }}</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

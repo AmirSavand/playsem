@@ -1,0 +1,30 @@
+<!-- Header -->
+<div class="modal-header">{{ song.name }}</div>
+
+<!-- Body -->
+<div class="modal-body">
+  <!-- Text -->
+  <p>Select song playlist:</p>
+  <!-- Search song categories -->
+  <input class="form-control mb-1" type="text" name="search" autocomplete="off"
+         [(ngModel)]="search" placeholder="Search">
+  <!-- Categories -->
+  <div class="list-group">
+    <a class="list-group-item list-group-item-action"
+       (click)="categorySelected = null" [class.active]="!categorySelected">None</a>
+    <a class="list-group-item list-group-item-action"
+       *ngFor="let category of songCategoriesFiltered"
+       (click)="categorySelected = category"
+       [class.active]="categorySelected && category.id === categorySelected.id">
+      {{ category.name }}
+    </a>
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="modal-footer">
+  <!-- Cancel -->
+  <button type="button" class="btn btn-default text-dark" (click)="modal.hide()">Cancel</button>
+  <!-- Save -->
+  <button type="button" class="btn btn-primary" (click)="save()">Save</button>
+</div>
