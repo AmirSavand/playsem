@@ -129,9 +129,13 @@ export class AuthService {
   /**
    * Un-authenticate user by cleaning localStorage and cookies
    */
-  signOut(): void {
+  signOut(fromUrl?: string): void {
     localStorage.clear();
     this.cookie.deleteAll('/');
+    // Save the party request into local storage
+    if (fromUrl) {
+      localStorage.setItem(this.fromUrl, fromUrl);
+    }
     this.userSubject.next(null);
     this.router.navigateByUrl(this.signOutRedirect);
   }
