@@ -68,6 +68,13 @@
         <!-- Join links -->
         <div class="list-group list-group-flush" *ngIf="!auth.isAuth()">
 
+          <!-- Explore -->
+          <a class="list-group-item list-group-item-action"
+             routerLink="explore" routerLinkActive="active">
+            <fa-icon [fixedWidth]="true" icon="search"></fa-icon>
+            <span>Explore</span>
+          </a>
+
           <!-- Title -->
           <div class="list-group-item header mt-5">JOIN</div>
 
@@ -174,6 +181,13 @@
 
               <!-- Unauthenticated navs -->
               <ul class="navbar-nav" *ngIf="!auth.isAuth()">
+                <!-- Explore -->
+                <li class="nav-item" routerLinkActive="active">
+                  <a class="nav-link" routerLink="explore">
+                    <fa-icon [fixedWidth]="true" icon="search"></fa-icon>
+                    <span class="ml-1">Explore</span>
+                  </a>
+                </li>
                 <!-- Join links -->
                 <li class="nav-item">
                   <span class="navbar-text">JOIN</span>
