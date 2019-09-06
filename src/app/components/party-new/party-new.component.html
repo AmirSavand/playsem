@@ -6,16 +6,18 @@
         <div class="card-header">Create Party</div>
         <!-- Body -->
         <form class="card-body" (ngSubmit)="createParty()" [formGroup]="partyForm">
-          <div class="input-group">
-            <!-- Title -->
+          <!-- Title -->
+          <div class="form-group">
             <input class="form-control" type="text" placeholder="Party name" formControlName="title">
-            <!-- Button -->
-            <div class="input-group-append">
-              <button class="btn btn-primary btn-block" [disabled]="loading">
-                <fa-icon [fixedWidth]="true" icon="plus"></fa-icon>
-              </button>
-            </div>
           </div>
+          <!-- Description -->
+          <div class="form-group">
+            <textarea class="form-control" placeholder="Party description" formControlName="description"></textarea>
+          </div>
+          <!-- Button -->
+          <button class="btn btn-primary btn-block" [disabled]="loading">
+            <fa-icon [fixedWidth]="true" icon="plus"></fa-icon>
+          </button>
         </form>
       </div>
     </div>
