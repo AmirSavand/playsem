@@ -1,5 +1,6 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
@@ -9,7 +10,8 @@ import { AuthService } from '../auth/auth.service';
 })
 export class AuthInterceptorService implements HttpInterceptor {
 
-  constructor(private auth: AuthService) {
+  constructor(private auth: AuthService,
+              private router: Router) {
   }
 
   /**
@@ -28,7 +30,10 @@ export class AuthInterceptorService implements HttpInterceptor {
     return next.handle(request).pipe(catchError((error: HttpErrorResponse): Observable<never> => {
       // Sign out if 401 response
       if (error.status === 401) {
-        this.auth.signOut();
+        this.auth.signOut(
+          // Get request url
+          this.router.routerState.snapshot.url
+        );
       }
       return throwError(error);
     }));
