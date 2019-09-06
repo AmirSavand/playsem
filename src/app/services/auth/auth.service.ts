@@ -21,6 +21,8 @@ export class AuthService {
               private cookie: CookieService) {
   }
 
+  private readonly fromUrl = 'fromUrl';
+
   /**
    * Sign in redirect
    */
@@ -151,12 +153,17 @@ export class AuthService {
   signIn(username: string, password: string): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${ApiService.base}auth/`, { username, password }).pipe(
       map((data: AuthResponse): AuthResponse => {
+        let redirect: string = this.signInRedirect;
         // Store token into cookies
         this.setToken(data.token);
         // Store user into local storage
         this.setUser(data.user);
+        // Change redirect to party request
+        if (localStorage.getItem(this.fromUrl)) {
+          redirect = localStorage.getItem(this.fromUrl);
+        }
         // Redirect
-        this.router.navigateByUrl(this.signInRedirect);
+        this.router.navigateByUrl(redirect);
         // Return response
         return data;
       }),
