@@ -9,16 +9,19 @@
           <!-- Title -->
           <div class="form-group">
             <input class="form-control" type="text" placeholder="Party name" formControlName="title">
-            <div class="text-danger" *ngIf="errors.name[0]">{{ errors.name[0] }}</div>
+            <!-- Error -->
+            <span class="text-danger" *ngIf="errors.name[0]">{{ errors.name[0] }}</span>
           </div>
           <!-- Description -->
           <div class="form-group">
             <textarea class="form-control" [rows]="3"
                       placeholder="Party description" formControlName="description">
             </textarea>
-            <div class="text-danger" *ngIf="errors.description[0]">{{ errors.description[0] }}</div>
+            <!-- Error -->
+            <span class="text-danger" *ngIf="errors.description[0]">{{ errors.description[0] }}</span>
           </div>
-          <div class="text-danger" *ngIf="errors.non_field_errors">{{ errors.non_field_errors[0] }}</div>
+          <!-- General errors -->
+          <p class="text-danger" *ngIf="errors.non_field_errors">{{ errors.non_field_errors[0] }}</p>
           <!-- Button -->
           <button class="btn btn-primary btn-block" [disabled]="loading">
             <fa-icon [fixedWidth]="true" icon="plus"></fa-icon>
