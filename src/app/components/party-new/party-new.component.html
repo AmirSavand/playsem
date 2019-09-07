@@ -10,7 +10,7 @@
           <div class="form-group">
             <input class="form-control" type="text" placeholder="Party name" formControlName="title">
             <!-- Error -->
-            <span class="text-danger" *ngIf="errors.name[0]">{{ errors.name[0] }}</span>
+            <span class="text-danger" *ngIf="errors.name">{{ errors.name[0] }}</span>
           </div>
           <!-- Description -->
           <div class="form-group">
@@ -18,7 +18,7 @@
                       placeholder="Party description" formControlName="description">
             </textarea>
             <!-- Error -->
-            <span class="text-danger" *ngIf="errors.description[0]">{{ errors.description[0] }}</span>
+            <span class="text-danger" *ngIf="errors.description">{{ errors.description[0] }}</span>
           </div>
           <!-- General errors -->
           <p class="text-danger" *ngIf="errors.non_field_errors">{{ errors.non_field_errors[0] }}</p>
