@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ApiError } from '@app/interfaces/api-error';
+import { Party } from '@app/interfaces/party';
 import { ApiService } from '@app/services/api/api-service.service';
 import { PartyService } from '@app/services/party/party.service';
 import { GoogleAnalyticsService } from 'ngx-google-analytics';
@@ -26,6 +28,11 @@ export class PartyNewComponent implements OnInit {
    */
   loading: boolean;
 
+  /**
+   * Party form errors
+   */
+  errors: ApiError = {};
+
   constructor(protected googleAnalytics: GoogleAnalyticsService,
               private formBuilder: FormBuilder,
               private api: ApiService,
@@ -50,10 +57,16 @@ export class PartyNewComponent implements OnInit {
       return;
     }
     this.loading = true;
-    this.api.createParty(this.partyForm.value.title, this.partyForm.value.description).subscribe(data => {
+    this.api.createParty(
+      this.partyForm.value.title,
+      this.partyForm.value.description,
+    ).subscribe((data: Party): void => {
       PartyService.add(data);
       this.router.navigate([PartyNewComponent.partyCreationRedirect, data.id]);
       this.googleAnalytics.event('create_party', 'party', 'Party');
+    }, error => {
+      this.loading = false;
+      this.errors = error.error;
     });
   }
 }

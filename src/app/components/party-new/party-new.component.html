@@ -9,10 +9,14 @@
           <!-- Title -->
           <div class="form-group">
             <input class="form-control" type="text" placeholder="Party name" formControlName="title">
+            <div class="text-danger" *ngIf="errors.name[0]">{{ errors.name[0] }}</div>
           </div>
           <!-- Description -->
           <div class="form-group">
-            <textarea class="form-control" placeholder="Party description" formControlName="description"></textarea>
+            <textarea class="form-control" [rows]="3"
+                      placeholder="Party description" formControlName="description">
+            </textarea>
+            <div class="text-danger" *ngIf="errors.name[0]">{{ errors.name[0] }}</div>
           </div>
           <!-- Button -->
           <button class="btn btn-primary btn-block" [disabled]="loading">
