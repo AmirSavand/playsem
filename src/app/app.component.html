@@ -31,21 +31,23 @@
           </a>
         </div>
 
+        <!-- Explore -->
+        <div class="list-group list-group-flush mt-3">
+          <a class="list-group-item list-group-item-action"
+             routerLink="explore" routerLinkActive="active">
+            <fa-icon [fixedWidth]="true" icon="search"></fa-icon>
+            <span>Explore</span>
+          </a>
+        </div>
+
         <!-- Pages and parties -->
-        <div class="list-group list-group-flush mt-3" *ngIf="auth.isAuth()">
+        <div class="list-group list-group-flush" *ngIf="auth.isAuth()">
 
           <!-- Dashboard -->
           <a class="list-group-item list-group-item-action"
              routerLink="dashboard" routerLinkActive="active">
             <fa-icon [fixedWidth]="true" icon="tachometer-alt"></fa-icon>
             <span>Dashboard</span>
-          </a>
-
-          <!-- Explore -->
-          <a class="list-group-item list-group-item-action"
-             routerLink="explore" routerLinkActive="active">
-            <fa-icon [fixedWidth]="true" icon="search"></fa-icon>
-            <span>Explore</span>
           </a>
 
           <!-- Title -->
@@ -110,7 +112,8 @@
         <div id="pages">
 
           <!-- Navbar -->
-          <nav class="navbar navbar-dark d-sm-none sticky-top" [class.bg-dark]="navbarOpen" [class.bg-primary]="!navbarOpen">
+          <nav class="navbar navbar-dark d-sm-none sticky-top" [class.bg-dark]="navbarOpen"
+               [class.bg-primary]="!navbarOpen">
 
             <!-- Brand -->
             <a class="navbar-brand" routerLink="/">PlayzEM</a>
@@ -123,6 +126,17 @@
             <!-- Content -->
             <div class="navbar-collapse collapse" [collapse]="!navbarOpen" [isAnimated]="true">
 
+              <!-- Nav -->
+              <ul class="navbar-nav">
+                <!-- Explore -->
+                <li class="nav-item" routerLinkActive="active">
+                  <a class="nav-link" routerLink="explore">
+                    <fa-icon [fixedWidth]="true" icon="search"></fa-icon>
+                    <span class="ml-1">Explore</span>
+                  </a>
+                </li>
+              </ul>
+
               <!-- Authenticated navs -->
               <ul class="navbar-nav" *ngIf="auth.isAuth()">
                 <!-- Dashboard -->
@@ -130,13 +144,6 @@
                   <a class="nav-link" routerLink="dashboard">
                     <fa-icon [fixedWidth]="true" icon="tachometer-alt"></fa-icon>
                     <span class="ml-1">Dashboard</span>
-                  </a>
-                </li>
-                <!-- Explore -->
-                <li class="nav-item" routerLinkActive="active">
-                  <a class="nav-link" routerLink="explore">
-                    <fa-icon [fixedWidth]="true" icon="search"></fa-icon>
-                    <span class="ml-1">Explore</span>
                   </a>
                 </li>
                 <!-- Title -->
