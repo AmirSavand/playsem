@@ -26,7 +26,7 @@
         <!-- Profile and cover -->
         <div id="cover" *ngIf="auth.isAuth()">
           <a [routerLink]="['user', user.username]">
-            <h4>{{ user.account.display_name }}</h4>
+            <h4>{{ user.account.name }}</h4>
             <p>@{{ user.username }}</p>
           </a>
         </div>

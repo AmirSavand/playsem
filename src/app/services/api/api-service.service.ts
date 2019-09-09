@@ -134,7 +134,7 @@ export class ApiService {
    * @param payload Update data
    */
   updateUser(username: string, payload: Account): Observable<Account> {
-    return this.http.put<Account>(`${ApiService.base}accounts/${username}/`, payload);
+    return this.http.patch<Account>(`${ApiService.base}accounts/${username}/`, payload);
   }
 
   /**

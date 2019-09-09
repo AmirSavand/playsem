@@ -13,7 +13,7 @@
     <!-- Info -->
     <p class="mb-2">
       <!-- Creator -->
-      <a class="text-light" [routerLink]="['/user', party.user.username]">{{ party.user.account.display_name }}</a>
+      <a class="text-light" [routerLink]="['/user', party.user.username]">{{ party.user.account.name }}</a>
       <!-- Songs count -->
       <span *ngIf="partySongCount"> &bull; {{ partySongCount }} Songs</span>
       <!-- Members count -->
@@ -98,7 +98,7 @@
     <div class="info d-flex flex-column text-truncate" (click)="play(song)">
       <span class="text-truncate">{{ song.name }}</span>
       <small>
-        <span>{{ song.user.username }}</span>
+        <span>{{ song.user.account.name }}</span>
         <span *ngIf="song.category">  &bull; {{ song.category.name }}</span>
       </small>
     </div>
