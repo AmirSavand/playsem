@@ -42,7 +42,7 @@ export class UserSettingsComponent implements OnInit {
        * Set up the user account form with default values
        */
       this.form = this.formBuilder.group({
-        display_name: [user.account.display_name],
+        display_name: [user.account.name],
         bio: [user.account.bio],
         color: [user.account.color],
       });

@@ -176,7 +176,7 @@ export class PartySettingsComponent implements OnInit {
     this.loading = true;
     this.api.addCategory(this.party.id, this.categoryForm.value.name).subscribe(data => {
       this.loading = false;
-      this.party.categories.push(data);
+      (this.party.categories as Category[]).push(data);
       this.categoryForm.reset();
     }, error => {
       this.loading = false;
@@ -188,7 +188,7 @@ export class PartySettingsComponent implements OnInit {
    * Update category
    */
   updateCategories(): void {
-    for (let category of this.party.categories) {
+    for (let category of this.party.categories as Category[]) {
       this.api.updateCategory(category.id, category.name).subscribe(data => {
         category = data;
       });
@@ -207,7 +207,7 @@ export class PartySettingsComponent implements OnInit {
     this.loading = true;
     this.api.deleteCategory(category.id).subscribe(() => {
       this.loading = false;
-      this.party.categories.splice(this.party.categories.indexOf(category), 1);
+      this.party.categories.splice((this.party.categories as Category[]).indexOf(category), 1);
     });
   }
 
