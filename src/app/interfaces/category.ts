@@ -1,5 +1,5 @@
 export interface Category {
   id: number;
-  party?: string;
+  party: string;
   name: string;
 }
