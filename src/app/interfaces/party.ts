@@ -7,5 +7,5 @@ export interface Party {
   name: string;
   description: string;
   date: string;
-  categories: Category[];
+  categories: number[] | Category[];
 }
