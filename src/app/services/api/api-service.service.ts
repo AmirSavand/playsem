@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { PartyStatus } from '@app/enums/party-status';
 import { Account } from '@app/interfaces/account';
 import { ApiPayload } from '@app/interfaces/api-payload';
 import { ApiResponse } from '@app/interfaces/api-response';
@@ -26,8 +27,15 @@ export class ApiService {
   /**
    * Get party list
    */
-  getParties(): Observable<ApiResponse<Party>> {
-    return this.http.get<ApiResponse<Party>>(`${ApiService.base}parties/`);
+  getParties(payload?: { user: number, status: PartyStatus }): Observable<ApiResponse<Party>> {
+    const params = new HttpParams();
+    if (payload.user) {
+      params.set('user', payload.user.toString());
+    }
+    if (payload.status) {
+      params.set('status', payload.status.toString());
+    }
+    return this.http.get<ApiResponse<Party>>(`${ApiService.base}parties/`, { params });
   }
 
   /**
