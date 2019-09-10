@@ -33,9 +33,9 @@ export class PlayerService {
   }
 
   /**
-   * Clear song list
+   * Stop and clear player
    */
-  static clear(): void {
+  static stop(): void {
     PlayerService.playingSubject.next(null);
     PlayerService.songsSubject.next([]);
   }
@@ -69,10 +69,18 @@ export class PlayerService {
     const playing: Song = PlayerService.playingSubject.value;
     const index: number = songs.indexOf(playing);
 
-    if (!PlayerService.isLastSong(playing)) {
-      PlayerService.play(songs[index + 1]);
+    if (PlayerService.repeat === PlayerRepeat.SINGLE) {
+      PlayerService.play(songs[index]);
     } else {
-      PlayerService.play(songs[0]);
+      if (!PlayerService.isLastSong(playing)) {
+        PlayerService.play(songs[index + 1]);
+      } else {
+        if (PlayerService.repeat === PlayerRepeat.DISABLE) {
+          PlayerService.stop();
+        } else {
+          PlayerService.play(songs[0]);
+        }
+      }
     }
   }
 

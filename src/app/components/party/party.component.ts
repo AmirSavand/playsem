@@ -178,8 +178,8 @@ export class PartyComponent implements OnInit {
    * @param song Song to play (not provided when clicking "Play")
    */
   play(song?: Song): void {
-    // Clear songs
-    PlayerService.clear();
+    // Stop player (clear songs)
+    PlayerService.stop();
     // If there are any party songs
     if (this.songsFilter.length) {
       // If song is not provided, start playing the first one
