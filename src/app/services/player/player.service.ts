@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { PlayerRepeat } from '@app/enums/player-repeat';
 import { Song } from '@app/interfaces/song';
 import { ShufflePipe } from 'ngx-pipes';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -13,6 +14,8 @@ export class PlayerService {
 
   static songs: Observable<Song[]> = PlayerService.songsSubject.asObservable();
   static playing: Observable<Song> = PlayerService.playingSubject.asObservable();
+
+  static repeat: PlayerRepeat = PlayerRepeat.DISABLE;
 
   constructor() {
   }
