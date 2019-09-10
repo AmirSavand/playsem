@@ -12,6 +12,4 @@ export interface Party {
   cover: string;
   date: string;
   categories: Category[];
-  image: string;
-  cover: string;
 }
