@@ -138,7 +138,7 @@ export class PartySettingsComponent implements OnInit {
       return;
     }
     this.loading = true;
-    this.partyService.update(this.party, this.form.value.title, this.form.value.description).subscribe(data => {
+    this.partyService.update(this.party, this.form.value).subscribe(data => {
       this.loading = false;
       this.party.name = data.name;
       this.party.description = data.description;

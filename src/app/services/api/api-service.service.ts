@@ -61,11 +61,10 @@ export class ApiService {
    * Update party title and description
    *
    * @param id Party ID
-   * @param title Party title
-   * @param description Party description
+   * @param payload Party payload
    */
-  updateParty(id: string, title: string, description: string): Observable<Party> {
-    return this.http.patch<Party>(`${ApiService.base}parties/${id}/`, { title, description });
+  updateParty(id: string, payload: Params): Observable<Party> {
+    return this.http.patch<Party>(`${ApiService.base}parties/${id}/`, payload);
   }
 
   /**
