@@ -52,11 +52,12 @@ import { faVolumeUp } from '@fortawesome/free-solid-svg-icons/faVolumeUp';
 
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
-import { CollapseModule } from 'ngx-bootstrap';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 import { CookieService } from 'ngx-cookie-service';
 import { NgxGoogleAnalyticsModule, NgxGoogleAnalyticsRouterModule } from 'ngx-google-analytics';
@@ -101,6 +102,7 @@ import { ImplementingComponent } from './shared/implementing/implementing.compon
     ProgressbarModule.forRoot(),
     ModalModule.forRoot(),
     CollapseModule.forRoot(),
+    TooltipModule.forRoot(),
     BrowserAnimationsModule,
     NgxGoogleAnalyticsModule.forRoot(environment.googleAnalytics),
     NgxGoogleAnalyticsRouterModule,
