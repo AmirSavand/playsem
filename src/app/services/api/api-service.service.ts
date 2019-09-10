@@ -4,6 +4,7 @@ import { Account } from '@app/interfaces/account';
 import { ApiPayload } from '@app/interfaces/api-payload';
 import { ApiResponse } from '@app/interfaces/api-response';
 import { Category } from '@app/interfaces/category';
+import { Params } from '@app/interfaces/params';
 import { Party } from '@app/interfaces/party';
 import { PartyUser } from '@app/interfaces/party-user';
 import { Song } from '@app/interfaces/song';
@@ -42,11 +43,10 @@ export class ApiService {
   /**
    * Create new party
    *
-   * @param title Party title
-   * @param description Party description
+   * @param payload Party payload
    */
-  createParty(title?: string, description?: string): Observable<Party> {
-    return this.http.post<Party>(`${ApiService.base}parties/`, { title, description }).pipe();
+  createParty(payload?: Params): Observable<Party> {
+    return this.http.post<Party>(`${ApiService.base}parties/`, payload).pipe();
   }
 
   /**
