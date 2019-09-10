@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { PlayerRepeat } from '@app/enums/player-repeat';
 import { Song } from '@app/interfaces/song';
 import { ShufflePipe } from 'ngx-pipes';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -13,6 +14,8 @@ export class PlayerService {
 
   static songs: Observable<Song[]> = PlayerService.songsSubject.asObservable();
   static playing: Observable<Song> = PlayerService.playingSubject.asObservable();
+
+  static repeat: PlayerRepeat = PlayerRepeat.DISABLE;
 
   constructor() {
   }
@@ -30,9 +33,9 @@ export class PlayerService {
   }
 
   /**
-   * Clear song list
+   * Stop and clear player
    */
-  static clear(): void {
+  static stop(): void {
     PlayerService.playingSubject.next(null);
     PlayerService.songsSubject.next([]);
   }
@@ -66,10 +69,18 @@ export class PlayerService {
     const playing: Song = PlayerService.playingSubject.value;
     const index: number = songs.indexOf(playing);
 
-    if (!PlayerService.isLastSong(playing)) {
-      PlayerService.play(songs[index + 1]);
+    if (PlayerService.repeat === PlayerRepeat.SINGLE) {
+      PlayerService.play(songs[index]);
     } else {
-      PlayerService.play(songs[0]);
+      if (!PlayerService.isLastSong(playing)) {
+        PlayerService.play(songs[index + 1]);
+      } else {
+        if (PlayerService.repeat === PlayerRepeat.DISABLE) {
+          PlayerService.stop();
+        } else {
+          PlayerService.play(songs[0]);
+        }
+      }
     }
   }
 

@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { PlayerPlayMode } from '@app/enums/player-play-mode';
+import { PlayerRepeat } from '@app/enums/player-repeat';
 import { Song } from '@app/interfaces/song';
 import { PlayerService } from '@app/services/player/player.service';
 import { NgxY2PlayerComponent, NgxY2PlayerOptions } from 'ngx-y2-player';
@@ -54,12 +54,14 @@ export class PlayerComponent {
    */
   expand: boolean;
 
-  /**
-   * Player play mode
-   */
-  playMode: PlayerPlayMode = PlayerPlayMode.NORMAL;
-
   constructor() {
+  }
+
+  /**
+   * @returns Player service repeat
+   */
+  get playerRepeat(): PlayerRepeat {
+    return PlayerService.repeat;
   }
 
   /**
@@ -142,15 +144,19 @@ export class PlayerComponent {
   }
 
   /**
-   * Cycle play mode
+   * Cycle player repeat
    */
-  switchPlayMode(): void {
-    if (this.playMode === PlayerPlayMode.NORMAL) {
-      this.playMode = PlayerPlayMode.REPEAT;
-    } else if (this.playMode === PlayerPlayMode.REPEAT) {
-      this.playMode = PlayerPlayMode.REPEAT_SINGLE;
-    } else {
-      this.playMode = PlayerPlayMode.NORMAL;
+  cyclePlayerRepeat(): void {
+    switch (PlayerService.repeat) {
+      case PlayerRepeat.DISABLE:
+        PlayerService.repeat = PlayerRepeat.ALL;
+        break;
+      case PlayerRepeat.ALL:
+        PlayerService.repeat = PlayerRepeat.SINGLE;
+        break;
+      case PlayerRepeat.SINGLE:
+        PlayerService.repeat = PlayerRepeat.DISABLE;
+        break;
     }
   }
 

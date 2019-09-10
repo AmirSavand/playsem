@@ -44,7 +44,7 @@
 
     <!-- Options -->
     <div id="options" class="col-4 justify-content-end align-items-center" *ngIf="playing">
-      <div (click)="switchPlayMode()">
+      <div (click)="cyclePlayerRepeat()" [tooltip]="playerRepeat">
         <fa-icon icon="retweet"></fa-icon>
       </div>
       <div (click)="shuffle()">
