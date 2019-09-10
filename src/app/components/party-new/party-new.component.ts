@@ -46,6 +46,8 @@ export class PartyNewComponent implements OnInit {
     this.partyForm = this.formBuilder.group({
       title: [''],
       description: [''],
+      image: [''],
+      cover: [''],
     });
   }
 

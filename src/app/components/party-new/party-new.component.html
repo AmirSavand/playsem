@@ -12,6 +12,18 @@
             <!-- Error -->
             <span class="text-danger" *ngIf="errors.name">{{ errors.name[0] }}</span>
           </div>
+          <!-- Cover -->
+          <div class="form-group">
+            <input class="form-control" type="text" placeholder="Cover URL" formControlName="cover">
+            <!-- Error -->
+            <span class="text-danger" *ngIf="errors.cover">{{ errors.cover[0] }}</span>
+          </div>
+          <!-- Image -->
+          <div class="form-group">
+            <input class="form-control" type="text" placeholder="image URL" formControlName="image">
+            <!-- Error -->
+            <span class="text-danger" *ngIf="errors.image">{{ errors.image[0] }}</span>
+          </div>
           <!-- Description -->
           <div class="form-group">
             <textarea class="form-control" [rows]="3"
