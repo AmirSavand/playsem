@@ -83,6 +83,8 @@ export class PartySettingsComponent implements OnInit {
      */
     this.form = this.formBuilder.group({
       title: [''],
+      cover: [''],
+      image: [''],
       description: [''],
     });
     /**
