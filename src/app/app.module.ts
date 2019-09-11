@@ -5,8 +5,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CategoryModalComponent } from '@app/components/category-modal/category-modal.component';
 
-import { DashboardComponent } from '@app/components/dashboard/dashboard.component';
-import { ExploreComponent } from '@app/components/explore/explore.component';
 import { HomeComponent } from '@app/components/home/home.component';
 import { PartyNewComponent } from '@app/components/party-new/party-new.component';
 import { PartySettingsComponent } from '@app/components/party-settings/party-settings.component';
@@ -61,6 +59,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 import { CookieService } from 'ngx-cookie-service';
 import { NgxGoogleAnalyticsModule, NgxGoogleAnalyticsRouterModule } from 'ngx-google-analytics';
+import { NgxMdModule } from 'ngx-md';
 import { FilterByPipe } from 'ngx-pipes';
 import { NgxY2PlayerModule } from 'ngx-y2-player';
 
@@ -74,13 +73,11 @@ import { ImplementingComponent } from './shared/implementing/implementing.compon
     AppComponent,
     SignInComponent,
     SignUpComponent,
-    DashboardComponent,
     UserSettingsComponent,
     PartyComponent,
     UserComponent,
     HomeComponent,
     PlayerComponent,
-    ExploreComponent,
     PartySettingsComponent,
     PartyNewComponent,
     CategoryModalComponent,
@@ -106,6 +103,7 @@ import { ImplementingComponent } from './shared/implementing/implementing.compon
     BrowserAnimationsModule,
     NgxGoogleAnalyticsModule.forRoot(environment.googleAnalytics),
     NgxGoogleAnalyticsRouterModule,
+    NgxMdModule.forRoot(),
   ],
   entryComponents: [
     CategoryModalComponent,
@@ -127,39 +125,34 @@ import { ImplementingComponent } from './shared/implementing/implementing.compon
   ],
 })
 export class AppModule {
-
-  static readonly icons = [
-    faPlay,
-    faPause,
-    faStop,
-    faForward,
-    faBackward,
-    faRandom,
-    faRetweet,
-    faVolumeUp,
-    faVolumeDown,
-    faVolumeOff,
-    faVolumeMute,
-    faHeart,
-    faSyncAlt,
-    faUserPlus,
-    faUserMinus,
-    faBars,
-    faTachometerAlt,
-    faCompactDisc,
-    faSignInAlt,
-    faSignOutAlt,
-    faSearch,
-    faCog,
-    faEllipsisV,
-    faTrash,
-    faPlus,
-    faEdit,
-  ];
-
   constructor() {
-    for (const icon of AppModule.icons) {
-      library.add(icon);
-    }
+    library.add(
+      faPlay,
+      faPause,
+      faStop,
+      faForward,
+      faBackward,
+      faRandom,
+      faRetweet,
+      faVolumeUp,
+      faVolumeDown,
+      faVolumeOff,
+      faVolumeMute,
+      faHeart,
+      faSyncAlt,
+      faUserPlus,
+      faUserMinus,
+      faBars,
+      faTachometerAlt,
+      faCompactDisc,
+      faSignInAlt,
+      faSignOutAlt,
+      faSearch,
+      faCog,
+      faEllipsisV,
+      faTrash,
+      faPlus,
+      faEdit,
+    );
   }
 }

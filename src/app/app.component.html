@@ -31,17 +31,8 @@
           </a>
         </div>
 
-        <!-- Explore -->
+        <!-- Pages -->
         <div class="list-group list-group-flush mt-3">
-          <a class="list-group-item list-group-item-action"
-             routerLink="explore" routerLinkActive="active">
-            <fa-icon [fixedWidth]="true" icon="search"></fa-icon>
-            <span>Explore</span>
-          </a>
-        </div>
-
-        <!-- Pages and parties -->
-        <div class="list-group list-group-flush" *ngIf="auth.isAuth()">
 
           <!-- Dashboard -->
           <a class="list-group-item list-group-item-action"
@@ -49,9 +40,13 @@
             <fa-icon [fixedWidth]="true" icon="tachometer-alt"></fa-icon>
             <span>Dashboard</span>
           </a>
+        </div>
+
+        <!-- Parties -->
+        <div class="list-group list-group-flush" *ngIf="auth.isAuth()">
 
           <!-- Title -->
-          <div class="list-group-item header mt-5">PARTIES</div>
+          <div class="list-group-item header mt-3">PARTIES</div>
 
           <!-- Parties -->
           <a class="list-group-item list-group-item-action"
@@ -128,17 +123,6 @@
 
               <!-- Nav -->
               <ul class="navbar-nav">
-                <!-- Explore -->
-                <li class="nav-item" routerLinkActive="active">
-                  <a class="nav-link" routerLink="explore">
-                    <fa-icon [fixedWidth]="true" icon="search"></fa-icon>
-                    <span class="ml-1">Explore</span>
-                  </a>
-                </li>
-              </ul>
-
-              <!-- Authenticated navs -->
-              <ul class="navbar-nav" *ngIf="auth.isAuth()">
                 <!-- Dashboard -->
                 <li class="nav-item" routerLinkActive="active">
                   <a class="nav-link" routerLink="dashboard">
@@ -146,6 +130,10 @@
                     <span class="ml-1">Dashboard</span>
                   </a>
                 </li>
+              </ul>
+
+              <!-- Authenticated navs -->
+              <ul class="navbar-nav" *ngIf="auth.isAuth()">
                 <!-- Title -->
                 <li class="nav-item">
                   <span class="navbar-text">PARTIES</span>
