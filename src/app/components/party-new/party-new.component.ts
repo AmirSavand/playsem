@@ -46,6 +46,8 @@ export class PartyNewComponent implements OnInit {
     this.partyForm = this.formBuilder.group({
       title: [''],
       description: [''],
+      image: [''],
+      cover: [''],
     });
   }
 
@@ -57,10 +59,7 @@ export class PartyNewComponent implements OnInit {
       return;
     }
     this.loading = true;
-    this.api.createParty(
-      this.partyForm.value.title,
-      this.partyForm.value.description,
-    ).subscribe((data: Party): void => {
+    this.api.createParty(this.partyForm.value).subscribe((data: Party): void => {
       PartyService.add(data);
       this.router.navigate([PartyNewComponent.partyCreationRedirect, data.id]);
       this.googleAnalytics.event('create_party', 'party', 'Party');

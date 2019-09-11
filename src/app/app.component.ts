@@ -38,6 +38,13 @@ export class AppComponent implements OnInit {
               public auth: AuthService) {
   }
 
+  /**
+   * @returns User image if has one, otherwise default image
+   */
+  get getUserImage(): string {
+    return `url(${this.user.account.image || 'assets/cover.png'})`;
+  }
+
   ngOnInit(): void {
     /**
      * Get authenticated user data and watch for changes

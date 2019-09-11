@@ -8,16 +8,24 @@
         <form class="card-body" (ngSubmit)="createParty()" [formGroup]="partyForm">
           <!-- Title -->
           <div class="form-group">
-            <input class="form-control" type="text" placeholder="Party name" formControlName="title">
-            <!-- Error -->
+            <input class="form-control" type="text" placeholder="Name" formControlName="title">
             <span class="text-danger" *ngIf="errors.name">{{ errors.name[0] }}</span>
+          </div>
+          <!-- Image -->
+          <div class="form-group">
+            <input class="form-control" type="text" placeholder="Image from imgur.com" formControlName="image">
+            <span class="text-danger" *ngIf="errors.image">{{ errors.image[0] }}</span>
+          </div>
+          <!-- Cover -->
+          <div class="form-group">
+            <input class="form-control" type="text" placeholder="Cover from imgur.com" formControlName="cover">
+            <span class="text-danger" *ngIf="errors.cover">{{ errors.cover[0] }}</span>
           </div>
           <!-- Description -->
           <div class="form-group">
-            <textarea class="form-control" [rows]="3"
-                      placeholder="Party description" formControlName="description">
+            <textarea class="form-control" rows="6"
+                      placeholder="Description" formControlName="description">
             </textarea>
-            <!-- Error -->
             <span class="text-danger" *ngIf="errors.description">{{ errors.description[0] }}</span>
           </div>
           <!-- General errors -->

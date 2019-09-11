@@ -83,6 +83,8 @@ export class PartySettingsComponent implements OnInit {
      */
     this.form = this.formBuilder.group({
       title: [''],
+      cover: [''],
+      image: [''],
       description: [''],
     });
     /**
@@ -113,8 +115,10 @@ export class PartySettingsComponent implements OnInit {
          * Set up the party form with default values
          */
         this.form.patchValue({
-          title: party.name,
-          description: party.description,
+          title: this.party.name,
+          image: this.party.image,
+          cover: this.party.cover,
+          description: this.party.description,
         });
       });
     });
@@ -136,7 +140,7 @@ export class PartySettingsComponent implements OnInit {
       return;
     }
     this.loading = true;
-    this.partyService.update(this.party, this.form.value.title, this.form.value.description).subscribe(data => {
+    this.partyService.update(this.party, this.form.value).subscribe(data => {
       this.loading = false;
       this.party.name = data.name;
       this.party.description = data.description;
@@ -145,6 +149,8 @@ export class PartySettingsComponent implements OnInit {
        */
       this.form.patchValue({
         title: this.party.name,
+        image: this.party.image,
+        cover: this.party.cover,
         description: this.party.description,
       });
     });

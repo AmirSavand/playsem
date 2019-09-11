@@ -2,9 +2,9 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PartyStatus } from '@app/enums/party-status';
 import { Account } from '@app/interfaces/account';
-import { ApiPayload } from '@app/interfaces/api-payload';
 import { ApiResponse } from '@app/interfaces/api-response';
 import { Category } from '@app/interfaces/category';
+import { Params } from '@app/interfaces/params';
 import { Party } from '@app/interfaces/party';
 import { PartyUser } from '@app/interfaces/party-user';
 import { Song } from '@app/interfaces/song';
@@ -50,22 +50,20 @@ export class ApiService {
   /**
    * Create new party
    *
-   * @param title Party title
-   * @param description Party description
+   * @param payload Party payload
    */
-  createParty(title?: string, description?: string): Observable<Party> {
-    return this.http.post<Party>(`${ApiService.base}parties/`, { title, description });
+  createParty(payload?: Params): Observable<Party> {
+    return this.http.post<Party>(`${ApiService.base}parties/`, payload).pipe();
   }
 
   /**
    * Update party title and description
    *
    * @param id Party ID
-   * @param title Party title
-   * @param description Party description
+   * @param payload Party payload
    */
-  updateParty(id: string, title: string, description: string): Observable<Party> {
-    return this.http.patch<Party>(`${ApiService.base}parties/${id}/`, { title, description });
+  updateParty(id: string, payload: Params): Observable<Party> {
+    return this.http.patch<Party>(`${ApiService.base}parties/${id}/`, payload);
   }
 
   /**
@@ -179,7 +177,7 @@ export class ApiService {
    * @param id Song ID
    * @param payload Song data
    */
-  updateSong(id: number, payload: ApiPayload): Observable<Song> {
+  updateSong(id: number, payload: Params): Observable<Song> {
     return this.http.patch<Song>(`${ApiService.base}songs/${id}/`, payload);
   }
 }
