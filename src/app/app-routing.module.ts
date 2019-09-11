@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from '@app/components/dashboard/dashboard.component';
-import { ExploreComponent } from '@app/components/explore/explore.component';
 import { HomeComponent } from '@app/components/home/home.component';
 import { PartyNewComponent } from '@app/components/party-new/party-new.component';
 import { PartySettingsComponent } from '@app/components/party-settings/party-settings.component';
@@ -13,6 +11,10 @@ import { UserComponent } from '@app/components/user/user.component';
 
 const routes: Routes = [{
   path: '',
+  redirectTo: 'dashboard',
+  pathMatch: 'full',
+}, {
+  path: 'dashboard',
   component: HomeComponent,
 }, {
   path: 'sign-in',
@@ -20,12 +22,6 @@ const routes: Routes = [{
 }, {
   path: 'sign-up',
   component: SignUpComponent,
-}, {
-  path: 'dashboard',
-  component: DashboardComponent,
-}, {
-  path: 'explore',
-  component: ExploreComponent,
 }, {
   path: 'party/new',
   component: PartyNewComponent,

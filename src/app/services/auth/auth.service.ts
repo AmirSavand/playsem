@@ -22,20 +22,24 @@ export class AuthService {
   }
 
   /**
+   * Cookie expires in days
+   */
+  private static readonly cookieExpireDays: number = 365;
+
+  /**
    * Sign in redirect
    */
-  private readonly signInRedirect = '/dashboard';
+  private static readonly signInRedirect = '/dashboard';
 
   /**
    * Sign out redirect
    */
-  private readonly signOutRedirect = '/';
+  private static readonly signOutRedirect = '/';
 
   /**
    * Authentication user subject
    */
   private userSubject: BehaviorSubject<User> = new BehaviorSubject<User>(AuthService.getUser());
-
   /**
    * Authenticated user
    */
@@ -104,18 +108,14 @@ export class AuthService {
   }
 
   /**
-   * Save/update token to localStorage
+   * Save/update token to cookies
    *
    * @param token Authentication token
    */
   setToken(token: string): void {
     const parsedJwt: AuthToken = AuthService.parseJwt(token);
     if (parsedJwt) {
-      /**
-       * @fixme Use expiration date: new Date(parsedJwt.exp * 1000)
-       */
-      const fixMe = 1000000;
-      this.cookie.set('token', token, null, '/');
+      this.cookie.set('token', token, AuthService.cookieExpireDays);
     }
   }
 
@@ -133,7 +133,7 @@ export class AuthService {
     localStorage.clear();
     this.cookie.deleteAll('/');
     this.userSubject.next(null);
-    this.router.navigateByUrl(this.signOutRedirect);
+    this.router.navigateByUrl(AuthService.signOutRedirect);
   }
 
   /**
@@ -152,7 +152,7 @@ export class AuthService {
         // Store user into local storage
         this.setUser(data.user);
         // Redirect
-        this.router.navigateByUrl(this.signInRedirect);
+        this.router.navigateByUrl(AuthService.signInRedirect);
         // Return response
         return data;
       }),
