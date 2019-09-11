@@ -14,17 +14,17 @@
           <div class="form-group">
             <input class="form-control" type="text" placeholder="Title" formControlName="title">
           </div>
-          <!-- Cover -->
-          <div class="form-group">
-            <input class="form-control" type="text" placeholder="Cover URL" formControlName="cover">
-          </div>
           <!-- Image -->
           <div class="form-group">
-            <input class="form-control" type="text" placeholder="image URL" formControlName="image">
+            <input class="form-control" type="text" placeholder="Image from imgur.com" formControlName="image">
+          </div>
+          <!-- Cover -->
+          <div class="form-group">
+            <input class="form-control" type="text" placeholder="Cover from imgur.com" formControlName="cover">
           </div>
           <!-- Description -->
           <div class="form-group">
-            <textarea class="form-control" placeholder="Description" formControlName="description"></textarea>
+            <textarea class="form-control" placeholder="Description" formControlName="description" rows="6"></textarea>
           </div>
           <!-- Submit button -->
           <button class="btn btn-info btn-block" [disabled]="loading">Update</button>

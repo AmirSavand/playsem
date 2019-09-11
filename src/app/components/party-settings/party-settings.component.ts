@@ -115,8 +115,10 @@ export class PartySettingsComponent implements OnInit {
          * Set up the party form with default values
          */
         this.form.patchValue({
-          title: party.name,
-          description: party.description,
+          title: this.party.name,
+          image: this.party.image,
+          cover: this.party.cover,
+          description: this.party.description,
         });
       });
     });
@@ -147,6 +149,8 @@ export class PartySettingsComponent implements OnInit {
        */
       this.form.patchValue({
         title: this.party.name,
+        image: this.party.image,
+        cover: this.party.cover,
         description: this.party.description,
       });
     });

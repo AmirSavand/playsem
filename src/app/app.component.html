@@ -24,7 +24,7 @@
         </div>
 
         <!-- Profile and cover -->
-        <div id="cover" *ngIf="auth.isAuth()">
+        <div id="cover" *ngIf="auth.isAuth()" [style.background-image]="getUserImage">
           <a [routerLink]="['user', user.username]">
             <h4>{{ user.account.name }}</h4>
             <p>@{{ user.username }}</p>

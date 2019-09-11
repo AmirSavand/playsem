@@ -2,7 +2,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PartyStatus } from '@app/enums/party-status';
 import { Account } from '@app/interfaces/account';
-import { ApiPayload } from '@app/interfaces/api-payload';
 import { ApiResponse } from '@app/interfaces/api-response';
 import { Category } from '@app/interfaces/category';
 import { Params } from '@app/interfaces/params';
@@ -178,7 +177,7 @@ export class ApiService {
    * @param id Song ID
    * @param payload Song data
    */
-  updateSong(id: number, payload: ApiPayload): Observable<Song> {
+  updateSong(id: number, payload: Params): Observable<Song> {
     return this.http.patch<Song>(`${ApiService.base}songs/${id}/`, payload);
   }
 }

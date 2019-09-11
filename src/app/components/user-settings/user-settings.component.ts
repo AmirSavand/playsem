@@ -43,6 +43,7 @@ export class UserSettingsComponent implements OnInit {
        */
       this.form = this.formBuilder.group({
         display_name: [user.account.name],
+        image: [user.account.image],
         bio: [user.account.bio],
         color: [user.account.color],
       });

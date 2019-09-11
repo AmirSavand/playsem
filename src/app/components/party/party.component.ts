@@ -103,6 +103,13 @@ export class PartyComponent implements OnInit {
     return this.songs;
   }
 
+  /**
+   * @returns Party cover image if has one otherwise default image
+   */
+  get partyCover(): string {
+    return `url(${this.party.cover || 'assets/party-cover.jpg'})`;
+  }
+
   ngOnInit(): void {
     /**
      * Setup song form
