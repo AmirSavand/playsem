@@ -53,7 +53,7 @@ export class PartyNewComponent implements OnInit {
      * Setup party form
      */
     this.partyForm = this.formBuilder.group({
-      status: [PartyStatus.CLOSE],
+      status: [PartyStatus.PUBLIC],
       title: [''],
       description: [''],
       image: [''],
