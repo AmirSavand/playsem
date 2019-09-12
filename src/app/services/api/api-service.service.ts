@@ -17,6 +17,15 @@ import { Observable } from 'rxjs';
 export class ApiService {
 
   /**
+   * List of party statuses
+   */
+  static readonly status: { id: PartyStatus, label: string }[] = [
+    { id: PartyStatus.CLOSE, label: 'Close' },
+    { id: PartyStatus.PRIVATE, label: 'Private' },
+    { id: PartyStatus.PUBLIC, label: 'Public' },
+  ];
+
+  /**
    * Base API endpoint
    */
   static readonly base: string = environment.api;

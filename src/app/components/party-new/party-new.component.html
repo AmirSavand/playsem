@@ -6,6 +6,12 @@
         <div class="card-header">Create Party</div>
         <!-- Body -->
         <form class="card-body" (ngSubmit)="createParty()" [formGroup]="partyForm">
+          <!-- Status -->
+          <div class="form-group">
+            <select class="custom-select" formControlName="status" id="status">
+              <option *ngFor="let status of partyStatus" [ngValue]="status.id">{{ status.label }}</option>
+            </select>
+          </div>
           <!-- Title -->
           <div class="form-group">
             <input class="form-control" type="text" placeholder="Name" formControlName="title">
