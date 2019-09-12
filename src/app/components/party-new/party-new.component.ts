@@ -15,12 +15,12 @@ import { GoogleAnalyticsService } from 'ngx-google-analytics';
 export class PartyNewComponent implements OnInit {
 
   /**
-   * @see ApiService.status
+   * @see PartyService.statuses
    */
-  readonly partyStatus: {
+  readonly partyStatuses: {
     id: PartyStatus;
     label: string;
-  }[] = ApiService.status;
+  }[] = PartyService.statuses;
 
   /**
    * Path to go to after party creation (party ID needs to be added)
