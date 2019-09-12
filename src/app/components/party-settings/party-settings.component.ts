@@ -91,7 +91,7 @@ export class PartySettingsComponent implements OnInit {
      * Setup party form
      */
     this.form = this.formBuilder.group({
-      status: [''],
+      status: [null],
       title: [''],
       cover: [''],
       image: [''],
