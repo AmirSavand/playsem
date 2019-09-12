@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryModalComponent } from '@app/components/category-modal/category-modal.component';
+import { PartyStatus } from '@app/enums/party-status';
 import { ApiError } from '@app/interfaces/api-error';
 import { Category } from '@app/interfaces/category';
 import { Party } from '@app/interfaces/party';
@@ -17,6 +18,14 @@ import { FilterByPipe } from 'ngx-pipes';
   styleUrls: ['./party-settings.component.scss'],
 })
 export class PartySettingsComponent implements OnInit {
+
+  /**
+   * @see ApiService.status
+   */
+  readonly partyStatus: {
+    id: PartyStatus;
+    label: string;
+  }[] = ApiService.status;
 
   /**
    * Redirect to path after deletion
@@ -82,6 +91,7 @@ export class PartySettingsComponent implements OnInit {
      * Setup party form
      */
     this.form = this.formBuilder.group({
+      status: [''],
       title: [''],
       cover: [''],
       image: [''],
@@ -115,6 +125,7 @@ export class PartySettingsComponent implements OnInit {
          * Set up the party form with default values
          */
         this.form.patchValue({
+          status: this.party.status,
           title: this.party.name,
           image: this.party.image,
           cover: this.party.cover,
@@ -142,12 +153,14 @@ export class PartySettingsComponent implements OnInit {
     this.loading = true;
     this.partyService.update(this.party, this.form.value).subscribe(data => {
       this.loading = false;
+      this.party.status = data.status;
       this.party.name = data.name;
       this.party.description = data.description;
       /**
        * Update the form with the new value
        */
       this.form.patchValue({
+        status: this.party.status,
         title: this.party.name,
         image: this.party.image,
         cover: this.party.cover,
