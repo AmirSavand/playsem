@@ -35,6 +35,16 @@ export class PlayerComponent {
   private readonly timelineUpdateTime = 250;
 
   /**
+   * Player repeat modes
+   */
+  readonly playerRepeat: typeof PlayerRepeat = PlayerRepeat;
+
+  /**
+   * Player repeat from PlayerService
+   */
+  repeat: PlayerRepeat = PlayerService.repeat;
+
+  /**
    * Song list of current category
    */
   songs: Song[];
@@ -55,13 +65,6 @@ export class PlayerComponent {
   expand: boolean;
 
   constructor() {
-  }
-
-  /**
-   * @returns Player service repeat
-   */
-  get playerRepeat(): PlayerRepeat {
-    return PlayerService.repeat;
   }
 
   /**
@@ -112,17 +115,14 @@ export class PlayerComponent {
   }
 
   /**
-   * UnMute the player
+   * Toggle mute player
    */
-  unMute(): void {
-    this.youtube.videoPlayer.unMute();
-  }
-
-  /**
-   * Mute the player
-   */
-  mute(): void {
-    this.youtube.videoPlayer.mute();
+  toggleMute(): void {
+    if (!this.youtube.videoPlayer.isMuted()) {
+      this.youtube.videoPlayer.mute();
+    } else {
+      this.youtube.videoPlayer.unMute();
+    }
   }
 
   /**
@@ -141,23 +141,6 @@ export class PlayerComponent {
    */
   isMute(): boolean {
     return this.youtube.videoPlayer.isMuted();
-  }
-
-  /**
-   * Cycle player repeat
-   */
-  cyclePlayerRepeat(): void {
-    switch (PlayerService.repeat) {
-      case PlayerRepeat.DISABLE:
-        PlayerService.repeat = PlayerRepeat.ALL;
-        break;
-      case PlayerRepeat.ALL:
-        PlayerService.repeat = PlayerRepeat.SINGLE;
-        break;
-      case PlayerRepeat.SINGLE:
-        PlayerService.repeat = PlayerRepeat.DISABLE;
-        break;
-    }
   }
 
   /**

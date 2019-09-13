@@ -29,35 +29,44 @@
     <!-- Controls -->
     <div id="controls" class="col-4 justify-content-center" *ngIf="playing">
       <div (click)="previous()">
-        <fa-icon icon="backward"></fa-icon>
+        <fa-icon [fixedWidth]="true" icon="backward"></fa-icon>
       </div>
       <div (click)="pause()" *ngIf="!isPaused()">
-        <fa-icon icon="pause"></fa-icon>
+        <fa-icon [fixedWidth]="true" icon="pause"></fa-icon>
       </div>
       <div (click)="play()" *ngIf="isPaused()">
-        <fa-icon icon="play"></fa-icon>
+        <fa-icon [fixedWidth]="true" icon="play"></fa-icon>
       </div>
       <div (click)="next()">
-        <fa-icon icon="forward"></fa-icon>
+        <fa-icon [fixedWidth]="true" icon="forward"></fa-icon>
       </div>
     </div>
 
     <!-- Options -->
     <div id="options" class="col-4 justify-content-end align-items-center" *ngIf="playing">
-      <div (click)="cyclePlayerRepeat()" [tooltip]="playerRepeat">
-        <fa-icon icon="retweet"></fa-icon>
+      <!-- Repeat (all) -->
+      <div (click)="repeat = playerRepeat.ALL" *ngIf="repeat === playerRepeat.DISABLE" tooltip="Repeat all">
+        <fa-icon [fixedWidth]="true" icon="retweet"></fa-icon>
       </div>
-      <div (click)="shuffle()">
-        <fa-icon icon="random"></fa-icon>
+      <!-- Repeat (single) -->
+      <div (click)="repeat = playerRepeat.SINGLE" *ngIf="repeat === playerRepeat.ALL" tooltip="Single repeat">
+        <fa-icon [fixedWidth]="true" icon="retweet"></fa-icon>
       </div>
-      <div (click)="mute()" *ngIf="!isMute()">
-        <fa-icon icon="volume-up"></fa-icon>
+      <!-- Repeat (disable) -->
+      <div (click)="repeat = playerRepeat.DISABLE" *ngIf="repeat === playerRepeat.SINGLE" tooltip="No repeat">
+        <fa-icon [fixedWidth]="true" icon="retweet"></fa-icon>
       </div>
-      <div (click)="unMute()" *ngIf="isMute()">
-        <fa-icon icon="volume-mute"></fa-icon>
+      <!-- Shuffle -->
+      <div (click)="shuffle()" tooltip="Shuffle queue">
+        <fa-icon [fixedWidth]="true" icon="random"></fa-icon>
       </div>
-      <div class="volume" [hidden]="true">
-        <progressbar [value]="30"></progressbar>
+      <!-- Mute -->
+      <div (click)="toggleMute()" *ngIf="!isMute()" tooltip="Mute">
+        <fa-icon [fixedWidth]="true" icon="volume-up"></fa-icon>
+      </div>
+      <!-- Unmute -->
+      <div (click)="toggleMute()" *ngIf="isMute()" tooltip="Unmute">
+        <fa-icon [fixedWidth]="true" icon="volume-mute"></fa-icon>
       </div>
     </div>
   </div>
