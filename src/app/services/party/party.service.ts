@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { PartyStatus } from '@app/enums/party-status';
 import { Party } from '@app/interfaces/party';
 import { ApiService } from '@app/services/api/api-service.service';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -8,6 +9,15 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class PartyService {
+
+  /**
+   * List of party statuses
+   */
+  static readonly statuses: { id: PartyStatus, label: string }[] = [
+    { id: PartyStatus.CLOSE, label: 'Close' },
+    { id: PartyStatus.PRIVATE, label: 'Private' },
+    { id: PartyStatus.PUBLIC, label: 'Public' },
+  ];
 
   constructor(private api: ApiService) {
   }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { PartyStatus } from '@app/enums/party-status';
 import { ApiError } from '@app/interfaces/api-error';
 import { Party } from '@app/interfaces/party';
 import { ApiService } from '@app/services/api/api-service.service';
@@ -12,6 +13,14 @@ import { GoogleAnalyticsService } from 'ngx-google-analytics';
   templateUrl: './party-new.component.html',
 })
 export class PartyNewComponent implements OnInit {
+
+  /**
+   * @see PartyService.statuses
+   */
+  readonly partyStatuses: {
+    id: PartyStatus;
+    label: string;
+  }[] = PartyService.statuses;
 
   /**
    * Path to go to after party creation (party ID needs to be added)
@@ -44,6 +53,7 @@ export class PartyNewComponent implements OnInit {
      * Setup party form
      */
     this.partyForm = this.formBuilder.group({
+      status: [PartyStatus.PUBLIC],
       title: [''],
       description: [''],
       image: [''],
