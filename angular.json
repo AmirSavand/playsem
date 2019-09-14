@@ -50,6 +50,11 @@
             "styles": [
               "src/assets/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/assets"
+              ]
+            },
             "scripts": []
           },
           "configurations": {
