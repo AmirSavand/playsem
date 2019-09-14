@@ -29,8 +29,6 @@
       display: flex;
 
       &:not(#playing) > div {
-        margin: 0 5px;
-        padding: 10px;
         cursor: pointer;
 
         &:active {

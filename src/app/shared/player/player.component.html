@@ -15,29 +15,33 @@
     <div id="playing" class="col-4" (click)="expand= !expand">
 
       <!-- Playing cover -->
-      <div class="cover" [ngStyle]="{backgroundImage: 'url(/assets/song.jpg)'}"></div>
+      <div class="cover d-none d-sm-flex" [style.background-image]="'url(/assets/song.jpg)'"></div>
 
       <!-- Player name and party and user -->
-      <div class="info d-flex flex-column justify-content-center ml-3">
+      <div class="info d-flex flex-column justify-content-center ml-sm-3">
         <span class="text-truncate">{{ playing.name }}</span>
         <small class="text-truncate text-secondary">
-          {{ playing.party.name }} &bull; {{ playing.user.username }}
+          {{ playing.party.name }} <span class="d-none d-sm-inline">&bull; {{ playing.user.username }}</span>
         </small>
       </div>
     </div>
 
     <!-- Controls -->
     <div id="controls" class="col-4 justify-content-center" *ngIf="playing">
-      <div (click)="previous()">
+      <!-- Previous -->
+      <div class="mx-sm-1 px-1 px-sm-2" (click)="previous()">
         <fa-icon [fixedWidth]="true" icon="backward"></fa-icon>
       </div>
-      <div (click)="pause()" *ngIf="!isPaused()">
+      <!-- Pause -->
+      <div class="mx-sm-1 px-1 px-sm-2" (click)="pause()" *ngIf="!isPaused()">
         <fa-icon [fixedWidth]="true" icon="pause"></fa-icon>
       </div>
-      <div (click)="play()" *ngIf="isPaused()">
+      <!-- Play -->
+      <div class="mx-sm-1 px-1 px-sm-2" (click)="play()" *ngIf="isPaused()">
         <fa-icon [fixedWidth]="true" icon="play"></fa-icon>
       </div>
-      <div (click)="next()">
+      <!-- Next -->
+      <div class="mx-sm-1 px-1 px-sm-2" (click)="next()">
         <fa-icon [fixedWidth]="true" icon="forward"></fa-icon>
       </div>
     </div>
@@ -45,27 +49,30 @@
     <!-- Options -->
     <div id="options" class="col-4 justify-content-end align-items-center" *ngIf="playing">
       <!-- Repeat (all) -->
-      <div (click)="repeat = playerRepeat.ALL" *ngIf="repeat === playerRepeat.DISABLE" tooltip="Repeat all">
+      <div class="mx-sm-1 px-1 px-sm-2" (click)="repeat = playerRepeat.ALL"
+           *ngIf="repeat === playerRepeat.DISABLE" tooltip="Repeat all">
         <fa-icon [fixedWidth]="true" icon="retweet"></fa-icon>
       </div>
       <!-- Repeat (single) -->
-      <div (click)="repeat = playerRepeat.SINGLE" *ngIf="repeat === playerRepeat.ALL" tooltip="Single repeat">
+      <div class="mx-sm-1 px-1 px-sm-2" (click)="repeat = playerRepeat.SINGLE"
+           *ngIf="repeat === playerRepeat.ALL" tooltip="Single repeat">
         <fa-icon [fixedWidth]="true" icon="retweet"></fa-icon>
       </div>
       <!-- Repeat (disable) -->
-      <div (click)="repeat = playerRepeat.DISABLE" *ngIf="repeat === playerRepeat.SINGLE" tooltip="No repeat">
+      <div class="mx-sm-1 px-1 px-sm-2" (click)="repeat = playerRepeat.DISABLE"
+           *ngIf="repeat === playerRepeat.SINGLE" tooltip="No repeat">
         <fa-icon [fixedWidth]="true" icon="retweet"></fa-icon>
       </div>
       <!-- Shuffle -->
-      <div (click)="shuffle()" tooltip="Shuffle queue">
+      <div class="mx-sm-1 px-1 px-sm-2" (click)="shuffle()" tooltip="Shuffle queue">
         <fa-icon [fixedWidth]="true" icon="random"></fa-icon>
       </div>
       <!-- Mute -->
-      <div (click)="toggleMute()" *ngIf="!isMute()" tooltip="Mute">
+      <div class="mx-sm-1 px-1 px-sm-2" (click)="toggleMute()" *ngIf="!isMute()" tooltip="Mute">
         <fa-icon [fixedWidth]="true" icon="volume-up"></fa-icon>
       </div>
       <!-- Unmute -->
-      <div (click)="toggleMute()" *ngIf="isMute()" tooltip="Unmute">
+      <div class="mx-sm-1 px-1 px-sm-2" (click)="toggleMute()" *ngIf="isMute()" tooltip="Unmute">
         <fa-icon [fixedWidth]="true" icon="volume-mute"></fa-icon>
       </div>
     </div>
