@@ -156,6 +156,13 @@
                     <fa-icon [fixedWidth]="true" icon="plus"></fa-icon>
                   </a>
                 </li>
+                <!-- Join party with party ID -->
+                <li class="nav-item" routerLinkActive="active">
+                  <a class="nav-link" (click)="join()">
+                    <fa-icon [fixedWidth]="true" icon="search"></fa-icon>
+                    <span class="ml-1">Join</span>
+                  </a>
+                </li>
                 <!-- Settings -->
                 <li class="nav-item" routerLinkActive="active">
                   <a class="nav-link" routerLink="user-settings">
@@ -177,6 +184,13 @@
                 <!-- Join links -->
                 <li class="nav-item">
                   <span class="navbar-text">JOIN</span>
+                </li>
+                <!-- Join party with party ID -->
+                <li class="nav-item" routerLinkActive="active">
+                  <a class="nav-link" (click)="join()">
+                    <fa-icon [fixedWidth]="true" icon="search"></fa-icon>
+                    <span class="ml-1">Join</span>
+                  </a>
                 </li>
                 <!-- Sign In -->
                 <li class="nav-item" routerLinkActive="active">
