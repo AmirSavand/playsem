@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Party } from '@app/interfaces/party';
 import { Storage } from '@app/interfaces/storage';
 import { User } from '@app/interfaces/user';
@@ -35,6 +36,7 @@ export class AppComponent implements OnInit {
   sidebarStatus: boolean = StorageService.storage.settings.sidebarOpen;
 
   constructor(private party: PartyService,
+              private router: Router,
               public auth: AuthService) {
   }
 
@@ -74,5 +76,17 @@ export class AppComponent implements OnInit {
     const storage: Storage = StorageService.storage;
     storage.settings.sidebarOpen = this.sidebarStatus;
     StorageService.save(storage);
+  }
+
+  /**
+   * Join party with party ID
+   */
+  join(): void {
+    const joinParty = prompt('Enter party ID to join:');
+    if (joinParty != null) {
+      this.router.navigate(['/party', joinParty]);
+    }
+    alert('Input may not be empty!');
+    this.router.navigate(['/dashboard']);
   }
 }

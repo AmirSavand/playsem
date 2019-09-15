@@ -63,10 +63,16 @@
         </div>
 
         <!-- Join links -->
-        <div class="list-group list-group-flush" *ngIf="!auth.isAuth()">
+        <div class="list-group list-group-flush">
 
           <!-- Title -->
-          <div class="list-group-item header mt-5">JOIN</div>
+          <div class="list-group-item header mt-5" *ngIf="!auth.isAuth()">JOIN</div>
+
+          <!-- Join party with party ID -->
+          <div class="list-group-item list-group-item-action" routerLinkActive="active" (click)="join()">
+            <fa-icon [fixedWidth]="true" icon="search"></fa-icon>
+            <span>Join</span>
+          </div>
 
           <!-- Sign In -->
           <a class="list-group-item list-group-item-action" *ngIf="!auth.isAuth()"
