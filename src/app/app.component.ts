@@ -42,7 +42,7 @@ export class AppComponent implements OnInit {
    * @returns User image if has one, otherwise default image
    */
   get getUserImage(): string {
-    return `url(${this.user.account.image || 'assets/cover.png'})`;
+    return `url(${ this.user.account.image || 'assets/cover.png' })`;
   }
 
   ngOnInit(): void {
