@@ -1,3 +1,8 @@
+### v4.2
+
+- New feature: Songs can be in multiple playlists.
+
+
 ### v4.1
 
 2019 September 14
@@ -12,6 +17,7 @@
 - Fix dashboard buttons for mobile
 - Improve seeker bar to be bolder when hovered
 - Improve dark colors to be lighter
+
 
 #### v4.0
 
