@@ -98,7 +98,9 @@ export class PartyComponent implements OnInit {
    */
   get songsFilter(): Song[] {
     if (this.categorySelected) {
-      return this.songs.filter(song => song.category && song.category.id === this.categorySelected.id);
+      return this.songs.filter(song => {
+        return song.categories.some(songCategory => songCategory.category.id === this.categorySelected.id);
+      });
     }
     return this.songs;
   }
@@ -219,10 +221,12 @@ export class PartyComponent implements OnInit {
    * @param category Party category to check
    */
   getCategorySongCount(category: Category): number {
-    if (!this.songs) {
-      return 0;
+    if (this.songs) {
+      return this.songs.filter(song => {
+        return song.categories.some(songCategory => songCategory.category.id === category.id);
+      }).length;
     }
-    return this.songs.filter(song => song.category && song.category.id === category.id).length;
+    return 0;
   }
 
   /**

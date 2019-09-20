@@ -8,6 +8,7 @@ import { Params } from '@app/interfaces/params';
 import { Party } from '@app/interfaces/party';
 import { PartyUser } from '@app/interfaces/party-user';
 import { Song } from '@app/interfaces/song';
+import { SongCategory } from '@app/interfaces/song-category';
 import { environment } from '@environments/environment';
 import { Observable } from 'rxjs';
 
@@ -23,6 +24,20 @@ export class ApiService {
 
   constructor(private http: HttpClient) {
   }
+
+  // User
+
+  /**
+   * Update user
+   *
+   * @param username User username
+   * @param payload Update data
+   */
+  updateUser(username: string, payload: Account): Observable<Account> {
+    return this.http.patch<Account>(`${ApiService.base}accounts/${username}/`, payload);
+  }
+
+  // Party
 
   /**
    * Get party list
@@ -75,6 +90,18 @@ export class ApiService {
     return this.http.delete<void>(`${ApiService.base}parties/${id}/`);
   }
 
+  // Party category
+
+  /**
+   * Create a new category for party
+   *
+   * @param party Party ID to add category to
+   * @param name Category name
+   */
+  addCategory(party: string, name: string): Observable<Category> {
+    return this.http.post<Category>(`${ApiService.base}party-categories/`, { party, name });
+  }
+
   /**
    * Update category
    *
@@ -84,6 +111,17 @@ export class ApiService {
   updateCategory(id: number, name: string): Observable<Category> {
     return this.http.patch<Category>(`${ApiService.base}party-categories/${id}/`, { name });
   }
+
+  /**
+   * Delete a category
+   *
+   * @param id Category ID to delete
+   */
+  deleteCategory(id: number): Observable<void> {
+    return this.http.delete<void>(`${ApiService.base}party-categories/${id}/`);
+  }
+
+  // Party user
 
   /**
    * Get party user list
@@ -101,6 +139,27 @@ export class ApiService {
    */
   createPartyUsers(party: string): Observable<PartyUser> {
     return this.http.post<PartyUser>(`${ApiService.base}party-users/`, { party });
+  }
+
+  /**
+   * Delete party user (party member)
+   *
+   * @param id Party user ID
+   */
+  deletePartyUser(id: number): Observable<void> {
+    return this.http.delete<void>(`${ApiService.base}party-users/${id}/`);
+  }
+
+  // Song
+
+  /**
+   * Add song to party
+   *
+   * @param party Party ID to add song to
+   * @param source song URL
+   */
+  addSong(party: string, source: string): Observable<Song> {
+    return this.http.post<Song>(`${ApiService.base}songs/`, { party, source });
   }
 
   /**
@@ -124,54 +183,6 @@ export class ApiService {
   }
 
   /**
-   * Add song to party
-   *
-   * @param party Party ID to add song to
-   * @param source song URL
-   */
-  addSong(party: string, source: string): Observable<Song> {
-    return this.http.post<Song>(`${ApiService.base}songs/`, { party, source });
-  }
-
-  /**
-   * Update user
-   *
-   * @param username User username
-   * @param payload Update data
-   */
-  updateUser(username: string, payload: Account): Observable<Account> {
-    return this.http.patch<Account>(`${ApiService.base}accounts/${username}/`, payload);
-  }
-
-  /**
-   * Delete party user (party member)
-   *
-   * @param id Party user ID
-   */
-  deletePartyUser(id: number): Observable<void> {
-    return this.http.delete<void>(`${ApiService.base}party-users/${id}/`);
-  }
-
-  /**
-   * Create a new category for party
-   *
-   * @param party Party ID to add category to
-   * @param name Category name
-   */
-  addCategory(party: string, name: string): Observable<Category> {
-    return this.http.post<Category>(`${ApiService.base}party-categories/`, { party, name });
-  }
-
-  /**
-   * Delete a category
-   *
-   * @param id Category ID to delete
-   */
-  deleteCategory(id: number): Observable<void> {
-    return this.http.delete<void>(`${ApiService.base}party-categories/${id}/`);
-  }
-
-  /**
    * Update song
    *
    * @param id Song ID
@@ -179,5 +190,39 @@ export class ApiService {
    */
   updateSong(id: number, payload: Params): Observable<Song> {
     return this.http.patch<Song>(`${ApiService.base}songs/${id}/`, payload);
+  }
+
+  // Song category
+
+  /**
+   * Add a song to a category
+   *
+   * @param song Song ID
+   * @param category Category ID
+   */
+  addSongCategory(song: number, category: number): Observable<SongCategory> {
+    return this.http.post<SongCategory>(`${ApiService.base}song-categories/`, { song, category });
+  }
+
+  /**
+   * Get song category list
+   *
+   * @param params Filter data
+   */
+  getSongCategories(params?: {
+    party?: string,
+    song?: string,
+    category?: string
+  }): Observable<ApiResponse<SongCategory>> {
+    return this.http.get<ApiResponse<SongCategory>>(`${ApiService.base}song-categories/`, { params });
+  }
+
+  /**
+   * Remove a song from a category
+   *
+   * @param id Song category ID
+   */
+  deleteSongCategory(id: number): Observable<void> {
+    return this.http.delete<void>(`${ApiService.base}song-categories/${id}/`);
   }
 }

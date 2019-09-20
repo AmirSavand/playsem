@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Category } from '@app/interfaces/category';
 import { Song } from '@app/interfaces/song';
+import { SongCategory } from '@app/interfaces/song-category';
 import { ApiService } from '@app/services/api/api-service.service';
 import { BsModalRef } from 'ngx-bootstrap';
 import { FilterByPipe } from 'ngx-pipes';
@@ -33,7 +34,7 @@ export class CategoryModalComponent implements OnInit {
   }
 
   /**
-   * @returns Party songs filtered
+   * @returns Songs filtered
    */
   get songsFiltered(): Song[] {
     const fields: string[] = ['name'];
@@ -47,26 +48,25 @@ export class CategoryModalComponent implements OnInit {
     this.api.getSongs(this.category.party).subscribe(data => {
       this.songs = data.results;
       /**
-       * Update all select status
+       * Update songs selected status
        */
       for (const song of this.songs) {
-        if (song.category) {
-          song.selected = song.category.id === this.category.id;
-        }
+        song.selected = song.categories.some(songCategory => songCategory.category.id === this.category.id);
       }
     });
   }
 
   /**
-   * Update all songs categories and close modal
+   * Add selected songs to this category and remove the unselected
    */
   save(): void {
     for (const song of this.songs) {
-      let category: number = null;
-      if (song.selected) {
-        category = this.category.id;
+      const songCategory: SongCategory = song.categories.find(item => item.category.id === this.category.id);
+      if (song.selected && !songCategory) {
+        this.api.addSongCategory(song.id, this.category.id).subscribe();
+      } else if (!song.selected && songCategory) {
+        this.api.deleteSongCategory(songCategory.id).subscribe();
       }
-      this.api.updateSong(song.id, { category }).subscribe();
     }
     this.modal.hide();
   }
