@@ -16,11 +16,9 @@
   <!-- Categories -->
   <div class="list-group">
     <a class="list-group-item list-group-item-action"
-       (click)="categorySelected = null" [class.active]="!categorySelected">None</a>
-    <a class="list-group-item list-group-item-action"
-       *ngFor="let category of songCategoriesFiltered"
-       (click)="categorySelected = category"
-       [class.active]="categorySelected && category.id === categorySelected.id">
+       *ngFor="let category of categoriesFiltered"
+       (click)="category.selected = !category.selected"
+       [class.active]="category.selected">
       {{ category.name }}
     </a>
   </div>

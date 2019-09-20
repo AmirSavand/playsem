@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Category } from '@app/interfaces/category';
 import { Song } from '@app/interfaces/song';
+import { SongCategory } from '@app/interfaces/song-category';
 import { ApiService } from '@app/services/api/api-service.service';
 import { BsModalRef } from 'ngx-bootstrap';
 import { FilterByPipe } from 'ngx-pipes';
@@ -13,7 +14,7 @@ import { FilterByPipe } from 'ngx-pipes';
 export class SongModalComponent implements OnInit {
 
   /**
-   * Editing songs
+   * Editing song
    */
   song: Song;
 
@@ -21,11 +22,6 @@ export class SongModalComponent implements OnInit {
    * Categories of the party of this song
    */
   categories: Category[];
-
-  /**
-   * Selected category
-   */
-  categorySelected: Category;
 
   /**
    * Filter categories
@@ -38,26 +34,40 @@ export class SongModalComponent implements OnInit {
   }
 
   /**
-   * @returns Song categories filtered
+   * @returns Categories filtered
    */
-  get songCategoriesFiltered(): Category[] {
+  get categoriesFiltered(): Category[] {
     const fields: string[] = ['name'];
     return this.filterBy.transform<Category[]>(this.categories, fields, this.search);
   }
 
   ngOnInit(): void {
     /**
-     * Set default category
+     * Update categories selected status
      */
-    this.categorySelected = this.song.category;
+    for (const category of this.categories) {
+      const songCategory: SongCategory = this.song.categories.find(item => item.category.id === category.id);
+      category.selected = songCategory && category.id === songCategory.category.id;
+    }
   }
 
   /**
-   * Update song (set or remove category)
+   * Add song to all the selected categories and remove from the unselected
    */
   save(): void {
-    this.song.category = this.categorySelected;
-    this.api.updateSong(this.song.id, { category: this.categorySelected.id }).subscribe();
+    for (const category of this.categories) {
+      const songCategory: SongCategory = this.song.categories.find(item => item.category.id === category.id);
+      if (category.selected && !songCategory) {
+        this.api.addSongCategory(this.song.id, category.id).subscribe((data: SongCategory): void => {
+          data.category = category;
+          this.song.categories.push(data);
+        });
+      } else if (!category.selected && songCategory) {
+        this.api.deleteSongCategory(songCategory.id).subscribe((): void => {
+          this.song.categories.splice(this.song.categories.indexOf(songCategory), 1);
+        });
+      }
+    }
     this.modal.hide();
   }
 }
