@@ -20,17 +20,17 @@ import { FilterByPipe } from 'ngx-pipes';
 export class PartySettingsComponent implements OnInit {
 
   /**
+   * Redirect to path after deletion
+   */
+  static readonly partyDeleteRedirect = '/dashboard';
+
+  /**
    * @see PartyService.statuses
    */
   readonly partyStatuses: {
     id: PartyStatus;
     label: string;
   }[] = PartyService.statuses;
-
-  /**
-   * Redirect to path after deletion
-   */
-  static readonly partyDeleteRedirect = '/dashboard';
 
   /**
    * Filter members
