@@ -42,7 +42,7 @@ export class ApiService {
   /**
    * Get party list
    */
-  getParties(payload?: { user?: number, status?: PartyStatus }): Observable<ApiResponse<Party>> {
+  getParties(payload: { user?: number, status?: PartyStatus } = {}): Observable<ApiResponse<Party>> {
     const params = new HttpParams();
     if (payload.user) {
       params.set('user', payload.user.toString());
