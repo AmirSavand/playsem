@@ -1,6 +1,7 @@
 ### v4.2
 
 - New feature: Songs can be in multiple playlists.
+- Improve songs to show their YouTube thumbnails.
 
 
 ### v4.1

@@ -92,15 +92,12 @@
       <fa-icon [fixedWidth]="true" icon="play"></fa-icon>
     </div>
     <!-- Image -->
-    <div class="cover mr-3" (click)="play(song)"
-         [style.background-image]="'url(/assets/song.jpg)'"></div>
+    <div class="cover mr-3 rounded" (click)="play(song)"
+         [style.background-image]="'url('+getSongImage(song)+')'"></div>
     <!-- Info -->
     <div class="info d-flex flex-column text-truncate" (click)="play(song)">
       <span class="text-truncate">{{ song.name }}</span>
-      <small>
-        <span>{{ song.user.account.name }}</span>
-        <span *ngIf="song.category">  &bull; {{ song.category.name }}</span>
-      </small>
+      <small>{{ song.user.account.name }}</small>
     </div>
     <!-- Icon -->
     <div class="icon action"

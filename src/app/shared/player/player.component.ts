@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { PlayerRepeat } from '@app/enums/player-repeat';
 import { Song } from '@app/interfaces/song';
 import { PlayerService } from '@app/services/player/player.service';
+import { SongService } from '@app/services/song/song.service';
 import { NgxY2PlayerComponent, NgxY2PlayerOptions } from 'ngx-y2-player';
 
 @Component({
@@ -63,6 +64,11 @@ export class PlayerComponent {
    * Expand player
    */
   expand: boolean;
+
+  /**
+   * @see SongService.getSongImage
+   */
+  getSongImage = SongService.getSongImage;
 
   constructor() {
   }

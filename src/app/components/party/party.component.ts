@@ -11,6 +11,7 @@ import { ApiService } from '@app/services/api/api-service.service';
 import { AuthService } from '@app/services/auth/auth.service';
 import { PartyService } from '@app/services/party/party.service';
 import { PlayerService } from '@app/services/player/player.service';
+import { SongService } from '@app/services/song/song.service';
 import { ImplementingService } from '@app/shared/implementing/implementing.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 
@@ -85,6 +86,11 @@ export class PartyComponent implements OnInit {
    * Not implemented alert
    */
   alert = ImplementingService.alert;
+
+  /**
+   * @see SongService.getSongImage
+   */
+  getSongImage = SongService.getSongImage;
 
   constructor(public auth: AuthService,
               private api: ApiService,

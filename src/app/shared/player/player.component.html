@@ -15,7 +15,7 @@
     <div id="playing" class="col-4" (click)="expand= !expand">
 
       <!-- Playing cover -->
-      <div class="cover d-none d-sm-flex" [style.background-image]="'url(/assets/song.jpg)'"></div>
+      <div class="cover d-none d-sm-flex" [style.background-image]="'url('+getSongImage(playing)+')'"></div>
 
       <!-- Player name and party and user -->
       <div class="info d-flex flex-column justify-content-center ml-sm-3">
