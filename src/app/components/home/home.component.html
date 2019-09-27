@@ -20,6 +20,23 @@
         </div>
       </div>
 
+      <div class="card my-3">
+        <div class="card-body">
+          <h4 class="mb-3">Join Party</h4>
+          <div class="input-group">
+            <input type="text" placeholder="XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
+                   [(ngModel)]="joinPartyId" class="form-control text-monospace"
+                   (ngModelChange)="joinPartyId = joinPartyId.toLocaleLowerCase()">
+            <span class="input-group-append">
+              <a [routerLink]="['/party', joinPartyId]" class="btn btn-secondary"
+                 [class.disabled]="joinPartyId.length !== 36">
+                Join
+              </a>
+            </span>
+          </div>
+        </div>
+      </div>
+
       <!-- Changelog -->
       <div class="card my-3">
         <div class="card-body">
@@ -39,7 +56,7 @@
           <div class="row">
             <div class="col-md-6" *ngFor="let party of parties">
               <a class="card party card-link mt-2 ml-0" [routerLink]="['/party', party.id]"
-                [style.background-image]="'url('+party.cover+')'">
+                 [style.background-image]="'url('+party.cover+')'">
                 <div class="card-body py-2">
                   <div class="card-text font-weight-bold">{{ party.name }}</div>
                   <div class="card-text small text-white-50">
