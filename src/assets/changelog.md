@@ -4,6 +4,7 @@
 - New feature: Explore public parities from dashboard.
 - Improve songs to show their YouTube thumbnails.
 - Add input to join party by ID.
+- Add button to show party ID.
 
 
 ### v4.1
