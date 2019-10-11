@@ -17,6 +17,10 @@ export class UserComponent implements OnInit {
    */
   user: User;
 
+  /**
+   * Authenticated user parties
+   */
+  userParties: Party[];
 
   constructor(private auth: AuthService) {
   }
@@ -27,6 +31,12 @@ export class UserComponent implements OnInit {
      */
     this.auth.user.subscribe(data => {
       this.user = data;
+    });
+    /**
+     * Get authenticated user parties and watch for changes
+     */
+    PartyService.parties.subscribe(data => {
+      this.userParties = data;
     });
   }
 }

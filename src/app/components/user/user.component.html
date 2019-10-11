@@ -11,6 +11,19 @@
           <!-- Bio -->
           <p [style.color]="''+user.account.color+''">{{ user.account.bio }}</p>
         </div>
+        <!-- Parties -->
+        <div *ngFor="let party of userParties">
+          <a class="card party card-link mt-2 rounded-0" [routerLink]="['/party', party.id]"
+             [style.background-image]="'url('+party.cover+')'">
+            <div class="card-body py-2">
+              <div class="card-text font-weight-bold">{{ party.name }}</div>
+              <div class="card-text small text-white-50">
+                <span>{{ party.user.account.name }}</span>
+                <span class="float-right">{{ party.date | date:'d MMM' }}</span>
+              </div>
+            </div>
+          </a>
+        </div>
       </div>
     </div>
   </div>
