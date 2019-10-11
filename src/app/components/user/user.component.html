@@ -1,1 +1,17 @@
-<app-implementing feature="Profile"></app-implementing>
+<div class="container py-3">
+  <div class="row justify-content-center">
+    <div class="col-lg-4">
+      <div class="card my-3">
+        <!-- Image -->
+        <img class="card-img-top" src="{{ user.account.image }}">
+        <!-- Details -->
+        <div class="card-img-overlay">
+          <!-- Name -->
+          <h5 class="card-title" [style.color]="''+user.account.color+''">{{ user.account.name }}</h5>
+          <!-- Bio -->
+          <p [style.color]="''+user.account.color+''">{{ user.account.bio }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
