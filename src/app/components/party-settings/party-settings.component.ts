@@ -245,7 +245,7 @@ export class PartySettingsComponent implements OnInit {
    * @param partyUser Party user ID
    */
   removePartyUser(partyUser: PartyUser): void {
-    if (this.loading || !confirm('Are you sure you want to kick ' + partyUser.user.username + ' ?')) {
+    if (this.loading || !confirm(`Are you sure you want to kick ${partyUser.user.username}?`)) {
       return;
     }
     this.loading = true;
