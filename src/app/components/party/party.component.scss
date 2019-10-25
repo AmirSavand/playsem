@@ -9,6 +9,13 @@
   place-items: flex-end;
   min-height: 450px;
   padding-bottom: 30px;
+
+  img {
+    width: 200px;
+    height: 200px;
+    position: center;
+    background-size: cover;
+  }
 }
 
 .category {
