@@ -2,7 +2,7 @@
   <div class="row justify-content-center">
 
     <!-- Left -->
-    <div class="col-lg-5">
+    <div class="col-lg-5 order-last order-lg-first">
 
       <!-- Welcome -->
       <div class="card my-3">
@@ -53,20 +53,18 @@
       <div class="card my-3">
         <div class="card-body">
           <h4 class="mb-3">Explore Parties</h4>
-          <div class="row">
-            <div class="col-md-6" *ngFor="let party of parties">
-              <a class="card party card-link mt-2 ml-0" [routerLink]="['/party', party.id]"
-                 [style.background-image]="'url('+party.cover+')'">
-                <div class="card-body py-2">
-                  <div class="card-text font-weight-bold">{{ party.name }}</div>
-                  <div class="card-text small text-white-50">
-                    <span>{{ party.user.account.name }}</span>
-                    <span class="float-right">{{ party.date | date:'d MMM' }}</span>
-                  </div>
-                </div>
-              </a>
+          <a class="card party card-link mt-2 ml-0"
+             *ngFor="let party of parties"
+             [routerLink]="['/party', party.id]"
+             [style.background-image]="'url('+party.cover+')'">
+            <div class="card-body py-4">
+              <h5 class="card-text font-weight-bold">{{ party.name }}</h5>
+              <div class="card-text small">
+                <span>{{ party.user.account.name }}</span>
+                <span class="float-right">{{ party.date | date:'d MMM' }}</span>
+              </div>
             </div>
-          </div>
+          </a>
         </div>
       </div>
     </div>
