@@ -34,10 +34,13 @@ export class PlayerService {
 
   /**
    * Stop and clear player
+   * @param noClear Stop playing but don't clear the list
    */
-  static stop(): void {
+  static stop(noClear?: boolean): void {
     PlayerService.playingSubject.next(null);
-    PlayerService.songsSubject.next([]);
+    if (!noClear) {
+      PlayerService.songsSubject.next([]);
+    }
   }
 
   /**
@@ -68,7 +71,6 @@ export class PlayerService {
     const songs: Song[] = PlayerService.songsSubject.value;
     const playing: Song = PlayerService.playingSubject.value;
     const index: number = songs.indexOf(playing);
-    console.log(PlayerService.repeat);
     if (PlayerService.repeat === PlayerRepeat.SINGLE) {
       PlayerService.play(songs[index]);
     } else {
@@ -76,7 +78,7 @@ export class PlayerService {
         PlayerService.play(songs[index + 1]);
       } else {
         if (PlayerService.repeat === PlayerRepeat.DISABLE) {
-          PlayerService.stop();
+          PlayerService.stop(true);
         } else {
           PlayerService.play(songs[0]);
         }

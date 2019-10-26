@@ -88,7 +88,6 @@
     background: white;
     box-shadow: $box-shadow-sm;
 
-
     &.open {
       bottom: 85px;
     }
@@ -113,7 +112,7 @@
     }
 
     .list-group {
-      height: calc(40px * 5);
+      max-height: calc(40px * 5);
       overflow-y: auto;
       display: block;
 

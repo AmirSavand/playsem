@@ -4,6 +4,7 @@
 - New feature: Songs can be in multiple playlists.
 - New feature: Explore public parities from dashboard.
 - Improve songs to show their YouTube thumbnails.
+- Improve player to not to hide after done playing.
 - Add input to join party by ID.
 - Add button to show party ID.
 - Add confirm dialog when removing party members.

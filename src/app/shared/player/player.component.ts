@@ -198,12 +198,15 @@ export class PlayerComponent {
     /**
      * Get playing song and subscribe
      */
-    PlayerService.playing.subscribe(data => {
-      this.playing = data;
-      if (this.playing && this.youtube) {
+    PlayerService.playing.subscribe(playing => {
+      if (playing) {
+        this.playing = playing;
+      }
+      if (playing && this.youtube) {
         this.youtube.videoPlayer.loadVideoById(PlayerService.getYouTubeVideoID(this.playing.source));
       } else {
-        this.youtube.videoPlayer.stopVideo();
+        this.youtube.videoPlayer.seekTo(0, true);
+        this.youtube.videoPlayer.pauseVideo();
       }
     });
     /**
