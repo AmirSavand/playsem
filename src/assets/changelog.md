@@ -1,11 +1,14 @@
 ### v4.2
 
+2019 October 26
+
 - New feature: Popup to show currently playing songs.
 - New feature: Songs can be in multiple playlists.
 - New feature: Explore public parities from dashboard.
 - Improve songs to show their YouTube thumbnails.
 - Improve player to not to hide after done playing.
 - Improve party to show party image.
+- Improve overall design.
 - Add input to join party by ID.
 - Add button to show party ID.
 - Add confirm dialog when removing party members.
