@@ -129,6 +129,7 @@ export class PlayerComponent {
    */
   resume(): void {
     this.youtube.videoPlayer.playVideo();
+    PlayerService.play(this.playing);
   }
 
   /**
