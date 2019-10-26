@@ -134,14 +134,14 @@
 <ng-template #songOptions let-song="song">
   <div class="list-group list-group-flush" (click)="song.popover = false">
     <!-- Play -->
-    <a class="list-group-item list-group-item-action" (click)="play(song)">Play</a>
+    <a class="list-group-item list-group-item-action border-0" (click)="play(song)">Play</a>
     <!-- Like -->
-    <a class="list-group-item list-group-item-action" (click)="alert('Liking song')">Like</a>
+    <a class="list-group-item list-group-item-action border-0" (click)="alert('Liking song')">Like</a>
     <!-- Edit -->
-    <a class="list-group-item list-group-item-action" (click)="editSong(song)"
+    <a class="list-group-item list-group-item-action border-0" (click)="editSong(song)"
        *ngIf="hasSongPermission(song)">Playlist</a>
     <!-- Delete -->
-    <a class="list-group-item list-group-item-action text-danger" (click)="deleteSong(song)"
+    <a class="list-group-item list-group-item-action border-0 text-danger" (click)="deleteSong(song)"
        *ngIf="hasSongPermission(song)">
       Delete
     </a>
