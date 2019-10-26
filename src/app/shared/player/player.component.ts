@@ -46,7 +46,7 @@ export class PlayerComponent {
   repeat: PlayerRepeat = PlayerService.repeat;
 
   /**
-   * Song list of current category
+   * Song list in queue
    */
   songs: Song[];
 
@@ -66,11 +66,27 @@ export class PlayerComponent {
   expand: boolean;
 
   /**
+   * Queue status
+   */
+  queue: boolean;
+
+  /**
    * @see SongService.getSongImage
    */
   getSongImage = SongService.getSongImage;
 
-  constructor() {
+  /**
+   * @see PlayerService.play
+   */
+  play = PlayerService.play;
+
+  /**
+   * @returns Party cover image if has one otherwise default image
+   */
+  get playingPartyCover(): string {
+    if (this.playing) {
+      return `url(${this.playing.party.cover || 'assets/party-cover.jpg'})`;
+    }
   }
 
   /**
@@ -100,9 +116,9 @@ export class PlayerComponent {
   }
 
   /**
-   * Play the paused song
+   * Resume the paused song
    */
-  play(): void {
+  resume(): void {
     this.youtube.videoPlayer.playVideo();
   }
 

@@ -1,5 +1,6 @@
 ### v4.2
 
+- New feature: Popup to show currently playing songs.
 - New feature: Songs can be in multiple playlists.
 - New feature: Explore public parities from dashboard.
 - Improve songs to show their YouTube thumbnails.
