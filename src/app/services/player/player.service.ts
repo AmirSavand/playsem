@@ -68,7 +68,7 @@ export class PlayerService {
     const songs: Song[] = PlayerService.songsSubject.value;
     const playing: Song = PlayerService.playingSubject.value;
     const index: number = songs.indexOf(playing);
-
+    console.log(PlayerService.repeat);
     if (PlayerService.repeat === PlayerRepeat.SINGLE) {
       PlayerService.play(songs[index]);
     } else {

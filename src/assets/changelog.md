@@ -7,6 +7,7 @@
 - Add input to join party by ID.
 - Add button to show party ID.
 - Add confirm dialog when removing party members.
+- Fix player repeat mode doesn't work.
 
 
 ### v4.1

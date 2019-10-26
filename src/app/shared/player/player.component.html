@@ -48,19 +48,19 @@
 
     <!-- Options -->
     <div id="options" class="col-4 justify-content-end align-items-center" *ngIf="playing">
-      <!-- Repeat (all) -->
+      <!-- Repeat (disabled) -->
       <div class="mx-sm-1 px-1 px-sm-2" (click)="repeat = playerRepeat.ALL"
-           *ngIf="repeat === playerRepeat.DISABLE" tooltip="Repeat all">
+           *ngIf="repeat === playerRepeat.DISABLE" tooltip="No repeat">
+        <fa-icon [fixedWidth]="true" icon="retweet"></fa-icon>
+      </div>
+      <!-- Repeat (all) -->
+      <div class="mx-sm-1 px-1 px-sm-2" (click)="repeat = playerRepeat.SINGLE"
+           *ngIf="repeat === playerRepeat.ALL" tooltip="Repeat all">
         <fa-icon [fixedWidth]="true" icon="retweet"></fa-icon>
       </div>
       <!-- Repeat (single) -->
-      <div class="mx-sm-1 px-1 px-sm-2" (click)="repeat = playerRepeat.SINGLE"
-           *ngIf="repeat === playerRepeat.ALL" tooltip="Single repeat">
-        <fa-icon [fixedWidth]="true" icon="retweet"></fa-icon>
-      </div>
-      <!-- Repeat (disable) -->
       <div class="mx-sm-1 px-1 px-sm-2" (click)="repeat = playerRepeat.DISABLE"
-           *ngIf="repeat === playerRepeat.SINGLE" tooltip="No repeat">
+           *ngIf="repeat === playerRepeat.SINGLE" tooltip="Single repeat">
         <fa-icon [fixedWidth]="true" icon="retweet"></fa-icon>
       </div>
       <!-- Shuffle -->

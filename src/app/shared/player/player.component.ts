@@ -41,11 +41,6 @@ export class PlayerComponent {
   readonly playerRepeat: typeof PlayerRepeat = PlayerRepeat;
 
   /**
-   * Player repeat from PlayerService
-   */
-  repeat: PlayerRepeat = PlayerService.repeat;
-
-  /**
    * Song list in queue
    */
   songs: Song[];
@@ -87,6 +82,20 @@ export class PlayerComponent {
     if (this.playing) {
       return `url(${this.playing.party.cover || 'assets/party-cover.jpg'})`;
     }
+  }
+
+  /**
+   * @returns Player repeat
+   */
+  get repeat(): PlayerRepeat {
+    return PlayerService.repeat;
+  }
+
+  /**
+   * Set player repeat
+   */
+  set repeat(value: PlayerRepeat) {
+    PlayerService.repeat = value;
   }
 
   /**
