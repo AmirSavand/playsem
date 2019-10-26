@@ -6,6 +6,7 @@
 - Improve songs to show their YouTube thumbnails.
 - Add input to join party by ID.
 - Add button to show party ID.
+- Add confirm dialog when removing party members.
 
 
 ### v4.1
