@@ -14,7 +14,8 @@
     display: flex;
 
     .cover {
-      width: 128px;
+      flex-basis: 128px;
+      min-width: 128px;
       height: 128px;
       margin-top: 10px;
       margin-right: 30px;

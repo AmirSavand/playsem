@@ -5,7 +5,10 @@
   <div class="container">
 
     <!-- Image -->
-    <div class="cover" *ngIf="party.image" [style.background-image]="'url(' + party.image + ')'"></div>
+    <div class="cover d-none d-md-block"
+         *ngIf="party.image"
+         [style.background-image]="'url(' + party.image + ')'">
+    </div>
 
     <!-- Right side -->
     <div>
