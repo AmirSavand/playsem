@@ -8,29 +8,33 @@
         <form class="card-body" (ngSubmit)="createParty()" [formGroup]="partyForm">
           <!-- Title -->
           <div class="form-group">
-            <input class="form-control" type="text" placeholder="Name" formControlName="title">
+            <label for="name">Name</label>
+            <input class="form-control" type="text" id="name" formControlName="title">
             <span class="text-danger" *ngIf="errors.name">{{ errors.name[0] }}</span>
           </div>
           <!-- Status -->
           <div class="form-group">
-            <select class="form-control" formControlName="status">
+            <label for="status">Status</label>
+            <select class="form-control" id="status" formControlName="status">
               <option *ngFor="let status of partyStatuses" [ngValue]="status.id">{{ status.label }}</option>
             </select>
           </div>
           <!-- Image -->
           <div class="form-group">
-            <input class="form-control" type="text" placeholder="Image from imgur.com" formControlName="image">
+            <label for="image">Image from imgur.com</label>
+            <input class="form-control" type="text" id="image" formControlName="image">
             <span class="text-danger" *ngIf="errors.image">{{ errors.image[0] }}</span>
           </div>
           <!-- Cover -->
           <div class="form-group">
-            <input class="form-control" type="text" placeholder="Cover from imgur.com" formControlName="cover">
+            <label for="cover">Cover from imgur.com</label>
+            <input class="form-control" type="text" id="cover" formControlName="cover">
             <span class="text-danger" *ngIf="errors.cover">{{ errors.cover[0] }}</span>
           </div>
           <!-- Description -->
           <div class="form-group">
-            <textarea class="form-control" rows="6"
-                      placeholder="Description" formControlName="description">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" rows="6" formControlName="description">
             </textarea>
             <span class="text-danger" *ngIf="errors.description">{{ errors.description[0] }}</span>
           </div>
