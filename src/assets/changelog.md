@@ -1,7 +1,7 @@
 ### v4.3
 
 - Improve inputs to have labels instead of placeholders.
-- Improve player shuffle logic and design
+- Improve player shuffle logic and design.
 
 
 ### v4.2
