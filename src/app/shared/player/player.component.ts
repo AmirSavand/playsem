@@ -99,6 +99,13 @@ export class PlayerComponent {
   }
 
   /**
+   * @returns Player shuffle status
+   */
+  get shuffle(): boolean {
+    return PlayerService.shuffle;
+  }
+
+  /**
    * Seek to a time from the timeline
    *
    * @param event Mouse event
@@ -140,10 +147,10 @@ export class PlayerComponent {
   }
 
   /**
-   * Shuffle song list
+   * Shuffle or un-shuffle song list
    */
-  shuffle(): void {
-    PlayerService.shuffle();
+  toggleShuffle(): void {
+    PlayerService.toggleShuffle();
   }
 
   /**

@@ -57,6 +57,19 @@
 
     #options {
 
+      div {
+        opacity: 0.25;
+
+        &:hover,
+        &:focus {
+          opacity: 0.5;
+        }
+
+        &.active {
+          opacity: 1;
+        }
+      }
+
       .volume {
         width: 100px;
       }

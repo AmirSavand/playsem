@@ -54,26 +54,28 @@
         <fa-icon [fixedWidth]="true" icon="retweet"></fa-icon>
       </div>
       <!-- Repeat (all) -->
-      <div class="mx-sm-1 px-1 px-sm-2" (click)="repeat = playerRepeat.SINGLE"
+      <div class="mx-sm-1 px-1 px-sm-2 active" (click)="repeat = playerRepeat.SINGLE"
            *ngIf="repeat === playerRepeat.ALL" tooltip="Repeat all">
         <fa-icon [fixedWidth]="true" icon="retweet"></fa-icon>
       </div>
       <!-- Repeat (single) -->
-      <div class="mx-sm-1 px-1 px-sm-2" (click)="repeat = playerRepeat.DISABLE"
+      <div class="mx-sm-1 px-1 px-sm-2 active" (click)="repeat = playerRepeat.DISABLE"
            *ngIf="repeat === playerRepeat.SINGLE" tooltip="Single repeat">
         <fa-icon [fixedWidth]="true" icon="retweet"></fa-icon>
       </div>
-      <!-- Shuffle -->
-      <div class="mx-sm-1 px-1 px-sm-2" (click)="shuffle()" tooltip="Shuffle queue">
+      <!-- Shuffle (toggle) -->
+      <div class="mx-sm-1 px-1 px-sm-2" (click)="toggleShuffle()" [class.active]="shuffle" tooltip="Shuffle">
         <fa-icon [fixedWidth]="true" icon="random"></fa-icon>
       </div>
       <!-- Sound -->
-      <div class="mx-sm-1 px-1 px-sm-2" (click)="toggleMute()" tooltip="Toggle sound">
+      <div class="mx-sm-1 px-1 px-sm-2" (click)="toggleMute()" tooltip="Toggle sound"
+           [class.active]="!isMute()">
         <fa-icon [fixedWidth]="true" icon="volume-up" *ngIf="!isMute()"></fa-icon>
         <fa-icon [fixedWidth]="true" icon="volume-mute" *ngIf="isMute()"></fa-icon>
       </div>
       <!-- Popup -->
-      <div class="mx-sm-1 px-1 px-sm-2" (click)="queue = !queue; expand = false;" tooltip="Toggle queue">
+      <div class="mx-sm-1 px-1 px-sm-2" (click)="queue = !queue; expand = false;" tooltip="Toggle queue"
+           [class.active]="queue">
         <fa-icon [fixedWidth]="true" icon="expand"></fa-icon>
       </div>
     </div>
@@ -99,9 +101,9 @@
     </div>
     <div class="list-group list-group-flush">
       <button class="list-group-item list-group-item-action text-truncate"
-         [class.active]="playing.id === song.id"
-         (click)="play(song)"
-         *ngFor="let song of songs">
+              [class.active]="playing.id === song.id"
+              (click)="play(song)"
+              *ngFor="let song of songs">
         {{ song.name }}
       </button>
     </div>
