@@ -2,6 +2,7 @@
 
 - Improve inputs to have labels instead of placeholders.
 - Improve player shuffle logic and design.
+- Fix issue when adding a new song.
 - Fix player popup is visible when player is expanded.
 
 

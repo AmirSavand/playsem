@@ -303,6 +303,7 @@ export class PartyComponent implements OnInit {
     this.api.addSong(this.party.id, this.songForm.value.source).subscribe(data => {
       this.loading = false;
       data.party = this.party;
+      data.categories = [];
       this.songs.push(data);
       this.songForm.reset();
     });
