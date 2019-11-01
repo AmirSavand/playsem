@@ -2,6 +2,7 @@
 
 - Improve inputs to have labels instead of placeholders.
 - Improve player shuffle logic and design.
+- Fix player popup is visible when player is expanded.
 
 
 ### v4.2
