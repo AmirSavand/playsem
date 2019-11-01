@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SongModalComponent } from '@app/components/song-modal/song-modal.component';
 import { Category } from '@app/interfaces/category';
 import { Party } from '@app/interfaces/party';
@@ -68,11 +68,6 @@ export class PartyComponent implements OnInit {
   partyUsers: PartyUser[];
 
   /**
-   * Selected category (for filtering)
-   */
-  categorySelected: Category;
-
-  /**
    * API loading indicator
    */
   loading: boolean;
@@ -95,6 +90,7 @@ export class PartyComponent implements OnInit {
   constructor(public auth: AuthService,
               private api: ApiService,
               private route: ActivatedRoute,
+              private router: Router,
               private formBuilder: FormBuilder,
               private modalService: BsModalService) {
   }
@@ -109,6 +105,17 @@ export class PartyComponent implements OnInit {
       });
     }
     return this.songs;
+  }
+
+  /**
+   * @returns Selected category (for filtering)
+   */
+  get categorySelected(): Category {
+    const CATEGORY_ID: number = Number(this.route.snapshot.queryParams.playlist);
+    if (this.party && CATEGORY_ID) {
+      return this.party.categories.find(category => category.id === CATEGORY_ID);
+    }
+    return null;
   }
 
   /**
@@ -136,31 +143,35 @@ export class PartyComponent implements OnInit {
      */
     this.route.paramMap.subscribe(params => {
       /**
-       * Reset data
+       * If party ID changes
        */
-      this.party = null;
-      this.songs = null;
-      this.partyUsers = null;
-      this.categorySelected = null;
-      this.partySongCount = null;
-      /**
-       * Get party ID from params
-       */
-      this.partyId = params.get('id');
-      /**
-       * Load party data
-       */
-      this.api.getParty(this.partyId).subscribe(data => {
-        this.party = data;
+      if (this.partyId !== params.get('id')) {
         /**
-         * Load party songs
+         * Reset data
          */
-        this.loadSongs();
+        this.party = null;
+        this.songs = null;
+        this.partyUsers = null;
+        this.partySongCount = null;
         /**
-         * Load party members
+         * Get party ID from params
          */
-        this.loadUsers();
-      });
+        this.partyId = params.get('id');
+        /**
+         * Load party data
+         */
+        this.api.getParty(this.partyId).subscribe(data => {
+          this.party = data;
+          /**
+           * Load party songs
+           */
+          this.loadSongs();
+          /**
+           * Load party members
+           */
+          this.loadUsers();
+        });
+      }
     });
   }
 
@@ -211,14 +222,15 @@ export class PartyComponent implements OnInit {
   }
 
   /**
-   * Select party category (toggle behaviour)
-   * @param category Party category to select
+   * Deselect current category
+   * @param category Party category to check to clear
    */
-  selectCategory(category: Category): void {
+  deselectCategory(category: Category): void {
     if (this.categorySelected === category) {
-      this.categorySelected = null;
-    } else {
-      this.categorySelected = category;
+      this.router.navigate(['.'], {
+        relativeTo: this.route,
+        queryParams: { playlist: null },
+      });
     }
   }
 
@@ -229,7 +241,6 @@ export class PartyComponent implements OnInit {
   getCategorySongCount(category: Category): number {
     if (this.songs) {
       return this.songs.filter(song => {
-        console.log(song.categories);
         return song.categories.some(songCategory => songCategory.category.id === category.id);
       }).length;
     }

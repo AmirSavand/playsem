@@ -81,7 +81,10 @@
 <div class="container-fluid" *ngIf="party && party.categories.length">
   <div class="row pt-3">
     <div class="col-lg-2 col-md-4 col-sm-6 d-flex card-columns category" *ngFor="let category of party.categories">
-      <a class="card mb-3" (click)="selectCategory(category)" [class.bg-primary]="categorySelected === category">
+      <a class="card mb-3" routerLink="./"
+         routerLinkActive="bg-primary"
+         [queryParams]="{playlist: category.id}"
+         (click)="deselectCategory(category)">
         <div class="card-body">
           <p class="card-text">
             {{ category.name }}<br>
