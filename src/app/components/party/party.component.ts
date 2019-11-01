@@ -78,7 +78,7 @@ export class PartyComponent implements OnInit {
   loading: boolean;
 
   /**
-   * Is playing
+   * Is player playing
    */
   isPlaying = PlayerService.isPlaying;
 
@@ -229,6 +229,7 @@ export class PartyComponent implements OnInit {
   getCategorySongCount(category: Category): number {
     if (this.songs) {
       return this.songs.filter(song => {
+        console.log(song.categories);
         return song.categories.some(songCategory => songCategory.category.id === category.id);
       }).length;
     }
@@ -306,6 +307,15 @@ export class PartyComponent implements OnInit {
       data.categories = [];
       this.songs.push(data);
       this.songForm.reset();
+      /**
+       * Add the song to selected category (if selected)
+       */
+      if (this.categorySelected) {
+        this.api.addSongCategory(data.id, this.categorySelected.id).subscribe(songCategory => {
+          songCategory.category = this.categorySelected;
+          this.songs.find(item => item.id === data.id).categories.push(songCategory);
+        });
+      }
     });
   }
 
@@ -330,5 +340,15 @@ export class PartyComponent implements OnInit {
    */
   hasSongPermission(song: Song): boolean {
     return !(this.isPartyMember() === false || !this.auth.isUser(song.user) && !this.auth.isUser(this.party.user));
+  }
+
+  /**
+   * @returns Add new song input placeholder (add category name if selected)
+   */
+  getAddSongPlaceholder(): string {
+    if (this.categorySelected) {
+      return `Add new song to "${this.categorySelected.name}" (YouTube)`;
+    }
+    return `Add new song (YouTube)`;
   }
 }

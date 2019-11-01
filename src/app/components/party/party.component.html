@@ -97,7 +97,8 @@
 
 <!-- Add song -->
 <form class="input-group" [formGroup]="songForm" (ngSubmit)="addSong()">
-  <input class="form-control py-4 rounded-0" type="text" placeholder="Add new song (YouTube)" formControlName="source">
+  <input class="form-control py-4 rounded-0" type="text" formControlName="source"
+         [placeholder]="getAddSongPlaceholder()">
 </form>
 
 <!-- Songs -->
