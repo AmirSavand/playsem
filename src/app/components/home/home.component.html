@@ -50,6 +50,16 @@
       <div class="card my-3">
         <div class="card-body">
           <h4 class="mb-3">Explore Parties</h4>
+          <!-- Search parties -->
+          <div class="input-group mb-2">
+            <input class="form-control" placeholder="Search parties" type="text" [(ngModel)]="search">
+            <!-- Submit -->
+            <div class="input-group-append">
+              <button class="btn btn-secondary" (click)="getParties({search: search})">
+                <fa-icon [fixedWidth]="true" icon="search"></fa-icon>
+              </button>
+            </div>
+          </div>
           <a class="card party card-link mt-2 ml-0"
              *ngFor="let party of parties"
              [routerLink]="['/party', party.id]"
