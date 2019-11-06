@@ -54,6 +54,7 @@ export class ApiService {
     return this.http.get<ApiResponse<Party>>(`${ApiService.base}parties/`, { params });
   }
 
+  // Convert to list
   filterObject<T>(object: T): Partial<T> {
     return Object.entries(object)
       .filter(([key, value]): boolean => value !== null)
@@ -63,6 +64,7 @@ export class ApiService {
       }, {});
   }
 
+  // Convert to string
   valuesToString<T>(object: T): { [P in keyof T]: string } {
     return Object.entries(object)
       .reduce<any>((accumulated: { [P in keyof T]: string }, [key, value]): { [P in keyof T]: string } => {
