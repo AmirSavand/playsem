@@ -77,6 +77,9 @@ export class PlayerComponent {
 
   constructor(private elementRef: ElementRef,
               private renderer: Renderer2) {
+    /**
+     * Add keydown listener to SPACE and pause/resume playing song
+     */
     this.renderer.listen(document, 'keydown.SPACE', (event: KeyboardEvent): void => {
       event.preventDefault();
       /**
