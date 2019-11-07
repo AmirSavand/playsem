@@ -6,19 +6,23 @@
         <form class="card-body" (ngSubmit)="submit()" [formGroup]="form">
           <!-- Display name -->
           <div class="form-group">
-            <input class="form-control" type="text" placeholder="Display name" formControlName="display_name">
+            <label for="displayName">Display name</label>
+            <input class="form-control" type="text" id="displayName" formControlName="display_name">
           </div>
           <!-- Image -->
           <div class="form-group">
-            <input class="form-control" type="text" placeholder="Image from imgur.com" formControlName="image">
+            <label for="image">Image from imgur.com</label>
+            <input class="form-control" type="text" id="image" formControlName="image">
           </div>
           <!-- Bio -->
           <div class="form-group">
-            <input class="form-control" type="text" placeholder="Your bio" formControlName="bio">
+            <label for="bio">Your bio</label>
+            <input class="form-control" type="text" id="bio" formControlName="bio">
           </div>
           <!-- Color -->
           <div class="form-group">
-            <input class="form-control" type="color" formControlName="color">
+            <label for="color">Your color</label>
+            <input class="form-control" id="color" type="color" formControlName="color">
           </div>
           <!-- Submit -->
           <button class="btn btn-block btn-info" [disabled]="loading">Update</button>

@@ -2,7 +2,7 @@
   <div class="row justify-content-center">
 
     <!-- Left -->
-    <div class="col-lg-5">
+    <div class="col-lg-5 order-last order-lg-first">
 
       <!-- Welcome -->
       <div class="card my-3">
@@ -13,10 +13,24 @@
             <a class="btn btn-sm btn-light mr-1 mt-2" href="https://discord.gg/4C98Q9j">Discord</a>
             <a class="btn btn-sm btn-light mr-1 mt-2" href="https://github.com/AmirSavand/playzem">GitHub</a>
             <a class="btn btn-sm btn-light mr-1 mt-2" href="mailto:amir@savandbros.com?subject=PlayzEM">Feedback</a>
-            <a class="btn btn-sm btn-secondary mt-2" href="https://playzem-old.savandbros.com" target="_blank">
-              Older Version
-            </a>
           </p>
+        </div>
+      </div>
+
+      <div class="card my-3">
+        <div class="card-body">
+          <h4 class="mb-3">Join Party</h4>
+          <div class="input-group">
+            <input type="text" placeholder="XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
+                   [(ngModel)]="joinPartyId" class="form-control text-monospace"
+                   (ngModelChange)="joinPartyId = joinPartyId.toLocaleLowerCase()">
+            <span class="input-group-append">
+              <a [routerLink]="['/party', joinPartyId]" class="btn btn-secondary"
+                 [class.disabled]="joinPartyId.length !== 36">
+                Join
+              </a>
+            </span>
+          </div>
         </div>
       </div>
 
@@ -36,20 +50,18 @@
       <div class="card my-3">
         <div class="card-body">
           <h4 class="mb-3">Explore Parties</h4>
-          <div class="row">
-            <div class="col-md-6" *ngFor="let party of parties">
-              <a class="card party card-link mt-2 ml-0" [routerLink]="['/party', party.id]"
-                [style.background-image]="'url('+party.cover+')'">
-                <div class="card-body py-2">
-                  <div class="card-text font-weight-bold">{{ party.name }}</div>
-                  <div class="card-text small text-white-50">
-                    <span>{{ party.user.account.name }}</span>
-                    <span class="float-right">{{ party.date | date:'d MMM' }}</span>
-                  </div>
-                </div>
-              </a>
+          <a class="card party card-link mt-2 ml-0"
+             *ngFor="let party of parties"
+             [routerLink]="['/party', party.id]"
+             [style.background-image]="'url('+party.cover+')'">
+            <div class="card-body py-4">
+              <h5 class="card-text font-weight-bold">{{ party.name }}</h5>
+              <div class="card-text small">
+                <span>{{ party.user.account.name }}</span>
+                <span class="float-right">{{ party.date | date:'d MMM' }}</span>
+              </div>
             </div>
-          </div>
+          </a>
         </div>
       </div>
     </div>

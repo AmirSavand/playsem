@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, ChangeDetectorRef, HostListener, Renderer2 } from '@angular/core';
 import { PlayerRepeat } from '@app/enums/player-repeat';
 import { Song } from '@app/interfaces/song';
 import { PlayerService } from '@app/services/player/player.service';
@@ -46,12 +46,7 @@ export class PlayerComponent {
   readonly playerRepeat: typeof PlayerRepeat = PlayerRepeat;
 
   /**
-   * Player repeat from PlayerService
-   */
-  repeat: PlayerRepeat = PlayerService.repeat;
-
-  /**
-   * Song list of current category
+   * Song list in queue
    */
   songs: Song[];
 
@@ -71,12 +66,69 @@ export class PlayerComponent {
   expand: boolean;
 
   /**
+   * Queue status
+   */
+  queue: boolean;
+
+  /**
    * @see SongService.getSongImage
    */
   getSongImage = SongService.getSongImage;
 
   constructor(private elementRef: ElementRef,
-              private changeDetectorRef: ChangeDetectorRef) {
+              private renderer: Renderer2) {
+    this.renderer.listen(document, 'keydown.SPACE', (event: KeyboardEvent): void => {
+      event.preventDefault();
+      /**
+       * Check if a song is being played
+       */
+      if (!this.playing) {
+        return;
+      }
+      /**
+       * Toggle song state
+       */
+      if (this.isPaused()) {
+        this.youtube.videoPlayer.playVideo();
+      } else {
+        this.pause();
+      }
+    });
+  }
+
+  /**
+   * @see PlayerService.play
+   */
+  play = PlayerService.play;
+
+  /**
+   * @returns Party cover image if has one otherwise default image
+   */
+  get playingPartyCover(): string {
+    if (this.playing) {
+      return `url(${this.playing.party.cover || 'assets/party-cover.jpg'})`;
+    }
+  }
+
+  /**
+   * @returns Player repeat
+   */
+  get repeat(): PlayerRepeat {
+    return PlayerService.repeat;
+  }
+
+  /**
+   * Set player repeat
+   */
+  set repeat(value: PlayerRepeat) {
+    PlayerService.repeat = value;
+  }
+
+  /**
+   * @returns Player shuffle status
+   */
+  get shuffle(): boolean {
+    return PlayerService.shuffle;
   }
 
   /**
@@ -106,10 +158,11 @@ export class PlayerComponent {
   }
 
   /**
-   * Play the paused song
+   * Resume the paused song
    */
-  play(): void {
+  resume(): void {
     this.youtube.videoPlayer.playVideo();
+    PlayerService.play(this.playing);
   }
 
   /**
@@ -120,20 +173,22 @@ export class PlayerComponent {
   }
 
   /**
-   * Shuffle song list
+   * Shuffle or un-shuffle song list
    */
-  shuffle(): void {
-    PlayerService.shuffle();
+  toggleShuffle(): void {
+    PlayerService.toggleShuffle();
   }
 
   /**
    * Toggle mute player
    */
   toggleMute(): void {
-    if (!this.youtube.videoPlayer.isMuted()) {
-      this.youtube.videoPlayer.mute();
+    if (this.youtube.videoPlayer.getVolume() > 0) {
+      this.volume = 0;
+      this.youtube.videoPlayer.setVolume(0);
     } else {
-      this.youtube.videoPlayer.unMute();
+      this.volume = 100;
+      this.youtube.videoPlayer.setVolume(100);
     }
   }
 
@@ -179,18 +234,16 @@ export class PlayerComponent {
     /**
      * Get playing song and subscribe
      */
-    PlayerService.playing.subscribe(data => {
-      this.playing = data;
-      this.changeDetectorRef.detectChanges();
-      if (this.playing && this.youtube) {
+
+    PlayerService.playing.subscribe(playing => {
+      if (playing) {
+        this.playing = playing;
+      }
+      if (playing && this.youtube) {
         this.youtube.videoPlayer.loadVideoById(PlayerService.getYouTubeVideoID(this.playing.source));
-        /**
-         * Add listener for mousewheel on mute button
-         */
-        this.elementRef.nativeElement.querySelector('#mute')
-          .addEventListener('mousewheel', this.mouseWheelFunc.bind(this));
       } else {
-        this.youtube.videoPlayer.stopVideo();
+        this.youtube.videoPlayer.seekTo(0, true);
+        this.youtube.videoPlayer.pauseVideo();
       }
     });
     /**
@@ -217,12 +270,12 @@ export class PlayerComponent {
    *
    * @param event {WheelEvent}
    */
-  mouseWheelFunc(event: WheelEvent): void {
+  onVolumeChange(event: WheelEvent): void {
     let volumeNumber: number = this.volume;
     if (event.deltaY < 0) {
-      volumeNumber = volumeNumber += 5;
+      volumeNumber = volumeNumber + 5;
     } else if (event.deltaY > 0) {
-      volumeNumber = volumeNumber -= 5;
+      volumeNumber = volumeNumber - 5;
     }
     this.volume = Math.min(Math.max(volumeNumber, 0), 100);
     this.youtube.videoPlayer.setVolume(this.volume);

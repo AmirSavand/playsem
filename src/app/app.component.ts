@@ -28,6 +28,7 @@ export class AppComponent implements OnInit {
    * Authenticated user parties
    */
   parties: Party[];
+
   /**
    * Sidebar open/close status (load initial value from storage)
    * @see Storage.settings.sidebarOpen

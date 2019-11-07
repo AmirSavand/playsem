@@ -4,59 +4,76 @@
   <!-- Content -->
   <div class="container">
 
-    <!-- Name -->
-    <h1 class="font-weight-bold">{{ party.name }}</h1>
+    <!-- Image -->
+    <div class="cover d-none d-md-block"
+         *ngIf="party.image"
+         [style.background-image]="'url(' + party.image + ')'">
+    </div>
 
-    <!-- Description -->
-    <p class="text-pre">{{ party.description }}</p>
+    <!-- Right side -->
+    <div>
 
-    <!-- Info -->
-    <p class="mb-2">
-      <!-- Creator -->
-      <a class="text-light" [routerLink]="['/user', party.user.username]">{{ party.user.account.name }}</a>
-      <!-- Songs count -->
-      <span *ngIf="partySongCount"> &bull; {{ partySongCount }} Songs</span>
-      <!-- Members count -->
-      <span *ngIf="partyUserCount"> &bull; {{ partyUserCount }} Members</span>
-      <!-- Date -->
-      &bull; {{ party.date | date }}
-    </p>
+      <!-- Name -->
+      <h1 class="font-weight-bold">{{ party.name }}</h1>
 
-    <!-- Play -->
-    <button class="btn btn-light btn-sm mr-2 mt-2" (click)="play()">
-      <fa-icon [fixedWidth]="true" icon="play"></fa-icon>
-      Play
-    </button>
+      <!-- Description -->
+      <p class="text-pre">{{ party.description }}</p>
 
-    <!-- Like -->
-    <button class="btn btn-light btn-sm mr-2 mt-2" (click)="alert('Liking party')">
-      <fa-icon [fixedWidth]="true" icon="heart"></fa-icon>
-      Like
-    </button>
+      <!-- Info -->
+      <p class="mb-2">
+        <!-- Creator -->
+        <a class="text-light" [routerLink]="['/user', party.user.username]">{{ party.user.account.name }}</a>
+        <!-- Songs count -->
+        <span *ngIf="partySongCount"> &bull; {{ partySongCount }} Songs</span>
+        <!-- Members count -->
+        <span *ngIf="partyUserCount"> &bull; {{ partyUserCount }} Members</span>
+        <!-- Date -->
+        &bull; {{ party.date | date }}
+      </p>
 
-    <!-- Refresh -->
-    <button class="btn btn-light btn-sm mr-2 mt-2" (click)="loadSongs()">
-      <fa-icon [fixedWidth]="true" icon="sync-alt"></fa-icon>
-      Refresh
-    </button>
+      <!-- Play -->
+      <button class="btn btn-light btn-sm mr-2 mt-2" (click)="play()">
+        <fa-icon [fixedWidth]="true" icon="play"></fa-icon>
+        Play
+      </button>
 
-    <!-- Join Party -->
-    <button class="btn btn-light btn-sm mr-2 mt-2" *ngIf="isPartyMember() === false" (click)="joinParty()">
-      <fa-icon [fixedWidth]="true" icon="user-plus"></fa-icon>
-      Join Party
-    </button>
+      <!-- Like -->
+      <button class="btn btn-light btn-sm mr-2 mt-2" (click)="alert('Liking party')">
+        <fa-icon [fixedWidth]="true" icon="heart"></fa-icon>
+        Like
+      </button>
 
-    <!-- Leave Party -->
-    <button class="btn btn-light btn-sm mr-2 mt-2" *ngIf="isPartyMember() === true" (click)="leaveParty()">
-      <fa-icon [fixedWidth]="true" icon="sign-out-alt"></fa-icon>
-      Leave Party
-    </button>
+      <!-- Refresh -->
+      <button class="btn btn-light btn-sm mr-2 mt-2" (click)="loadSongs()">
+        <fa-icon [fixedWidth]="true" icon="sync-alt"></fa-icon>
+        Refresh
+      </button>
 
-    <!-- Settings -->
-    <a class="btn btn-light btn-sm mr-2 mt-2" routerLink="settings" *ngIf="auth.isUser(party.user)">
-      <fa-icon [fixedWidth]="true" icon="cog"></fa-icon>
-      Settings
-    </a>
+      <!-- Party ID -->
+      <button class="btn btn-light btn-sm mr-2 mt-2" [popover]="party.id"
+              containerClass="px-3 mw-100 font-weight-bold text-monospace" triggers="click">
+        <fa-icon [fixedWidth]="true" icon="info-circle"></fa-icon>
+        Key
+      </button>
+
+      <!-- Join Party -->
+      <button class="btn btn-light btn-sm mr-2 mt-2" *ngIf="isPartyMember() === false" (click)="joinParty()">
+        <fa-icon [fixedWidth]="true" icon="user-plus"></fa-icon>
+        Join Party
+      </button>
+
+      <!-- Leave Party -->
+      <button class="btn btn-light btn-sm mr-2 mt-2" *ngIf="isPartyMember() === true" (click)="leaveParty()">
+        <fa-icon [fixedWidth]="true" icon="sign-out-alt"></fa-icon>
+        Leave Party
+      </button>
+
+      <!-- Settings -->
+      <a class="btn btn-light btn-sm mr-2 mt-2" routerLink="settings" *ngIf="auth.isUser(party.user)">
+        <fa-icon [fixedWidth]="true" icon="cog"></fa-icon>
+        Settings
+      </a>
+    </div>
   </div>
 </div>
 
@@ -64,8 +81,11 @@
 <div class="container-fluid" *ngIf="party && party.categories.length">
   <div class="row pt-3">
     <div class="col-lg-2 col-md-4 col-sm-6 d-flex card-columns category" *ngFor="let category of party.categories">
-      <a class="card mb-3" (click)="selectCategory(category)" [class.bg-primary]="categorySelected === category">
-        <div class="card-body text-uppercase">
+      <a class="card mb-3" routerLink="./"
+         routerLinkActive="bg-primary"
+         [queryParams]="{playlist: category.id}"
+         (click)="deselectCategory(category)">
+        <div class="card-body">
           <p class="card-text">
             {{ category.name }}<br>
             <small class="text-white-50">
@@ -80,7 +100,8 @@
 
 <!-- Add song -->
 <form class="input-group" [formGroup]="songForm" (ngSubmit)="addSong()">
-  <input class="form-control py-4 rounded-0" type="text" placeholder="Add new song (YouTube)" formControlName="source">
+  <input class="form-control py-4 rounded-0" type="text" formControlName="source"
+         [placeholder]="getAddSongPlaceholder()">
 </form>
 
 <!-- Songs -->
@@ -93,7 +114,7 @@
     </div>
     <!-- Image -->
     <div class="cover mr-3 rounded" (click)="play(song)"
-         [style.background-image]="'url('+getSongImage(song)+')'"></div>
+         [style.background-image]="'url(' + getSongImage(song) + ')'"></div>
     <!-- Info -->
     <div class="info d-flex flex-column text-truncate" (click)="play(song)">
       <span class="text-truncate">{{ song.name }}</span>
@@ -117,14 +138,14 @@
 <ng-template #songOptions let-song="song">
   <div class="list-group list-group-flush" (click)="song.popover = false">
     <!-- Play -->
-    <a class="list-group-item list-group-item-action" (click)="play(song)">Play</a>
+    <a class="list-group-item list-group-item-action border-0" (click)="play(song)">Play</a>
     <!-- Like -->
-    <a class="list-group-item list-group-item-action" (click)="alert('Liking song')">Like</a>
+    <a class="list-group-item list-group-item-action border-0" (click)="alert('Liking song')">Like</a>
     <!-- Edit -->
-    <a class="list-group-item list-group-item-action" (click)="editSong(song)"
+    <a class="list-group-item list-group-item-action border-0" (click)="editSong(song)"
        *ngIf="hasSongPermission(song)">Playlist</a>
     <!-- Delete -->
-    <a class="list-group-item list-group-item-action text-danger" (click)="deleteSong(song)"
+    <a class="list-group-item list-group-item-action border-0 text-danger" (click)="deleteSong(song)"
        *ngIf="hasSongPermission(song)">
       Delete
     </a>

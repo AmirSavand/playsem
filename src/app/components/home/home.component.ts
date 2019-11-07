@@ -15,6 +15,11 @@ export class HomeComponent implements OnInit {
    */
   parties: Party[];
 
+  /**
+   * Join party ID
+   */
+  joinPartyId = '';
+
   constructor(private api: ApiService) {
   }
 
