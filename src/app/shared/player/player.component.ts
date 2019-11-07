@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { PlayerRepeat } from '@app/enums/player-repeat';
 import { Song } from '@app/interfaces/song';
 import { PlayerService } from '@app/services/player/player.service';
@@ -36,6 +36,11 @@ export class PlayerComponent {
   private readonly timelineUpdateTime = 250;
 
   /**
+   * Player volume
+   */
+  private volume: number = 100;
+
+  /**
    * Player repeat modes
    */
   readonly playerRepeat: typeof PlayerRepeat = PlayerRepeat;
@@ -70,7 +75,8 @@ export class PlayerComponent {
    */
   getSongImage = SongService.getSongImage;
 
-  constructor() {
+  constructor(private elementRef: ElementRef,
+              private changeDetectorRef: ChangeDetectorRef) {
   }
 
   /**
@@ -175,8 +181,14 @@ export class PlayerComponent {
      */
     PlayerService.playing.subscribe(data => {
       this.playing = data;
+      this.changeDetectorRef.detectChanges();
       if (this.playing && this.youtube) {
         this.youtube.videoPlayer.loadVideoById(PlayerService.getYouTubeVideoID(this.playing.source));
+        /**
+         * Add listener for mousewheel on mute button
+         */
+        this.elementRef.nativeElement.querySelector('#mute')
+          .addEventListener('mousewheel', this.mouseWheelFunc.bind(this));
       } else {
         this.youtube.videoPlayer.stopVideo();
       }
@@ -198,5 +210,27 @@ export class PlayerComponent {
       PlayerService.playNext();
     }
     this.updateTimeline();
+  }
+
+  /**
+   * On mouse wheel scroll
+   *
+   * @param event {WheelEvent}
+   */
+  mouseWheelFunc(event: WheelEvent): void {
+    let volumeNumber: number = this.volume;
+    if (event.deltaY < 0) {
+      volumeNumber = volumeNumber += 5;
+    } else if (event.deltaY > 0) {
+      volumeNumber = volumeNumber -= 5;
+    }
+    this.volume = Math.min(Math.max(volumeNumber, 0), 100);
+    this.youtube.videoPlayer.setVolume(this.volume);
+    // for IE
+    event.returnValue = false;
+    // for Chrome and Firefox
+    if (event.preventDefault) {
+      event.preventDefault();
+    }
   }
 }

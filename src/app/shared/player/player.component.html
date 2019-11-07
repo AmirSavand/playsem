@@ -68,8 +68,12 @@
         <fa-icon [fixedWidth]="true" icon="random"></fa-icon>
       </div>
       <!-- Mute -->
-      <div class="mx-sm-1 px-1 px-sm-2" (click)="toggleMute()" *ngIf="!isMute()" tooltip="Mute">
+      <div class="mx-sm-1 px-1 px-sm-2 position-relative" id="mute" (click)="toggleMute()" *ngIf="!isMute()" tooltip="Mute">
+        {{ volume }}%
         <fa-icon [fixedWidth]="true" icon="volume-up"></fa-icon>
+<!--        <div>-->
+<!--          <progressbar [value]="volume" [animate]="true"></progressbar>-->
+<!--        </div>-->
       </div>
       <!-- Unmute -->
       <div class="mx-sm-1 px-1 px-sm-2" (click)="toggleMute()" *ngIf="isMute()" tooltip="Unmute">
