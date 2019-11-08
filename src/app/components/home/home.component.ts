@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
   /**
    * Filter parties form
    */
-  searchForm: FormGroup;
+  exploreForm: FormGroup;
 
   /**
    * Parties loading
@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit {
     /**
      * Search form
      */
-    this.searchForm = this.formBuilder.group({
+    this.exploreForm = this.formBuilder.group({
       search: [''],
     });
     /**

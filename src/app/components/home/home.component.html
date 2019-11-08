@@ -51,8 +51,8 @@
         <div class="card-body">
           <h4 class="mb-3">Explore Parties</h4>
           <!-- Search parties -->
-          <form class="input-group mb-2" (ngSubmit)="getParties({search: searchForm.value.search})"
-                [formGroup]="searchForm">
+          <form class="input-group mb-2" (ngSubmit)="getParties({search: exploreForm.value.search})"
+                [formGroup]="exploreForm">
             <input class="form-control" placeholder="Search parties" type="text" formControlName="search">
             <!-- Submit -->
             <div class="input-group-append">
