@@ -4,6 +4,7 @@
 - Improve player shuffle logic and design.
 - Add song to selected playlist.
 - Add link for categories (share link of categories)
+- Add search in exploring parties in dashboard
 - Fix issue when adding a new song.
 - Fix player popup is visible when player is expanded.
 
