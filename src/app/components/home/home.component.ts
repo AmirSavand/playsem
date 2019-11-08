@@ -26,6 +26,11 @@ export class HomeComponent implements OnInit {
    */
   searchForm: FormGroup;
 
+  /**
+   * Parties loading
+   */
+  loading: boolean;
+
   constructor(private api: ApiService,
               private formBuilder: FormBuilder) {
   }
@@ -47,7 +52,9 @@ export class HomeComponent implements OnInit {
    * Get parties
    */
   getParties(payload: { user?: number, status?: PartyStatus, search?: string } = {}): void {
+    this.loading = true;
     this.api.getParties(payload).subscribe((data: ApiResponse<Party>) => {
+      this.loading = false;
       this.parties = data.results;
     });
   }
