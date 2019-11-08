@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { PartyStatus } from '@app/enums/party-status';
 import { ApiResponse } from '@app/interfaces/api-response';
 import { Party } from '@app/interfaces/party';
@@ -10,9 +11,6 @@ import { ApiService } from '@app/services/api/api-service.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-
-  search: string;
-
   /**
    * Parties to explore
    */
@@ -23,10 +21,22 @@ export class HomeComponent implements OnInit {
    */
   joinPartyId = '';
 
-  constructor(private api: ApiService) {
+  /**
+   * Filter parties form
+   */
+  searchForm: FormGroup;
+
+  constructor(private api: ApiService,
+              private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
+    /**
+     * Search form
+     */
+    this.searchForm = this.formBuilder.group({
+      search: [''],
+    });
     /**
      * Get parties
      */
