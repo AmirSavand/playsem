@@ -50,17 +50,12 @@
       <div class="card my-3">
         <div class="card-body">
           <h4 class="mb-3">Explore Parties</h4>
-          <!-- Search parties -->
-          <form class="input-group mb-2" (ngSubmit)="getParties({search: exploreForm.value.search})"
-                [formGroup]="exploreForm">
-            <input class="form-control" placeholder="Search parties" type="text" formControlName="search">
-            <!-- Submit -->
-            <div class="input-group-append">
-              <button class="btn btn-secondary" [disabled]="loading">
-                <fa-icon [fixedWidth]="true" icon="search"></fa-icon>
-              </button>
-            </div>
+          <!-- Search -->
+          <form class="input-group mb-2" (ngSubmit)="getParties()" [formGroup]="exploreForm">
+            <input class="form-control" placeholder="Search" type="text" formControlName="search"
+                   (ngModelChange)="getParties()">
           </form>
+          <!-- Parties -->
           <a class="card party card-link mt-2 ml-0"
              *ngFor="let party of parties"
              [routerLink]="['/party', party.id]"
@@ -73,8 +68,6 @@
               </div>
             </div>
           </a>
-          <!-- No party -->
-          <p class="text-secondary text-center mt-3" *ngIf="!parties.length">No results found with this name!</p>
         </div>
       </div>
     </div>

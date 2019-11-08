@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { PartyStatus } from '@app/enums/party-status';
 import { ApiResponse } from '@app/interfaces/api-response';
 import { Party } from '@app/interfaces/party';
 import { ApiService } from '@app/services/api/api-service.service';
@@ -11,6 +10,7 @@ import { ApiService } from '@app/services/api/api-service.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+
   /**
    * Parties to explore
    */
@@ -25,11 +25,6 @@ export class HomeComponent implements OnInit {
    * Filter parties form
    */
   exploreForm: FormGroup;
-
-  /**
-   * Parties loading
-   */
-  loading: boolean;
 
   constructor(private api: ApiService,
               private formBuilder: FormBuilder) {
@@ -49,12 +44,12 @@ export class HomeComponent implements OnInit {
   }
 
   /**
-   * Get parties
+   * Get parties for explore card
    */
-  getParties(payload: { user?: number, status?: PartyStatus, search?: string } = {}): void {
-    this.loading = true;
-    this.api.getParties(payload).subscribe((data: ApiResponse<Party>) => {
-      this.loading = false;
+  getParties(): void {
+    this.api.getParties({
+      search: this.exploreForm.get('search').value,
+    }).subscribe((data: ApiResponse<Party>) => {
       this.parties = data.results;
     });
   }
