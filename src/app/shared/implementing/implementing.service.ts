@@ -5,9 +5,6 @@ import { Injectable } from '@angular/core';
 })
 export class ImplementingService {
 
-  constructor() {
-  }
-
   /**
    * Show alert about not implemented feature
    *

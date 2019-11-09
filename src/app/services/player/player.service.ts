@@ -16,9 +16,7 @@ export class PlayerService {
   static playing: Observable<Song> = PlayerService.playingSubject.asObservable();
 
   static repeat: PlayerRepeat = PlayerRepeat.DISABLE;
-
-  constructor() {
-  }
+  static shuffle = false;
 
   /**
    * @returns The ID of the YouTube video URL
@@ -34,10 +32,13 @@ export class PlayerService {
 
   /**
    * Stop and clear player
+   * @param noClear Stop playing but don't clear the list
    */
-  static stop(): void {
+  static stop(noClear?: boolean): void {
     PlayerService.playingSubject.next(null);
-    PlayerService.songsSubject.next([]);
+    if (!noClear) {
+      PlayerService.songsSubject.next([]);
+    }
   }
 
   /**
@@ -68,7 +69,6 @@ export class PlayerService {
     const songs: Song[] = PlayerService.songsSubject.value;
     const playing: Song = PlayerService.playingSubject.value;
     const index: number = songs.indexOf(playing);
-
     if (PlayerService.repeat === PlayerRepeat.SINGLE) {
       PlayerService.play(songs[index]);
     } else {
@@ -76,7 +76,7 @@ export class PlayerService {
         PlayerService.play(songs[index + 1]);
       } else {
         if (PlayerService.repeat === PlayerRepeat.DISABLE) {
-          PlayerService.stop();
+          PlayerService.stop(true);
         } else {
           PlayerService.play(songs[0]);
         }
@@ -101,13 +101,30 @@ export class PlayerService {
 
   /**
    * Shuffle song list and make the current song the first
+   * Un-shuffle if already shuffled (change songs order to original order)
    */
-  static shuffle() {
+  static toggleShuffle(): void {
+    // Get playing song
     const playing: Song = PlayerService.playingSubject.value;
+    // Get songs except the one playing
     let songs: Song[] = PlayerService.songsSubject.value;
-    songs = songs.filter(item => item !== playing);
-    songs = new ShufflePipe().transform(songs);
-    songs.unshift(playing);
+    // Check shuffle status, if shuffled, change to original order, otherwise shuffle
+    if (!PlayerService.shuffle) {
+      // Store original index for un-shuffling
+      for (const song of songs) {
+        song.index = songs.indexOf(song);
+      }
+      // Shuffle songs
+      songs = new ShufflePipe().transform(songs.filter(item => item !== playing));
+      // Make the playing song, the first one in the list
+      songs.unshift(playing);
+    } else {
+      // Un-shuffle (change to original order)
+      songs = songs.sort((a, b) => a.index - b.index);
+    }
+    // Update shuffle status
+    PlayerService.shuffle = !PlayerService.shuffle;
+    // Update songs
     this.songsSubject.next(songs);
   }
 

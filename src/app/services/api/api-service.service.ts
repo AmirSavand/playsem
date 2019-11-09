@@ -42,15 +42,35 @@ export class ApiService {
   /**
    * Get party list
    */
-  getParties(payload: { user?: number, status?: PartyStatus } = {}): Observable<ApiResponse<Party>> {
-    const params = new HttpParams();
-    if (payload.user) {
-      params.set('user', payload.user.toString());
-    }
-    if (payload.status) {
-      params.set('status', payload.status.toString());
-    }
+  getParties(payload: { user?: number, status?: PartyStatus, search?: string } = {}): Observable<ApiResponse<Party>> {
+    const filterPayload: {
+      user?: number,
+      status?: PartyStatus,
+      search?: string
+    } = this.filterObject<{ user?: number, status?: PartyStatus, search?: string }>(payload);
+    const params = new HttpParams({
+      fromObject: this.valuesToString(filterPayload)
+    });
     return this.http.get<ApiResponse<Party>>(`${ApiService.base}parties/`, { params });
+  }
+
+  // Convert to list
+  filterObject<T>(object: T): Partial<T> {
+    return Object.entries(object)
+      .filter(([key, value]): boolean => value !== null)
+      .reduce<Partial<T>>((accumulated: Partial<T>, [key, value]): Partial<T> => {
+        accumulated[key] = value;
+        return accumulated;
+      }, {});
+  }
+
+  // Convert to string
+  valuesToString<T>(object: T): { [P in keyof T]: string } {
+    return Object.entries(object)
+      .reduce<any>((accumulated: { [P in keyof T]: string }, [key, value]): { [P in keyof T]: string } => {
+        accumulated[key] = value.toString();
+        return accumulated;
+      }, {});
   }
 
   /**

@@ -1,10 +1,29 @@
+### v4.3
+
+- Improve inputs to have labels instead of placeholders.
+- Improve player shuffle logic and design.
+- Add song to selected playlist.
+- Add link for categories (share link of categories)
+- Add search in exploring parties in dashboard
+- Fix issue when adding a new song.
+- Fix player popup is visible when player is expanded.
+
+
 ### v4.2
 
+2019 October 26
+
+- New feature: Popup to show currently playing songs.
 - New feature: Songs can be in multiple playlists.
 - New feature: Explore public parities from dashboard.
 - Improve songs to show their YouTube thumbnails.
+- Improve player to not to hide after done playing.
+- Improve party to show party image.
+- Improve overall design.
 - Add input to join party by ID.
 - Add button to show party ID.
+- Add confirm dialog when removing party members.
+- Fix player repeat mode doesn't work.
 
 
 ### v4.1

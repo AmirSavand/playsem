@@ -16,4 +16,5 @@ export interface Song {
    */
   selected?: boolean;
   popover?: boolean;
+  index?: number;
 }

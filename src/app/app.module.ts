@@ -27,6 +27,7 @@ import { faCog } from '@fortawesome/free-solid-svg-icons/faCog';
 import { faCompactDisc } from '@fortawesome/free-solid-svg-icons/faCompactDisc';
 import { faEdit } from '@fortawesome/free-solid-svg-icons/faEdit';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons/faEllipsisV';
+import { faExpand } from '@fortawesome/free-solid-svg-icons/faExpand';
 import { faForward } from '@fortawesome/free-solid-svg-icons/faForward';
 import { faHeart } from '@fortawesome/free-solid-svg-icons/faHeart';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons/faInfoCircle';
@@ -155,6 +156,7 @@ export class AppModule {
       faPlus,
       faEdit,
       faInfoCircle,
+      faExpand,
     );
   }
 }

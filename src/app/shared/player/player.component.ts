@@ -41,12 +41,7 @@ export class PlayerComponent {
   readonly playerRepeat: typeof PlayerRepeat = PlayerRepeat;
 
   /**
-   * Player repeat from PlayerService
-   */
-  repeat: PlayerRepeat = PlayerService.repeat;
-
-  /**
-   * Song list of current category
+   * Song list in queue
    */
   songs: Song[];
 
@@ -66,11 +61,48 @@ export class PlayerComponent {
   expand: boolean;
 
   /**
+   * Queue status
+   */
+  queue: boolean;
+
+  /**
    * @see SongService.getSongImage
    */
   getSongImage = SongService.getSongImage;
 
-  constructor() {
+  /**
+   * @see PlayerService.play
+   */
+  play = PlayerService.play;
+
+  /**
+   * @returns Party cover image if has one otherwise default image
+   */
+  get playingPartyCover(): string {
+    if (this.playing) {
+      return `url(${this.playing.party.cover || 'assets/party-cover.jpg'})`;
+    }
+  }
+
+  /**
+   * @returns Player repeat
+   */
+  get repeat(): PlayerRepeat {
+    return PlayerService.repeat;
+  }
+
+  /**
+   * Set player repeat
+   */
+  set repeat(value: PlayerRepeat) {
+    PlayerService.repeat = value;
+  }
+
+  /**
+   * @returns Player shuffle status
+   */
+  get shuffle(): boolean {
+    return PlayerService.shuffle;
   }
 
   /**
@@ -100,10 +132,11 @@ export class PlayerComponent {
   }
 
   /**
-   * Play the paused song
+   * Resume the paused song
    */
-  play(): void {
+  resume(): void {
     this.youtube.videoPlayer.playVideo();
+    PlayerService.play(this.playing);
   }
 
   /**
@@ -114,10 +147,10 @@ export class PlayerComponent {
   }
 
   /**
-   * Shuffle song list
+   * Shuffle or un-shuffle song list
    */
-  shuffle(): void {
-    PlayerService.shuffle();
+  toggleShuffle(): void {
+    PlayerService.toggleShuffle();
   }
 
   /**
@@ -173,12 +206,15 @@ export class PlayerComponent {
     /**
      * Get playing song and subscribe
      */
-    PlayerService.playing.subscribe(data => {
-      this.playing = data;
-      if (this.playing && this.youtube) {
+    PlayerService.playing.subscribe(playing => {
+      if (playing) {
+        this.playing = playing;
+      }
+      if (playing && this.youtube) {
         this.youtube.videoPlayer.loadVideoById(PlayerService.getYouTubeVideoID(this.playing.source));
       } else {
-        this.youtube.videoPlayer.stopVideo();
+        this.youtube.videoPlayer.seekTo(0, true);
+        this.youtube.videoPlayer.pauseVideo();
       }
     });
     /**

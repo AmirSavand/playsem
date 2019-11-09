@@ -49,7 +49,7 @@
           <div class="list-group-item header mt-3">PARTIES</div>
 
           <!-- Parties -->
-          <a class="list-group-item list-group-item-action"
+          <a class="list-group-item list-group-item-action text-truncate"
              *ngFor="let party of parties" [routerLink]="['party', party.id]" routerLinkActive="active">
             <fa-icon [fixedWidth]="true" icon="compact-disc"></fa-icon>
             <span>{{ party.name }}</span>
