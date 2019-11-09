@@ -123,6 +123,16 @@ export class ApiService {
   }
 
   /**
+   * Update category image
+   *
+   * @param id Category ID
+   * @param image Category image
+   */
+  updateCategoryImage(id: number, image: string): Observable<Category> {
+    return this.http.patch<Category>(`${ApiService.base}party-categories/${id}/`, { image });
+  }
+
+  /**
    * Update category
    *
    * @param id Category ID
