@@ -1,42 +1,36 @@
-<div class="container">
+<div class="container py-3">
   <div class="row justify-content-center">
 
-    <!-- Left -->
-    <div class="col-lg-5">
-
-      <!-- User Details -->
-      <div class="card my-3">
-        <!-- Image -->
-        <img class="card-img-top" src="{{ user.account.image }}">
-        <div class="card-body">
-          <!-- Name -->
-          <h5 class="card-title" [style.color]="''+user.account.color+''">{{ user.account.name }}</h5>
-          <!-- Bio -->
-          <p class="card-text" [style.color]="''+user.account.color+''">{{ user.account.bio }}</p>
+    <!-- User -->
+    <div class="col-lg-3">
+      <div class="card my-3" *ngIf="user">
+        <!-- User image -->
+        <div class="card-header d-flex justify-content-center" *ngIf="user.account.image">
+          <div class="image rounded-circle" [style.background-image]="image"></div>
+        </div>
+        <!-- User info -->
+        <div class="card-body text-center">
+          <!-- User display name -->
+          <h3 [style.color]="user.account.color">{{ user.account.name }}</h3>
+          <!-- User username and join date -->
+          <p class="small text-secondary mb-1">@{{ user.username }} &bull; {{ user.date_joined | date }}</p>
+          <!-- User bio -->
+          <p class="m-0 text-pre">{{ user.account.bio || '...' }}</p>
         </div>
       </div>
     </div>
 
-    <!-- Right -->
-    <div class="col-lg-7">
-
-      <!-- Parties -->
-      <div class="card my-3">
-        <div class="card-body">
-          <h4 class="mb-3">{{ user.account.name }} Parties</h4>
-          <!-- Parties -->
-          <a class="card party card-link mt-2 ml-0"
-             *ngFor="let party of userParties"
-             [routerLink]="['/party', party.id]"
-             [style.background-image]="'url('+party.cover+')'">
-            <div class="card-body py-4">
-              <h5 class="card-text font-weight-bold">{{ party.name }}</h5>
-              <div class="card-text small">
-                <span>{{ party.user.account.name }}</span>
-                <span class="float-right">{{ party.date | date:'d MMM' }}</span>
-              </div>
-            </div>
-          </a>
+    <!-- Parties (party users) -->
+    <div class="col-lg-4">
+      <div class="card my-3" *ngIf="partyUsers">
+        <div class="card-header">Parties</div>
+        <div class="list-group list-group-flush">
+          <li class="list-group-item" *ngFor="let partyUser of partyUsers">
+            <a [routerLink]="['/party', partyUser.party.id]" class="text-light">{{ partyUser.party.name }}</a>
+            <br>
+            <small class="text-secondary" title="Join date">{{ partyUser.date | date }}</small>
+            <span class="badge badge-primary float-right" *ngIf="partyUser.party.user.id === user.id">Owner</span>
+          </li>
         </div>
       </div>
     </div>

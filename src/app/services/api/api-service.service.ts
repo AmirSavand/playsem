@@ -9,6 +9,7 @@ import { Party } from '@app/interfaces/party';
 import { PartyUser } from '@app/interfaces/party-user';
 import { Song } from '@app/interfaces/song';
 import { SongCategory } from '@app/interfaces/song-category';
+import { User } from '@app/interfaces/user';
 import { environment } from '@environments/environment';
 import { Observable } from 'rxjs';
 
@@ -26,6 +27,15 @@ export class ApiService {
   }
 
   // User
+
+  /**
+   * Get user data
+   *
+   * @param username User username
+   */
+  getUser(username: string): Observable<User> {
+    return this.http.get<User>(`${ApiService.base}users/${username}/`);
+  }
 
   /**
    * Update user
@@ -49,7 +59,7 @@ export class ApiService {
       search?: string
     } = this.filterObject<{ user?: number, status?: PartyStatus, search?: string }>(payload);
     const params = new HttpParams({
-      fromObject: this.valuesToString(filterPayload)
+      fromObject: this.valuesToString(filterPayload),
     });
     return this.http.get<ApiResponse<Party>>(`${ApiService.base}parties/`, { params });
   }

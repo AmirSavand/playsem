@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Party } from '@app/interfaces/party';
+import { ActivatedRoute, Params } from '@angular/router';
+import { ApiResponse } from '@app/interfaces/api-response';
+import { PartyUser } from '@app/interfaces/party-user';
 import { User } from '@app/interfaces/user';
 import { ApiService } from '@app/services/api/api-service.service';
-import { AuthService } from '@app/services/auth/auth.service';
-import { PartyService } from '@app/services/party/party.service';
 
 @Component({
   selector: 'app-user',
@@ -13,30 +13,45 @@ import { PartyService } from '@app/services/party/party.service';
 export class UserComponent implements OnInit {
 
   /**
-   * Authenticated user
+   * User data
    */
   user: User;
 
   /**
-   * Authenticated user parties
+   * User parties
    */
-  userParties: Party[];
+  partyUsers: PartyUser[];
 
-  constructor(private auth: AuthService) {
+  constructor(private route: ActivatedRoute,
+              private api: ApiService) {
+  }
+
+  /**
+   * @returns User image (CSS)
+   */
+  get image(): string {
+    if (this.user && this.user.account.image) {
+      return `url(${this.user.account.image})`;
+    }
   }
 
   ngOnInit(): void {
     /**
-     * Get authenticated user data and watch for changes
+     * Get username from params
      */
-    this.auth.user.subscribe(data => {
-      this.user = data;
-    });
-    /**
-     * Get authenticated user parties and watch for changes
-     */
-    PartyService.parties.subscribe(data => {
-      this.userParties = data;
+    this.route.params.subscribe((params: Params): void => {
+      /**
+       * Get user data
+       */
+      this.api.getUser(params.username).subscribe(data => {
+        this.user = data;
+        /**
+         * Get parties (party users)
+         */
+        this.api.getPartyUsers({ user: data.id.toString() }).subscribe(partyUsers => {
+          this.partyUsers = partyUsers.results;
+        });
+      });
     });
   }
 }
