@@ -1,1 +1,38 @@
-<app-implementing feature="Profile"></app-implementing>
+<div class="container py-3">
+  <div class="row justify-content-center">
+
+    <!-- User -->
+    <div class="col-lg-3">
+      <div class="card my-3" *ngIf="user">
+        <!-- User image -->
+        <div class="card-header d-flex justify-content-center" *ngIf="user.account.image">
+          <div class="image rounded-circle" [style.background-image]="image"></div>
+        </div>
+        <!-- User info -->
+        <div class="card-body text-center">
+          <!-- User display name -->
+          <h3 [style.color]="user.account.color">{{ user.account.name }}</h3>
+          <!-- User username and join date -->
+          <p class="small text-secondary mb-1">@{{ user.username }} &bull; {{ user.date_joined | date }}</p>
+          <!-- User bio -->
+          <p class="m-0 text-pre">{{ user.account.bio || '...' }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Parties (party users) -->
+    <div class="col-lg-4">
+      <div class="card my-3" *ngIf="partyUsers">
+        <div class="card-header">Parties</div>
+        <div class="list-group list-group-flush">
+          <li class="list-group-item" *ngFor="let partyUser of partyUsers">
+            <a [routerLink]="['/party', partyUser.party.id]" class="text-light">{{ partyUser.party.name }}</a>
+            <br>
+            <small class="text-secondary" title="Join date">{{ partyUser.date | date }}</small>
+            <span class="badge badge-primary float-right" *ngIf="partyUser.party.user.id === user.id">Owner</span>
+          </li>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
