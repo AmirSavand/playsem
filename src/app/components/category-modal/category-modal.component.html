@@ -8,12 +8,12 @@
 
 <!-- Body -->
 <div class="modal-body">
+  <!-- Category image -->
+  <label for="categoryImage">Playlist image from imgur.com</label>
+  <input class="form-control mb-3" type="text" autocomplete="off" id="categoryImage"
+         [(ngModel)]="categoryImage">
   <!-- Text -->
   <p>Select songs to add to this playlist:</p>
-  <!-- Category image -->
-  <label for="categoryImage">Image from imgur.com</label>
-  <input class="form-control mb-1" type="text" autocomplete="off" id="categoryImage"
-         [(ngModel)]="categoryImage">
   <!-- Search party songs -->
   <input class="form-control mb-1" type="text" name="search" autocomplete="off"
          [(ngModel)]="search" placeholder="Search">
