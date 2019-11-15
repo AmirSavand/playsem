@@ -59,6 +59,13 @@ export class CategoryModalComponent implements OnInit {
         song.selected = song.categories.some(songCategory => songCategory.category.id === this.category.id);
       }
     });
+    /**
+     * Get category
+     */
+    this.api.getCategory(this.category.id).subscribe(data => {
+      this.category = data;
+      this.categoryImage = data.image;
+    });
   }
 
   /**
@@ -72,6 +79,7 @@ export class CategoryModalComponent implements OnInit {
       image: this.categoryImage,
     }).subscribe(data => {
       this.category = data;
+      this.categoryImage = data.image;
     });
     // Add selected songs to this category and remove the unselected
     for (const song of this.songs) {
