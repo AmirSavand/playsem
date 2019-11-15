@@ -151,6 +151,15 @@ export class ApiService {
     return this.http.delete<void>(`${ApiService.base}party-categories/${id}/`);
   }
 
+  /**
+   * Get a party category
+   *
+   * @param id Category id
+   */
+  getCategory(id: number): Observable<Category> {
+    return this.http.get<Category>(`${ApiService.base}party-categories/${id}/`);
+  }
+
   // Party user
 
   /**
