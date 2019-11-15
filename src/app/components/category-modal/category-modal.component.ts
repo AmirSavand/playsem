@@ -68,7 +68,9 @@ export class CategoryModalComponent implements OnInit {
    */
   save(): void {
     // Update category image
-    this.api.updateCategoryImage(this.category.id, this.categoryImage).subscribe(data => {
+    this.api.updateCategory(this.category.id, {
+      image: this.categoryImage,
+    }).subscribe(data => {
       this.category = data;
     });
     // Add selected songs to this category and remove the unselected
