@@ -28,11 +28,6 @@ export class CategoryModalComponent implements OnInit {
    */
   search: string;
 
-  /**
-   * Update category image
-   */
-  categoryImage: string;
-
   constructor(public modal: BsModalRef,
               private api: ApiService,
               private filterBy: FilterByPipe) {
@@ -60,11 +55,11 @@ export class CategoryModalComponent implements OnInit {
       }
     });
     /**
-     * Get category
+     * Get category details
+     * @todo Remove me when API returns category image with party
      */
     this.api.getCategory(this.category.id).subscribe(data => {
       this.category = data;
-      this.categoryImage = data.image;
     });
   }
 
@@ -76,10 +71,9 @@ export class CategoryModalComponent implements OnInit {
   save(): void {
     // Update category image
     this.api.updateCategory(this.category.id, {
-      image: this.categoryImage,
+      image: this.category.image,
     }).subscribe(data => {
       this.category = data;
-      this.categoryImage = data.image;
     });
     // Add selected songs to this category and remove the unselected
     for (const song of this.songs) {
