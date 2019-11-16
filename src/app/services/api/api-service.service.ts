@@ -136,10 +136,10 @@ export class ApiService {
    * Update category
    *
    * @param id Category ID
-   * @param name New category name
+   * @param payload New category name and image
    */
-  updateCategory(id: number, name: string): Observable<Category> {
-    return this.http.patch<Category>(`${ApiService.base}party-categories/${id}/`, { name });
+  updateCategory(id: number, payload: {name?: string, image?: string}): Observable<Category> {
+    return this.http.patch<Category>(`${ApiService.base}party-categories/${id}/`, payload);
   }
 
   /**
@@ -149,6 +149,15 @@ export class ApiService {
    */
   deleteCategory(id: number): Observable<void> {
     return this.http.delete<void>(`${ApiService.base}party-categories/${id}/`);
+  }
+
+  /**
+   * Get a party category
+   *
+   * @param id Category id
+   */
+  getCategory(id: number): Observable<Category> {
+    return this.http.get<Category>(`${ApiService.base}party-categories/${id}/`);
   }
 
   // Party user

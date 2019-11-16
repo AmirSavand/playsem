@@ -1,5 +1,7 @@
 @import "variables";
 
+$category-width: 160px;
+
 .party {
   background-size: cover;
   background-position: center;
@@ -27,9 +29,30 @@
   }
 }
 
-.category {
-  .card {
-    width: 100%;
+.category-wrapper {
+  overflow: auto;
+
+  .category-list {
+    display: inline-flex;
+    flex-direction: row;
+
+    .category {
+      display: flex;
+      width: $category-width;
+      flex-basis: $category-width;
+
+      .card {
+        overflow: hidden;
+        width: 100%;
+
+        .card-body-image {
+          background-position: center;
+          background-size: cover;
+          height: $category-width;
+          max-height: $category-width;
+        }
+      }
+    }
   }
 }
 

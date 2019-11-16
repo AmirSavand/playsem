@@ -2,6 +2,7 @@
 
 - Improve inputs to have labels instead of placeholders.
 - Improve player shuffle logic and design.
+- Add playlist image.
 - Add song to selected playlist.
 - Add link for categories (share link of categories).
 - Add search in exploring parties in dashboard.
