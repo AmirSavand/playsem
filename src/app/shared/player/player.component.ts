@@ -237,7 +237,6 @@ export class PlayerComponent {
     /**
      * Get playing song and subscribe
      */
-
     PlayerService.playing.subscribe(playing => {
       if (playing) {
         this.playing = playing;
