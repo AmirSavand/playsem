@@ -1,5 +1,7 @@
 ### v4.3
 
+2019 November 11
+
 - Improve inputs to have labels instead of placeholders.
 - Improve player shuffle logic and design.
 - Improve player to change volume with scroll wheel.
