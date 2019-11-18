@@ -68,8 +68,9 @@
         <fa-icon [fixedWidth]="true" icon="random"></fa-icon>
       </div>
       <!-- Sound -->
-      <div class="mx-sm-1 px-1 px-sm-2" (click)="toggleMute()" tooltip="Toggle sound"
-           [class.active]="!isMute()">
+      <ng-template #volumeTemplate>{{ volume }}%</ng-template>
+      <div class="mx-sm-1 px-1 px-sm-2" (click)="toggleMute()" [tooltip]="volumeTemplate"
+           [class.active]="!isMute()" (wheel)="onVolumeChange($event)">
         <fa-icon [fixedWidth]="true" icon="volume-up" *ngIf="!isMute()"></fa-icon>
         <fa-icon [fixedWidth]="true" icon="volume-mute" *ngIf="isMute()"></fa-icon>
       </div>

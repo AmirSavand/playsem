@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ElementRef, ChangeDetectorRef, HostListener, Renderer2 } from '@angular/core';
 import { PlayerRepeat } from '@app/enums/player-repeat';
 import { Song } from '@app/interfaces/song';
 import { PlayerService } from '@app/services/player/player.service';
@@ -36,6 +36,11 @@ export class PlayerComponent {
   private readonly timelineUpdateTime = 250;
 
   /**
+   * Player volume
+   */
+  private volume: number = 100;
+
+  /**
    * Player repeat modes
    */
   readonly playerRepeat: typeof PlayerRepeat = PlayerRepeat;
@@ -69,6 +74,30 @@ export class PlayerComponent {
    * @see SongService.getSongImage
    */
   getSongImage = SongService.getSongImage;
+
+  constructor(private elementRef: ElementRef,
+              private renderer: Renderer2) {
+    /**
+     * Add keydown listener to SPACE and pause/resume playing song
+     */
+    this.renderer.listen(document, 'keydown.SPACE', (event: KeyboardEvent): void => {
+      event.preventDefault();
+      /**
+       * Check if a song is being played
+       */
+      if (!this.playing) {
+        return;
+      }
+      /**
+       * Toggle song state
+       */
+      if (this.isPaused()) {
+        this.youtube.videoPlayer.playVideo();
+      } else {
+        this.pause();
+      }
+    });
+  }
 
   /**
    * @see PlayerService.play
@@ -157,10 +186,12 @@ export class PlayerComponent {
    * Toggle mute player
    */
   toggleMute(): void {
-    if (!this.youtube.videoPlayer.isMuted()) {
-      this.youtube.videoPlayer.mute();
+    if (this.youtube.videoPlayer.getVolume() > 0) {
+      this.volume = 0;
+      this.youtube.videoPlayer.setVolume(0);
     } else {
-      this.youtube.videoPlayer.unMute();
+      this.volume = 100;
+      this.youtube.videoPlayer.setVolume(100);
     }
   }
 
@@ -234,5 +265,27 @@ export class PlayerComponent {
       PlayerService.playNext();
     }
     this.updateTimeline();
+  }
+
+  /**
+   * On mouse wheel scroll
+   *
+   * @param event {WheelEvent}
+   */
+  onVolumeChange(event: WheelEvent): void {
+    let volumeNumber: number = this.volume;
+    if (event.deltaY < 0) {
+      volumeNumber = volumeNumber + 5;
+    } else if (event.deltaY > 0) {
+      volumeNumber = volumeNumber - 5;
+    }
+    this.volume = Math.min(Math.max(volumeNumber, 0), 100);
+    this.youtube.videoPlayer.setVolume(this.volume);
+    // for IE
+    event.returnValue = false;
+    // for Chrome and Firefox
+    if (event.preventDefault) {
+      event.preventDefault();
+    }
   }
 }
