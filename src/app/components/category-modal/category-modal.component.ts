@@ -54,12 +54,28 @@ export class CategoryModalComponent implements OnInit {
         song.selected = song.categories.some(songCategory => songCategory.category.id === this.category.id);
       }
     });
+    /**
+     * Get category details
+     * @todo Remove me when API returns category image with party
+     */
+    this.api.getCategory(this.category.id).subscribe(data => {
+      this.category = data;
+    });
   }
 
   /**
    * Add selected songs to this category and remove the unselected
+   *
+   * Update category image
    */
   save(): void {
+    // Update category image
+    this.api.updateCategory(this.category.id, {
+      image: this.category.image,
+    }).subscribe(data => {
+      this.category = data;
+    });
+    // Add selected songs to this category and remove the unselected
     for (const song of this.songs) {
       const songCategory: SongCategory = song.categories.find(item => item.category.id === this.category.id);
       if (song.selected && !songCategory) {

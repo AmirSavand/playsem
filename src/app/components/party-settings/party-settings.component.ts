@@ -208,7 +208,9 @@ export class PartySettingsComponent implements OnInit {
    */
   updateCategories(): void {
     for (let category of this.party.categories) {
-      this.api.updateCategory(category.id, category.name).subscribe(data => {
+      this.api.updateCategory(category.id, {
+        name: category.name,
+      }).subscribe(data => {
         category = data;
       });
     }
@@ -234,7 +236,7 @@ export class PartySettingsComponent implements OnInit {
    * Load party users (party members)
    */
   loadPartyUsers(): void {
-    this.api.getPartyUsers({ party: this.party.id }).subscribe(data => {
+    this.api.getPartyUsers({party: this.party.id}).subscribe(data => {
       this.partyUsers = data.results;
     });
   }
@@ -263,7 +265,7 @@ export class PartySettingsComponent implements OnInit {
   editCategory(category: Category) {
     category.party = this.party.id;
     this.categoryModal = this.modalService.show(CategoryModalComponent, {
-      initialState: { category },
+      initialState: {category},
     });
   }
 }

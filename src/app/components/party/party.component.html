@@ -78,20 +78,17 @@
 </div>
 
 <!-- Categories -->
-<div class="container-fluid" *ngIf="party && party.categories.length">
-  <div class="row pt-3">
-    <div class="col-lg-2 col-md-4 col-sm-6 d-flex card-columns category" *ngFor="let category of party.categories">
-      <a class="card mb-3" routerLink="./"
-         routerLinkActive="bg-primary"
-         [queryParams]="{playlist: category.id}"
-         (click)="deselectCategory(category)">
+<div class="category-wrapper py-3" *ngIf="party && party.categories.length">
+  <div class="category-list pl-3">
+    <div class="category mr-3" *ngFor="let category of party.categories">
+      <a class="card m-0" routerLink="./" routerLinkActive="bg-primary"
+         [queryParams]="{playlist: category.id}" (click)="deselectCategory(category)">
+        <div class="card-body card-body-image"
+             [style.background-image]="'url(' + (category.image || 'assets/category.jpg') + ')'">
+        </div>
         <div class="card-body">
-          <p class="card-text">
-            {{ category.name }}<br>
-            <small class="text-white-50">
-              {{ getCategorySongCount(category) }} Songs
-            </small>
-          </p>
+          <div>{{ category.name }}</div>
+          <small class="text-white-50">{{ getCategorySongCount(category) }} Songs</small>
         </div>
       </a>
     </div>
