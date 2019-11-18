@@ -2,6 +2,8 @@
 
 - Improve inputs to have labels instead of placeholders.
 - Improve player shuffle logic and design.
+- Improve player to change volume with scroll wheel.
+- Improve player to pause and play with shortcut "Space".
 - Add playlist image.
 - Add song to selected playlist.
 - Add link for categories (share link of categories).
