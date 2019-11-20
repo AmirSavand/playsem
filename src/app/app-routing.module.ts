@@ -4,7 +4,6 @@ import { AppComponent } from '@app/app.component';
 
 const routes: Routes = [{
   path: '',
-  component: AppComponent,
   children: [{
     path: 'dashboard',
     loadChildren: () => import('./components/home/home.module').then(m => m.HomeModule),
