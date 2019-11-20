@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, ChangeDetectorRef, HostListener, Renderer2 } from '@angular/core';
+import { Component, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { PlayerRepeat } from '@app/enums/player-repeat';
 import { Song } from '@app/interfaces/song';
 import { PlayerService } from '@app/services/player/player.service';
@@ -81,6 +81,16 @@ export class PlayerComponent {
      * Add keydown listener to SPACE and pause/resume playing song
      */
     this.renderer.listen(document, 'keydown.SPACE', (event: KeyboardEvent): void => {
+      /**
+       * Get active element's tag name
+       */
+      const tagName: string = window.document.activeElement.tagName;
+      /**
+       * If tag name is input, textarea or button then break code
+       */
+      if (tagName === 'TEXTAREA' || tagName === 'INPUT' || tagName === 'BUTTON') {
+        return;
+      }
       event.preventDefault();
       /**
        * Check if a song is being played
