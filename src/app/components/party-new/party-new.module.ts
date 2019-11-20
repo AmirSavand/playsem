@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { PartyNewRoutingModule } from './party-new-routing.module';
 import { PartyNewComponent } from '@app/components/party-new/party-new.component';
+import {ReactiveFormsModule} from "@angular/forms";
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 
 
 @NgModule({
@@ -11,7 +13,9 @@ import { PartyNewComponent } from '@app/components/party-new/party-new.component
   ],
   imports: [
     CommonModule,
-    PartyNewRoutingModule
+    PartyNewRoutingModule,
+    ReactiveFormsModule,
+    FontAwesomeModule
   ]
 })
 export class PartyNewModule { }
