@@ -108,7 +108,7 @@ export class ApiService {
    * @param payload Party payload
    */
   updateParty(id: string, payload: Params): Observable<Party> {
-    return this.http.patch<Party>(`${ApiService.base}parties/${id}/`, payload);
+    return this.http.put<Party>(`${ApiService.base}parties/${id}/`, payload);
   }
 
   /**
