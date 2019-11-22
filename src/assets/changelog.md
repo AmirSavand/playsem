@@ -1,3 +1,7 @@
+### v4.4
+
+- Fix space doesn't work when typing in inputs
+
 ### v4.3
 
 2019 November 11
