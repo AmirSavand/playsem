@@ -13,15 +13,24 @@
   <!-- Search song categories -->
   <input class="form-control mb-1" type="text" name="search" autocomplete="off"
          [(ngModel)]="search" placeholder="Search">
+
   <!-- Categories -->
-  <div class="list-group">
-    <a class="list-group-item list-group-item-action"
-       *ngFor="let category of categoriesFiltered"
-       (click)="category.selected = !category.selected"
-       [class.active]="category.selected">
-      {{ category.name }}
-    </a>
-  </div>
+  <table class="table m-0">
+    <tbody>
+    <tr *ngFor="let category of categoriesFiltered">
+      <!-- Select -->
+      <th class="checkbox">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" [id]="category.id"
+                 [(ngModel)]="category.selected">
+          <label class="custom-control-label" [for]="category.id"></label>
+        </div>
+      </th>
+      <!-- Name -->
+      <th class="text-dark">{{ category.name }}</th>
+    </tr>
+    </tbody>
+  </table>
 </div>
 
 <!-- Footer -->
