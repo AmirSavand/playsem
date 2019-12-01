@@ -19,15 +19,24 @@
   <div class="form-group">
     <input class="form-control" type="text" name="search" autocomplete="off" [(ngModel)]="search" placeholder="Search">
   </div>
+
   <!-- Songs -->
-  <div class="list-group">
-    <a class="list-group-item list-group-item-action"
-       *ngFor="let song of songsFiltered"
-       (click)="song.selected = !song.selected"
-       [class.active]="song.selected">
-      {{ song.name }}
-    </a>
-  </div>
+  <table class="table m-0">
+    <tbody>
+    <tr *ngFor="let song of songsFiltered">
+      <!-- Select -->
+      <th class="checkbox">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" [id]="song.id"
+                 [(ngModel)]="song.selected">
+          <label class="custom-control-label" [for]="song.id"></label>
+        </div>
+      </th>
+      <!-- Name -->
+      <th class="text-dark">{{ song.name }}</th>
+    </tr>
+    </tbody>
+  </table>
 </div>
 
 <!-- Footer -->
