@@ -7,7 +7,7 @@ const routes: Routes = [{
   path: '',
   component: UserSettingsComponent,
   data: {
-    title: 'User-settings',
+    title: 'User settings',
   },
 }];
 
