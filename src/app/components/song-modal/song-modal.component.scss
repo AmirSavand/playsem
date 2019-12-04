@@ -1,0 +1,10 @@
+table {
+  tbody {
+    tr {
+      border-bottom: 1px solid #dee2e6;
+    }
+    tr:last-child {
+      border-bottom: none;
+    }
+  }
+}
