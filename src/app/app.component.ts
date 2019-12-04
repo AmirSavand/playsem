@@ -15,6 +15,11 @@ import { StorageService } from '@app/services/storage/storage.service';
 export class AppComponent implements OnInit {
 
   /**
+   * Window title without suffix
+   */
+  static readonly TITLE = 'PlayzEM';
+
+  /**
    * Navbar collapse status
    */
   navbarOpen = false;
