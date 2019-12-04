@@ -20,6 +20,11 @@ export class AppComponent implements OnInit {
   static readonly TITLE = 'PlayzEM';
 
   /**
+   * Window title with suffix
+   */
+  static readonly TITLE_SUFFIX = `${AppComponent.TITLE} - `;
+
+  /**
    * Navbar collapse status
    */
   navbarOpen = false;
