@@ -7,7 +7,7 @@ const routes: Routes = [{
   path: '',
   component: PartyComponent,
   data: {
-    title: 'Party-new',
+    title: 'Party new',
   },
 }];
 
