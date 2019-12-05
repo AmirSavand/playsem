@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AppComponent } from '@app/app.component';
 import { SongModalComponent } from '@app/components/song-modal/song-modal.component';
 import { Category } from '@app/interfaces/category';
 import { Party } from '@app/interfaces/party';
@@ -92,7 +94,8 @@ export class PartyComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private formBuilder: FormBuilder,
-              private modalService: BsModalService) {
+              private modalService: BsModalService,
+              private title: Title) {
   }
 
   /**
@@ -162,6 +165,10 @@ export class PartyComponent implements OnInit {
          */
         this.api.getParty(this.partyId).subscribe(data => {
           this.party = data;
+          /**
+           * Update title
+           */
+          this.title.setTitle(`${AppComponent.TITLE_SUFFIX}${this.party.name}`);
           /**
            * Load party songs
            */
