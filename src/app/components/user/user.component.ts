@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Params } from '@angular/router';
+import { AppComponent } from '@app/app.component';
 import { ApiResponse } from '@app/interfaces/api-response';
 import { PartyUser } from '@app/interfaces/party-user';
 import { User } from '@app/interfaces/user';
@@ -23,7 +25,8 @@ export class UserComponent implements OnInit {
   partyUsers: PartyUser[];
 
   constructor(private route: ActivatedRoute,
-              private api: ApiService) {
+              private api: ApiService,
+              private title: Title) {
   }
 
   /**
@@ -45,6 +48,10 @@ export class UserComponent implements OnInit {
        */
       this.api.getUser(params.username).subscribe(data => {
         this.user = data;
+        /**
+         * Update title
+         */
+        this.title.setTitle(`${AppComponent.TITLE_SUFFIX}${this.user.username}`);
         /**
          * Get parties (party users)
          */
