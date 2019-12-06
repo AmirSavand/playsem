@@ -155,6 +155,8 @@ export class PartySettingsComponent implements OnInit {
       this.loading = false;
       this.party.status = data.status;
       this.party.name = data.name;
+      this.party.image = data.image;
+      this.party.cover = data.cover;
       this.party.description = data.description;
       /**
        * Update the form with the new value
