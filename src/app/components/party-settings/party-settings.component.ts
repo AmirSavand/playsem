@@ -58,6 +58,11 @@ export class PartySettingsComponent implements OnInit {
   form: FormGroup;
 
   /**
+   * Party form errors
+   */
+  partyErrors: ApiError = {};
+
+  /**
    * Category model
    */
   categoryModal: BsModalRef;
@@ -168,6 +173,9 @@ export class PartySettingsComponent implements OnInit {
         cover: this.party.cover,
         description: this.party.description,
       });
+    }, error => {
+      this.loading = false;
+      this.partyErrors = error.error;
     });
   }
 
