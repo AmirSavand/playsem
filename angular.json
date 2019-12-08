@@ -155,7 +155,9 @@
         },
         "deploy": {
           "builder": "angular-cli-ghpages:deploy",
-          "options": {}
+          "options": {
+            "cname": "playzem.savandbros.com"
+          }
         }
       }
     }
