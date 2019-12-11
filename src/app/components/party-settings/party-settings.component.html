@@ -26,11 +26,15 @@
           <div class="form-group">
             <label for="image">Image from imgur.com</label>
             <input class="form-control" id="image" type="text" formControlName="image">
+            <!-- Error -->
+            <div class="text-danger" *ngIf="partyErrors.image">{{ partyErrors.image[0] }}</div>
           </div>
           <!-- Cover -->
           <div class="form-group">
             <label for="cover">Cover from imgur.com</label>
             <input class="form-control" id="cover" type="text" formControlName="cover">
+            <!-- Error -->
+            <div class="text-danger" *ngIf="partyErrors.cover">{{ partyErrors.cover[0] }}</div>
           </div>
           <!-- Description -->
           <div class="form-group">
