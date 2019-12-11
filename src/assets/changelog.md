@@ -1,6 +1,7 @@
 ### v4.4
 
 - Fix space doesn't work when typing in inputs
+- Fix party updating form
 
 ### v4.3
 
