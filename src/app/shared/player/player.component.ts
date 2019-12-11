@@ -38,7 +38,7 @@ export class PlayerComponent {
   /**
    * Player volume
    */
-  private volume: number = 100;
+  private volume = 100;
 
   /**
    * Player repeat modes
@@ -279,8 +279,6 @@ export class PlayerComponent {
 
   /**
    * On mouse wheel scroll
-   *
-   * @param event {WheelEvent}
    */
   onVolumeChange(event: WheelEvent): void {
     let volumeNumber: number = this.volume;

@@ -1,11 +1,10 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { PartyNewComponent } from '@app/components/party-new/party-new.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { PartyNewRoutingModule } from './party-new-routing.module';
-import { PartyNewComponent } from '@app/components/party-new/party-new.component';
-import {ReactiveFormsModule} from "@angular/forms";
-import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
-
 
 @NgModule({
   declarations: [
@@ -15,7 +14,8 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
     CommonModule,
     PartyNewRoutingModule,
     ReactiveFormsModule,
-    FontAwesomeModule
-  ]
+    FontAwesomeModule,
+  ],
 })
-export class PartyNewModule { }
+export class PartyNewModule {
+}

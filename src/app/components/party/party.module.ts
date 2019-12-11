@@ -1,12 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { PartyComponent } from '@app/components/party/party.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { PopoverModule } from 'ngx-bootstrap';
 
 import { PartyRoutingModule } from './party-routing.module';
-import { PartyComponent } from '@app/components/party/party.component';
-import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
-import {PopoverModule} from "ngx-bootstrap";
-import {ReactiveFormsModule} from "@angular/forms";
-
 
 @NgModule({
   declarations: [
@@ -17,7 +16,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     PartyRoutingModule,
     FontAwesomeModule,
     PopoverModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+  ],
 })
-export class PartyModule { }
+export class PartyModule {
+}

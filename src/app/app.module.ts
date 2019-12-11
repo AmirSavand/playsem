@@ -3,9 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { CategoryModalComponent } from '@app/components/category-modal/category-modal.component';
-
-
 import { ApiService } from '@app/services/api/api-service.service';
 import { AuthInterceptorService } from '@app/services/auth-interceptor/auth-interceptor.service';
 import { AuthService } from '@app/services/auth/auth.service';
