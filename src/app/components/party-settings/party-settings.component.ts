@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CategoryModalComponent } from '@app/components/category-modal/category-modal.component';
+import { CategoryModalComponent } from '@app/shared/category-modal/category-modal.component';
 import { PartyStatus } from '@app/enums/party-status';
 import { ApiError } from '@app/interfaces/api-error';
 import { Category } from '@app/interfaces/category';
