@@ -17,6 +17,7 @@
         </div>
       </div>
 
+      <!-- Join party -->
       <div class="card my-3">
         <div class="card-body">
           <h4 class="mb-3">Join Party</h4>
@@ -59,7 +60,7 @@
           <a class="card party card-link mt-2 ml-0"
              *ngFor="let party of parties"
              [routerLink]="['/party', party.id]"
-             [style.background-image]="'url('+party.cover+')'">
+             [style.background-image]="'url(' + (party.cover || 'assets/party-cover.jpg') + ')'">
             <div class="card-body py-4">
               <h5 class="card-text font-weight-bold">{{ party.name }}</h5>
               <div class="card-text small">
