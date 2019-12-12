@@ -59,7 +59,7 @@ import { NgxY2PlayerModule } from 'ngx-y2-player';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SongModalComponent } from './components/song-modal/song-modal.component';
+import { SongModalComponent } from './shared/song-modal/song-modal.component';
 import { ImplementingComponent } from './shared/implementing/implementing.component';
 
 @NgModule({

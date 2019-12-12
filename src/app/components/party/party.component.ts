@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppComponent } from '@app/app.component';
-import { SongModalComponent } from '@app/components/song-modal/song-modal.component';
+import { SongModalComponent } from '@app/shared/song-modal/song-modal.component';
 import { Category } from '@app/interfaces/category';
 import { Party } from '@app/interfaces/party';
 import { PartyUser } from '@app/interfaces/party-user';
