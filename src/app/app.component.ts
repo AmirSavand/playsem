@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { NavigationEnd, Data, ActivatedRoute, RouterEvent, Router } from '@angular/router';
 import { Party } from '@app/interfaces/party';
 import { Storage } from '@app/interfaces/storage';
 import { User } from '@app/interfaces/user';
 import { AuthService } from '@app/services/auth/auth.service';
 import { PartyService } from '@app/services/party/party.service';
 import { StorageService } from '@app/services/storage/storage.service';
+import { Observable } from 'rxjs';
+import { mergeMap, filter, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +17,16 @@ import { StorageService } from '@app/services/storage/storage.service';
 })
 
 export class AppComponent implements OnInit {
+
+  /**
+   * Window title without suffix
+   */
+  static readonly TITLE = 'PlayzEM';
+
+  /**
+   * Window title with suffix
+   */
+  static readonly TITLE_SUFFIX = `${AppComponent.TITLE} - `;
 
   /**
    * Navbar collapse status
@@ -36,7 +50,10 @@ export class AppComponent implements OnInit {
   sidebarStatus: boolean = StorageService.storage.settings.sidebarOpen;
 
   constructor(private party: PartyService,
-              public auth: AuthService) {
+              public auth: AuthService,
+              private router: Router,
+              private route: ActivatedRoute,
+              private title: Title) {
   }
 
   /**
@@ -47,6 +64,27 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    /**
+     * Watch for page changes then update window title
+     */
+    this.router.events.pipe(
+      filter((event: RouterEvent): boolean => event instanceof NavigationEnd),
+      map((): ActivatedRoute => this.route),
+      map((activatedRoute: ActivatedRoute): ActivatedRoute => {
+        while (activatedRoute.firstChild) {
+          activatedRoute = activatedRoute.firstChild;
+        }
+        return activatedRoute;
+      }),
+      filter((activatedRoute: ActivatedRoute): boolean => activatedRoute.outlet === 'primary'),
+      mergeMap((activatedRoute: ActivatedRoute): Observable<Data> => activatedRoute.data),
+    ).subscribe((event: Data): void => {
+      if (event.title) {
+        this.title.setTitle(`${AppComponent.TITLE_SUFFIX}${event.title}`);
+      } else {
+        this.title.setTitle(AppComponent.TITLE);
+      }
+    });
     /**
      * Get authenticated user data and watch for changes
      */

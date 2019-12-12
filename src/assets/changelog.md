@@ -2,6 +2,8 @@
 
 - Fix space doesn't work when typing in inputs
 - Fix party updating form
+- Improve code to use lazy-loading technology
+
 
 ### v4.3
 
