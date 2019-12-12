@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { AppComponent } from '@app/app.component';
-import { SongModalComponent } from '@app/shared/song-modal/song-modal.component';
 import { Category } from '@app/interfaces/category';
 import { Party } from '@app/interfaces/party';
 import { PartyUser } from '@app/interfaces/party-user';
@@ -15,6 +14,7 @@ import { PartyService } from '@app/services/party/party.service';
 import { PlayerService } from '@app/services/player/player.service';
 import { SongService } from '@app/services/song/song.service';
 import { ImplementingService } from '@app/shared/implementing/implementing.service';
+import { SongModalComponent } from '@app/shared/song-modal/song-modal.component';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 
 @Component({
@@ -144,7 +144,7 @@ export class PartyComponent implements OnInit {
     /**
      * Watch param changes
      */
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params: ParamMap): void => {
       /**
        * If party ID changes
        */
@@ -168,7 +168,7 @@ export class PartyComponent implements OnInit {
           /**
            * Update title
            */
-          this.title.setTitle(`${AppComponent.TITLE_SUFFIX}${this.party.name}`);
+          this.updateTitle();
           /**
            * Load party songs
            */
@@ -180,6 +180,26 @@ export class PartyComponent implements OnInit {
         });
       }
     });
+    /**
+     * Watch query param changes
+     */
+    this.route.queryParamMap.subscribe((): void => {
+      this.updateTitle();
+    });
+  }
+
+  /**
+   * Update window title with party name and selected category
+   */
+  updateTitle(): void {
+    console.log(123);
+    if (this.party) {
+      let title = `${this.party.name}`;
+      if (this.categorySelected) {
+        title = `${this.categorySelected.name} - ${title}`;
+      }
+      this.title.setTitle(`${title}${AppComponent.TITLE_SUFFIX}`);
+    }
   }
 
   /**

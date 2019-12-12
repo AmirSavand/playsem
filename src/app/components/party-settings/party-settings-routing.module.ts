@@ -6,9 +6,6 @@ import { PartySettingsComponent } from '@app/components/party-settings/party-set
 const routes: Routes = [{
   path: '',
   component: PartySettingsComponent,
-  data: {
-    title: 'Party settings',
-  },
 }];
 
 @NgModule({

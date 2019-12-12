@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
   /**
    * Window title with suffix
    */
-  static readonly TITLE_SUFFIX = `${AppComponent.TITLE} - `;
+  static readonly TITLE_SUFFIX = ` - ${AppComponent.TITLE}`;
 
   /**
    * Navbar collapse status
@@ -49,8 +49,8 @@ export class AppComponent implements OnInit {
    */
   sidebarStatus: boolean = StorageService.storage.settings.sidebarOpen;
 
-  constructor(private party: PartyService,
-              public auth: AuthService,
+  constructor(public auth: AuthService,
+              private party: PartyService,
               private router: Router,
               private route: ActivatedRoute,
               private title: Title) {
@@ -79,10 +79,12 @@ export class AppComponent implements OnInit {
       filter((activatedRoute: ActivatedRoute): boolean => activatedRoute.outlet === 'primary'),
       mergeMap((activatedRoute: ActivatedRoute): Observable<Data> => activatedRoute.data),
     ).subscribe((event: Data): void => {
-      if (event.title) {
-        this.title.setTitle(`${AppComponent.TITLE_SUFFIX}${event.title}`);
-      } else {
-        this.title.setTitle(AppComponent.TITLE);
+      if (typeof event.title !== 'string' || event.title.length > 0) {
+        if (event.title) {
+          this.title.setTitle(`${event.title}${AppComponent.TITLE_SUFFIX}`);
+        } else {
+          this.title.setTitle(AppComponent.TITLE);
+        }
       }
     });
     /**

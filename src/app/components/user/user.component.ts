@@ -51,7 +51,7 @@ export class UserComponent implements OnInit {
         /**
          * Update title
          */
-        this.title.setTitle(`${AppComponent.TITLE_SUFFIX}${this.user.username}`);
+        this.title.setTitle(`${this.user.account.name}${AppComponent.TITLE_SUFFIX}`);
         /**
          * Get parties (party users)
          */
