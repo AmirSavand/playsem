@@ -44,8 +44,7 @@
             "aot": true,
             "assets": [
               "src/favicon.ico",
-              "src/assets",
-              "src/_redirects"
+              "src/assets"
             ],
             "styles": [
               "src/assets/styles.scss"
@@ -152,6 +151,12 @@
             "production": {
               "devServerTarget": "playzem:serve:production"
             }
+          }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {
+            "cname": "playzem.savandbros.com"
           }
         }
       }
