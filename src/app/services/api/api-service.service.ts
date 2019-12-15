@@ -34,7 +34,7 @@ export class ApiService {
    * @param username User username
    */
   getUser(username: string): Observable<User> {
-    return this.http.get<User>(`${ApiService.base}users/${username}/`);
+    return this.http.get<User>(`${ApiService.base}user/${username}/`);
   }
 
   /**
@@ -61,7 +61,7 @@ export class ApiService {
     const params = new HttpParams({
       fromObject: this.valuesToString(filterPayload),
     });
-    return this.http.get<ApiResponse<Party>>(`${ApiService.base}parties/`, { params });
+    return this.http.get<ApiResponse<Party>>(`${ApiService.base}party/`, { params });
   }
 
   // Convert to list
@@ -89,7 +89,7 @@ export class ApiService {
    * @param id Party ID
    */
   getParty(id: string): Observable<Party> {
-    return this.http.get<Party>(`${ApiService.base}parties/${id}/`);
+    return this.http.get<Party>(`${ApiService.base}party/${id}/`);
   }
 
   /**
@@ -98,7 +98,7 @@ export class ApiService {
    * @param payload Party payload
    */
   createParty(payload?: Params): Observable<Party> {
-    return this.http.post<Party>(`${ApiService.base}parties/`, payload).pipe();
+    return this.http.post<Party>(`${ApiService.base}party/`, payload).pipe();
   }
 
   /**
@@ -108,7 +108,7 @@ export class ApiService {
    * @param payload Party payload
    */
   updateParty(id: string, payload: Params): Observable<Party> {
-    return this.http.put<Party>(`${ApiService.base}parties/${id}/`, payload);
+    return this.http.put<Party>(`${ApiService.base}party/${id}/`, payload);
   }
 
   /**
@@ -117,7 +117,7 @@ export class ApiService {
    * @param id Party ID
    */
   deleteParty(id: string): Observable<void> {
-    return this.http.delete<void>(`${ApiService.base}parties/${id}/`);
+    return this.http.delete<void>(`${ApiService.base}party/${id}/`);
   }
 
   // Party category
@@ -129,7 +129,7 @@ export class ApiService {
    * @param name Category name
    */
   addCategory(party: string, name: string): Observable<Category> {
-    return this.http.post<Category>(`${ApiService.base}party-categories/`, { party, name });
+    return this.http.post<Category>(`${ApiService.base}party-category/`, { party, name });
   }
 
   /**
@@ -139,7 +139,7 @@ export class ApiService {
    * @param payload New category name and image
    */
   updateCategory(id: number, payload: { name?: string, image?: string }): Observable<Category> {
-    return this.http.patch<Category>(`${ApiService.base}party-categories/${id}/`, payload);
+    return this.http.patch<Category>(`${ApiService.base}party-category/${id}/`, payload);
   }
 
   /**
@@ -148,7 +148,7 @@ export class ApiService {
    * @param id Category ID to delete
    */
   deleteCategory(id: number): Observable<void> {
-    return this.http.delete<void>(`${ApiService.base}party-categories/${id}/`);
+    return this.http.delete<void>(`${ApiService.base}party-category/${id}/`);
   }
 
   /**
@@ -157,7 +157,7 @@ export class ApiService {
    * @param id Category id
    */
   getCategory(id: number): Observable<Category> {
-    return this.http.get<Category>(`${ApiService.base}party-categories/${id}/`);
+    return this.http.get<Category>(`${ApiService.base}party-category/${id}/`);
   }
 
   // Party user
@@ -168,7 +168,7 @@ export class ApiService {
    * @param params Filter data
    */
   getPartyUsers(params?: { user?: string, party?: string, }): Observable<ApiResponse<PartyUser>> {
-    return this.http.get<ApiResponse<PartyUser>>(`${ApiService.base}party-users/`, { params });
+    return this.http.get<ApiResponse<PartyUser>>(`${ApiService.base}party-user/`, { params });
   }
 
   /**
@@ -177,7 +177,7 @@ export class ApiService {
    * @param party Party ID
    */
   createPartyUsers(party: string): Observable<PartyUser> {
-    return this.http.post<PartyUser>(`${ApiService.base}party-users/`, { party });
+    return this.http.post<PartyUser>(`${ApiService.base}party-user/`, { party });
   }
 
   /**
@@ -186,7 +186,7 @@ export class ApiService {
    * @param id Party user ID
    */
   deletePartyUser(id: number): Observable<void> {
-    return this.http.delete<void>(`${ApiService.base}party-users/${id}/`);
+    return this.http.delete<void>(`${ApiService.base}party-user/${id}/`);
   }
 
   // Song
@@ -198,7 +198,7 @@ export class ApiService {
    * @param source song URL
    */
   addSong(party: string, source: string): Observable<Song> {
-    return this.http.post<Song>(`${ApiService.base}songs/`, { party, source });
+    return this.http.post<Song>(`${ApiService.base}song/`, { party, source });
   }
 
   /**
@@ -207,7 +207,7 @@ export class ApiService {
    * @param party Song party ID
    */
   getSongs(party: string): Observable<ApiResponse<Song>> {
-    return this.http.get<ApiResponse<Song>>(`${ApiService.base}songs/`, {
+    return this.http.get<ApiResponse<Song>>(`${ApiService.base}song/`, {
       params: { party },
     });
   }
@@ -218,7 +218,7 @@ export class ApiService {
    * @param id Song ID
    */
   deleteSong(id: number): Observable<void> {
-    return this.http.delete<void>(`${ApiService.base}songs/${id}/`);
+    return this.http.delete<void>(`${ApiService.base}song/${id}/`);
   }
 
   /**
@@ -228,7 +228,7 @@ export class ApiService {
    * @param payload Song data
    */
   updateSong(id: number, payload: Params): Observable<Song> {
-    return this.http.patch<Song>(`${ApiService.base}songs/${id}/`, payload);
+    return this.http.patch<Song>(`${ApiService.base}song/${id}/`, payload);
   }
 
   // Song category
@@ -240,7 +240,7 @@ export class ApiService {
    * @param category Category ID
    */
   addSongCategory(song: number, category: number): Observable<SongCategory> {
-    return this.http.post<SongCategory>(`${ApiService.base}song-categories/`, { song, category });
+    return this.http.post<SongCategory>(`${ApiService.base}song-category/`, { song, category });
   }
 
   /**
@@ -253,7 +253,7 @@ export class ApiService {
     song?: string,
     category?: string
   }): Observable<ApiResponse<SongCategory>> {
-    return this.http.get<ApiResponse<SongCategory>>(`${ApiService.base}song-categories/`, { params });
+    return this.http.get<ApiResponse<SongCategory>>(`${ApiService.base}song-category/`, { params });
   }
 
   /**
@@ -262,6 +262,6 @@ export class ApiService {
    * @param id Song category ID
    */
   deleteSongCategory(id: number): Observable<void> {
-    return this.http.delete<void>(`${ApiService.base}song-categories/${id}/`);
+    return this.http.delete<void>(`${ApiService.base}song-category/${id}/`);
   }
 }
