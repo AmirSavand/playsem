@@ -192,7 +192,6 @@ export class PartyComponent implements OnInit {
    * Update window title with party name and selected category
    */
   updateTitle(): void {
-    console.log(123);
     if (this.party) {
       let title = `${this.party.name}`;
       if (this.categorySelected) {
