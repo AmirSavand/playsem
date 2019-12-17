@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { SongModalComponent } from '@app/components/song-modal/song-modal.component';
+import { Title } from '@angular/platform-browser';
+import { ActivatedRoute, Router, ParamMap } from '@angular/router';
+import { AppComponent } from '@app/app.component';
 import { Category } from '@app/interfaces/category';
 import { Party } from '@app/interfaces/party';
 import { PartyUser } from '@app/interfaces/party-user';
@@ -13,6 +14,7 @@ import { PartyService } from '@app/services/party/party.service';
 import { PlayerService } from '@app/services/player/player.service';
 import { SongService } from '@app/services/song/song.service';
 import { ImplementingService } from '@app/shared/implementing/implementing.service';
+import { SongModalComponent } from '@app/shared/song-modal/song-modal.component';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 
 @Component({
@@ -92,7 +94,8 @@ export class PartyComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private formBuilder: FormBuilder,
-              private modalService: BsModalService) {
+              private modalService: BsModalService,
+              private title: Title) {
   }
 
   /**
@@ -141,7 +144,7 @@ export class PartyComponent implements OnInit {
     /**
      * Watch param changes
      */
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params: ParamMap): void => {
       /**
        * If party ID changes
        */
@@ -163,6 +166,10 @@ export class PartyComponent implements OnInit {
         this.api.getParty(this.partyId).subscribe(data => {
           this.party = data;
           /**
+           * Update title
+           */
+          this.updateTitle();
+          /**
            * Load party songs
            */
           this.loadSongs();
@@ -173,6 +180,25 @@ export class PartyComponent implements OnInit {
         });
       }
     });
+    /**
+     * Watch query param changes
+     */
+    this.route.queryParamMap.subscribe((): void => {
+      this.updateTitle();
+    });
+  }
+
+  /**
+   * Update window title with party name and selected category
+   */
+  updateTitle(): void {
+    if (this.party) {
+      let title = `${this.party.name}`;
+      if (this.categorySelected) {
+        title = `${this.categorySelected.name} - ${title}`;
+      }
+      this.title.setTitle(`${title}${AppComponent.TITLE_SUFFIX}`);
+    }
   }
 
   /**

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CategoryModalComponent } from '@app/components/category-modal/category-modal.component';
+import { AppComponent } from '@app/app.component';
 import { PartyStatus } from '@app/enums/party-status';
 import { ApiError } from '@app/interfaces/api-error';
 import { Category } from '@app/interfaces/category';
@@ -9,6 +10,7 @@ import { Party } from '@app/interfaces/party';
 import { PartyUser } from '@app/interfaces/party-user';
 import { ApiService } from '@app/services/api/api-service.service';
 import { PartyService } from '@app/services/party/party.service';
+import { CategoryModalComponent } from '@app/shared/category-modal/category-modal.component';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { FilterByPipe } from 'ngx-pipes';
 
@@ -88,7 +90,8 @@ export class PartySettingsComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private filterBy: FilterByPipe,
-              private modalService: BsModalService) {
+              private modalService: BsModalService,
+              private title: Title) {
   }
 
   ngOnInit(): void {
@@ -136,6 +139,10 @@ export class PartySettingsComponent implements OnInit {
           cover: this.party.cover,
           description: this.party.description,
         });
+        /**
+         * Update title
+         */
+        this.title.setTitle(`Settings - ${this.party.name}${AppComponent.TITLE_SUFFIX}`);
       });
     });
   }
@@ -246,7 +253,7 @@ export class PartySettingsComponent implements OnInit {
    * Load party users (party members)
    */
   loadPartyUsers(): void {
-    this.api.getPartyUsers({party: this.party.id}).subscribe(data => {
+    this.api.getPartyUsers({ party: this.party.id }).subscribe(data => {
       this.partyUsers = data.results;
     });
   }
@@ -275,7 +282,7 @@ export class PartySettingsComponent implements OnInit {
   editCategory(category: Category) {
     category.party = this.party.id;
     this.categoryModal = this.modalService.show(CategoryModalComponent, {
-      initialState: {category},
+      initialState: { category },
     });
   }
 }
