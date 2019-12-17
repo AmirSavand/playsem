@@ -23,15 +23,12 @@
   <!-- Songs -->
   <div class="d-flex py-3 px-2 border-bottom" *ngFor="let song of songsFiltered">
     <!-- Select -->
-    <div class="checkbox">
       <div class="custom-control custom-checkbox">
         <input type="checkbox" class="custom-control-input" [id]="song.id"
                [(ngModel)]="song.selected">
-        <label class="custom-control-label" [for]="song.id"></label>
+        <!-- Name -->
+        <label class="custom-control-label" [for]="song.id">{{ song.name }}</label>
       </div>
-    </div>
-    <!-- Name -->
-    <h6 class="ml-4">{{ song.name }}</h6>
   </div>
 </div>
 
