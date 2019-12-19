@@ -7,6 +7,15 @@ import { User } from '@app/interfaces/user';
 import { AuthService } from '@app/services/auth/auth.service';
 import { PartyService } from '@app/services/party/party.service';
 import { StorageService } from '@app/services/storage/storage.service';
+import { IconDefinition } from '@fortawesome/fontawesome-common-types';
+import { faBars } from '@fortawesome/free-solid-svg-icons/faBars';
+import { faCog } from '@fortawesome/free-solid-svg-icons/faCog';
+import { faCompactDisc } from '@fortawesome/free-solid-svg-icons/faCompactDisc';
+import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
+import { faSignInAlt } from '@fortawesome/free-solid-svg-icons/faSignInAlt';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons/faSignOutAlt';
+import { faTachometerAlt } from '@fortawesome/free-solid-svg-icons/faTachometerAlt';
+import { faUserPlus } from '@fortawesome/free-solid-svg-icons/faUserPlus';
 import { Observable } from 'rxjs';
 import { mergeMap, filter, map } from 'rxjs/operators';
 
@@ -27,6 +36,18 @@ export class AppComponent implements OnInit {
    * Window title with suffix
    */
   static readonly TITLE_SUFFIX = ` - ${AppComponent.TITLE}`;
+
+  /**
+   * icons
+   */
+  readonly bars: IconDefinition = faBars;
+  readonly tachometerAlt: IconDefinition = faTachometerAlt;
+  readonly faPlus: IconDefinition = faPlus;
+  readonly compactDisc: IconDefinition = faCompactDisc;
+  readonly signInAlt: IconDefinition = faSignInAlt;
+  readonly userPlus: IconDefinition = faUserPlus;
+  readonly cog: IconDefinition = faCog;
+  readonly signOutAlt: IconDefinition = faSignOutAlt;
 
   /**
    * Navbar collapse status
