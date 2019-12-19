@@ -3,6 +3,16 @@ import { PlayerRepeat } from '@app/enums/player-repeat';
 import { Song } from '@app/interfaces/song';
 import { PlayerService } from '@app/services/player/player.service';
 import { SongService } from '@app/services/song/song.service';
+import { IconDefinition } from '@fortawesome/fontawesome-common-types';
+import { faBackward } from '@fortawesome/free-solid-svg-icons/faBackward';
+import { faExpand } from '@fortawesome/free-solid-svg-icons/faExpand';
+import { faForward } from '@fortawesome/free-solid-svg-icons/faForward';
+import { faPause } from '@fortawesome/free-solid-svg-icons/faPause';
+import { faPlay } from '@fortawesome/free-solid-svg-icons/faPlay';
+import { faRandom } from '@fortawesome/free-solid-svg-icons/faRandom';
+import { faRetweet } from '@fortawesome/free-solid-svg-icons/faRetweet';
+import { faVolumeMute } from '@fortawesome/free-solid-svg-icons/faVolumeMute';
+import { faVolumeUp } from '@fortawesome/free-solid-svg-icons/faVolumeUp';
 import { NgxY2PlayerComponent, NgxY2PlayerOptions } from 'ngx-y2-player';
 
 @Component({
@@ -11,6 +21,19 @@ import { NgxY2PlayerComponent, NgxY2PlayerOptions } from 'ngx-y2-player';
   styleUrls: ['./player.component.scss'],
 })
 export class PlayerComponent {
+
+  /**
+   * icons
+   */
+  readonly backward: IconDefinition = faBackward;
+  readonly faPause: IconDefinition = faPause;
+  readonly faPlay: IconDefinition = faPlay;
+  readonly forward: IconDefinition = faForward;
+  readonly retweet: IconDefinition = faRetweet;
+  readonly random: IconDefinition = faRandom;
+  readonly faExpand: IconDefinition = faExpand;
+  readonly volumeUp: IconDefinition = faVolumeUp;
+  readonly volumeMute: IconDefinition = faVolumeMute;
 
   /**
    * YouTube player instance
