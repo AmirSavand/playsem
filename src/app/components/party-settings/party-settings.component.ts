@@ -11,6 +11,11 @@ import { PartyUser } from '@app/interfaces/party-user';
 import { ApiService } from '@app/services/api/api-service.service';
 import { PartyService } from '@app/services/party/party.service';
 import { CategoryModalComponent } from '@app/shared/category-modal/category-modal.component';
+import { IconDefinition } from '@fortawesome/fontawesome-common-types';
+import { faEdit } from '@fortawesome/free-solid-svg-icons/faEdit';
+import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
+import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash';
+import { faUserMinus } from '@fortawesome/free-solid-svg-icons/faUserMinus';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { FilterByPipe } from 'ngx-pipes';
 
@@ -33,6 +38,14 @@ export class PartySettingsComponent implements OnInit {
     id: PartyStatus;
     label: string;
   }[] = PartyService.statuses;
+
+  /**
+   * icons
+   */
+  readonly faPlus: IconDefinition = faPlus;
+  readonly edit: IconDefinition = faEdit;
+  readonly trash: IconDefinition = faTrash;
+  readonly userMinus: IconDefinition = faUserMinus;
 
   /**
    * Filter members
