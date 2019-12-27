@@ -7,20 +7,19 @@
       <!-- Welcome -->
       <div class="card my-3">
         <div class="card-body">
-          <h4 class="mb-3">Welcome to <b>PlayzEM</b> <small class="text-secondary"> v4.2</small></h4>
-          <p class="m-1">Host and join parties and keep shuffling sick songs.</p>
-          <p class="m-0">
-            <a class="btn btn-sm btn-light mr-1 mt-2" href="https://discord.gg/4C98Q9j">Discord</a>
-            <a class="btn btn-sm btn-light mr-1 mt-2" href="https://github.com/AmirSavand/playzem">GitHub</a>
-            <a class="btn btn-sm btn-light mr-1 mt-2" href="mailto:amir@savandbros.com?subject=PlayzEM">Feedback</a>
-          </p>
+          <h4>Welcome to <b>PlayzEM</b> <small class="text-secondary"> v4.2</small></h4>
+          <p class="mb-0">Host and join parties and keep shuffling sick songs.</p>
+          <a class="btn btn-sm btn-light mr-1 mt-2" href="https://discord.gg/4C98Q9j">Discord</a>
+          <a class="btn btn-sm btn-light mr-1 mt-2" href="https://github.com/AmirSavand/playzem">GitHub</a>
+          <a class="btn btn-sm btn-light mr-1 mt-2" href="mailto:amir@savandbros.com?subject=PlayzEM">Feedback</a>
         </div>
       </div>
 
       <!-- Join party -->
       <div class="card my-3">
         <div class="card-body">
-          <h4 class="mb-3">Join Party</h4>
+          <h4>Join Party</h4>
+          <p>Enter party key below to join:</p>
           <div class="input-group">
             <input type="text" placeholder="XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
                    [(ngModel)]="joinPartyId" class="form-control text-monospace"
@@ -38,7 +37,7 @@
       <!-- Changelog -->
       <div class="card my-3">
         <div class="card-body">
-          <h4 class="mb-3">Changelog</h4>
+          <h4>Changelog</h4>
           <ngx-md path="/assets/changelog.md"></ngx-md>
         </div>
       </div>
@@ -47,10 +46,23 @@
     <!-- Right -->
     <div class="col-lg-7">
 
+      <!-- #2020 -->
+      <div class="card my-3">
+        <div class="card-body">
+          <h4 class="text-warning">Happy 2020!</h4>
+          <p>Happy new year from PlayzEM!</p>
+          <p class="mb-0">
+            When PlayzEM offers premium plans with premium features,
+            all users joined before <b>February 2020</b> will get <b>1 year free premium</b> package.
+          </p>
+        </div>
+      </div>
+
       <!-- Parties -->
       <div class="card my-3">
         <div class="card-body">
-          <h4 class="mb-3">Explore Parties</h4>
+          <h4>Explore Parties</h4>
+          <p>Find awesome public parties made by other members of PlayzEM.</p>
           <!-- Search -->
           <form class="input-group mb-2" (ngSubmit)="getParties()" [formGroup]="exploreForm">
             <input class="form-control" placeholder="Search" type="text" formControlName="search"

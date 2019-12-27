@@ -19,7 +19,12 @@
           <!-- Toggler -->
           <a class="list-group-item list-group-item-action m-0" (click)="toggleSidebar()">
             <fa-icon [fixedWidth]="true" [icon]="bars" class="text-dark"></fa-icon>
-            <span class="font-weight-bold text-dark">PlayzEM</span>
+            <span class="font-weight-bold text-dark">PlayzEM
+              <!-- #2020 -->
+              <small class="badge badge-pill badge-warning text-white float-right mt-1" *ngIf="sidebarStatus">
+                <fa-icon class="text-white" [icon]="glassCheers"></fa-icon> Happy 2020!
+              </small>
+            </span>
           </a>
         </div>
 
@@ -110,7 +115,13 @@
           <nav class="navbar navbar-dark bg-dark d-sm-none sticky-top">
 
             <!-- Brand -->
-            <a class="navbar-brand" routerLink="/">PlayzEM</a>
+            <a class="navbar-brand" routerLink="/">PlayzEM
+              <!-- #2020 -->
+              <span class="small text-uppercase ml-2">
+                <fa-icon class="text-warning" [icon]="glassCheers"></fa-icon>
+                Happy 2020!
+              </span>
+            </a>
 
             <!-- Toggler -->
             <button class="navbar-toggler collapsed" type="button" (click)="navbarOpen = !navbarOpen">
