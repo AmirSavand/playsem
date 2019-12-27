@@ -5,7 +5,8 @@ $dark: #222228;
 @import "~bootstrap/scss/variables";
 
 $body-bg: lighten($dark, 5);
-$body-color: darken($light, 20);
+$body-color: $light;
+$body-color-secondary: darken($light, 20);
 
 $progress-bg: lighten($dark, 20);
 $progress-height: 5px;
