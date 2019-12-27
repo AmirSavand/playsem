@@ -7,22 +7,20 @@
 </div>
 
 <!-- Body -->
-<div class="modal-body pb-0">
+<div class="modal-body">
   <!-- Text -->
   <p>Select song playlist:</p>
   <!-- Search song categories -->
-  <input class="form-control mb-1" type="text" name="search" autocomplete="off"
-         [(ngModel)]="search" placeholder="Search">
-
+  <div class="form-group">
+    <input class="form-control mb-3" type="text" name="search" autocomplete="off"
+           [(ngModel)]="search" placeholder="Search">
+  </div>
   <!-- Categories -->
-  <div class="d-flex py-3 px-2 border-bottom" *ngFor="let category of categoriesFiltered">
-    <!-- Select -->
-      <div class="custom-control custom-checkbox">
-        <input type="checkbox" class="custom-control-input" [id]="category.id"
-               [(ngModel)]="category.selected">
-        <!-- Name -->
-        <label class="custom-control-label" [for]="category.id">{{ category.name }}</label>
-      </div>
+  <div class="custom-control custom-checkbox mb-2" *ngFor="let category of categoriesFiltered">
+    <input type="checkbox" class="custom-control-input" [id]="category.id"
+           [(ngModel)]="category.selected">
+    <!-- Name -->
+    <label class="custom-control-label" [for]="category.id">{{ category.name }}</label>
   </div>
 </div>
 
