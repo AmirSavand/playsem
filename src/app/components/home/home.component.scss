@@ -1,9 +1,11 @@
 @import "variables";
 
 .card {
+
   h4 {
     margin-bottom: map_get($spacers, 2);
   }
+
   p {
     margin-bottom: map_get($spacers, 2);
     color: $body-color-secondary;
