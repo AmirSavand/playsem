@@ -11,16 +11,16 @@
   <!-- Text -->
   <p>Select song playlist:</p>
   <!-- Search song categories -->
-  <input class="form-control mb-1" type="text" name="search" autocomplete="off"
-         [(ngModel)]="search" placeholder="Search">
+  <div class="form-group">
+    <input class="form-control mb-3" type="text" name="search" autocomplete="off"
+           [(ngModel)]="search" placeholder="Search">
+  </div>
   <!-- Categories -->
-  <div class="list-group">
-    <a class="list-group-item list-group-item-action"
-       *ngFor="let category of categoriesFiltered"
-       (click)="category.selected = !category.selected"
-       [class.active]="category.selected">
-      {{ category.name }}
-    </a>
+  <div class="custom-control custom-checkbox mb-2" *ngFor="let category of categoriesFiltered">
+    <input type="checkbox" class="custom-control-input" [id]="category.id"
+           [(ngModel)]="category.selected">
+    <!-- Name -->
+    <label class="custom-control-label" [for]="category.id">{{ category.name }}</label>
   </div>
 </div>
 
