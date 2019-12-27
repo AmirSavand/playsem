@@ -119,10 +119,10 @@ export class PlayerComponent {
         return;
       }
       /**
-       * Toggle song state
+       * Toggle player play/pause
        */
       if (this.isPaused()) {
-        this.youtube.videoPlayer.playVideo();
+        this.resume();
       } else {
         this.pause();
       }
@@ -195,7 +195,6 @@ export class PlayerComponent {
    */
   resume(): void {
     this.youtube.videoPlayer.playVideo();
-    PlayerService.play(this.playing);
   }
 
   /**
@@ -257,17 +256,17 @@ export class PlayerComponent {
   /**
    * Called when YouTube player is ready
    */
-  onYouTubePlayerRead(): void {
+  onYouTubePlayerReady(): void {
     /**
      * Get songs and subscribe
      */
-    PlayerService.songs.subscribe(data => {
+    PlayerService.songs.subscribe((data: Song[]): void => {
       this.songs = data;
     });
     /**
      * Get playing song and subscribe
      */
-    PlayerService.playing.subscribe(playing => {
+    PlayerService.playing.subscribe((playing: Song): void => {
       if (playing) {
         this.playing = playing;
       }
