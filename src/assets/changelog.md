@@ -1,6 +1,7 @@
 ### v4.4
 
 - Improve code to use lazy-loading technology
+- Improve song and playlist modals design
 - Add proper title to all pages
 - Fix space doesn't work when typing in inputs
 - Fix party updating form
