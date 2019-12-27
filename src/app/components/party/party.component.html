@@ -33,44 +33,44 @@
 
       <!-- Play -->
       <button class="btn btn-light btn-sm mr-2 mt-2" (click)="play()">
-        <fa-icon [fixedWidth]="true" icon="play"></fa-icon>
+        <fa-icon [fixedWidth]="true" [icon]="faPlay"></fa-icon>
         Play
       </button>
 
       <!-- Like -->
       <button class="btn btn-light btn-sm mr-2 mt-2" (click)="alert('Liking party')">
-        <fa-icon [fixedWidth]="true" icon="heart"></fa-icon>
+        <fa-icon [fixedWidth]="true" [icon]="heart"></fa-icon>
         Like
       </button>
 
       <!-- Refresh -->
       <button class="btn btn-light btn-sm mr-2 mt-2" (click)="loadSongs()">
-        <fa-icon [fixedWidth]="true" icon="sync-alt"></fa-icon>
+        <fa-icon [fixedWidth]="true" [icon]="syncAlt"></fa-icon>
         Refresh
       </button>
 
       <!-- Party ID -->
       <button class="btn btn-light btn-sm mr-2 mt-2" [popover]="party.id"
               containerClass="px-3 mw-100 font-weight-bold text-monospace" triggers="click">
-        <fa-icon [fixedWidth]="true" icon="info-circle"></fa-icon>
+        <fa-icon [fixedWidth]="true" [icon]="infoCircle"></fa-icon>
         Key
       </button>
 
       <!-- Join Party -->
       <button class="btn btn-light btn-sm mr-2 mt-2" *ngIf="isPartyMember() === false" (click)="joinParty()">
-        <fa-icon [fixedWidth]="true" icon="user-plus"></fa-icon>
+        <fa-icon [fixedWidth]="true" [icon]="userPlus"></fa-icon>
         Join Party
       </button>
 
       <!-- Leave Party -->
       <button class="btn btn-light btn-sm mr-2 mt-2" *ngIf="isPartyMember() === true" (click)="leaveParty()">
-        <fa-icon [fixedWidth]="true" icon="sign-out-alt"></fa-icon>
+        <fa-icon [fixedWidth]="true" [icon]="signOutAlt"></fa-icon>
         Leave Party
       </button>
 
       <!-- Settings -->
       <a class="btn btn-light btn-sm mr-2 mt-2" routerLink="settings" *ngIf="auth.isUser(party.user)">
-        <fa-icon [fixedWidth]="true" icon="cog"></fa-icon>
+        <fa-icon [fixedWidth]="true" [icon]="cog"></fa-icon>
         Settings
       </a>
     </div>
@@ -107,7 +107,7 @@
   <div class="song d-flex align-items-center" *ngFor="let song of songsFilter" [class.active]="isPlaying(song)">
     <!-- Icon -->
     <div class="icon" (click)="play(song)">
-      <fa-icon [fixedWidth]="true" icon="play"></fa-icon>
+      <fa-icon [fixedWidth]="true" [icon]="faPlay"></fa-icon>
     </div>
     <!-- Image -->
     <div class="cover mr-3 rounded" (click)="play(song)"
@@ -126,7 +126,7 @@
          (onShown)="song.popover = true"
          (onHidden)="song.popover = false"
          placement="left">
-      <fa-icon [fixedWidth]="true" icon="ellipsis-v"></fa-icon>
+      <fa-icon [fixedWidth]="true" [icon]="ellipsisV"></fa-icon>
     </div>
   </div>
 </div>

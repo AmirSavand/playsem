@@ -15,6 +15,15 @@ import { PlayerService } from '@app/services/player/player.service';
 import { SongService } from '@app/services/song/song.service';
 import { ImplementingService } from '@app/shared/implementing/implementing.service';
 import { SongModalComponent } from '@app/shared/song-modal/song-modal.component';
+import { IconDefinition } from '@fortawesome/fontawesome-common-types';
+import { faCog } from '@fortawesome/free-solid-svg-icons/faCog';
+import { faEllipsisV } from '@fortawesome/free-solid-svg-icons/faEllipsisV';
+import { faHeart } from '@fortawesome/free-solid-svg-icons/faHeart';
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons/faInfoCircle';
+import { faPlay } from '@fortawesome/free-solid-svg-icons/faPlay';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons/faSignOutAlt';
+import { faSyncAlt } from '@fortawesome/free-solid-svg-icons/faSyncAlt';
+import { faUserPlus } from '@fortawesome/free-solid-svg-icons/faUserPlus';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 
 @Component({
@@ -23,6 +32,15 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap';
   styleUrls: ['./party.component.scss'],
 })
 export class PartyComponent implements OnInit {
+
+  readonly faPlay: IconDefinition = faPlay;
+  readonly heart: IconDefinition = faHeart;
+  readonly syncAlt: IconDefinition = faSyncAlt;
+  readonly infoCircle: IconDefinition = faInfoCircle;
+  readonly userPlus: IconDefinition = faUserPlus;
+  readonly signOutAlt: IconDefinition = faSignOutAlt;
+  readonly cog: IconDefinition = faCog;
+  readonly ellipsisV: IconDefinition = faEllipsisV;
 
   /**
    * Authenticated user

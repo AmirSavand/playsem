@@ -6,6 +6,8 @@ import { ApiError } from '@app/interfaces/api-error';
 import { Party } from '@app/interfaces/party';
 import { ApiService } from '@app/services/api/api-service.service';
 import { PartyService } from '@app/services/party/party.service';
+import { IconDefinition } from '@fortawesome/fontawesome-common-types';
+import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
 import { GoogleAnalyticsService } from 'ngx-google-analytics';
 
 @Component({
@@ -18,6 +20,8 @@ export class PartyNewComponent implements OnInit {
    * Path to go to after party creation (party ID needs to be added)
    */
   static readonly partyCreationRedirect: string = '/party';
+
+  readonly faPlus: IconDefinition = faPlus;
 
   /**
    * @see PartyService.statuses

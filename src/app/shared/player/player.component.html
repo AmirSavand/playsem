@@ -30,19 +30,19 @@
     <div id="controls" class="col-4 justify-content-center" *ngIf="playing">
       <!-- Previous -->
       <div class="mx-sm-1 px-1 px-sm-2" (click)="previous()">
-        <fa-icon [fixedWidth]="true" icon="backward"></fa-icon>
+        <fa-icon [fixedWidth]="true" [icon]="backward"></fa-icon>
       </div>
       <!-- Pause -->
       <div class="mx-sm-1 px-1 px-sm-2" (click)="pause()" *ngIf="!isPaused()">
-        <fa-icon [fixedWidth]="true" icon="pause"></fa-icon>
+        <fa-icon [fixedWidth]="true" [icon]="faPause"></fa-icon>
       </div>
       <!-- Play -->
       <div class="mx-sm-1 px-1 px-sm-2" (click)="resume()" *ngIf="isPaused()">
-        <fa-icon [fixedWidth]="true" icon="play"></fa-icon>
+        <fa-icon [fixedWidth]="true" [icon]="faPlay"></fa-icon>
       </div>
       <!-- Next -->
       <div class="mx-sm-1 px-1 px-sm-2" (click)="next()">
-        <fa-icon [fixedWidth]="true" icon="forward"></fa-icon>
+        <fa-icon [fixedWidth]="true" [icon]="forward"></fa-icon>
       </div>
     </div>
 
@@ -51,33 +51,33 @@
       <!-- Repeat (disabled) -->
       <div class="mx-sm-1 px-1 px-sm-2" (click)="repeat = playerRepeat.ALL"
            *ngIf="repeat === playerRepeat.DISABLE" tooltip="No repeat">
-        <fa-icon [fixedWidth]="true" icon="retweet"></fa-icon>
+        <fa-icon [fixedWidth]="true" [icon]="retweet"></fa-icon>
       </div>
       <!-- Repeat (all) -->
       <div class="mx-sm-1 px-1 px-sm-2 active" (click)="repeat = playerRepeat.SINGLE"
            *ngIf="repeat === playerRepeat.ALL" tooltip="Repeat all">
-        <fa-icon [fixedWidth]="true" icon="retweet"></fa-icon>
+        <fa-icon [fixedWidth]="true" [icon]="retweet"></fa-icon>
       </div>
       <!-- Repeat (single) -->
       <div class="mx-sm-1 px-1 px-sm-2 active" (click)="repeat = playerRepeat.DISABLE"
            *ngIf="repeat === playerRepeat.SINGLE" tooltip="Single repeat">
-        <fa-icon [fixedWidth]="true" icon="retweet"></fa-icon>
+        <fa-icon [fixedWidth]="true" [icon]="retweet"></fa-icon>
       </div>
       <!-- Shuffle (toggle) -->
       <div class="mx-sm-1 px-1 px-sm-2" (click)="toggleShuffle()" [class.active]="shuffle" tooltip="Shuffle">
-        <fa-icon [fixedWidth]="true" icon="random"></fa-icon>
+        <fa-icon [fixedWidth]="true" [icon]="random"></fa-icon>
       </div>
       <!-- Sound -->
       <ng-template #volumeTemplate>{{ volume }}%</ng-template>
       <div class="mx-sm-1 px-1 px-sm-2" (click)="toggleMute()" [tooltip]="volumeTemplate"
            [class.active]="!isMute()" (wheel)="onVolumeChange($event)">
-        <fa-icon [fixedWidth]="true" icon="volume-up" *ngIf="!isMute()"></fa-icon>
-        <fa-icon [fixedWidth]="true" icon="volume-mute" *ngIf="isMute()"></fa-icon>
+        <fa-icon [fixedWidth]="true" [icon]="volumeUp" *ngIf="!isMute()"></fa-icon>
+        <fa-icon [fixedWidth]="true" [icon]="volumeMute" *ngIf="isMute()"></fa-icon>
       </div>
       <!-- Popup -->
       <div class="mx-sm-1 px-1 px-sm-2" (click)="queue = !queue; expand = false;" tooltip="Toggle queue"
            [class.active]="queue">
-        <fa-icon [fixedWidth]="true" icon="expand"></fa-icon>
+        <fa-icon [fixedWidth]="true" [icon]="faExpand"></fa-icon>
       </div>
     </div>
   </div>

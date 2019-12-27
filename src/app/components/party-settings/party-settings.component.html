@@ -62,12 +62,12 @@
             <input class="form-control" type="text" [(ngModel)]="category.name">
             <!-- Edit Category -->
             <button type="button" class="btn btn-secondary rounded-0" (click)="editCategory(category)">
-              <fa-icon [fixedWidth]="true" icon="edit"></fa-icon>
+              <fa-icon [fixedWidth]="true" [icon]="edit"></fa-icon>
             </button>
             <!-- Delete button -->
             <div class="input-group-append">
               <button class="btn btn-danger" (click)="deleteCategory(category)">
-                <fa-icon [fixedWidth]="true" icon="trash"></fa-icon>
+                <fa-icon [fixedWidth]="true" [icon]="trash"></fa-icon>
               </button>
             </div>
           </div>
@@ -79,7 +79,7 @@
               <!-- Submit button -->
               <div class="input-group-append">
                 <button class="btn btn-primary btn-block" [disabled]="loading">
-                  <fa-icon [fixedWidth]="true" icon="plus"></fa-icon>
+                  <fa-icon [fixedWidth]="true" [icon]="faPlus"></fa-icon>
                 </button>
               </div>
             </div>
@@ -113,7 +113,7 @@
             <b [class.text-primary]="partyUser.user.id === party.user.id">{{ partyUser.user.username }}</b>
             <button class="btn btn-sm btn-danger float-right" title="Kick" (click)="removePartyUser(partyUser)"
                     *ngIf="partyUser.user.id !== party.user.id" [disabled]="loading">
-              <fa-icon [fixedWidth]="true" icon="user-minus"></fa-icon>
+              <fa-icon [fixedWidth]="true" [icon]="userMinus"></fa-icon>
             </button>
             <br>
             <small class="text-secondary">{{ partyUser.date | date }}</small>
