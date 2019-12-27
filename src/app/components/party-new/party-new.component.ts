@@ -21,6 +21,8 @@ export class PartyNewComponent implements OnInit {
    */
   static readonly partyCreationRedirect: string = '/party';
 
+  readonly faPlus: IconDefinition = faPlus;
+
   /**
    * @see PartyService.statuses
    */
@@ -28,11 +30,6 @@ export class PartyNewComponent implements OnInit {
     id: PartyStatus;
     label: string;
   }[] = PartyService.statuses;
-
-  /**
-   * icons
-   */
-  readonly faPlus: IconDefinition = faPlus;
 
   /**
    * Party form

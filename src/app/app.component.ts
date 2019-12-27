@@ -37,9 +37,6 @@ export class AppComponent implements OnInit {
    */
   static readonly TITLE_SUFFIX = ` - ${AppComponent.TITLE}`;
 
-  /**
-   * icons
-   */
   readonly bars: IconDefinition = faBars;
   readonly tachometerAlt: IconDefinition = faTachometerAlt;
   readonly faPlus: IconDefinition = faPlus;

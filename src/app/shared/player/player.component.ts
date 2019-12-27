@@ -22,9 +22,6 @@ import { NgxY2PlayerComponent, NgxY2PlayerOptions } from 'ngx-y2-player';
 })
 export class PlayerComponent {
 
-  /**
-   * icons
-   */
   readonly backward: IconDefinition = faBackward;
   readonly faPause: IconDefinition = faPause;
   readonly faPlay: IconDefinition = faPlay;

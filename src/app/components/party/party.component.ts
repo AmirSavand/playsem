@@ -33,9 +33,6 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 })
 export class PartyComponent implements OnInit {
 
-  /**
-   * Icons
-   */
   readonly faPlay: IconDefinition = faPlay;
   readonly heart: IconDefinition = faHeart;
   readonly syncAlt: IconDefinition = faSyncAlt;

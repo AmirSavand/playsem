@@ -31,6 +31,11 @@ export class PartySettingsComponent implements OnInit {
    */
   static readonly partyDeleteRedirect = '/dashboard';
 
+  readonly faPlus: IconDefinition = faPlus;
+  readonly edit: IconDefinition = faEdit;
+  readonly trash: IconDefinition = faTrash;
+  readonly userMinus: IconDefinition = faUserMinus;
+
   /**
    * @see PartyService.statuses
    */
@@ -38,14 +43,6 @@ export class PartySettingsComponent implements OnInit {
     id: PartyStatus;
     label: string;
   }[] = PartyService.statuses;
-
-  /**
-   * icons
-   */
-  readonly faPlus: IconDefinition = faPlus;
-  readonly edit: IconDefinition = faEdit;
-  readonly trash: IconDefinition = faTrash;
-  readonly userMinus: IconDefinition = faUserMinus;
 
   /**
    * Filter members
