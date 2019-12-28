@@ -1,5 +1,14 @@
 @import "variables";
 
+.scroll {
+  max-height: 290px;
+  overflow-y: auto;
+
+  &.parties {
+    max-height: 366px;
+  }
+}
+
 .card {
 
   h4 {

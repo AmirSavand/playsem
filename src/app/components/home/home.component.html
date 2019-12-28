@@ -37,8 +37,10 @@
       <!-- Changelog -->
       <div class="card my-3">
         <div class="card-body">
-          <h4>Changelog</h4>
-          <ngx-md path="/assets/changelog.md"></ngx-md>
+          <h4 class="pb-2">Changelog</h4>
+          <div class="scroll">
+            <ngx-md path="/assets/changelog.md"></ngx-md>
+          </div>
         </div>
       </div>
     </div>
@@ -69,18 +71,20 @@
                    (ngModelChange)="getParties()">
           </form>
           <!-- Parties -->
-          <a class="card party card-link mt-2 ml-0"
-             *ngFor="let party of parties"
-             [routerLink]="['/party', party.id]"
-             [style.background-image]="'url(' + (party.cover || 'assets/party-cover.jpg') + ')'">
-            <div class="card-body py-4">
-              <h5 class="card-text font-weight-bold">{{ party.name }}</h5>
-              <div class="card-text small">
-                <span>{{ party.user.account.name }}</span>
-                <span class="float-right">{{ party.date | date:'d MMM' }}</span>
+          <div class="parties scroll">
+            <a class="card party card-link mt-2 ml-0"
+               *ngFor="let party of parties"
+               [routerLink]="['/party', party.id]"
+               [style.background-image]="'url(' + (party.cover || 'assets/party-cover.jpg') + ')'">
+              <div class="card-body py-4">
+                <h5 class="card-text font-weight-bold">{{ party.name }}</h5>
+                <div class="card-text small">
+                  <span>{{ party.user.account.name }}</span>
+                  <span class="float-right">{{ party.date | date:'d MMM' }}</span>
+                </div>
               </div>
-            </div>
-          </a>
+            </a>
+          </div>
         </div>
       </div>
     </div>
