@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { Cache } from '@app/classes/cache';
 import { ApiResponse } from '@app/interfaces/api-response';
 import { Party } from '@app/interfaces/party';
 import { ApiService } from '@app/services/api.service';
@@ -12,9 +13,14 @@ import { ApiService } from '@app/services/api.service';
 export class HomeComponent implements OnInit {
 
   /**
+   * Cache data
+   */
+  readonly cacheParty: Cache<Party[]> = new Cache<Party[]>('parties');
+
+  /**
    * Parties to explore
    */
-  parties: Party[];
+  parties: Party[] = this.cacheParty.data;
 
   /**
    * Join party ID
@@ -47,10 +53,12 @@ export class HomeComponent implements OnInit {
    * Get parties for explore card
    */
   getParties(): void {
-    this.api.getParties({
-      search: this.exploreForm.get('search').value,
-    }).subscribe((data: ApiResponse<Party>) => {
+    const search = this.exploreForm.get('search').value;
+    this.api.getParties({ search }).subscribe((data: ApiResponse<Party>): void => {
       this.parties = data.results;
+      if (!search) {
+        this.cacheParty.data = this.parties;
+      }
     });
   }
 }
