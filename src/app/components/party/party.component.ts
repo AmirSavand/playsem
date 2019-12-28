@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { AppComponent } from '@app/app.component';
+import { Cache } from '@app/classes/cache';
+import { ApiResponse } from '@app/interfaces/api-response';
 import { Category } from '@app/interfaces/category';
 import { Party } from '@app/interfaces/party';
 import { PartyUser } from '@app/interfaces/party-user';
@@ -41,6 +43,12 @@ export class PartyComponent implements OnInit {
   readonly signOutAlt: IconDefinition = faSignOutAlt;
   readonly cog: IconDefinition = faCog;
   readonly ellipsisV: IconDefinition = faEllipsisV;
+
+  /**
+   * Cache data
+   */
+  cacheParty: Cache<Party>;
+  cacheSongs: Cache<Song[]>;
 
   /**
    * Authenticated user
@@ -163,6 +171,16 @@ export class PartyComponent implements OnInit {
      * Watch param changes
      */
     this.route.paramMap.subscribe((params: ParamMap): void => {
+      if (!params.has('id')) {
+        return;
+      }
+      /**
+       * Setup cache data
+       */
+      this.cacheParty = new Cache<Party>(`party-${params.get('id')}`);
+      this.cacheSongs = new Cache<Song[]>(`songs-${params.get('id')}`);
+      this.party = this.cacheParty.data;
+      this.songs = this.cacheSongs.data;
       /**
        * If party ID changes
        */
@@ -170,10 +188,12 @@ export class PartyComponent implements OnInit {
         /**
          * Reset data
          */
-        this.party = null;
-        this.songs = null;
-        this.partyUsers = null;
-        this.partySongCount = null;
+        if (this.party && this.party.id !== params.get('id')) {
+          this.party = null;
+          this.songs = null;
+          this.partyUsers = null;
+          this.partySongCount = null;
+        }
         /**
          * Get party ID from params
          */
@@ -181,8 +201,12 @@ export class PartyComponent implements OnInit {
         /**
          * Load party data
          */
-        this.api.getParty(this.partyId).subscribe(data => {
+        this.api.getParty(this.partyId).subscribe((data: Party): void => {
           this.party = data;
+          /**
+           * Update cache
+           */
+          this.cacheParty.data = data;
           /**
            * Update title
            */
@@ -223,10 +247,19 @@ export class PartyComponent implements OnInit {
    * Load songs of party
    */
   loadSongs(): void {
-    this.api.getSongs(this.party.id).subscribe(data => {
+    this.api.getSongs(this.party.id).subscribe((data: ApiResponse<Song>): void => {
       this.songs = data.results;
+      /**
+       * Update cache
+       */
+      this.cacheSongs.data = data.results;
+      /**
+       * Update party song count
+       */
       this.partySongCount = data.count;
-      // Set party of each song
+      /**
+       * Set party of each song
+       */
       for (const song of this.songs) {
         song.party = this.party;
       }
