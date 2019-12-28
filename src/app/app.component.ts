@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { NavigationEnd, Data, ActivatedRoute, RouterEvent, Router } from '@angular/router';
 import { Party } from '@app/interfaces/party';
-import { Storage } from '@app/interfaces/storage';
+import { Settings } from '@app/interfaces/settings';
 import { User } from '@app/interfaces/user';
-import { AuthService } from '@app/services/auth/auth.service';
-import { PartyService } from '@app/services/party/party.service';
-import { StorageService } from '@app/services/storage/storage.service';
+import { AuthService } from '@app/services/auth.service';
+import { PartyService } from '@app/services/party.service';
+import { SettingsService } from '@app/services/settings.service';
 import { IconDefinition } from '@fortawesome/fontawesome-common-types';
 import { faBars } from '@fortawesome/free-solid-svg-icons/faBars';
 import { faCog } from '@fortawesome/free-solid-svg-icons/faCog';
@@ -65,9 +65,9 @@ export class AppComponent implements OnInit {
 
   /**
    * Sidebar open/close status (load initial value from storage)
-   * @see Storage.settings.sidebarOpen
+   * @see Settings.settings.sidebarOpen
    */
-  sidebarStatus: boolean = StorageService.storage.settings.sidebarOpen;
+  sidebarStatus: boolean = SettingsService.storage.settings.sidebarOpen;
 
   constructor(public auth: AuthService,
               private party: PartyService,
@@ -132,8 +132,8 @@ export class AppComponent implements OnInit {
    */
   toggleSidebar() {
     this.sidebarStatus = !this.sidebarStatus;
-    const storage: Storage = StorageService.storage;
+    const storage: Settings = SettingsService.storage;
     storage.settings.sidebarOpen = this.sidebarStatus;
-    StorageService.save(storage);
+    SettingsService.save(storage);
   }
 }

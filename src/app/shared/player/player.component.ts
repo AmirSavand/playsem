@@ -1,8 +1,8 @@
 import { Component, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { PlayerRepeat } from '@app/enums/player-repeat';
 import { Song } from '@app/interfaces/song';
-import { PlayerService } from '@app/services/player/player.service';
-import { SongService } from '@app/services/song/song.service';
+import { PlayerService } from '@app/services/player.service';
+import { SongService } from '@app/services/song.service';
 import { IconDefinition } from '@fortawesome/fontawesome-common-types';
 import { faBackward } from '@fortawesome/free-solid-svg-icons/faBackward';
 import { faExpand } from '@fortawesome/free-solid-svg-icons/faExpand';

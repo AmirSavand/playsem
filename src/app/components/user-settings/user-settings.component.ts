@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Account } from '@app/interfaces/account';
 import { User } from '@app/interfaces/user';
-import { ApiService } from '@app/services/api/api-service.service';
-import { AuthService } from '@app/services/auth/auth.service';
+import { ApiService } from '@app/services/api.service';
+import { AuthService } from '@app/services/auth.service';
 
 @Component({
   selector: 'app-user-settings',

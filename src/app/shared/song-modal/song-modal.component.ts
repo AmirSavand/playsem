@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Category } from '@app/interfaces/category';
 import { Song } from '@app/interfaces/song';
 import { SongCategory } from '@app/interfaces/song-category';
-import { ApiService } from '@app/services/api/api-service.service';
+import { ApiService } from '@app/services/api.service';
 import { BsModalRef } from 'ngx-bootstrap';
 import { FilterByPipe } from 'ngx-pipes';
 

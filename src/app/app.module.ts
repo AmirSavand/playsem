@@ -3,9 +3,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ApiService } from '@app/services/api/api-service.service';
-import { AuthInterceptorService } from '@app/services/auth-interceptor/auth-interceptor.service';
-import { AuthService } from '@app/services/auth/auth.service';
+import { ApiService } from '@app/services/api.service';
+import { AuthService } from '@app/services/auth.service';
+import { HttpInterceptorService } from '@app/services/http-interceptor.service';
 import { CategoryModalComponent } from '@app/shared/category-modal/category-modal.component';
 import { ImplementingComponent } from '@app/shared/implementing/implementing.component';
 import { PlayerComponent } from '@app/shared/player/player.component';
@@ -62,7 +62,7 @@ import { AppComponent } from './app.component';
     SongModalComponent,
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true },
     CookieService,
     ApiService,
     AuthService,

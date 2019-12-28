@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { PartyStatus } from '@app/enums/party-status';
 import { Party } from '@app/interfaces/party';
-import { ApiService } from '@app/services/api/api-service.service';
+import { ApiService } from '@app/services/api.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

@@ -5,7 +5,7 @@ import { AppComponent } from '@app/app.component';
 import { ApiResponse } from '@app/interfaces/api-response';
 import { PartyUser } from '@app/interfaces/party-user';
 import { User } from '@app/interfaces/user';
-import { ApiService } from '@app/services/api/api-service.service';
+import { ApiService } from '@app/services/api.service';
 
 @Component({
   selector: 'app-user',

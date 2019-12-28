@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthResponse } from '@app/interfaces/auth-response';
 import { AuthToken } from '@app/interfaces/auth-token';
 import { User } from '@app/interfaces/user';
-import { ApiService } from '@app/services/api/api-service.service';
+import { ApiService } from '@app/services/api.service';
 import { CookieService } from 'ngx-cookie-service';
 import { GoogleAnalyticsService } from 'ngx-google-analytics';
 import { BehaviorSubject, Observable } from 'rxjs';

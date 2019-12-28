@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ApiResponse } from '@app/interfaces/api-response';
 import { Party } from '@app/interfaces/party';
-import { ApiService } from '@app/services/api/api-service.service';
+import { ApiService } from '@app/services/api.service';
 
 @Component({
   selector: 'app-home',
