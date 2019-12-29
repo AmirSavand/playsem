@@ -11,5 +11,6 @@ export interface Party {
   image: string;
   cover: string;
   date: string;
+  likes: number;
   categories: Category[];
 }
