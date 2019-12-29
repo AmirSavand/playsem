@@ -1,4 +1,4 @@
 export enum SongPlayer {
-  YOUTUBE = 0,
-  SOUNDCLOUD = 1,
+  YOUTUBE = 1,
+  SOUNDCLOUD = 2,
 }
