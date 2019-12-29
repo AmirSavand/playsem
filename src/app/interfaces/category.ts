@@ -3,6 +3,7 @@ export interface Category {
   party?: string;
   name: string;
   image: string;
+  likes: number;
   /**
    * Extra properties
    */
