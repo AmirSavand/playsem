@@ -1,5 +1,5 @@
 export enum PartyStatus {
-  CLOSE,
-  PRIVATE,
-  PUBLIC,
+  CLOSE = 1,
+  PRIVATE = 2,
+  PUBLIC = 3,
 }
