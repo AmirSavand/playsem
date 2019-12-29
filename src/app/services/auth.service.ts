@@ -145,7 +145,7 @@ export class AuthService {
    * @return String observable which can be subscribed to.
    */
   signIn(username: string, password: string): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${ApiService.base}auth/`, { username, password }).pipe(
+    return this.http.post<AuthResponse>(`${ApiService.BASE}auth/`, { username, password }).pipe(
       map((data: AuthResponse): AuthResponse => {
         // Store token into cookies
         this.setToken(data.token);
@@ -167,7 +167,7 @@ export class AuthService {
    * @param password user password
    */
   signUp(email: string, username: string, password: string): Observable<void> {
-    return this.http.post(ApiService.base + 'users/', {
+    return this.http.post(ApiService.BASE + 'users/', {
       email, username, password,
     }).pipe(
       map((): void => {
