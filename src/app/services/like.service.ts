@@ -1,6 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LikeKind } from '@app/enums/like-kind';
+import { ApiResponse } from '@app/interfaces/api-response';
+import { Like } from '@app/interfaces/like';
 import { ApiService } from '@app/services/api.service';
 import { Observable } from 'rxjs';
 
@@ -24,10 +26,10 @@ export class LikeService {
    * Create like object for another object (user, party, etc)
    *
    * @param kind Kind of object being liked (user, party, etc)
-   * @param object Primary key of the object (id, username, etc)
+   * @param like Primary key of the object (id, username, etc)
    */
-  private like(kind: LikeKind, object: string | number): Observable<void> {
-    return this.http.post<void>(LikeService.ENDPOINT, { kind, object });
+  private like(kind: LikeKind, like: string): Observable<Like> {
+    return this.http.post<Like>(LikeService.ENDPOINT, { kind, like });
   }
 
   /**
@@ -39,10 +41,23 @@ export class LikeService {
   }
 
   /**
+   * Get list of like objects
+   */
+  getLikes(filter: Partial<Like>): Observable<ApiResponse<Like>> {
+    return this.http.get<ApiResponse<Like>>(LikeService.ENDPOINT, {
+      params: {
+        user: filter.like,
+        kind: filter.kind.toString(),
+        like: filter.like.toString(),
+      },
+    });
+  }
+
+  /**
    * Like a user
    * @param username User username
    */
-  likeUser(username: string): Observable<void> {
+  likeUser(username: string): Observable<Like> {
     return this.like(LikeKind.USER, username);
   }
 
@@ -50,7 +65,7 @@ export class LikeService {
    * Like a party
    * @param id Party ID
    */
-  likeParty(id: string): Observable<void> {
+  likeParty(id: string): Observable<Like> {
     return this.like(LikeKind.USER, id);
   }
 
@@ -58,15 +73,15 @@ export class LikeService {
    * Like a category
    * @param id Category ID
    */
-  likeCategory(id: number): Observable<void> {
-    return this.like(LikeKind.CATEGORY, id);
+  likeCategory(id: number): Observable<Like> {
+    return this.like(LikeKind.CATEGORY, id.toString());
   }
 
   /**
    * Like a song
    * @param id Song ID
    */
-  likeSong(id: number): Observable<void> {
-    return this.like(LikeKind.SONG, id);
+  likeSong(id: number): Observable<Like> {
+    return this.like(LikeKind.SONG, id.toString());
   }
 }
