@@ -4,14 +4,17 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { AppComponent } from '@app/app.component';
 import { Cache } from '@app/classes/cache';
+import { LikeKind } from '@app/enums/like-kind';
 import { ApiResponse } from '@app/interfaces/api-response';
 import { Category } from '@app/interfaces/category';
+import { Like } from '@app/interfaces/like';
 import { Party } from '@app/interfaces/party';
 import { PartyUser } from '@app/interfaces/party-user';
 import { Song } from '@app/interfaces/song';
 import { User } from '@app/interfaces/user';
 import { ApiService } from '@app/services/api.service';
 import { AuthService } from '@app/services/auth.service';
+import { LikeService } from '@app/services/like.service';
 import { PartyService } from '@app/services/party.service';
 import { PlayerService } from '@app/services/player.service';
 import { SongService } from '@app/services/song.service';
@@ -121,7 +124,8 @@ export class PartyComponent implements OnInit {
               private router: Router,
               private formBuilder: FormBuilder,
               private modalService: BsModalService,
-              private title: Title) {
+              private title: Title,
+              private likeService: LikeService) {
   }
 
   /**
@@ -295,6 +299,26 @@ export class PartyComponent implements OnInit {
       }
       // Play the song (first or selected)
       PlayerService.play(song);
+    }
+  }
+
+  /**
+   * Toggle like party
+   */
+  toggleLikeParty(): void {
+    this.loading = true;
+    if (!this.party.like) {
+      this.likeService.likeParty(this.party.id).subscribe((data: Like): void => {
+        this.loading = false;
+        this.party.like = data.id;
+        this.party.likes++;
+      });
+    } else {
+      this.likeService.unlike(this.party.like).subscribe(() => {
+        this.loading = false;
+        this.party.like = 0;
+        this.party.likes--;
+      });
     }
   }
 
