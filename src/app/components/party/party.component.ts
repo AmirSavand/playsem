@@ -319,7 +319,7 @@ export class PartyComponent implements OnInit {
         this.party.likes++;
       });
     } else {
-      // Unlike party
+      // Unlike this party
       this.likeService.unlike(this.party.like).subscribe(() => {
         this.loading = false;
         this.party.like = 0;
