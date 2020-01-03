@@ -306,6 +306,11 @@ export class PartyComponent implements OnInit {
    * Toggle like party
    */
   toggleLikeParty(): void {
+    // Alert if user unauthenticated
+    if (!this.auth.isAuth()) {
+      alert('Sign in to make your opinion count.');
+      return;
+    }
     this.loading = true;
     if (!this.party.like) {
       this.likeService.likeParty(this.party.id).subscribe((data: Like): void => {
