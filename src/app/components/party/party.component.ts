@@ -4,7 +4,6 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { AppComponent } from '@app/app.component';
 import { Cache } from '@app/classes/cache';
-import { LikeKind } from '@app/enums/like-kind';
 import { ApiResponse } from '@app/interfaces/api-response';
 import { Category } from '@app/interfaces/category';
 import { Like } from '@app/interfaces/like';
