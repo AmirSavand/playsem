@@ -312,6 +312,7 @@ export class PartyComponent implements OnInit {
       return;
     }
     this.loading = true;
+    // If user didn't like this party, like this party. otherwise unlike this party!
     if (!this.party.like) {
       this.likeService.likeParty(this.party.id).subscribe((data: Like): void => {
         this.loading = false;
@@ -319,6 +320,7 @@ export class PartyComponent implements OnInit {
         this.party.likes++;
       });
     } else {
+      // Unlike party
       this.likeService.unlike(this.party.like).subscribe(() => {
         this.loading = false;
         this.party.like = 0;
