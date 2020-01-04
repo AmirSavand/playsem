@@ -66,7 +66,7 @@ export class LikeService {
    * @param id Party ID
    */
   likeParty(id: string): Observable<Like> {
-    return this.like(LikeKind.USER, id);
+    return this.like(LikeKind.PARTY, id);
   }
 
   /**
