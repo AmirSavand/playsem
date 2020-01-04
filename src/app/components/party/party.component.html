@@ -27,8 +27,6 @@
         <span *ngIf="partySongCount"> &bull; {{ partySongCount }} Songs</span>
         <!-- Members count -->
         <span *ngIf="partyUserCount"> &bull; {{ partyUserCount }} Members</span>
-        <!-- Party likes -->
-        <span *ngIf="party.likes"> &bull; {{ party.likes }} Likes</span>
         <!-- Date -->
         &bull; {{ party.date | date }}
       </p>
@@ -39,14 +37,8 @@
         Play
       </button>
 
-      <!-- UnLike -->
-      <button class="btn btn-light btn-sm mr-2 mt-2" (click)="toggleLikeParty()" *ngIf="party.like">
-        <fa-icon class="text-danger" [fixedWidth]="true" [icon]="heart"></fa-icon>
-        Dislike
-      </button>
-
       <!-- Like -->
-      <button class="btn btn-light btn-sm mr-2 mt-2" (click)="toggleLikeParty()" *ngIf="!party.like">
+      <button class="btn btn-light btn-sm mr-2 mt-2" (click)="alert('Liking party')">
         <fa-icon [fixedWidth]="true" [icon]="heart"></fa-icon>
         Like
       </button>

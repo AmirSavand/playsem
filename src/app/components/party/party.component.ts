@@ -6,14 +6,12 @@ import { AppComponent } from '@app/app.component';
 import { Cache } from '@app/classes/cache';
 import { ApiResponse } from '@app/interfaces/api-response';
 import { Category } from '@app/interfaces/category';
-import { Like } from '@app/interfaces/like';
 import { Party } from '@app/interfaces/party';
 import { PartyUser } from '@app/interfaces/party-user';
 import { Song } from '@app/interfaces/song';
 import { User } from '@app/interfaces/user';
 import { ApiService } from '@app/services/api.service';
 import { AuthService } from '@app/services/auth.service';
-import { LikeService } from '@app/services/like.service';
 import { PartyService } from '@app/services/party.service';
 import { PlayerService } from '@app/services/player.service';
 import { SongService } from '@app/services/song.service';
@@ -123,8 +121,7 @@ export class PartyComponent implements OnInit {
               private router: Router,
               private formBuilder: FormBuilder,
               private modalService: BsModalService,
-              private title: Title,
-              private likeService: LikeService) {
+              private title: Title) {
   }
 
   /**
@@ -298,33 +295,6 @@ export class PartyComponent implements OnInit {
       }
       // Play the song (first or selected)
       PlayerService.play(song);
-    }
-  }
-
-  /**
-   * Toggle like party
-   */
-  toggleLikeParty(): void {
-    // Alert if user unauthenticated
-    if (!this.auth.isAuth()) {
-      alert('Sign in to make your opinion count.');
-      return;
-    }
-    this.loading = true;
-    // If user didn't like this party, like this party. otherwise unlike this party!
-    if (!this.party.like) {
-      this.likeService.likeParty(this.party.id).subscribe((data: Like): void => {
-        this.loading = false;
-        this.party.like = data.id;
-        this.party.likes++;
-      });
-    } else {
-      // Unlike this party
-      this.likeService.unlike(this.party.like).subscribe(() => {
-        this.loading = false;
-        this.party.like = 0;
-        this.party.likes--;
-      });
     }
   }
 
