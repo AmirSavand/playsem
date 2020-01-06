@@ -108,11 +108,6 @@ export class PartyComponent implements OnInit {
   isPlaying = PlayerService.isPlaying;
 
   /**
-   * Not implemented alert
-   */
-  alert = ImplementingService.alert;
-
-  /**
    * @see SongService.getSongImage
    */
   getSongImage = SongService.getSongImage;
