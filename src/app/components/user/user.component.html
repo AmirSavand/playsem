@@ -15,7 +15,7 @@
           <!-- User username and join date -->
           <p class="small text-secondary mb-1">@{{ user.username }} &bull; {{ user.date_joined | date }} &bull;
             <!-- Likes -->
-            <span class="mr-2" [style.color]="user.account.color">
+            <span class="small" [style.color]="user.account.color">
               <fa-icon [fixedWidth]="true" [icon]="heart"></fa-icon>
               {{ user.likes }}
             </span>
@@ -46,7 +46,7 @@
             <br>
             <small class="text-secondary" title="Join date">{{ partyUser.date | date }} &bull;
               <!-- Likes -->
-              <span class="mr-2" [style.color]="user.account.color">
+              <span class="small" [style.color]="user.account.color">
                 <fa-icon [fixedWidth]="true" [icon]="heart"></fa-icon>
                   {{ partyUser.party.likes }}
               </span>
