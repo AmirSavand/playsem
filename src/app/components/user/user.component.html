@@ -44,7 +44,13 @@
           <li class="list-group-item" *ngFor="let partyUser of partyUsers">
             <a [routerLink]="['/party', partyUser.party.id]" class="text-light">{{ partyUser.party.name }}</a>
             <br>
-            <small class="text-secondary" title="Join date">{{ partyUser.date | date }}</small>
+            <small class="text-secondary" title="Join date">{{ partyUser.date | date }} &bull;
+              <!-- Likes -->
+              <span class="mr-2" [style.color]="user.account.color">
+                <fa-icon [fixedWidth]="true" [icon]="heart"></fa-icon>
+                  {{ partyUser.party.likes }}
+                </span>
+            </small>
             <span class="badge badge-primary float-right" *ngIf="partyUser.party.user.id === user.id">Owner</span>
           </li>
         </div>
