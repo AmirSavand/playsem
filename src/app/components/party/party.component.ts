@@ -297,6 +297,33 @@ export class PartyComponent implements OnInit {
   }
 
   /**
+   * Toggle like song
+   */
+  toggleLikeSong(song: Song): void {
+    // Alert if user unauthenticated
+    if (!this.auth.isAuth()) {
+      alert('Sign in to make your opinion count.');
+      return;
+    }
+    this.loading = true;
+    // If user didn't like this song, like this song. otherwise unlike this song!
+    if (!song.like) {
+      this.likeService.likeSong(song.id).subscribe((data: Like): void => {
+        this.loading = false;
+        song.like = data.id;
+        song.likes++;
+      });
+    } else {
+      // Unlike this song
+      this.likeService.unlike(song.like).subscribe(() => {
+        this.loading = false;
+        song.like = 0;
+        song.likes--;
+      });
+    }
+  }
+
+  /**
    * Toggle like party
    */
   toggleLikeParty(): void {
