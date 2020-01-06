@@ -123,7 +123,13 @@
     <!-- Info -->
     <div class="info d-flex flex-column text-truncate" (click)="play(song)">
       <span class="text-truncate">{{ song.name }}</span>
-      <small>{{ song.user.account.name }}</small>
+      <small>{{ song.user.account.name }}
+        <!-- Likes -->
+        <span class="mr-2" *ngIf="song.likes"> &bull;
+          <fa-icon class="text-danger" [fixedWidth]="true" [icon]="heart"></fa-icon>
+          {{ song.likes }}
+        </span>
+      </small>
     </div>
     <!-- Icon -->
     <div class="icon action"
