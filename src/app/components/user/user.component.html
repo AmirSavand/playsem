@@ -13,9 +13,25 @@
           <!-- User display name -->
           <h3 [style.color]="user.account.color">{{ user.account.name }}</h3>
           <!-- User username and join date -->
-          <p class="small text-secondary mb-1">@{{ user.username }} &bull; {{ user.date_joined | date }}</p>
+          <p class="small text-secondary mb-1">@{{ user.username }} &bull; {{ user.date_joined | date }} &bull;
+            <!-- Likes -->
+            <span class="mr-2" [style.color]="user.account.color">
+              <fa-icon [fixedWidth]="true" [icon]="heart"></fa-icon>
+              {{ user.likes }}
+            </span>
+          </p>
           <!-- User bio -->
           <p class="m-0 text-pre">{{ user.account.bio || '...' }}</p>
+          <!-- UnLike -->
+          <button class="btn btn-dark btn-sm mt-2" (click)="toggleLikeUser()" *ngIf="user.like">
+            <fa-icon class="text-danger" [fixedWidth]="true" [icon]="heart"></fa-icon>
+            Dislike
+          </button>
+          <!-- Like -->
+          <button class="btn btn-dark btn-sm mt-2" (click)="toggleLikeUser()" *ngIf="!user.like">
+            <fa-icon [fixedWidth]="true" [icon]="heart"></fa-icon>
+            Like
+          </button>
         </div>
       </div>
     </div>
