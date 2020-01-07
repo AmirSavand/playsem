@@ -1,6 +1,7 @@
 ### v4.5
 
 - Add auto refreshing feature for party (songs, categories, etc)
+- Improve dashboard to show Instagram and Discord
 - Fix sign up page (unable to sign up)
 
 
