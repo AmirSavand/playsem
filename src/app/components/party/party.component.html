@@ -97,6 +97,11 @@
         <div class="card-body">
           <div>{{ category.name }}</div>
           <small class="text-white-50">{{ getCategorySongCount(category) }} Songs</small>
+          <!-- Likes -->
+          <span> &bull;
+          <fa-icon class="text-white small" [fixedWidth]="true" [icon]="heart"></fa-icon>
+            {{ category.likes }}
+          </span>
           <!-- UnLike -->
           <button class="btn btn-dark btn-sm mt-2" (click)="toggleLikeCategory(category)" *ngIf="category.like">
             <fa-icon class="text-danger small" [fixedWidth]="true" [icon]="heart"></fa-icon>
