@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
@@ -16,6 +16,7 @@ import { AuthService } from '@app/services/auth.service';
 import { LikeService } from '@app/services/like.service';
 import { PartyService } from '@app/services/party.service';
 import { PlayerService } from '@app/services/player.service';
+import { PusherService } from '@app/services/pusher.service';
 import { SongService } from '@app/services/song.service';
 import { ImplementingService } from '@app/shared/implementing/implementing.service';
 import { SongModalComponent } from '@app/shared/song-modal/song-modal.component';
@@ -29,13 +30,15 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons/faSignOutAlt';
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons/faSyncAlt';
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons/faUserPlus';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { init } from 'protractor/built/launcher';
+import Channel from 'pusher-js';
 
 @Component({
   selector: 'app-party',
   templateUrl: './party.component.html',
   styleUrls: ['./party.component.scss'],
 })
-export class PartyComponent implements OnInit {
+export class PartyComponent implements OnInit, OnDestroy {
 
   readonly faPlay: IconDefinition = faPlay;
   readonly heart: IconDefinition = faHeart;
@@ -51,6 +54,11 @@ export class PartyComponent implements OnInit {
    */
   cacheParty: Cache<Party>;
   cacheSongs: Cache<Song[]>;
+
+  /**
+   * Pusher channel
+   */
+  channel: Channel;
 
   /**
    * Authenticated user
@@ -173,6 +181,12 @@ export class PartyComponent implements OnInit {
         return;
       }
       /**
+       * Unsubscribe from the channel
+       */
+      if (this.channel) {
+        PusherService.unsubscribe(this.channel);
+      }
+      /**
        * Setup cache data
        */
       this.cacheParty = new Cache<Party>(`party-${params.get('id')}`);
@@ -199,25 +213,7 @@ export class PartyComponent implements OnInit {
         /**
          * Load party data
          */
-        this.api.getParty(this.partyId).subscribe((data: Party): void => {
-          this.party = data;
-          /**
-           * Update cache
-           */
-          this.cacheParty.data = data;
-          /**
-           * Update title
-           */
-          this.updateTitle();
-          /**
-           * Load party songs
-           */
-          this.loadSongs();
-          /**
-           * Load party members
-           */
-          this.loadUsers();
-        });
+        this.loadParty(true);
       }
     });
     /**
@@ -225,6 +221,48 @@ export class PartyComponent implements OnInit {
      */
     this.route.queryParamMap.subscribe((): void => {
       this.updateTitle();
+    });
+  }
+
+  ngOnDestroy(): void {
+    /**
+     * Unsubscribe from the channel
+     */
+    PusherService.unsubscribe(this.channel);
+  }
+
+  /**
+   * Load party data for initial or refresh
+   * @param initial First load
+   */
+  loadParty(initial: boolean = false) {
+    this.api.getParty(this.partyId).subscribe((data: Party): void => {
+      this.party = data;
+      /**
+       * Update cache
+       */
+      this.cacheParty.data = data;
+      /**
+       * Update title
+       */
+      this.updateTitle();
+      /**
+       * Load other party data if it's first load (initial)
+       */
+      if (initial) {
+        /**
+         * Load party songs
+         */
+        this.loadSongs();
+        /**
+         * Load party members
+         */
+        this.loadUsers();
+        /**
+         * Setup pusher channel
+         */
+        this.setupChannel();
+      }
     });
   }
 
@@ -271,6 +309,56 @@ export class PartyComponent implements OnInit {
     this.api.getPartyUsers({ party: this.party.id }).subscribe(data => {
       this.partyUsers = data.results;
       this.partyUserCount = data.count;
+    });
+  }
+
+  /**
+   * Subscribe to pusher channel for this party
+   * Listen to changes and update the local data
+   */
+  setupChannel(): void {
+    /**
+     * Subscribe to channel of this party
+     */
+    this.channel = PusherService.subscribe(`party-${this.partyId}`);
+    /**
+     * Refresh songs on any song event
+     */
+    for (const event of ['song-create', 'song-delete', 'song-update']) {
+      this.channel.bind(event, (): void => {
+        this.loadSongs();
+      });
+    }
+    /**
+     * Refresh party on party update, any party category event and any user category event
+     */
+    for (const event of [
+      'party-update',
+      'partycategory-create',
+      'partycategory-delete',
+      'partycategory-update',
+      'songcategory-create',
+      'songcategory-delete',
+      'songcategory-update',
+    ]) {
+      this.channel.bind(event, (): void => {
+        this.loadParty();
+      });
+    }
+    /**
+     * Refresh users (party members) on any party user event (join or leave)
+     */
+    for (const event of ['partyuser-create', 'partyuser-delete']) {
+      this.channel.bind(event, (): void => {
+        this.loadUsers();
+      });
+    }
+    /**
+     * Redirect to dashboard with a message on party delete event
+     */
+    this.channel.bind('party-delete', (): void => {
+      alert(`Party "${this.party.name}" has been deleted!`);
+      this.router.navigateByUrl('/');
     });
   }
 

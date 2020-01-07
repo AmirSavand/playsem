@@ -6,6 +6,7 @@ import { Settings } from '@app/interfaces/settings';
 import { User } from '@app/interfaces/user';
 import { AuthService } from '@app/services/auth.service';
 import { PartyService } from '@app/services/party.service';
+import { PusherService } from '@app/services/pusher.service';
 import { SettingsService } from '@app/services/settings.service';
 import { IconDefinition } from '@fortawesome/fontawesome-common-types';
 import { faBars } from '@fortawesome/free-solid-svg-icons/faBars';
@@ -84,6 +85,10 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    /**
+     * Connect to pusher
+     */
+    PusherService.connect();
     /**
      * Watch for page changes then update window title
      */
