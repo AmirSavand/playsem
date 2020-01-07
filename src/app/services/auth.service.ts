@@ -167,7 +167,7 @@ export class AuthService {
    * @param password user password
    */
   signUp(email: string, username: string, password: string): Observable<void> {
-    return this.http.post(ApiService.BASE + 'users/', {
+    return this.http.post(ApiService.BASE + 'user/', {
       email, username, password,
     }).pipe(
       map((): void => {

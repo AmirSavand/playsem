@@ -1,3 +1,8 @@
+### v4.5
+
+- Fix sign up page (unable to sign up)
+
+
 ### v4.4
 
 2019 December 28
