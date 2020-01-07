@@ -87,7 +87,7 @@ export class UserComponent implements OnInit {
     this.loading = true;
     // If user didn't like this user, like this user. otherwise unlike this user!
     if (!this.user.like) {
-      this.likeService.likeUser(this.user.username).subscribe((data: Like): void => {
+      this.likeService.likeUser(this.user.id).subscribe((data: Like): void => {
         this.loading = false;
         this.user.like = data.id;
         this.user.likes++;

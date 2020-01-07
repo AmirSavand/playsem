@@ -55,10 +55,10 @@ export class LikeService {
 
   /**
    * Like a user
-   * @param username User username
+   * @param id User ID
    */
-  likeUser(username: string): Observable<Like> {
-    return this.like(LikeKind.USER, username);
+  likeUser(id: number): Observable<Like> {
+    return this.like(LikeKind.USER, id.toString());
   }
 
   /**
