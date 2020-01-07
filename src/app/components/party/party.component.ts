@@ -351,6 +351,33 @@ export class PartyComponent implements OnInit {
   }
 
   /**
+   * Toggle like party
+   */
+  toggleLikeCategory(category: Category): void {
+    // Alert if user unauthenticated
+    if (!this.auth.isAuth()) {
+      alert('Sign in to make your opinion count.');
+      return;
+    }
+    this.loading = true;
+    // If user didn't like this category, like this category. otherwise unlike this category!
+    if (!category.like) {
+      this.likeService.likeCategory(category.id).subscribe((data: Like): void => {
+        this.loading = false;
+        category.like = data.id;
+        category.likes++;
+      });
+    } else {
+      // Unlike this category
+      this.likeService.unlike(category.like).subscribe(() => {
+        this.loading = false;
+        category.like = 0;
+        category.likes--;
+      });
+    }
+  }
+
+  /**
    * Deselect current category
    * @param category Party category to check to clear
    */
