@@ -27,8 +27,6 @@
         <span *ngIf="partySongCount"> &bull; {{ partySongCount }} Songs</span>
         <!-- Members count -->
         <span *ngIf="partyUserCount"> &bull; {{ partyUserCount }} Members</span>
-        <!-- Party likes -->
-        <span> &bull; {{ party.likes }} Likes</span>
         <!-- Date -->
         &bull; {{ party.date | date }}
       </p>
@@ -39,28 +37,16 @@
         Play
       </button>
 
-      <!-- UnLike -->
-      <button class="btn btn-light btn-sm mr-2 mt-2" (click)="toggleLikeParty()" *ngIf="party.like">
-        <fa-icon class="text-danger" [fixedWidth]="true" [icon]="heart"></fa-icon>
-        Dislike
-      </button>
-
       <!-- Like -->
-      <button class="btn btn-light btn-sm mr-2 mt-2" (click)="toggleLikeParty()" *ngIf="!party.like">
-        <fa-icon [fixedWidth]="true" [icon]="heart"></fa-icon>
-        Like
-      </button>
-
-      <!-- Refresh -->
-      <button class="btn btn-light btn-sm mr-2 mt-2" (click)="loadSongs()">
-        <fa-icon [fixedWidth]="true" [icon]="syncAlt"></fa-icon>
-        Refresh
+      <button class="btn btn-light btn-sm mr-2 mt-2" (click)="toggleLikeParty()" title="Like">
+        <fa-icon [fixedWidth]="true" [icon]="heart" [class.text-danger]="party.like"></fa-icon>
+        <span *ngIf="party.like">{{ party.likes | number }}</span>
       </button>
 
       <!-- Party ID -->
       <button class="btn btn-light btn-sm mr-2 mt-2" [popover]="party.id"
               containerClass="px-3 mw-100 font-weight-bold text-monospace" triggers="click">
-        <fa-icon [fixedWidth]="true" [icon]="infoCircle"></fa-icon>
+        <fa-icon [fixedWidth]="true" [icon]="lock"></fa-icon>
         Key
       </button>
 

@@ -18,19 +18,16 @@ import { PartyService } from '@app/services/party.service';
 import { PlayerService } from '@app/services/player.service';
 import { PusherService } from '@app/services/pusher.service';
 import { SongService } from '@app/services/song.service';
-import { ImplementingService } from '@app/shared/implementing/implementing.service';
 import { SongModalComponent } from '@app/shared/song-modal/song-modal.component';
 import { IconDefinition } from '@fortawesome/fontawesome-common-types';
 import { faCog } from '@fortawesome/free-solid-svg-icons/faCog';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons/faEllipsisV';
 import { faHeart } from '@fortawesome/free-solid-svg-icons/faHeart';
-import { faInfoCircle } from '@fortawesome/free-solid-svg-icons/faInfoCircle';
+import { faLock } from '@fortawesome/free-solid-svg-icons/faLock';
 import { faPlay } from '@fortawesome/free-solid-svg-icons/faPlay';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons/faSignOutAlt';
-import { faSyncAlt } from '@fortawesome/free-solid-svg-icons/faSyncAlt';
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons/faUserPlus';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
-import { init } from 'protractor/built/launcher';
 import Channel from 'pusher-js';
 
 @Component({
@@ -42,8 +39,7 @@ export class PartyComponent implements OnInit, OnDestroy {
 
   readonly faPlay: IconDefinition = faPlay;
   readonly heart: IconDefinition = faHeart;
-  readonly syncAlt: IconDefinition = faSyncAlt;
-  readonly infoCircle: IconDefinition = faInfoCircle;
+  readonly lock: IconDefinition = faLock;
   readonly userPlus: IconDefinition = faUserPlus;
   readonly signOutAlt: IconDefinition = faSignOutAlt;
   readonly cog: IconDefinition = faCog;
@@ -430,7 +426,7 @@ export class PartyComponent implements OnInit, OnDestroy {
       });
     } else {
       // Unlike this party
-      this.likeService.unlike(this.party.like).subscribe(() => {
+      this.likeService.unlike(this.party.like).subscribe((): void => {
         this.loading = false;
         this.party.like = 0;
         this.party.likes--;
