@@ -76,7 +76,7 @@ export class AuthService {
    * @return Is user authenticated
    */
   isAuth(): boolean {
-    return this.cookie.check('token') && this.cookie.check('user');
+    return this.cookie.check('token');
   }
 
   /**
