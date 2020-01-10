@@ -176,4 +176,15 @@ export class AuthService {
       }),
     );
   }
+
+  /**
+   * Change user password
+   */
+  changePassword(payload: {
+    old_password: string,
+    new_password1: string,
+    new_password2: string,
+  }): Observable<{ detail: string }> {
+    return this.http.post<{ detail: string }>(`${ApiService.BASE}auth/password/change/`, payload);
+  }
 }

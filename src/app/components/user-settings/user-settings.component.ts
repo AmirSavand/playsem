@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Account } from '@app/interfaces/account';
+import { ApiError } from '@app/interfaces/api-error';
 import { User } from '@app/interfaces/user';
 import { ApiService } from '@app/services/api.service';
 import { AuthService } from '@app/services/auth.service';
@@ -21,6 +22,21 @@ export class UserSettingsComponent implements OnInit {
    * User settings form
    */
   form: FormGroup;
+
+  /**
+   * User change password form
+   */
+  changePasswordForm: FormGroup;
+
+  /**
+   * Success change password message
+   */
+  successPasswordMessage: string;
+
+  /**
+   * Change password form errors
+   */
+  changePasswordError: ApiError = {};
 
   /**
    * API loading indicator
@@ -48,6 +64,14 @@ export class UserSettingsComponent implements OnInit {
         color: [user.account.color],
       });
     });
+    /**
+     * Setup user change password form
+     */
+    this.changePasswordForm = this.formBuilder.group({
+      old_password: ['', Validators.required],
+      new_password1: ['', Validators.required],
+      new_password2: ['', Validators.required],
+    });
   }
 
   /**
@@ -67,4 +91,23 @@ export class UserSettingsComponent implements OnInit {
       this.auth.setUser(this.user);
     });
   }
+
+  /**
+   * User change password
+   */
+  ChangePassword(): void {
+    if (this.loading) {
+      return;
+    }
+    this.loading = true;
+    // API call
+    this.auth.changePassword(this.changePasswordForm.value).subscribe((data: {detail: string}): void => {
+      this.loading = false;
+      this.successPasswordMessage = data.detail;
+    }, error => {
+      this.loading = false;
+      this.changePasswordError = error.error;
+    });
+  }
+
 }
