@@ -1,7 +1,13 @@
 ### v4.5
 
+- Add auto refreshing feature for party
+- Add becoming a fan of other users
+- Add likes for parties
+- Add likes songs
+- Add stars for playlists
 - Add change password
-- Add auto refreshing feature for party (songs, categories, etc)
+
+
 - Fix settings page (unable to update)
 - Fix sign up page (unable to sign up)
 
