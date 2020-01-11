@@ -1,7 +1,7 @@
 ### v4.5
 
 - Add auto refreshing feature for party (songs, categories, etc)
-- Fix user setting update (unable to update)
+- Fix settings page (unable to update)
 - Fix sign up page (unable to sign up)
 
 
