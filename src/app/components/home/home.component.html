@@ -9,9 +9,10 @@
         <div class="card-body">
           <h4>Welcome to <b>PlayzEM</b> <small class="text-secondary"> v4.4</small></h4>
           <p class="mb-0">Host and join parties and keep shuffling sick songs.</p>
-          <a class="btn btn-sm btn-light mr-1 mt-2" href="https://discord.gg/4C98Q9j">Discord</a>
-          <a class="btn btn-sm btn-light mr-1 mt-2" href="https://github.com/AmirSavand/playzem">GitHub</a>
-          <a class="btn btn-sm btn-light mr-1 mt-2" href="mailto:amir@savandbros.com?subject=PlayzEM">Feedback</a>
+          <a class="btn btn-sm btn-light mr-1 mt-2" target="_blank"
+             *ngFor="let connect of connects" [href]="connect.link">
+            {{ connect.label }}
+          </a>
         </div>
       </div>
 

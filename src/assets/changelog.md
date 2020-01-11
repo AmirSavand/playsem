@@ -8,7 +8,11 @@
 - Add stars playlists
 
 
-- Improve dashboard connect section
+- Improve dashboard connect buttons
+- Improve songs design in party page
+- Improve user profile page design
+
+
 - Fix settings page (unable to update)
 - Fix sign up page (unable to sign up)
 
