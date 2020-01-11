@@ -67,6 +67,10 @@ $category-width: 160px;
       .icon {
         opacity: 0.5;
       }
+
+      &.show-on-hover {
+        opacity: 1;
+      }
     }
 
     &.active {
@@ -84,7 +88,7 @@ $category-width: 160px;
       }
 
       &.action:hover {
-        opacity: 1;
+        opacity: 1 !important;
       }
     }
 
@@ -103,6 +107,10 @@ $category-width: 160px;
       small {
         opacity: 0.4;
       }
+    }
+
+    .show-on-hover {
+      opacity: 0;
     }
   }
 }

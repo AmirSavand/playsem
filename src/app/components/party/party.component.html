@@ -133,12 +133,13 @@
         </a>
       </small>
     </div>
-    <!-- Like icon -->
-    <div class="icon action" (click)="toggleLikeSong(song)" [class.highlight]="song.like">
+    <!-- Like -->
+    <div class="icon action" (click)="toggleLikeSong(song)"
+         [class.highlight]="song.like" [class.show-on-hover]="!song.likes">
       <fa-icon [fixedWidth]="true" [icon]="faLike" [class.text-danger]="song.like"></fa-icon>
       <span class="ml-1" *ngIf="song.likes">{{ song.likes | number }}</span>
     </div>
-    <!-- Options icon -->
+    <!-- Options -->
     <div class="icon action"
          [popover]="songOptions"
          [outsideClick]="true"
