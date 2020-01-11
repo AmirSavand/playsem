@@ -13,6 +13,17 @@ import { ApiService } from '@app/services/api.service';
 export class HomeComponent implements OnInit {
 
   /**
+   * Connect links
+   */
+  readonly connects: { label: string; link: string; }[] = [
+    { label: 'Discord', link: 'https://discord.gg/4C98Q9j' },
+    { label: 'GitHub', link: 'https://github.com/AmirSavand/playzem#playzem' },
+    { label: 'Twitter', link: 'https://twitter.com/playzemio' },
+    { label: 'Instagram', link: 'https://instagram.com/playzem/' },
+    { label: 'Feedback', link: 'mailto:playzem@savandbros.com?subject=PlayzEM Feedback' },
+  ];
+
+  /**
    * Cache data
    */
   readonly cacheParty: Cache<Party[]> = new Cache<Party[]>('parties');
