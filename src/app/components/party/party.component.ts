@@ -22,7 +22,7 @@ import { SongModalComponent } from '@app/shared/song-modal/song-modal.component'
 import { IconDefinition } from '@fortawesome/fontawesome-common-types';
 import { faCog } from '@fortawesome/free-solid-svg-icons/faCog';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons/faEllipsisV';
-import { faFolderOpen } from '@fortawesome/free-solid-svg-icons/faFolderOpen';
+import { faFolder } from '@fortawesome/free-solid-svg-icons/faFolder';
 import { faHeart } from '@fortawesome/free-solid-svg-icons/faHeart';
 import { faLock } from '@fortawesome/free-solid-svg-icons/faLock';
 import { faPlay } from '@fortawesome/free-solid-svg-icons/faPlay';
@@ -45,7 +45,7 @@ export class PartyComponent implements OnInit, OnDestroy {
   readonly faLeave: IconDefinition = faSignOutAlt;
   readonly faSettings: IconDefinition = faCog;
   readonly faOptions: IconDefinition = faEllipsisV;
-  readonly faCategory: IconDefinition = faFolderOpen;
+  readonly faCategory: IconDefinition = faFolder;
 
   /**
    * Cache data
