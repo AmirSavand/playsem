@@ -63,23 +63,25 @@ $category-width: 160px;
 
     &:hover {
       background: rgba(0, 0, 0, 0.1);
-      cursor: pointer;
+
+      .icon {
+        opacity: 0.5;
+      }
     }
 
     &.active {
       background: $dark;
-
-      .icon:first-child:not(.action) {
-        color: $primary;
-        opacity: 1;
-      }
     }
 
     .icon {
       text-align: center;
       flex-basis: 60px;
       max-width: 60px;
-      opacity: 0.1;
+      opacity: 0.25;
+
+      &.highlight {
+        opacity: 0.75;
+      }
 
       &.action:hover {
         opacity: 1;

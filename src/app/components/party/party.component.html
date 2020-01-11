@@ -39,32 +39,32 @@
 
       <!-- Like -->
       <button class="btn btn-light btn-sm mr-2 mt-2" (click)="toggleLikeParty()" title="Like">
-        <fa-icon [fixedWidth]="true" [icon]="heart" [class.text-danger]="party.like"></fa-icon>
+        <fa-icon [fixedWidth]="true" [icon]="faLike" [class.text-danger]="party.like"></fa-icon>
         <span *ngIf="party.like">{{ party.likes | number }}</span>
       </button>
 
       <!-- Party ID -->
       <button class="btn btn-light btn-sm mr-2 mt-2" [popover]="party.id"
               containerClass="px-3 mw-100 font-weight-bold text-monospace" triggers="click">
-        <fa-icon [fixedWidth]="true" [icon]="lock"></fa-icon>
+        <fa-icon [fixedWidth]="true" [icon]="faKey"></fa-icon>
         Key
       </button>
 
       <!-- Join Party -->
       <button class="btn btn-light btn-sm mr-2 mt-2" *ngIf="isPartyMember() === false" (click)="joinParty()">
-        <fa-icon [fixedWidth]="true" [icon]="userPlus"></fa-icon>
+        <fa-icon [fixedWidth]="true" [icon]="faJoin"></fa-icon>
         Join Party
       </button>
 
       <!-- Leave Party -->
       <button class="btn btn-light btn-sm mr-2 mt-2" *ngIf="isPartyMember() === true" (click)="leaveParty()">
-        <fa-icon [fixedWidth]="true" [icon]="signOutAlt"></fa-icon>
+        <fa-icon [fixedWidth]="true" [icon]="faLeave"></fa-icon>
         Leave Party
       </button>
 
       <!-- Settings -->
       <a class="btn btn-light btn-sm mr-2 mt-2" routerLink="settings" *ngIf="auth.isUser(party.user)">
-        <fa-icon [fixedWidth]="true" [icon]="cog"></fa-icon>
+        <fa-icon [fixedWidth]="true" [icon]="faSettings"></fa-icon>
         Settings
       </a>
     </div>
@@ -73,7 +73,7 @@
 
 <!-- Categories -->
 <div class="category-wrapper py-3" *ngIf="party && party.categories.length">
-  <div class="category-list pl-3">
+  <div class="category-list pl-4">
     <div class="category mr-3" *ngFor="let category of party.categories">
       <a class="card m-0" routerLink="./" routerLinkActive="bg-primary"
          [queryParams]="{playlist: category.id}" (click)="deselectCategory(category)">
@@ -85,17 +85,17 @@
           <small class="text-white-50">{{ getCategorySongCount(category) }} Songs</small>
           <!-- Likes -->
           <span> &bull;
-          <fa-icon class="text-white small" [fixedWidth]="true" [icon]="heart"></fa-icon>
+          <fa-icon class="text-white small" [fixedWidth]="true" [icon]="faLike"></fa-icon>
             {{ category.likes }}
           </span>
           <!-- UnLike -->
           <button class="btn btn-dark btn-sm mt-2" (click)="toggleLikeCategory(category)" *ngIf="category.like">
-            <fa-icon class="text-danger small" [fixedWidth]="true" [icon]="heart"></fa-icon>
+            <fa-icon class="text-danger small" [fixedWidth]="true" [icon]="faLike"></fa-icon>
             Dislike
           </button>
           <!-- Like -->
           <button class="btn btn-dark btn-sm mt-2" (click)="toggleLikeCategory(category)" *ngIf="!category.like">
-            <fa-icon class="small" [fixedWidth]="true" [icon]="heart"></fa-icon>
+            <fa-icon class="small" [fixedWidth]="true" [icon]="faLike"></fa-icon>
             Like
           </button>
         </div>
@@ -106,33 +106,39 @@
 
 <!-- Add song -->
 <form class="input-group" [formGroup]="songForm" (ngSubmit)="addSong()">
-  <input class="form-control py-4 rounded-0" type="text" formControlName="source"
+  <input class="form-control p-4 rounded-0" type="text" formControlName="source"
          [placeholder]="getAddSongPlaceholder()">
 </form>
 
 <!-- Songs -->
 <div class="songs" *ngIf="songs">
   <!-- Song -->
-  <div class="song d-flex align-items-center" *ngFor="let song of songsFilter" [class.active]="isPlaying(song)">
-    <!-- Icon -->
-    <div class="icon" (click)="play(song)">
-      <fa-icon [fixedWidth]="true" [icon]="faPlay"></fa-icon>
-    </div>
-    <!-- Image -->
-    <div class="cover mr-3 rounded" (click)="play(song)"
+  <div class="song d-flex align-items-center pl-4" *ngFor="let song of songsFilter" [class.active]="isPlaying(song)">
+    <!-- Song image -->
+    <div class="cover mr-3 rounded action" (click)="play(song)"
          [style.background-image]="'url(' + getSongImage(song) + ')'"></div>
-    <!-- Info -->
-    <div class="info d-flex flex-column text-truncate" (click)="play(song)">
-      <span class="text-truncate">{{ song.name }}</span>
-      <small>{{ song.user.account.name }}
-        <!-- Likes -->
-        <span> &bull;
-          <fa-icon class="text-white small" [fixedWidth]="true" [icon]="heart"></fa-icon>
-          {{ song.likes }}
-        </span>
+    <!-- Song title and info -->
+    <div class="info d-flex flex-column text-truncate">
+      <!-- Song title -->
+      <span class="text-truncate action" (click)="play(song)">{{ song.name }}</span>
+      <!-- Song info -->
+      <small>
+        <!-- Song user -->
+        <a class="text-light" [routerLink]="['/user', song.user.username]">{{ song.user.account.name }}</a>
+        <!-- Song categories -->
+        <a class="text-light ml-2" *ngFor="let songCategory of song.categories"
+           routerLink="./" [queryParams]="{playlist: songCategory.category.id}">
+          <fa-icon class="text-secondary" [fixedWidth]="true" [icon]="faCategory"></fa-icon>
+          {{ songCategory.category.name }}
+        </a>
       </small>
     </div>
-    <!-- Icon -->
+    <!-- Like icon -->
+    <div class="icon action" (click)="toggleLikeSong(song)" [class.highlight]="song.like">
+      <fa-icon [fixedWidth]="true" [icon]="faLike" [class.text-danger]="song.like"></fa-icon>
+      <span class="ml-1" *ngIf="song.likes">{{ song.likes | number }}</span>
+    </div>
+    <!-- Options icon -->
     <div class="icon action"
          [popover]="songOptions"
          [outsideClick]="true"
@@ -141,7 +147,7 @@
          (onShown)="song.popover = true"
          (onHidden)="song.popover = false"
          placement="left">
-      <fa-icon [fixedWidth]="true" [icon]="ellipsisV"></fa-icon>
+      <fa-icon [fixedWidth]="true" [icon]="faOptions"></fa-icon>
     </div>
   </div>
 </div>
