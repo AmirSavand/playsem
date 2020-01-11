@@ -44,7 +44,7 @@ export class ApiService {
    * @param payload Update data
    */
   updateUser(username: string, payload: Account): Observable<Account> {
-    return this.http.patch<Account>(`${ApiService.BASE}accounts/${username}/`, payload);
+    return this.http.patch<Account>(`${ApiService.BASE}account/${username}/`, payload);
   }
 
   // Party
