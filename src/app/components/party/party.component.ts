@@ -332,9 +332,17 @@ export class PartyComponent implements OnInit, OnDestroy {
       });
     }
     /**
-     * Refresh party on party update and any party category event
+     * Refresh party on party update, any party category event and any user category event
      */
-    for (const event of ['party-update', 'partycategory-create', 'partycategory-delete', 'partycategory-update']) {
+    for (const event of [
+      'party-update',
+      'partycategory-create',
+      'partycategory-delete',
+      'partycategory-update',
+      'songcategory-create',
+      'songcategory-delete',
+      'songcategory-update',
+    ]) {
       this.channel.bind(event, (): void => {
         this.loadParty();
       });
