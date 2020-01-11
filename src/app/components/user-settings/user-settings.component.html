@@ -1,5 +1,7 @@
 <div class="container py-3">
   <div class="row justify-content-center">
+
+    <!-- Settings -->
     <div class="col-lg-4">
       <div class="card my-3">
         <div class="card-header">Settings</div>
@@ -26,6 +28,46 @@
           </div>
           <!-- Submit -->
           <button class="btn btn-block btn-info" [disabled]="loading">Update</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Change password -->
+    <div class="col-lg-4">
+      <div class="card my-3">
+        <div class="card-header">Change Password</div>
+        <form class="card-body" (ngSubmit)="changePassword()" [formGroup]="changePasswordForm">
+          <!-- Old password -->
+          <div class="form-group">
+            <label for="old_password">Old password</label>
+            <input class="form-control" type="password" id="old_password" formControlName="old_password">
+            <!-- Error -->
+            <div class="text-danger" *ngIf="changePasswordError.old_password">
+              {{ changePasswordError.old_password[0] }}
+            </div>
+          </div>
+          <!-- New password -->
+          <div class="form-group">
+            <label for="new_password1">New password</label>
+            <input class="form-control" type="password" id="new_password1" formControlName="new_password1">
+            <!-- Error -->
+            <div class="text-danger" *ngIf="changePasswordError.new_password1">
+              {{ changePasswordError.new_password1[0] }}
+            </div>
+          </div>
+          <!-- New password confirm -->
+          <div class="form-group">
+            <label for="new_password2">Confirm new password</label>
+            <input class="form-control" type="password" id="new_password2" formControlName="new_password2">
+            <!-- Error -->
+            <div class="text-danger" *ngIf="changePasswordError.new_password2">
+              {{ changePasswordError.new_password2[0] }}
+            </div>
+          </div>
+          <!-- Success change password message -->
+          <div class="alert alert-success" *ngIf="successPasswordMessage">{{ successPasswordMessage }}</div>
+          <!-- Submit -->
+          <button class="btn btn-block btn-info" [disabled]="loading || changePasswordForm.invalid">Submit</button>
         </form>
       </div>
     </div>

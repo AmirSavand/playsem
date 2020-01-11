@@ -11,6 +11,7 @@ export interface Song {
   source: string;
   name: string;
   likes: number;
+  like: number;
   categories: SongCategory[];
   /**
    * Extra properties

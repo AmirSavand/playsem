@@ -4,6 +4,7 @@ export interface Category {
   name: string;
   image: string;
   likes: number;
+  like: number;
   /**
    * Extra properties
    */
