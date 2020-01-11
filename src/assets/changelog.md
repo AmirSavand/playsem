@@ -1,5 +1,7 @@
 #### v4.5
 
+2020 January 11
+
 - [Add auto refreshing feature for party](https://github.com/AmirSavand/playzem/issues/166)
 - Add change password
 - Add becoming a fan of other users
