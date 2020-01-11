@@ -106,6 +106,7 @@ export class UserSettingsComponent implements OnInit {
       this.loading = false;
       this.successPasswordMessage = data.detail;
       this.changePasswordError = {};
+      this.changePasswordForm.reset();
     }, (error: HttpErrorResponse): void => {
       this.loading = false;
       this.successPasswordMessage = '';
