@@ -9,7 +9,9 @@ import { ApiService } from '@app/services/api.service';
 import { AuthService } from '@app/services/auth.service';
 import { LikeService } from '@app/services/like.service';
 import { IconDefinition } from '@fortawesome/fontawesome-common-types';
-import { faHeart } from '@fortawesome/free-solid-svg-icons/faHeart';
+import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons/faCalendarAlt';
+import { faFire } from '@fortawesome/free-solid-svg-icons/faFire';
+import { faPen } from '@fortawesome/free-solid-svg-icons/faPen';
 
 @Component({
   selector: 'app-user',
@@ -18,7 +20,9 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons/faHeart';
 })
 export class UserComponent implements OnInit {
 
-  readonly heart: IconDefinition = faHeart;
+  readonly edit: IconDefinition = faPen;
+  readonly date: IconDefinition = faCalendarAlt;
+  readonly like: IconDefinition = faFire;
 
   /**
    * API loading indicator

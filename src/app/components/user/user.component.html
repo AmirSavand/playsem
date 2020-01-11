@@ -4,35 +4,47 @@
     <!-- User -->
     <div class="col-lg-3">
       <div class="card my-3" *ngIf="user">
+
         <!-- User image -->
         <div class="card-header d-flex justify-content-center" *ngIf="user.account.image">
           <div class="image rounded-circle" [style.background-image]="image"></div>
         </div>
-        <!-- User info -->
+
+        <!-- User name and bio -->
         <div class="card-body text-center">
+
           <!-- User display name -->
           <h3 [style.color]="user.account.color">{{ user.account.name }}</h3>
-          <!-- User username and join date -->
-          <p class="small text-secondary mb-1">@{{ user.username }} &bull; {{ user.date_joined | date }} &bull;
-            <!-- Likes -->
-            <span class="small" [style.color]="user.account.color">
-              <fa-icon [fixedWidth]="true" [icon]="heart"></fa-icon>
-              {{ user.likes }}
-            </span>
-          </p>
+
+          <!-- User username -->
+          <p class="small text-secondary mb-1">@{{ user.username }}</p>
+
           <!-- User bio -->
-          <p class="m-0 text-pre">{{ user.account.bio || '...' }}</p>
-          <!-- UnLike -->
-          <button class="btn btn-dark btn-sm mt-2" (click)="toggleLikeUser()" *ngIf="user.like">
-            <fa-icon class="text-danger" [fixedWidth]="true" [icon]="heart"></fa-icon>
-            Dislike
-          </button>
-          <!-- Like -->
-          <button class="btn btn-dark btn-sm mt-2" (click)="toggleLikeUser()" *ngIf="!user.like">
-            <fa-icon [fixedWidth]="true" [icon]="heart"></fa-icon>
-            Like
-          </button>
+          <p class="mb-0 text-pre">{{ user.account.bio || '...' }}</p>
         </div>
+
+        <!-- User info -->
+        <ul class="list-group list-group-flush text-left small text-secondary">
+
+          <!-- Edit (only for self) -->
+          <li class="list-group-item action text-secondary" *ngIf="auth.isUser(user)" routerLink="/user-settings">
+            <fa-icon [fixedWidth]="true" [icon]="edit"></fa-icon>
+            Edit <span class="float-right">Go To Settings</span>
+          </li>
+
+          <!-- Date joined -->
+          <li class="list-group-item">
+            <fa-icon [fixedWidth]="true" [icon]="date"></fa-icon>
+            Joined <span class="float-right">{{ user.date_joined | date }}</span>
+          </li>
+
+          <!-- Likes -->
+          <li class="list-group-item action" (click)="toggleLikeUser()" [class.text-danger]="user.like"
+              [title]="user.like ? 'You are a fan' : 'Click to become a fan'">
+            <fa-icon [fixedWidth]="true" [icon]="like"></fa-icon>
+            Fans <b class="float-right">{{ user.likes | number }}</b>
+          </li>
+        </ul>
       </div>
     </div>
 
@@ -44,13 +56,7 @@
           <li class="list-group-item" *ngFor="let partyUser of partyUsers">
             <a [routerLink]="['/party', partyUser.party.id]" class="text-light">{{ partyUser.party.name }}</a>
             <br>
-            <small class="text-secondary" title="Join date">{{ partyUser.date | date }} &bull;
-              <!-- Likes -->
-              <span class="small" [style.color]="user.account.color">
-                <fa-icon [fixedWidth]="true" [icon]="heart"></fa-icon>
-                  {{ partyUser.party.likes }}
-              </span>
-            </small>
+            <small class="text-secondary" title="Join date">{{ partyUser.date | date }}</small>
             <span class="badge badge-primary float-right" *ngIf="partyUser.party.user.id === user.id">Owner</span>
           </li>
         </div>
