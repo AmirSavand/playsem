@@ -1,5 +1,7 @@
 <div class="container py-3">
   <div class="row justify-content-center">
+
+    <!-- Settings -->
     <div class="col-lg-4">
       <div class="card my-3">
         <div class="card-header">Settings</div>
@@ -29,10 +31,11 @@
         </form>
       </div>
     </div>
-    <!-- User change password -->
+
+    <!-- Change password -->
     <div class="col-lg-4">
       <div class="card my-3">
-        <div class="card-header">Change password</div>
+        <div class="card-header">Change Password</div>
         <form class="card-body" (ngSubmit)="changePassword()" [formGroup]="changePasswordForm">
           <!-- Old password -->
           <div class="form-group">
