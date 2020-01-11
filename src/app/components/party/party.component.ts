@@ -20,6 +20,7 @@ import { PusherService } from '@app/services/pusher.service';
 import { SongService } from '@app/services/song.service';
 import { SongModalComponent } from '@app/shared/song-modal/song-modal.component';
 import { IconDefinition } from '@fortawesome/fontawesome-common-types';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { faCog } from '@fortawesome/free-solid-svg-icons/faCog';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons/faEllipsisV';
 import { faFolder } from '@fortawesome/free-solid-svg-icons/faFolder';
@@ -40,6 +41,7 @@ export class PartyComponent implements OnInit, OnDestroy {
 
   readonly faPlay: IconDefinition = faPlay;
   readonly faLike: IconDefinition = faHeart;
+  readonly faLikeCategory: IconDefinition = faStar;
   readonly faKey: IconDefinition = faLock;
   readonly faJoin: IconDefinition = faUserPlus;
   readonly faLeave: IconDefinition = faSignOutAlt;

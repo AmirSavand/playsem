@@ -74,30 +74,24 @@
 <!-- Categories -->
 <div class="category-wrapper py-3" *ngIf="party && party.categories.length">
   <div class="category-list pl-4">
+    <!-- Category -->
     <div class="category mr-3" *ngFor="let category of party.categories">
-      <a class="card m-0" routerLink="./" routerLinkActive="bg-primary"
-         [queryParams]="{playlist: category.id}" (click)="deselectCategory(category)">
+      <!-- Category like -->
+      <div class="like">
+        <button class="btn btn-sm btn-dark m-2" (click)="toggleLikeCategory(category)">
+          <fa-icon [fixedWidth]="true" [icon]="faLikeCategory" [class.text-warning]="category.like"></fa-icon>
+          <span class="ml-1" *ngIf="category.likes">{{ category.likes | number }}</span>
+        </button>
+      </div>
+      <!-- Category card -->
+      <a class="card m-0" (click)="deselectCategory(category)"
+         routerLink="./" routerLinkActive="bg-primary" [queryParams]="{playlist: category.id}">
         <div class="card-body card-body-image"
              [style.background-image]="'url(' + (category.image || 'assets/category.jpg') + ')'">
         </div>
         <div class="card-body">
           <div>{{ category.name }}</div>
           <small class="text-white-50">{{ getCategorySongCount(category) }} Songs</small>
-          <!-- Likes -->
-          <span> &bull;
-          <fa-icon class="text-white small" [fixedWidth]="true" [icon]="faLike"></fa-icon>
-            {{ category.likes }}
-          </span>
-          <!-- UnLike -->
-          <button class="btn btn-dark btn-sm mt-2" (click)="toggleLikeCategory(category)" *ngIf="category.like">
-            <fa-icon class="text-danger small" [fixedWidth]="true" [icon]="faLike"></fa-icon>
-            Dislike
-          </button>
-          <!-- Like -->
-          <button class="btn btn-dark btn-sm mt-2" (click)="toggleLikeCategory(category)" *ngIf="!category.like">
-            <fa-icon class="small" [fixedWidth]="true" [icon]="faLike"></fa-icon>
-            Like
-          </button>
         </div>
       </a>
     </div>
