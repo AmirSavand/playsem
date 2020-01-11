@@ -6,29 +6,30 @@ import { AppComponent } from '@app/app.component';
 import { Cache } from '@app/classes/cache';
 import { ApiResponse } from '@app/interfaces/api-response';
 import { Category } from '@app/interfaces/category';
+import { Like } from '@app/interfaces/like';
 import { Party } from '@app/interfaces/party';
 import { PartyUser } from '@app/interfaces/party-user';
 import { Song } from '@app/interfaces/song';
 import { User } from '@app/interfaces/user';
 import { ApiService } from '@app/services/api.service';
 import { AuthService } from '@app/services/auth.service';
+import { LikeService } from '@app/services/like.service';
 import { PartyService } from '@app/services/party.service';
 import { PlayerService } from '@app/services/player.service';
 import { PusherService } from '@app/services/pusher.service';
 import { SongService } from '@app/services/song.service';
-import { ImplementingService } from '@app/shared/implementing/implementing.service';
 import { SongModalComponent } from '@app/shared/song-modal/song-modal.component';
 import { IconDefinition } from '@fortawesome/fontawesome-common-types';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { faCog } from '@fortawesome/free-solid-svg-icons/faCog';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons/faEllipsisV';
+import { faFolder } from '@fortawesome/free-solid-svg-icons/faFolder';
 import { faHeart } from '@fortawesome/free-solid-svg-icons/faHeart';
-import { faInfoCircle } from '@fortawesome/free-solid-svg-icons/faInfoCircle';
+import { faLock } from '@fortawesome/free-solid-svg-icons/faLock';
 import { faPlay } from '@fortawesome/free-solid-svg-icons/faPlay';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons/faSignOutAlt';
-import { faSyncAlt } from '@fortawesome/free-solid-svg-icons/faSyncAlt';
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons/faUserPlus';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
-import { init } from 'protractor/built/launcher';
 import Channel from 'pusher-js';
 
 @Component({
@@ -39,13 +40,14 @@ import Channel from 'pusher-js';
 export class PartyComponent implements OnInit, OnDestroy {
 
   readonly faPlay: IconDefinition = faPlay;
-  readonly heart: IconDefinition = faHeart;
-  readonly syncAlt: IconDefinition = faSyncAlt;
-  readonly infoCircle: IconDefinition = faInfoCircle;
-  readonly userPlus: IconDefinition = faUserPlus;
-  readonly signOutAlt: IconDefinition = faSignOutAlt;
-  readonly cog: IconDefinition = faCog;
-  readonly ellipsisV: IconDefinition = faEllipsisV;
+  readonly faLike: IconDefinition = faHeart;
+  readonly faLikeCategory: IconDefinition = faStar;
+  readonly faKey: IconDefinition = faLock;
+  readonly faJoin: IconDefinition = faUserPlus;
+  readonly faLeave: IconDefinition = faSignOutAlt;
+  readonly faSettings: IconDefinition = faCog;
+  readonly faOptions: IconDefinition = faEllipsisV;
+  readonly faCategory: IconDefinition = faFolder;
 
   /**
    * Cache data
@@ -114,11 +116,6 @@ export class PartyComponent implements OnInit, OnDestroy {
   isPlaying = PlayerService.isPlaying;
 
   /**
-   * Not implemented alert
-   */
-  alert = ImplementingService.alert;
-
-  /**
    * @see SongService.getSongImage
    */
   getSongImage = SongService.getSongImage;
@@ -129,7 +126,8 @@ export class PartyComponent implements OnInit, OnDestroy {
               private router: Router,
               private formBuilder: FormBuilder,
               private modalService: BsModalService,
-              private title: Title) {
+              private title: Title,
+              private likeService: LikeService) {
   }
 
   /**
@@ -383,6 +381,87 @@ export class PartyComponent implements OnInit, OnDestroy {
       }
       // Play the song (first or selected)
       PlayerService.play(song);
+    }
+  }
+
+  /**
+   * Toggle like song
+   */
+  toggleLikeSong(song: Song): void {
+    // Alert if user unauthenticated
+    if (!this.auth.isAuth()) {
+      alert('Sign in to make your opinion count.');
+      return;
+    }
+    this.loading = true;
+    // If user didn't like this song, like this song. otherwise unlike this song!
+    if (!song.like) {
+      this.likeService.likeSong(song.id).subscribe((data: Like): void => {
+        this.loading = false;
+        song.like = data.id;
+        song.likes++;
+      });
+    } else {
+      // Unlike this song
+      this.likeService.unlike(song.like).subscribe(() => {
+        this.loading = false;
+        song.like = 0;
+        song.likes--;
+      });
+    }
+  }
+
+  /**
+   * Toggle like party
+   */
+  toggleLikeParty(): void {
+    // Alert if user unauthenticated
+    if (!this.auth.isAuth()) {
+      alert('Sign in to make your opinion count.');
+      return;
+    }
+    this.loading = true;
+    // If user didn't like this party, like this party. otherwise unlike this party!
+    if (!this.party.like) {
+      this.likeService.likeParty(this.party.id).subscribe((data: Like): void => {
+        this.loading = false;
+        this.party.like = data.id;
+        this.party.likes++;
+      });
+    } else {
+      // Unlike this party
+      this.likeService.unlike(this.party.like).subscribe((): void => {
+        this.loading = false;
+        this.party.like = 0;
+        this.party.likes--;
+      });
+    }
+  }
+
+  /**
+   * Toggle like party
+   */
+  toggleLikeCategory(category: Category): void {
+    // Alert if user unauthenticated
+    if (!this.auth.isAuth()) {
+      alert('Sign in to make your opinion count.');
+      return;
+    }
+    this.loading = true;
+    // If user didn't like this category, like this category. otherwise unlike this category!
+    if (!category.like) {
+      this.likeService.likeCategory(category.id).subscribe((data: Like): void => {
+        this.loading = false;
+        category.like = data.id;
+        category.likes++;
+      });
+    } else {
+      // Unlike this category
+      this.likeService.unlike(category.like).subscribe(() => {
+        this.loading = false;
+        category.like = 0;
+        category.likes--;
+      });
     }
   }
 
