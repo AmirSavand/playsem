@@ -4,6 +4,7 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { AppComponent } from '@app/app.component';
 import { Cache } from '@app/classes/cache';
+import { LikeKind } from '@app/enums/like-kind';
 import { ApiResponse } from '@app/interfaces/api-response';
 import { Category } from '@app/interfaces/category';
 import { Like } from '@app/interfaces/like';
@@ -360,6 +361,39 @@ export class PartyComponent implements OnInit, OnDestroy {
       alert(`Party "${this.party.name}" has been deleted!`);
       this.router.navigateByUrl('/');
     });
+    /**
+     * Update likes of party, categories and song on any like event
+     */
+    for (const event of ['like-create', 'like-delete']) {
+      this.channel.bind(event, (data: Like): void => {
+        // Don't update likes if triggered by authenticated user
+        if (this.auth.isAuth() && this.user.username === data.user) {
+          return;
+        }
+        // Object that has been liked or disliked
+        let object: Party | Category | Song;
+        // Find the object based on like kind
+        switch (data.kind) {
+          case LikeKind.PARTY:
+            object = this.party;
+            break;
+          case LikeKind.CATEGORY:
+            object = this.party.categories.find(category => category.id === Number(data.like));
+            break;
+          case LikeKind.SONG:
+            object = this.songs.find(song => song.id === Number(data.like));
+            break;
+        }
+        // If object is liked or disliked
+        if (event === 'like-create') {
+          // Increase likes count
+          object.likes++;
+        } else {
+          // Decrease likes count
+          object.likes--;
+        }
+      });
+    }
   }
 
   /**

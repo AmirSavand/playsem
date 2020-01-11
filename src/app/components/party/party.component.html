@@ -40,7 +40,7 @@
       <!-- Like -->
       <button class="btn btn-light btn-sm mr-2 mt-2" (click)="toggleLikeParty()" title="Like">
         <fa-icon [fixedWidth]="true" [icon]="faLike" [class.text-danger]="party.like"></fa-icon>
-        <span *ngIf="party.like">{{ party.likes | number }}</span>
+        <span *ngIf="party.likes">{{ party.likes | number }}</span>
       </button>
 
       <!-- Party ID -->
