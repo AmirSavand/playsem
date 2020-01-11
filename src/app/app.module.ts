@@ -20,7 +20,6 @@ import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { CookieService } from 'ngx-cookie-service';
 import { NgxGoogleAnalyticsModule, NgxGoogleAnalyticsRouterModule } from 'ngx-google-analytics';
-import { NgxMdModule } from 'ngx-md';
 import { FilterByPipe } from 'ngx-pipes';
 import { NgxY2PlayerModule } from 'ngx-y2-player';
 
@@ -53,7 +52,6 @@ import { AppComponent } from './app.component';
     BrowserAnimationsModule,
     NgxGoogleAnalyticsModule.forRoot(environment.googleAnalytics),
     NgxGoogleAnalyticsRouterModule,
-    NgxMdModule.forRoot(),
   ],
   entryComponents: [
     CategoryModalComponent,
