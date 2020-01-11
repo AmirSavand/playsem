@@ -7,7 +7,6 @@ import { ApiService } from '@app/services/api.service';
 import { AuthService } from '@app/services/auth.service';
 import { HttpInterceptorService } from '@app/services/http-interceptor.service';
 import { CategoryModalComponent } from '@app/shared/category-modal/category-modal.component';
-import { ImplementingComponent } from '@app/shared/implementing/implementing.component';
 import { PlayerComponent } from '@app/shared/player/player.component';
 import { SongModalComponent } from '@app/shared/song-modal/song-modal.component';
 import { environment } from '@environments/environment';
@@ -34,7 +33,6 @@ import { AppComponent } from './app.component';
     PlayerComponent,
     CategoryModalComponent,
     SongModalComponent,
-    ImplementingComponent,
   ],
   imports: [
     BrowserModule,
