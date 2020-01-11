@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Account } from '@app/interfaces/account';
@@ -95,17 +96,19 @@ export class UserSettingsComponent implements OnInit {
   /**
    * User change password
    */
-  ChangePassword(): void {
+  changePassword(): void {
     if (this.loading) {
       return;
     }
     this.loading = true;
     // API call
-    this.auth.changePassword(this.changePasswordForm.value).subscribe((data: {detail: string}): void => {
+    this.auth.changePassword(this.changePasswordForm.value).subscribe((data: { detail: string }): void => {
       this.loading = false;
       this.successPasswordMessage = data.detail;
-    }, error => {
+      this.changePasswordError = {};
+    }, (error: HttpErrorResponse): void => {
       this.loading = false;
+      this.successPasswordMessage = '';
       this.changePasswordError = error.error;
     });
   }
