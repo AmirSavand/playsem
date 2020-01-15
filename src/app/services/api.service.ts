@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Crud } from '@app/classes/crud';
 import { Account } from '@app/interfaces/account';
 import { Category } from '@app/interfaces/category';
+import { Dj } from '@app/interfaces/dj';
+import { DjUser } from '@app/interfaces/dj-user';
 import { Party } from '@app/interfaces/party';
 import { PartyUser } from '@app/interfaces/party-user';
 import { Song } from '@app/interfaces/song';
@@ -30,6 +32,8 @@ export class ApiService {
   readonly partyCategory = new Crud<Category>(this.http, 'parry-category');
   readonly song = new Crud<Song>(this.http, 'song');
   readonly songCategory = new Crud<SongCategory>(this.http, 'song-category');
+  readonly dj = new Crud<Dj>(this.http, 'dj');
+  readonly djUser = new Crud<DjUser>(this.http, 'dj-user');
 
   constructor(private http: HttpClient) {
   }
