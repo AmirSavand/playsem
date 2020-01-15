@@ -23,29 +23,29 @@ export class Crud<T> {
   /**
    * Get list of objects
    */
-  list(params = {}): Observable<ApiResponse<T>> {
+  list(params: { [key: string]: string } = {}): Observable<ApiResponse<T>> {
     return this.http.get<ApiResponse<T>>(this.endpoint, { params });
   }
 
   /**
    * Create a new object
    */
-  create(payload): Observable<T> {
+  create(payload: Partial<T>): Observable<T> {
     return this.http.post<T>(this.endpoint, payload);
   }
 
   /**
    * Update a single object
    */
-  update(pk: PK, payload): Observable<T> {
+  update(pk: PK, payload: Partial<T>): Observable<T> {
     return this.http.patch<T>(`${this.endpoint}${pk}/`, payload);
   }
 
   /**
    * Get a single object
    */
-  retrieve(pk: PK, params?): Observable<T> {
-    return this.http.get<T>(`${this.endpoint}${pk}/`, { params });
+  retrieve(pk: PK): Observable<T> {
+    return this.http.get<T>(`${this.endpoint}${pk}/`);
   }
 
   /**
