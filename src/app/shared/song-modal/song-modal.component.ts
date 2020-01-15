@@ -46,8 +46,10 @@ export class SongModalComponent implements OnInit {
      * Update categories selected status
      */
     for (const category of this.categories) {
-      const songCategory: SongCategory = this.song.categories.find(item => item.category.id === category.id);
-      category.selected = songCategory && category.id === songCategory.category.id;
+      const songCategory: SongCategory = this.song.categories.find(item => {
+        return (songCategory.category as Category).id === category.id;
+      });
+      category.selected = songCategory && category.id === (songCategory.category as Category).id;
     }
   }
 
@@ -56,7 +58,9 @@ export class SongModalComponent implements OnInit {
    */
   save(): void {
     for (const category of this.categories) {
-      const songCategory: SongCategory = this.song.categories.find(item => item.category.id === category.id);
+      const songCategory: SongCategory = this.song.categories.find(item => {
+        return (item.category as Category).id === category.id;
+      });
       if (category.selected && !songCategory) {
         this.api.songCategory.create({
           song: this.song.id,

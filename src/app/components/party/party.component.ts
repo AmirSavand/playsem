@@ -152,7 +152,9 @@ export class PartyComponent implements OnInit, OnDestroy {
   get songsFilter(): Song[] {
     if (this.categorySelected) {
       return this.songs.filter(song => {
-        return song.categories.some(songCategory => songCategory.category.id === this.categorySelected.id);
+        return song.categories.some(songCategory => {
+          return (songCategory.category as Category).id === this.categorySelected.id;
+        });
       });
     }
     return this.songs;
@@ -559,7 +561,7 @@ export class PartyComponent implements OnInit, OnDestroy {
   getCategorySongCount(category: Category): number {
     if (this.songs) {
       return this.songs.filter(song => {
-        return song.categories.some(songCategory => songCategory.category.id === category.id);
+        return song.categories.some(songCategory => (songCategory.category as Category).id === category.id);
       }).length;
     }
     return 0;
@@ -589,7 +591,7 @@ export class PartyComponent implements OnInit, OnDestroy {
    * Make authenticated user to join this party
    */
   joinParty(): void {
-    this.api.partyUser.create(this.party.id).subscribe((): void => {
+    this.api.partyUser.create({ party: this.party.id }).subscribe((): void => {
       this.loadUsers();
       PartyService.add(this.party);
     });

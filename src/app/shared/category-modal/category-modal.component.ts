@@ -52,7 +52,9 @@ export class CategoryModalComponent implements OnInit {
        * Update songs selected status
        */
       for (const song of this.songs) {
-        song.selected = song.categories.some(songCategory => songCategory.category.id === this.category.id);
+        song.selected = song.categories.some(songCategory => {
+          return (songCategory.category as Category).id === this.category.id;
+        });
       }
     });
     /**
@@ -78,7 +80,9 @@ export class CategoryModalComponent implements OnInit {
     });
     // Add selected songs to this category and remove the unselected
     for (const song of this.songs) {
-      const songCategory: SongCategory = song.categories.find(item => item.category.id === this.category.id);
+      const songCategory: SongCategory = song.categories.find(item => {
+        return (songCategory.category as Category).id === this.category.id;
+      });
       if (song.selected && !songCategory) {
         this.api.songCategory.create({ song: song.id, category: this.category.id }).subscribe();
       } else if (!song.selected && songCategory) {

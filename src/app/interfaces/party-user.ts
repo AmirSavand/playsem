@@ -3,7 +3,7 @@ import { User } from '@app/interfaces/user';
 
 export class PartyUser {
   id: number;
-  party: Party;
+  party: Party | string;
   user: User;
   date: string;
 }
