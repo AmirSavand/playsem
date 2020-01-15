@@ -57,7 +57,7 @@ export class PartyService {
     // Get party list
     this.api.partyUser.list({ user: user.toString() }).subscribe((data: ApiResponse<PartyUser>): void => {
       for (const partyUser of data.results) {
-        PartyService.partiesSubject.getValue().push(partyUser.party);
+        PartyService.partiesSubject.getValue().push(partyUser.party as Party);
       }
     });
   }
