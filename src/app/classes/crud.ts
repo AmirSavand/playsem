@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { ApiResponse } from '@app/interfaces/api-response';
-import { ApiService } from '@app/services/api.service';
 import { PK } from '@app/types/pk';
+import { environment } from '@environments/environment';
 import { Observable } from 'rxjs';
 
 /**
@@ -13,7 +13,7 @@ export class Crud<T> {
    * @returns Full API endpoint URL
    */
   get endpoint(): string {
-    return `${ApiService.BASE}${this.endpoint}/`;
+    return `${environment.api}${this.name}/`;
   }
 
   constructor(public http: HttpClient,
@@ -52,6 +52,6 @@ export class Crud<T> {
    * Delete a single object
    */
   delete(pk: PK): Observable<void> {
-    return this.http.get<void>(`${this.endpoint}${pk}/`);
+    return this.http.delete<void>(`${this.endpoint}${pk}/`);
   }
 }

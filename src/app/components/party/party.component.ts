@@ -336,7 +336,7 @@ export class PartyComponent implements OnInit, OnDestroy {
    * Load DJs of this party
    */
   loadDjs(): void {
-    this.api.dj.list(this.party.id).subscribe((data: ApiResponse<Dj>): void => {
+    this.api.dj.list({ party: this.party.id }).subscribe((data: ApiResponse<Dj>): void => {
       this.djs = data.results;
     });
   }
