@@ -4,5 +4,6 @@ export interface Dj {
   party: string;
   song?: number;
   time?: string;
+  when?: string;
   date: string;
 }
