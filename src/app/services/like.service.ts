@@ -1,4 +1,3 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LikeKind } from '@app/enums/like-kind';
 import { ApiResponse } from '@app/interfaces/api-response';
@@ -14,12 +13,7 @@ import { Observable } from 'rxjs';
 })
 export class LikeService {
 
-  /**
-   * Base like API endpoint
-   */
-  private static readonly ENDPOINT = ApiService.BASE + 'like/';
-
-  constructor(private http: HttpClient) {
+  constructor(private api: ApiService) {
   }
 
   /**
@@ -29,7 +23,7 @@ export class LikeService {
    * @param like Primary key of the object (id, username, etc)
    */
   private like(kind: LikeKind, like: string): Observable<Like> {
-    return this.http.post<Like>(LikeService.ENDPOINT, { kind, like });
+    return this.api.like.create({ kind, like });
   }
 
   /**
@@ -37,19 +31,17 @@ export class LikeService {
    * @param id Like object ID
    */
   unlike(id: number): Observable<void> {
-    return this.http.delete<void>(`${LikeService.ENDPOINT}${id}/`);
+    return this.api.like.delete(id);
   }
 
   /**
    * Get list of like objects
    */
   getLikes(filter: Partial<Like>): Observable<ApiResponse<Like>> {
-    return this.http.get<ApiResponse<Like>>(LikeService.ENDPOINT, {
-      params: {
-        user: filter.like,
-        kind: filter.kind.toString(),
-        like: filter.like.toString(),
-      },
+    return this.api.like.list({
+      user: filter.like,
+      kind: filter.kind.toString(),
+      like: filter.like.toString(),
     });
   }
 
