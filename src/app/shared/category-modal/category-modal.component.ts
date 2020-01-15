@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiResponse } from '@app/interfaces/api-response';
 import { Category } from '@app/interfaces/category';
 import { Song } from '@app/interfaces/song';
 import { SongCategory } from '@app/interfaces/song-category';
@@ -45,7 +46,7 @@ export class CategoryModalComponent implements OnInit {
     /**
      * Get songs of the party of this category
      */
-    this.api.getSongs(this.category.party).subscribe(data => {
+    this.api.song.list({ party: this.category.party }).subscribe((data: ApiResponse<Song>): void => {
       this.songs = data.results;
       /**
        * Update songs selected status
@@ -58,7 +59,7 @@ export class CategoryModalComponent implements OnInit {
      * Get category details
      * @todo Remove me when API returns category image with party
      */
-    this.api.getCategory(this.category.id).subscribe(data => {
+    this.api.partyCategory.retrieve(this.category.id).subscribe((data: Category): void => {
       this.category = data;
     });
   }
@@ -70,18 +71,18 @@ export class CategoryModalComponent implements OnInit {
    */
   save(): void {
     // Update category image
-    this.api.updateCategory(this.category.id, {
+    this.api.partyCategory.update(this.category.id, {
       image: this.category.image,
-    }).subscribe(data => {
+    }).subscribe((data: Category): void => {
       this.category = data;
     });
     // Add selected songs to this category and remove the unselected
     for (const song of this.songs) {
       const songCategory: SongCategory = song.categories.find(item => item.category.id === this.category.id);
       if (song.selected && !songCategory) {
-        this.api.addSongCategory(song.id, this.category.id).subscribe();
+        this.api.songCategory.create({ song: song.id, category: this.category.id }).subscribe();
       } else if (!song.selected && songCategory) {
-        this.api.deleteSongCategory(songCategory.id).subscribe();
+        this.api.songCategory.delete(songCategory.id).subscribe();
       }
     }
     this.modal.hide();

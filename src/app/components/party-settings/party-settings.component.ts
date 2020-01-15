@@ -132,7 +132,7 @@ export class PartySettingsComponent implements OnInit {
       /**
        * Get party name and fill the form
        */
-      this.api.getParty(this.partyId).subscribe(party => {
+      this.api.party.retrieve(this.partyId).subscribe(party => {
         this.loading = false;
         this.party = party;
         /**
@@ -220,7 +220,10 @@ export class PartySettingsComponent implements OnInit {
       return;
     }
     this.loading = true;
-    this.api.addCategory(this.party.id, this.categoryForm.value.name).subscribe(data => {
+    this.api.partyCategory.create({
+      party: this.party.id,
+      ...this.categoryForm.value,
+    }).subscribe((data: Category): void => {
       this.loading = false;
       this.party.categories.push(data);
       this.categoryForm.reset();
@@ -235,9 +238,9 @@ export class PartySettingsComponent implements OnInit {
    */
   updateCategories(): void {
     for (let category of this.party.categories) {
-      this.api.updateCategory(category.id, {
+      this.api.partyCategory.update(category.id, {
         name: category.name,
-      }).subscribe(data => {
+      }).subscribe((data: Category): void => {
         category = data;
       });
     }
@@ -253,7 +256,7 @@ export class PartySettingsComponent implements OnInit {
       return;
     }
     this.loading = true;
-    this.api.deleteCategory(category.id).subscribe(() => {
+    this.api.partyCategory.delete(category.id).subscribe((): void => {
       this.loading = false;
       this.party.categories.splice(this.party.categories.indexOf(category), 1);
     });
@@ -263,7 +266,7 @@ export class PartySettingsComponent implements OnInit {
    * Load party users (party members)
    */
   loadPartyUsers(): void {
-    this.api.getPartyUsers({ party: this.party.id }).subscribe(data => {
+    this.api.partyUser.list({ party: this.party.id }).subscribe(data => {
       this.partyUsers = data.results;
     });
   }
@@ -278,7 +281,7 @@ export class PartySettingsComponent implements OnInit {
       return;
     }
     this.loading = true;
-    this.api.deletePartyUser(partyUser.id).subscribe(() => {
+    this.api.partyUser.delete(partyUser.id).subscribe((): void => {
       this.loading = false;
       this.partyUsers.splice(this.partyUsers.indexOf(partyUser), 1);
     });

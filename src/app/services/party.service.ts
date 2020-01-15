@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { PartyStatus } from '@app/enums/party-status';
+import { ApiResponse } from '@app/interfaces/api-response';
 import { Party } from '@app/interfaces/party';
+import { PartyUser } from '@app/interfaces/party-user';
 import { ApiService } from '@app/services/api.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -53,7 +55,7 @@ export class PartyService {
     // Reset party list
     PartyService.partiesSubject.next([]);
     // Get party list
-    this.api.getPartyUsers({ user: user.toString() }).subscribe(data => {
+    this.api.partyUser.list({ user: user.toString() }).subscribe((data: ApiResponse<PartyUser>): void => {
       for (const partyUser of data.results) {
         PartyService.partiesSubject.getValue().push(partyUser.party);
       }
@@ -67,7 +69,7 @@ export class PartyService {
    * @param payload Party payload
    */
   update(party: Party, payload): Observable<Party> {
-    return this.api.updateParty(party.id, payload).pipe(map(data => {
+    return this.api.party.update(party.id, payload).pipe(map(data => {
       PartyService.partiesSubject.getValue().find(item => item.id === party.id).name = data.name;
       return data;
     }));
@@ -79,7 +81,7 @@ export class PartyService {
    * @param id Party ID
    */
   delete(id: string): Observable<void> {
-    return this.api.deleteParty(id).pipe(map(() => {
+    return this.api.party.delete(id).pipe(map(() => {
       PartyService.remove(id);
     }));
   }

@@ -7,10 +7,12 @@ import { Cache } from '@app/classes/cache';
 import { LikeKind } from '@app/enums/like-kind';
 import { ApiResponse } from '@app/interfaces/api-response';
 import { Category } from '@app/interfaces/category';
+import { Dj } from '@app/interfaces/dj';
 import { Like } from '@app/interfaces/like';
 import { Party } from '@app/interfaces/party';
 import { PartyUser } from '@app/interfaces/party-user';
 import { Song } from '@app/interfaces/song';
+import { SongCategory } from '@app/interfaces/song-category';
 import { User } from '@app/interfaces/user';
 import { ApiService } from '@app/services/api.service';
 import { AuthService } from '@app/services/auth.service';
@@ -25,6 +27,7 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { faCog } from '@fortawesome/free-solid-svg-icons/faCog';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons/faEllipsisV';
 import { faFolder } from '@fortawesome/free-solid-svg-icons/faFolder';
+import { faHeadphones } from '@fortawesome/free-solid-svg-icons/faHeadphones';
 import { faHeart } from '@fortawesome/free-solid-svg-icons/faHeart';
 import { faLock } from '@fortawesome/free-solid-svg-icons/faLock';
 import { faPlay } from '@fortawesome/free-solid-svg-icons/faPlay';
@@ -41,6 +44,7 @@ import Channel from 'pusher-js';
 export class PartyComponent implements OnInit, OnDestroy {
 
   readonly faPlay: IconDefinition = faPlay;
+  readonly faDj: IconDefinition = faHeadphones;
   readonly faLike: IconDefinition = faHeart;
   readonly faLikeCategory: IconDefinition = faStar;
   readonly faKey: IconDefinition = faLock;
@@ -105,6 +109,17 @@ export class PartyComponent implements OnInit, OnDestroy {
    * User (member) list of party (PartyUser objects)
    */
   partyUsers: PartyUser[];
+
+  /**
+   * Party DJs
+   */
+  djs: Dj[];
+
+  /**
+   * Party DJ connected to (listening to)
+   * When value is null, it means user is not listening to any DJ.
+   */
+  djConnected: Dj;
 
   /**
    * API loading indicator
@@ -237,7 +252,7 @@ export class PartyComponent implements OnInit, OnDestroy {
    * @param initial First load
    */
   loadParty(initial: boolean = false) {
-    this.api.getParty(this.partyId).subscribe((data: Party): void => {
+    this.api.party.retrieve(this.partyId).subscribe((data: Party): void => {
       this.party = data;
       /**
        * Update cache
@@ -259,6 +274,10 @@ export class PartyComponent implements OnInit, OnDestroy {
          * Load party members
          */
         this.loadUsers();
+        /**
+         * Load party DJs
+         */
+        this.loadDjs();
         /**
          * Setup pusher channel
          */
@@ -284,7 +303,7 @@ export class PartyComponent implements OnInit, OnDestroy {
    * Load songs of party
    */
   loadSongs(): void {
-    this.api.getSongs(this.party.id).subscribe((data: ApiResponse<Song>): void => {
+    this.api.song.list({ party: this.party.id }).subscribe((data: ApiResponse<Song>): void => {
       this.songs = data.results;
       /**
        * Update cache
@@ -307,9 +326,18 @@ export class PartyComponent implements OnInit, OnDestroy {
    * Load users (members) of party
    */
   loadUsers(): void {
-    this.api.getPartyUsers({ party: this.party.id }).subscribe(data => {
+    this.api.partyUser.list({ party: this.party.id }).subscribe(data => {
       this.partyUsers = data.results;
       this.partyUserCount = data.count;
+    });
+  }
+
+  /**
+   * Load DJs of this party
+   */
+  loadDjs(): void {
+    this.api.dj.list(this.party.id).subscribe((data: ApiResponse<Dj>): void => {
+      this.djs = data.results;
     });
   }
 
@@ -394,6 +422,18 @@ export class PartyComponent implements OnInit, OnDestroy {
         }
       });
     }
+    /**
+     * Handle all DJ events
+     */
+    this.channel.bind('dj-create', (data: Dj): void => {
+      this.djs.push(data);
+    });
+    this.channel.bind('dj-update', (data: Dj): void => {
+      this.djs[this.djs.findIndex(dj => dj.id === data.id)] = data;
+    });
+    this.channel.bind('dj-delete', (data: Dj): void => {
+      this.djs.splice(this.djs.findIndex(dj => dj.id === data.id), 1);
+    });
   }
 
   /**
@@ -539,10 +579,17 @@ export class PartyComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * @returns Whether user is a dj of this party
+   */
+  isPartyDj(): boolean {
+    return this.user && this.djs && this.djs.some(dj => dj.user === this.user.id);
+  }
+
+  /**
    * Make authenticated user to join this party
    */
   joinParty(): void {
-    this.api.createPartyUsers(this.party.id).subscribe(() => {
+    this.api.partyUser.create(this.party.id).subscribe((): void => {
       this.loadUsers();
       PartyService.add(this.party);
     });
@@ -553,7 +600,7 @@ export class PartyComponent implements OnInit, OnDestroy {
    */
   leaveParty(): void {
     const partyUser: PartyUser = this.partyUsers.find(item => item.user.id === this.user.id);
-    this.api.deletePartyUser(partyUser.id).subscribe(() => {
+    this.api.partyUser.delete(partyUser.id).subscribe((): void => {
       this.loadUsers();
       PartyService.remove(this.party.id);
     });
@@ -572,7 +619,7 @@ export class PartyComponent implements OnInit, OnDestroy {
       return;
     }
     // API call
-    this.api.deleteSong(song.id).subscribe(() => {
+    this.api.song.delete(song.id).subscribe((): void => {
       // Remove song from the list
       this.songs.splice(this.songs.indexOf(song), 1);
     });
@@ -590,7 +637,7 @@ export class PartyComponent implements OnInit, OnDestroy {
       return;
     }
     this.loading = true;
-    this.api.addSong(this.party.id, this.songForm.value.source).subscribe(data => {
+    this.api.song.create({ party: this.party.id, ...this.songForm.value }).subscribe((data: Song): void => {
       this.loading = false;
       data.party = this.party;
       data.categories = [];
@@ -600,7 +647,10 @@ export class PartyComponent implements OnInit, OnDestroy {
        * Add the song to selected category (if selected)
        */
       if (this.categorySelected) {
-        this.api.addSongCategory(data.id, this.categorySelected.id).subscribe(songCategory => {
+        this.api.songCategory.create({
+          song: data.id,
+          category: this.categorySelected.id,
+        }).subscribe((songCategory: SongCategory): void => {
           songCategory.category = this.categorySelected;
           this.songs.find(item => item.id === data.id).categories.push(songCategory);
         });
@@ -639,5 +689,58 @@ export class PartyComponent implements OnInit, OnDestroy {
       return `Add new song to "${this.categorySelected.name}" (YouTube)`;
     }
     return `Add new song (YouTube)`;
+  }
+
+  /**
+   * @returns Party user matching the user
+   * @param id User ID
+   */
+  getPartyUser(id: number): PartyUser {
+    return this.partyUsers.find(partyUser => partyUser.user.id === id);
+  }
+
+  /**
+   * Become a DJ of this party
+   */
+  toggleDj(): void {
+    /**
+     * Check membership
+     */
+    if (this.isPartyMember() === false) {
+      alert('Only party members can be DJs!');
+      return;
+    }
+    /**
+     * Create a DJ for this party if user is DJ otherwise stop being a DJ
+     */
+    if (!this.isPartyDj()) {
+      this.api.dj.create({ party: this.party.id }).subscribe();
+    } else {
+      this.api.dj.delete(this.djs.find(dj => dj.user === this.user.id).id).subscribe();
+    }
+  }
+
+  /**
+   * Connect to a party DJ and start listening
+   *
+   * @param dj DJ to connect to
+   */
+  connectDj(dj: Dj): void {
+    /**
+     * Check if DJ is not self
+     */
+    if (this.user && this.user.id === dj.user) {
+      alert('You can not listen to yourself!');
+      return;
+    }
+    this.disconnectDj();
+    this.djConnected = dj;
+  }
+
+  /**
+   * Stop listening to any party DJ
+   */
+  disconnectDj(): void {
+    this.djConnected = null;
   }
 }

@@ -63,7 +63,7 @@ export class UserComponent implements OnInit {
       /**
        * Get user data
        */
-      this.api.getUser(params.username).subscribe(data => {
+      this.api.user.retrieve(params.username).subscribe((data: User): void => {
         this.user = data;
         /**
          * Update title
@@ -72,7 +72,7 @@ export class UserComponent implements OnInit {
         /**
          * Get parties (party users)
          */
-        this.api.getPartyUsers({ user: data.id.toString() }).subscribe(partyUsers => {
+        this.api.partyUser.list({ user: data.id.toString() }).subscribe(partyUsers => {
           this.partyUsers = partyUsers.results;
         });
       });

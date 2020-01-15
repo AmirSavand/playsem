@@ -58,12 +58,15 @@ export class SongModalComponent implements OnInit {
     for (const category of this.categories) {
       const songCategory: SongCategory = this.song.categories.find(item => item.category.id === category.id);
       if (category.selected && !songCategory) {
-        this.api.addSongCategory(this.song.id, category.id).subscribe((data: SongCategory): void => {
+        this.api.songCategory.create({
+          song: this.song.id,
+          category: category.id,
+        }).subscribe((data: SongCategory): void => {
           data.category = category;
           this.song.categories.push(data);
         });
       } else if (!category.selected && songCategory) {
-        this.api.deleteSongCategory(songCategory.id).subscribe((): void => {
+        this.api.songCategory.delete(songCategory.id).subscribe((): void => {
           this.song.categories.splice(this.song.categories.indexOf(songCategory), 1);
         });
       }

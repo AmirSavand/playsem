@@ -65,7 +65,7 @@ export class HomeComponent implements OnInit {
    */
   getParties(): void {
     const search = this.exploreForm.get('search').value;
-    this.api.getParties({ search }).subscribe((data: ApiResponse<Party>): void => {
+    this.api.party.list({ search }).subscribe((data: ApiResponse<Party>): void => {
       this.parties = data.results;
       if (!search) {
         this.cacheParty.data = this.parties;

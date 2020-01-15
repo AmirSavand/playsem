@@ -84,7 +84,7 @@ export class UserSettingsComponent implements OnInit {
     }
     this.loading = true;
     // API call
-    this.api.updateUser(this.user.username, this.form.value).subscribe((account: Account) => {
+    this.api.account.update(this.user.username, this.form.value).subscribe((account: Account): void => {
       this.loading = false;
       // Update the user account
       this.user.account = account;

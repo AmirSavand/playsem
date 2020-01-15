@@ -27,6 +27,8 @@
         <span *ngIf="partySongCount"> &bull; {{ partySongCount }} Songs</span>
         <!-- Members count -->
         <span *ngIf="partyUserCount"> &bull; {{ partyUserCount }} Members</span>
+        <!-- DJs count -->
+        <span *ngIf="djs"> &bull; {{ djs.length }} DJs</span>
         <!-- Date -->
         &bull; {{ party.date | date }}
       </p>
@@ -36,6 +38,31 @@
         <fa-icon [fixedWidth]="true" [icon]="faPlay"></fa-icon>
         Play
       </button>
+
+      <!-- DJ -->
+      <button class="btn btn-sm mr-2 mt-2" (click)="toggleDj()"
+              [class.btn-warning]="isPartyDj()" [class.btn-light]="!isPartyDj()">
+        <fa-icon [fixedWidth]="true" [icon]="faDj"></fa-icon>
+        {{ !isPartyDj() ? 'Start DJ' : 'Stop DJ' }}
+      </button>
+
+      <!-- DJs -->
+      <div class="btn-group" dropdown *ngIf="djs && djs.length && !(djs.length === 1 && isPartyDj())">
+        <button class="btn btn-light btn-sm mr-2 mt-2 dropdown-toggle" dropdownToggle>
+          Connect to DJ <span class="caret"></span>
+        </button>
+        <div class="dropdown-menu" *dropdownMenu>
+          <button class="dropdown-item" *ngIf="djConnected" (click)="disconnectDj()">
+            Disconnect from <b>{{ getPartyUser(djConnected.user).user.account.name }}</b>
+          </button>
+          <div class="dropdown-divider" *ngIf="djConnected"></div>
+          <h6 class="dropdown-header">Current party DJs</h6>
+          <button class="dropdown-item" *ngFor="let dj of djs" (click)="connectDj(dj)"
+                  [class.active]="dj === djConnected">
+            {{ getPartyUser(dj.user).user.account.name }}
+          </button>
+        </div>
+      </div>
 
       <!-- Like -->
       <button class="btn btn-light btn-sm mr-2 mt-2" (click)="toggleLikeParty()" title="Like">
