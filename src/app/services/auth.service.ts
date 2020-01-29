@@ -187,4 +187,29 @@ export class AuthService {
   }): Observable<{ detail: string }> {
     return this.http.post<{ detail: string }>(`${ApiService.BASE}auth/password/change/`, payload);
   }
+
+  // Reset user password
+
+  /**
+   * Send reset password token to user email
+   *
+   * @param email User email
+   */
+  resetPassword(email: string): Observable<{ detail: string }> {
+    return this.http.post<{ detail: string }>(`${ApiService.BASE}auth/password/reset/`, { email });
+  }
+
+  /**
+   * Change password on reset password
+   *
+   * @param payload Change password
+   */
+  resetPasswordConfirm(payload: {
+    new_password1: string,
+    new_password2: string,
+    uid: string,
+    token: string,
+  }): Observable<{ detail: string }> {
+    return this.http.post<{ detail: string }>(`${ApiService.BASE}auth/password/reset/confirm/`, payload);
+  }
 }
