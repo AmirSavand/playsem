@@ -28,6 +28,9 @@ const routes: Routes = [{
     path: 'user-settings',
     loadChildren: () => import('./components/user-settings/user-settings.module').then(m => m.UserSettingsModule),
   }, {
+    path: 'reset-password',
+    loadChildren: () => import('./components/reset-password/reset-password.module').then(m => m.ResetPasswordModule),
+  }, {
     path: '**',
     pathMatch: 'full',
     redirectTo: 'dashboard',
