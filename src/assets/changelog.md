@@ -1,3 +1,8 @@
+#### v4.6
+
+- Remove new year messages
+
+
 #### v4.5
 
 2020 January 11
