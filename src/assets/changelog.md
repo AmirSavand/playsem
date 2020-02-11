@@ -1,5 +1,6 @@
 #### v4.6
 
+- [Add DJ feature (users listen to another users's player)](https://github.com/AmirSavand/playzem/issues/168)
 - Remove new year messages
 
 
