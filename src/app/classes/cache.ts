@@ -3,7 +3,7 @@
  *
  * @example const myCache = new Cache<Party>({name: 'Party'});
  *          myCache.data = myData;
- *          console.log(myCache.data);
+ *          myCache.data // myData
  */
 export class Cache<T> {
 
