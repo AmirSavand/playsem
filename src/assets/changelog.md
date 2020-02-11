@@ -1,6 +1,6 @@
-### v4.6
+#### v4.6
 
-- 
+- Remove new year messages
 
 
 #### v4.5

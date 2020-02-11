@@ -19,8 +19,7 @@
       <!-- Join party -->
       <div class="card my-3">
         <div class="card-body">
-          <h4>Join Party</h4>
-          <p>Enter party key below to join:</p>
+          <h4 class="mb-3">Join Party</h4>
           <div class="input-group">
             <input type="text" placeholder="XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
                    [(ngModel)]="joinPartyId" class="form-control text-monospace"
@@ -49,23 +48,10 @@
     <!-- Right -->
     <div class="col-lg-7">
 
-      <!-- #2020 -->
-      <div class="card my-3">
-        <div class="card-body">
-          <h4 class="text-warning">Happy 2020!</h4>
-          <p>Happy new year from PlayzEM!</p>
-          <p class="mb-0">
-            When PlayzEM offers premium plans with premium features,
-            all users joined before <b>February 2020</b> will get <b>1 year free premium</b> package.
-          </p>
-        </div>
-      </div>
-
       <!-- Parties -->
       <div class="card my-3">
         <div class="card-body">
-          <h4>Explore Parties</h4>
-          <p>Find awesome public parties made by other members of PlayzEM.</p>
+          <h4 class="mb-3">Explore Parties</h4>
           <!-- Search -->
           <form class="input-group mb-2" (ngSubmit)="getParties()" [formGroup]="exploreForm">
             <input class="form-control" placeholder="Search" type="text" formControlName="search"

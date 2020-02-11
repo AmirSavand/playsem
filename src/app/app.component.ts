@@ -12,7 +12,6 @@ import { IconDefinition } from '@fortawesome/fontawesome-common-types';
 import { faBars } from '@fortawesome/free-solid-svg-icons/faBars';
 import { faCog } from '@fortawesome/free-solid-svg-icons/faCog';
 import { faCompactDisc } from '@fortawesome/free-solid-svg-icons/faCompactDisc';
-import { faGlassCheers } from '@fortawesome/free-solid-svg-icons/faGlassCheers';
 import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons/faSignInAlt';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons/faSignOutAlt';
@@ -47,7 +46,6 @@ export class AppComponent implements OnInit {
   readonly userPlus: IconDefinition = faUserPlus;
   readonly cog: IconDefinition = faCog;
   readonly signOutAlt: IconDefinition = faSignOutAlt;
-  readonly glassCheers: IconDefinition = faGlassCheers;
 
   /**
    * Navbar collapse status
