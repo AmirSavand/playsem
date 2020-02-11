@@ -52,13 +52,13 @@
           Connect to DJ <span class="caret"></span>
         </button>
         <div class="dropdown-menu" *dropdownMenu>
-          <button class="dropdown-item" *ngIf="djConnected" (click)="disconnectDj()">
-            Disconnect from <b>{{ getPartyUser(djConnected.user).user.account.name }}</b>
+          <button class="dropdown-item" *ngIf="djUser" (click)="toggleConnectDj(getDj(djUser.dj))">
+            Disconnect from <b>{{ getPartyUser(getDj(djUser.dj).user).user.username }}</b>
           </button>
-          <div class="dropdown-divider" *ngIf="djConnected"></div>
+          <div class="dropdown-divider" *ngIf="djUser"></div>
           <h6 class="dropdown-header">Current party DJs</h6>
-          <button class="dropdown-item" *ngFor="let dj of djs" (click)="connectDj(dj)"
-                  [class.active]="dj === djConnected">
+          <button class="dropdown-item" *ngFor="let dj of djs" (click)="toggleConnectDj(dj)"
+                  [class.active]="djUser && djUser.dj === dj.id">
             {{ getPartyUser(dj.user).user.account.name }}
           </button>
         </div>

@@ -1,5 +1,6 @@
 import { Component, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { PlayerRepeat } from '@app/enums/player-repeat';
+import { Dj } from '@app/interfaces/dj';
 import { Song } from '@app/interfaces/song';
 import { PlayerService } from '@app/services/player.service';
 import { SongService } from '@app/services/song.service';
@@ -74,6 +75,11 @@ export class PlayerComponent {
    * Song currently playing (active) from the playlist
    */
   playing: Song;
+
+  /**
+   * DJ subscribed to
+   */
+  dj: Dj;
 
   /**
    * Song currently playing timeline
@@ -267,15 +273,30 @@ export class PlayerComponent {
      * Get playing song and subscribe
      */
     PlayerService.playing.subscribe((playing: Song): void => {
+      // If there's a song playing
       if (playing) {
         this.playing = playing;
-      }
-      if (playing && this.youtube) {
-        this.youtube.videoPlayer.loadVideoById(PlayerService.getYouTubeVideoID(this.playing.source));
+        // If there's a DJ and a time, load the video with that starting time in seconds
+        let startSeconds = 0;
+        if (this.dj && this.dj.time) {
+          startSeconds = Number(this.dj.time.split(':').reduce((acc: any, time: string): any => (60 * acc) + +time));
+        }
+        if (this.youtube) {
+          this.youtube.videoPlayer.loadVideoById({
+            videoId: PlayerService.getYouTubeVideoID(this.playing.source),
+            startSeconds,
+          });
+        }
       } else {
         this.youtube.videoPlayer.seekTo(0, true);
         this.youtube.videoPlayer.pauseVideo();
       }
+    });
+    /**
+     * Get connected dj and subscribe
+     */
+    PlayerService.dj.subscribe((dj: Dj): void => {
+      this.dj = dj;
     });
     /**
      * Update timeline

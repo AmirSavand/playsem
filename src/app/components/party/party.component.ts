@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
@@ -8,6 +8,7 @@ import { LikeKind } from '@app/enums/like-kind';
 import { ApiResponse } from '@app/interfaces/api-response';
 import { Category } from '@app/interfaces/category';
 import { Dj } from '@app/interfaces/dj';
+import { DjUser } from '@app/interfaces/dj-user';
 import { Like } from '@app/interfaces/like';
 import { Party } from '@app/interfaces/party';
 import { PartyUser } from '@app/interfaces/party-user';
@@ -35,6 +36,7 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons/faSignOutAlt';
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons/faUserPlus';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import Channel from 'pusher-js';
+import { PlayerComponent } from '@app/shared/player/player.component';
 
 @Component({
   selector: 'app-party',
@@ -53,6 +55,11 @@ export class PartyComponent implements OnInit, OnDestroy {
   readonly faSettings: IconDefinition = faCog;
   readonly faOptions: IconDefinition = faEllipsisV;
   readonly faCategory: IconDefinition = faFolder;
+
+  /**
+   * YouTube player instance
+   */
+  @ViewChild('player', { static: false }) player: PlayerComponent;
 
   /**
    * Cache data
@@ -111,15 +118,14 @@ export class PartyComponent implements OnInit, OnDestroy {
   partyUsers: PartyUser[];
 
   /**
-   * Party DJs
+   * DJ list of party
    */
-  djs: Dj[];
+  djs: Dj[] = [];
 
   /**
-   * Party DJ connected to (listening to)
-   * When value is null, it means user is not listening to any DJ.
+   * DJ user (members connected to DJs) list of party (DjUser objects)
    */
-  djConnected: Dj;
+  djUsers: DjUser[] = [];
 
   /**
    * API loading indicator
@@ -176,6 +182,20 @@ export class PartyComponent implements OnInit, OnDestroy {
    */
   get partyCover(): string {
     return `url(${this.party.cover || 'assets/party-cover.jpg'})`;
+  }
+
+  /**
+   * @returns Authenticated user's DJ (object)
+   */
+  get dj(): Dj {
+    return this.djs.find(dj => this.auth.isAuth() && dj.user === this.user.id);
+  }
+
+  /**
+   * @returns Authenticated user's DJ User (object)
+   */
+  get djUser(): DjUser {
+    return this.djUsers.find(djUser => this.user && djUser.user === this.user.id);
   }
 
   ngOnInit(): void {
@@ -281,6 +301,10 @@ export class PartyComponent implements OnInit, OnDestroy {
          */
         this.loadDjs();
         /**
+         * Load party User DJs
+         */
+        this.loadDjUsers();
+        /**
          * Setup pusher channel
          */
         this.setupChannel();
@@ -340,6 +364,17 @@ export class PartyComponent implements OnInit, OnDestroy {
   loadDjs(): void {
     this.api.dj.list({ party: this.party.id }).subscribe((data: ApiResponse<Dj>): void => {
       this.djs = data.results;
+      this.setupDj();
+    });
+  }
+
+  /**
+   * Load DJ users of this party
+   */
+  loadDjUsers(): void {
+    this.api.djUser.list({ party: this.party.id }).subscribe((data: ApiResponse<DjUser>): void => {
+      this.djUsers = data.results;
+      this.setupDj();
     });
   }
 
@@ -428,14 +463,63 @@ export class PartyComponent implements OnInit, OnDestroy {
      * Handle all DJ events
      */
     this.channel.bind('dj-create', (data: Dj): void => {
+      // Add the DJ to the list of DJs
       this.djs.push(data);
     });
     this.channel.bind('dj-update', (data: Dj): void => {
+      // Find and update local version of DJ
       this.djs[this.djs.findIndex(dj => dj.id === data.id)] = data;
+      // Check if this DJ is the DJ user is listening to
+      if (this.djUser && this.djUser.dj === data.id) {
+        PlayerService.updateDj(data, this.songs.find(song => song.id === data.song));
+      }
     });
     this.channel.bind('dj-delete', (data: Dj): void => {
+      // Find and delete the local version of DJ
       this.djs.splice(this.djs.findIndex(dj => dj.id === data.id), 1);
+      // Check if this DJ is the DJ user is listening to
+      if (this.dj && this.dj.id === data.id) {
+        // Stop listening (disconnect from DJ)
+        PlayerService.stopDj();
+      }
     });
+    /**
+     * Handle all DJ user events
+     */
+    this.channel.bind('djuser-create', (data: DjUser): void => {
+      // Add the DJ user to the list of DJ users
+      this.djUsers.push(data);
+      // Update current DJ
+      this.setupDj();
+    });
+    this.channel.bind('djuser-update', (data: DjUser): void => {
+      // Find and update local version of DJ user
+      this.djUsers[this.djUsers.findIndex(item => item.id === data.id)] = data;
+      // Update current DJ
+      this.setupDj();
+    });
+    this.channel.bind('djuser-delete', (data: DjUser): void => {
+      // Find and delete the local version of DJ user
+      this.djUsers.splice(this.djUsers.findIndex(item => item.id === data.id), 1);
+      // Check if this DJ user is from authenticated user
+      if (this.user && this.djUser && this.djUser.user === this.user.id) {
+        // Stop listening (disconnect from DJ)
+        PlayerService.stopDj();
+      }
+    });
+  }
+
+  /**
+   * Check list of DJs and DJ users and if user is
+   * in a DJ user then connect to that DJ, then update it.
+   *
+   * This is used for both initial DJ setting and updating DJ setting.
+   */
+  setupDj(): void {
+    if (this.djs && this.djs.length && this.djUser) {
+      const djUserDj: Dj = this.getDj(this.djUser.dj);
+      PlayerService.updateDj(djUserDj, this.songs.find(song => song.id === djUserDj.song));
+    }
   }
 
   /**
@@ -457,6 +541,12 @@ export class PartyComponent implements OnInit, OnDestroy {
       }
       // Play the song (first or selected)
       PlayerService.play(song);
+      // If user is a dj
+      if (this.isPartyDj()) {
+        this.api.dj.update(this.dj.id, {
+          song: song.id,
+        }).subscribe();
+      }
     }
   }
 
@@ -702,6 +792,16 @@ export class PartyComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * @returns DJ with this ID
+   * @param id DJ ID to find
+   */
+  getDj(id: number): Dj {
+    if (this.djs) {
+      return this.djs.find(item => item.id === id);
+    }
+  }
+
+  /**
    * Become a DJ of this party
    */
   toggleDj(): void {
@@ -717,32 +817,36 @@ export class PartyComponent implements OnInit, OnDestroy {
      */
     if (!this.isPartyDj()) {
       this.api.dj.create({ party: this.party.id }).subscribe();
+      // Disconnect from any DJ
+      if (this.djUser) {
+        this.toggleConnectDj(this.getDj(this.djUser.dj));
+      }
     } else {
       this.api.dj.delete(this.djs.find(dj => dj.user === this.user.id).id).subscribe();
     }
   }
 
   /**
-   * Connect to a party DJ and start listening
-   *
-   * @param dj DJ to connect to
+   * Toggle connect to a DJ
+   * @param dj DJ to (dis)connect
    */
-  connectDj(dj: Dj): void {
-    /**
-     * Check if DJ is not self
-     */
+  toggleConnectDj(dj: Dj): void {
+    // Check if DJ is not self
     if (this.user && this.user.id === dj.user) {
-      alert('You can not listen to yourself!');
+      alert('You can not connect to yourself!');
       return;
     }
-    this.disconnectDj();
-    this.djConnected = dj;
-  }
-
-  /**
-   * Stop listening to any party DJ
-   */
-  disconnectDj(): void {
-    this.djConnected = null;
+    // Check if user is connected to any JD or not
+    if (!this.djUser) {
+      // User is not connected, connect to this DJ
+      this.api.djUser.create({ dj: dj.id }).subscribe();
+      // Stop being a DJ if user is a DJ
+      if (this.isPartyDj()) {
+        this.toggleDj();
+      }
+    } else {
+      // User is connected, disconnect from any DJ
+      this.api.djUser.delete(this.djUser.id).subscribe();
+    }
   }
 }
