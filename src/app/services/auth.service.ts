@@ -188,8 +188,6 @@ export class AuthService {
     return this.http.post<{ detail: string }>(`${ApiService.BASE}auth/password/change/`, payload);
   }
 
-  // Reset user password
-
   /**
    * Send reset password token to user email
    *
