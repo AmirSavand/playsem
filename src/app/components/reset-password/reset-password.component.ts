@@ -33,11 +33,6 @@ export class ResetPasswordComponent implements OnInit {
   resetPasswordForm: FormGroup;
 
   /**
-   * Success change password message
-   */
-  // successPasswordMessage: string;
-
-  /**
    * reset password confirm form errors
    */
   resetPasswordError: ApiError = {};
@@ -117,7 +112,6 @@ export class ResetPasswordComponent implements OnInit {
       uid,
       token,
     }).subscribe((data: { detail: string }): void => {
-      // this.successPasswordMessage = data.detail;
       this.resetPasswordError = {};
       this.resetPasswordForm.reset();
       /**
@@ -126,7 +120,6 @@ export class ResetPasswordComponent implements OnInit {
       this.router.navigateByUrl('/sign-in');
     }, (error: HttpErrorResponse): void => {
       this.loading = false;
-      // this.successPasswordMessage = '';
       this.resetPasswordError = error.error;
     });
   }
