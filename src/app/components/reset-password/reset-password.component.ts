@@ -20,7 +20,7 @@ export class ResetPasswordComponent implements OnInit {
   /**
    * Success token send to the email
    */
-  successTokenMessage: string;
+  success: string;
 
   /**
    * Reset password errors
@@ -82,11 +82,11 @@ export class ResetPasswordComponent implements OnInit {
      */
     this.authService.resetPassword(this.tokenForm.get('email').value).subscribe((data: { detail: string }) => {
       this.loading = false;
-      this.successTokenMessage = data.detail;
+      this.success = data.detail;
       this.tokenError = {};
     },  (error: HttpErrorResponse): void => {
       this.loading = false;
-      this.successTokenMessage = '';
+      this.success = '';
       this.tokenError = error.error;
     });
   }
