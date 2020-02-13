@@ -68,9 +68,6 @@ export class ResetPasswordComponent implements OnInit {
    * Send reset password token to user email
    */
   tokenSubmit(): void {
-    if (this.loading) {
-      return;
-    }
     this.loading = true;
     /**
      * API call
@@ -90,9 +87,6 @@ export class ResetPasswordComponent implements OnInit {
    * reset password confirm
    */
   resetPasswordConfirm(): void {
-    if (this.loading) {
-      return;
-    }
     this.loading = true;
     const code = this.resetPasswordForm.get('token').value;
     /**
