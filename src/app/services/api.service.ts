@@ -30,7 +30,7 @@ export class ApiService {
   readonly account = new Crud<Account>(this.http, 'account');
   readonly party = new Crud<Party>(this.http, 'party');
   readonly partyUser = new Crud<PartyUser>(this.http, 'party-user');
-  readonly partyCategory = new Crud<Category>(this.http, 'parry-category');
+  readonly partyCategory = new Crud<Category>(this.http, 'party-category');
   readonly song = new Crud<Song>(this.http, 'song');
   readonly songCategory = new Crud<SongCategory>(this.http, 'song-category');
   readonly dj = new Crud<Dj>(this.http, 'dj');

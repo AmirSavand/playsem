@@ -8,6 +8,9 @@
 - Improve dashboard card sizes
 
 
+- Fix managing party playlists
+
+
 - Remove new year messages
 
 
