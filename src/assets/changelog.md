@@ -5,6 +5,7 @@
 
 
 - Improve and update app core
+- Improve dashboard card sizes
 
 
 - Remove new year messages
