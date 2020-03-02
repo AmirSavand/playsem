@@ -4,6 +4,9 @@
 - Add forgot password
 
 
+- Improve and update app core
+
+
 - Remove new year messages
 
 

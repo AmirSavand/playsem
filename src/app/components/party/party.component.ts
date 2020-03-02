@@ -59,7 +59,7 @@ export class PartyComponent implements OnInit, OnDestroy {
   /**
    * YouTube player instance
    */
-  @ViewChild('player', { static: false }) player: PlayerComponent;
+  @ViewChild('player') player: PlayerComponent;
 
   /**
    * Cache data

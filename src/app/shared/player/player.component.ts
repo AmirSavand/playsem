@@ -36,7 +36,7 @@ export class PlayerComponent {
   /**
    * YouTube player instance
    */
-  @ViewChild('video', { static: false }) youtube: NgxY2PlayerComponent;
+  @ViewChild('video') youtube: NgxY2PlayerComponent;
 
   /**
    * YouTube player options
