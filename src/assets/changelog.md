@@ -1,5 +1,7 @@
 #### v4.6
 
+- Fix playlist creation (unable to create playlist)
+
 - [Add DJ feature (users listen to another users's player)](https://github.com/AmirSavand/playzem/issues/168)
 - Add forgot password
 
