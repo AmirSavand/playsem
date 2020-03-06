@@ -18,9 +18,9 @@ export class HomeComponent implements OnInit {
   readonly connects: { label: string; link: string; }[] = [
     { label: 'Discord', link: 'https://discord.gg/4C98Q9j' },
     { label: 'GitHub', link: 'https://github.com/AmirSavand/playzem#playzem' },
-    { label: 'Twitter', link: 'https://twitter.com/playzemio' },
-    { label: 'Instagram', link: 'https://instagram.com/playzem/' },
-    { label: 'Feedback', link: 'mailto:playzem@savandbros.com?subject=PlayzEM Feedback' },
+    { label: 'Twitter', link: 'https://twitter.com/playsem_com' },
+    { label: 'Instagram', link: 'https://instagram.com/playsem/' },
+    { label: 'Feedback', link: 'mailto:info@playsem.com?subject=PlaysEM Feedback' },
   ];
 
   /**

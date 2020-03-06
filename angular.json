@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "playzem": {
+    "playsem": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -36,7 +36,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/playzem",
+            "outputPath": "dist/playsem",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -104,23 +104,23 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "playzem:build",
+            "browserTarget": "playsem:build",
             "host": "0.0.0.0",
             "disableHostCheck": true
           },
           "configurations": {
             "production": {
-              "browserTarget": "playzem:build:production"
+              "browserTarget": "playsem:build:production"
             },
             "dev-prod": {
-              "browserTarget": "playzem:build:dev-prod"
+              "browserTarget": "playsem:build:dev-prod"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "playzem:build"
+            "browserTarget": "playsem:build"
           }
         },
         "test": {
@@ -157,22 +157,25 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "playzem:serve"
+            "devServerTarget": "playsem:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "playzem:serve:production"
+              "devServerTarget": "playsem:serve:production"
             }
           }
         },
         "deploy": {
           "builder": "angular-cli-ghpages:deploy",
           "options": {
-            "cname": "playzem.savandbros.com"
+            "cname": "playsem.com"
           }
         }
       }
     }
   },
-  "defaultProject": "playzem"
+  "defaultProject": "playsem",
+  "cli": {
+    "analytics": false
+  }
 }

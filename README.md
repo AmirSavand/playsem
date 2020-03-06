@@ -1,4 +1,4 @@
-# PlayzEM
+# PlaysEM
 
 Host and join parties and keep shuffling sick songs.
 
