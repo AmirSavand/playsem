@@ -1,8 +1,8 @@
-# PlayzEM
+# PlaysEM
 
 Host and join parties and keep shuffling sick songs.
 
-Back-end repository: [playzem-api](https://github.com/AmirSavand/playzem-api).
+Back-end repository: [playsem-api](https://github.com/AmirSavand/playsem-api).
 
 ## Code
 

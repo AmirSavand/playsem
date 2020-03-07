@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
   /**
    * Window title without suffix
    */
-  static readonly TITLE = 'PlayzEM';
+  static readonly TITLE = 'PlaysEM';
 
   /**
    * Window title with suffix
