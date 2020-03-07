@@ -168,7 +168,7 @@
         "deploy": {
           "builder": "angular-cli-ghpages:deploy",
           "options": {
-            "cname": "playsem.com"
+            "cname": "www.playsem.com"
           }
         }
       }
