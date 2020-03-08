@@ -57,14 +57,14 @@ export class PlayerComponent {
   private readonly timelineUpdateTime = 250;
 
   /**
-   * Player volume
-   */
-  private volume = 100;
-
-  /**
    * Player repeat modes
    */
   readonly playerRepeat: typeof PlayerRepeat = PlayerRepeat;
+
+  /**
+   * Player volume
+   */
+  volume = 100;
 
   /**
    * Song list in queue
