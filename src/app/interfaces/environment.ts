@@ -4,4 +4,5 @@ export interface Environment {
   googleAnalytics: string;
   pusherKey: string;
   pusherCluster: string;
+  cookieDomain: string;
 }
