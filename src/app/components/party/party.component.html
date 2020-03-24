@@ -117,7 +117,7 @@
              [style.background-image]="'url(' + (category.image || 'assets/category.jpg') + ')'">
         </div>
         <div class="card-body">
-          <div>{{ category.name }}</div>
+          <div class="text-truncate" style="max-width: 120px;">{{ category.name }}</div>
           <small class="text-white-50">{{ getCategorySongCount(category) }} Songs</small>
         </div>
       </a>
