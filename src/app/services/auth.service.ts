@@ -43,7 +43,7 @@ export class AuthService {
   /**
    * Storage key for storage version
    */
-  private static readonly STORAGE_VERSION_KEY= 'version';
+  private static readonly STORAGE_VERSION_KEY = 'version';
 
   /**
    * Storage key for authentication token
