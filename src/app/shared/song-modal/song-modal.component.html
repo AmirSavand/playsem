@@ -16,18 +16,21 @@
            [(ngModel)]="search" placeholder="Search">
   </div>
   <!-- Categories -->
-  <div class="custom-control custom-checkbox mb-2" *ngFor="let category of categoriesFiltered">
-    <input type="checkbox" class="custom-control-input" [id]="category.id"
-           [(ngModel)]="category.selected">
-    <!-- Name -->
-    <label class="custom-control-label" [for]="category.id">{{ category.name }}</label>
+  <div class="card">
+    <div class="card-body scroll">
+      <div class="custom-control custom-checkbox text-truncate"
+           *ngFor="let category of categoriesFiltered; let last = last" [class.mb-2]="!last">
+        <input type="checkbox" class="custom-control-input" [id]="category.id" [(ngModel)]="category.selected">
+        <label class="custom-control-label" [for]="category.id">{{ category.name }}</label>
+      </div>
+    </div>
   </div>
-</div>
 
-<!-- Footer -->
-<div class="modal-footer">
-  <!-- Cancel -->
-  <button type="button" class="btn btn-default text-dark" (click)="modal.hide()">Cancel</button>
-  <!-- Save -->
-  <button type="button" class="btn btn-primary" (click)="save()">Save</button>
+  <!-- Footer -->
+  <div class="modal-footer">
+    <!-- Cancel -->
+    <button type="button" class="btn btn-default text-dark" (click)="modal.hide()">Cancel</button>
+    <!-- Save -->
+    <button type="button" class="btn btn-primary" (click)="save()">Save</button>
+  </div>
 </div>
