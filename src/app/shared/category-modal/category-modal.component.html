@@ -20,11 +20,11 @@
     <input class="form-control" type="text" name="search" autocomplete="off" [(ngModel)]="search" placeholder="Search">
   </div>
   <!-- Songs -->
-  <div class="card scroll">
-    <div class="card-body">
-      <div class="custom-control custom-checkbox mb-2" *ngFor="let song of songsFiltered">
-        <input type="checkbox" class="custom-control-input" [id]="song.id"
-               [(ngModel)]="song.selected">
+  <div class="card">
+    <div class="card-body scroll">
+      <div class="custom-control custom-checkbox text-truncate"
+           *ngFor="let song of songsFiltered; let last = last" [class.mb-2]="!last">
+        <input type="checkbox" class="custom-control-input" [id]="song.id" [(ngModel)]="song.selected">
         <label class="custom-control-label" [for]="song.id">{{ song.name }}</label>
       </div>
     </div>
