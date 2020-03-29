@@ -6,6 +6,9 @@
 - Improve sidebar with animation
 - Improve all modal design
 
+
+- Fix song and playlist modals issues
+
 #### v4.6
 
 2020 March 13
