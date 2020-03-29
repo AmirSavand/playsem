@@ -25,7 +25,6 @@
       <div class="custom-control custom-checkbox mb-2" *ngFor="let song of songsFiltered">
         <input type="checkbox" class="custom-control-input" [id]="song.id"
                [(ngModel)]="song.selected">
-        <!-- Name -->
         <label class="custom-control-label" [for]="song.id">{{ song.name }}</label>
       </div>
     </div>
