@@ -4,6 +4,7 @@
 
 
 - Improve sidebar with animation
+- Improve all modal design
 
 #### v4.6
 
