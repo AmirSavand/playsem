@@ -9,9 +9,10 @@
 
     <!-- Sidebar and pages wrapper -->
     <div class="d-flex h-100 flex-grow-1">
+      <div class="backdrop" (click)="toggleSidebar()" [class.closed]="!sidebarStatus"></div>
 
       <!-- Sidebar -->
-      <div id="sidebar" class="d-none d-sm-flex flex-column" [class.closed]="!sidebarStatus">
+      <div id="sidebar" class="d-sm-flex flex-column" [class.closed]="!sidebarStatus">
 
         <!-- Title as toggler -->
         <div class="list-group list-group-flush">
@@ -107,87 +108,12 @@
         <div id="pages">
 
           <!-- Navbar -->
-          <nav class="navbar navbar-dark bg-dark d-sm-none sticky-top">
-
+          <nav class="navbar navbar-dark justify-content-start bg-dark d-sm-none sticky-top">
             <!-- Brand -->
-            <a class="navbar-brand" routerLink="/">PlaysEM</a>
-
-            <!-- Toggler -->
-            <button class="navbar-toggler collapsed" type="button" (click)="navbarOpen = !navbarOpen">
-              <span class="navbar-toggler-icon"></span>
+            <button class="btn mr-2" type="button" (click)="toggleSidebar()">
+              <fa-icon [icon]="bars"></fa-icon>
             </button>
-
-            <!-- Content -->
-            <div class="navbar-collapse collapse" [collapse]="!navbarOpen" [isAnimated]="true">
-
-              <!-- Nav -->
-              <ul class="navbar-nav">
-                <!-- Dashboard -->
-                <li class="nav-item" routerLinkActive="active">
-                  <a class="nav-link" routerLink="dashboard">
-                    <fa-icon [fixedWidth]="true" [icon]="tachometerAlt"></fa-icon>
-                    <span class="ml-1">Dashboard</span>
-                  </a>
-                </li>
-              </ul>
-
-              <!-- Authenticated navs -->
-              <ul class="navbar-nav" *ngIf="auth.isAuth()">
-                <!-- Title -->
-                <li class="nav-item">
-                  <span class="navbar-text">PARTIES</span>
-                </li>
-                <!-- Parties -->
-                <li class="nav-item" *ngFor="let party of parties" routerLinkActive="active">
-                  <a class="nav-link" [routerLink]="['party', party.id]">
-                    <fa-icon [fixedWidth]="true" [icon]="compactDisc"></fa-icon>
-                    <span class="ml-1">{{ party.name }}</span>
-                  </a>
-                </li>
-                <!-- Create -->
-                <li class="nav-item" routerLinkActive="active">
-                  <a class="nav-link" routerLink="party/new">
-                    <fa-icon [fixedWidth]="true" [icon]="faPlus"></fa-icon>
-                  </a>
-                </li>
-                <!-- Settings -->
-                <li class="nav-item" routerLinkActive="active">
-                  <a class="nav-link" routerLink="user-settings">
-                    <fa-icon [fixedWidth]="true" [icon]="cog"></fa-icon>
-                    <span class="ml-1">Settings</span>
-                  </a>
-                </li>
-                <!-- Sign Out -->
-                <li class="nav-item">
-                  <a class="nav-link" (click)="auth.signOut()">
-                    <fa-icon [fixedWidth]="true" [icon]="signOutAlt"></fa-icon>
-                    <span class="ml-1">Sign Out</span>
-                  </a>
-                </li>
-              </ul>
-
-              <!-- Unauthenticated navs -->
-              <ul class="navbar-nav" *ngIf="!auth.isAuth()">
-                <!-- Join links -->
-                <li class="nav-item">
-                  <span class="navbar-text">JOIN</span>
-                </li>
-                <!-- Sign In -->
-                <li class="nav-item" routerLinkActive="active">
-                  <a class="nav-link" routerLink="sign-in">
-                    <fa-icon [fixedWidth]="true" [icon]="signInAlt"></fa-icon>
-                    <span class="ml-1">Sign In</span>
-                  </a>
-                </li>
-                <!-- Sign Up -->
-                <li class="nav-item" routerLinkActive="active">
-                  <a class="nav-link" routerLink="sign-up">
-                    <fa-icon [fixedWidth]="true" [icon]="userPlus"></fa-icon>
-                    <span class="ml-1">Sign Up</span>
-                  </a>
-                </li>
-              </ul>
-            </div>
+            <a class="navbar-brand ml-0" routerLink="/">PlaysEM</a>
           </nav>
 
           <!-- Pages -->
