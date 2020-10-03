@@ -41,6 +41,14 @@ $category-width: 160px;
       flex-direction: column;
       width: $category-width;
       flex-basis: $category-width;
+      position: relative;
+
+      .like {
+        position: absolute;
+        right: 8px;
+        top: 145px;
+        z-index: 1;
+      }
 
       .card {
         overflow: hidden;
@@ -48,17 +56,10 @@ $category-width: 160px;
         height: 100%;
 
         .card-body-image {
-          position: relative;
           background-position: center;
           background-size: cover;
           height: $category-width;
           max-height: $category-width;
-
-          .like {
-            position: absolute;
-            right: 8px;
-            bottom: -16px;
-          }
         }
       }
     }
