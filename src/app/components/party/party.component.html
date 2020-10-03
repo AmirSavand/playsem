@@ -103,18 +103,16 @@
   <div class="category-list pl-4">
     <!-- Category -->
     <div class="category mr-3" *ngFor="let category of party.categories">
-      <!-- Category like -->
-      <div class="like">
-        <button class="btn btn-sm btn-dark m-2" (click)="toggleLikeCategory(category)">
-          <fa-icon [fixedWidth]="true" [icon]="faLikeCategory" [class.text-warning]="category.like"></fa-icon>
-          <span class="ml-1" *ngIf="category.likes">{{ category.likes | number }}</span>
-        </button>
-      </div>
       <!-- Category card -->
       <a class="card m-0" (click)="deselectCategory(category)"
          routerLink="./" routerLinkActive="bg-primary" [queryParams]="{playlist: category.id}">
         <div class="card-body card-body-image"
              [style.background-image]="'url(' + (category.image || 'assets/category.jpg') + ')'">
+          <!-- Category like -->
+          <button class="btn btn-sm btn-dark like" (click)="toggleLikeCategory(category)">
+            <fa-icon [fixedWidth]="true" [icon]="faLikeCategory" [class.text-warning]="category.like"></fa-icon>
+            <span class="ml-1" *ngIf="category.likes">{{ category.likes | number }}</span>
+          </button>
         </div>
         <div class="card-body">
           <div>{{ category.name }}</div>
