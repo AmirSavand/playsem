@@ -176,10 +176,8 @@
     </div>
   </div>
   <!-- Scroll to top -->
-  <button class="btn btn-dark btn-lg rounded-circle shadow scroll-to-top"
-          @scaleInOut
-          *ngIf="showScrollTop"
-          (click)="partyWrapper.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' })">
+  <button class="btn btn-dark btn-lg rounded-circle shadow scroll-to-top" @scaleInOut *ngIf="showScrollTop"
+          (click)="scrollToTop()">
     <fa-icon [icon]="faArrowUp"></fa-icon>
   </button>
 </div>

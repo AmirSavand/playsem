@@ -888,4 +888,11 @@ export class PartyComponent implements OnInit, OnDestroy {
   onScroll(event: Event): void {
     this.showScrollTop = (event.target as HTMLDivElement).scrollTop >= 200;
   }
+
+  /**
+   * Scroll to top with smooth animation.
+   */
+  scrollToTop(): void {
+    this.partyWrapper.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
 }
