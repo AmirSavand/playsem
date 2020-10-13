@@ -67,6 +67,8 @@ $category-width: 160px;
 }
 
 .songs {
+  padding-bottom: 95px;
+
   .song {
     padding-top: 15px;
     padding-bottom: 15px;
@@ -123,4 +125,12 @@ $category-width: 160px;
       opacity: 0;
     }
   }
+}
+
+.scroll-to-top {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  right: 24px;
+  bottom: 24px;
 }
