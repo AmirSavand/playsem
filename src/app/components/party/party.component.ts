@@ -38,6 +38,7 @@ import { faPlay } from '@fortawesome/free-solid-svg-icons/faPlay';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons/faSignOutAlt';
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons/faUserPlus';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 import Channel from 'pusher-js';
 
 @Component({
@@ -178,6 +179,7 @@ export class PartyComponent implements OnInit, OnDestroy {
               private router: Router,
               private formBuilder: FormBuilder,
               private modalService: BsModalService,
+              private toast: ToastrService,
               private title: Title,
               private likeService: LikeService) {
   }
@@ -650,6 +652,8 @@ export class PartyComponent implements OnInit, OnDestroy {
         this.loading = false;
         category.like = data.id;
         category.likes++;
+        // Like toast.
+        this.toast.info('Liked successfully', 'Playlist');
       });
     } else {
       // Unlike this category
@@ -657,6 +661,8 @@ export class PartyComponent implements OnInit, OnDestroy {
         this.loading = false;
         category.like = 0;
         category.likes--;
+        // Dislike toast.
+        this.toast.info(`Disiked successfully`, 'Playlist');
       });
     }
   }
