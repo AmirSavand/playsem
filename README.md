@@ -1,4 +1,8 @@
-# [PlaysEM](https://www.playsem.com/)
+# [PlaysEM](https://playsem.com)
+
+[![Deployment](https://github.com/AmirSavand/playsem/actions/workflows/deployment.yml/badge.svg?branch=production)](https://github.com/AmirSavand/playsem/actions/workflows/deployment.yml)
+[![Build](https://github.com/AmirSavand/playsem/actions/workflows/build.yml/badge.svg)](https://github.com/AmirSavand/playsem/actions/workflows/build.yml)
+[![Code Quality](https://github.com/AmirSavand/playsem/actions/workflows/code-quality.yml/badge.svg)](https://github.com/AmirSavand/playsem/actions/workflows/code-quality.yml)
 
 Host and join parties and keep shuffling sick songs.
 
